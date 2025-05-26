@@ -1,0 +1,2 @@
+filter_product (pivot)
+In this always check for unique filter_types (groupBY filter_type_id and then add one value each)

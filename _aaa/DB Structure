@@ -1,0 +1,40 @@
+Category
+id
+name
+
+Sub Category
+id
+category_id (index)
+name
+
+Product
+id
+sub_category_id (index)
+name
+description
+features
+image_file(ask for count to make it fixed or dynamic based on that)
+general_specification
+product_specification
+dimensions
+certificates_and_complaince
+
+filter_types
+id	name
+1	Size
+2	Material
+3	Connector
+
+filter_values
+id	filter_type_id (index)	value
+1	1	1/2 in
+2	1	3/4 in
+3	2	Copper
+4	3	Compression
+
+filter_product (pivot)
+product_id (index)	filter_value_id (index)
+1001	1
+1001	3
+
+Check and discuss all the fields in excel as most of them are empty
