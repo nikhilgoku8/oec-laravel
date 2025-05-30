@@ -1,2 +1,8 @@
 filter_product (pivot)
 In this always check for unique filter_types (groupBY filter_type_id and then add one value each)
+--------------
+Sort Tabs
+$product = Product::with(['tabContents.label'])->find($productId);
+// Sort tabContents by the label's sort_order manually in PHP
+$sortedTabs = $product->tabContents->sortBy(fn($tab) => $tab->label->sort_order);
+--------------
