@@ -1,2 +1,4 @@
 install docker
 run meilisearch 
+
+Check image file string max length according to actual images

@@ -1,23 +1,42 @@
 Category
 id
-name
+title
+sort_order
 
 Sub Category
 id
 category_id (index)
-name
+title
 
 Product
 id
 sub_category_id (index)
-name
+title
 description
 features
+-----
 image_file(ask for count to make it fixed or dynamic based on that)
 general_specification
 product_specification
 dimensions
 certificates_and_complaince
+-----
+
+product_images
+product_id
+image_file
+sort_order
+
+Tabs
+product_tab_labels_table
+title
+sort_order
+
+product_tab_contents_table
+product_tab_label_id
+product_id
+content
+
 
 filter_types
 id	name
