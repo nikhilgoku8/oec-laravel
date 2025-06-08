@@ -11,6 +11,7 @@ class SubCategory extends Model
     protected $fillable = [
         'category_id',
         'title',
+        'slug',
         'sort_order',
         'created_by',
         'updated_by',
@@ -25,4 +26,5 @@ class SubCategory extends Model
     public function products(){
         return $this->hasMany(Product::class)->orderBy('title');
     }
+
 }

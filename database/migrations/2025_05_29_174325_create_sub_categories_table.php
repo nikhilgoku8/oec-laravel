@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade')->index();
             $table->string('title')->index();
+            $table->string('slug')->index();
             $table->integer('sort_order')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

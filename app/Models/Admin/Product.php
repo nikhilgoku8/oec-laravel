@@ -30,4 +30,8 @@ class Product extends Model
     public function filterValues(){
         return $this->belongsToMany(FilterValue::class)->withTimestamps();
     }
+
+    public function productTabContents(){
+        return $this->hasMany(ProductTabContent::class);
+    }
 }

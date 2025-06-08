@@ -1,0 +1,8 @@
+Products
+    Check toolbar
+    Add images (sorting,static deletion function)
+    Add tabs (Dynamic addition)
+    Add filter (Dynamic addition)
+        Only add values as id already added and update in pivot table
+
+Make middleware
