@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Admin\ProductTabLabel;
+use App\Models\Admin\ProductTabLabel;
 
 class ProductTabLabelController extends Controller
 {

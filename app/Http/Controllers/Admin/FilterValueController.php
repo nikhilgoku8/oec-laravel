@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Admin\FilterType;
-use App\Model\Admin\FilterValue;
+use App\Models\Admin\FilterType;
+use App\Models\Admin\FilterValue;
 use Illuminate\Validation\Rule;
 
 class FilterValueController extends Controller

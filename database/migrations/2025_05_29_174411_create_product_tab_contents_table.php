@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('product_tab_contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_tab_label_id')->constrained()->onDelete('cascade')->index();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('product_tab_label_id')->constrained()->onDelete('cascade');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->text('content');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

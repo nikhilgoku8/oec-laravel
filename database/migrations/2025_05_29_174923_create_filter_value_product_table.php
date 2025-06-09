@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('filter_value_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade')->index();
-            $table->foreignId('filter_value_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('filter_value_id')->constrained()->onDelete('cascade');
             $table->unique(['product_id', 'filter_value_id']);
             $table->timestamps();
         });

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Admin\Category;
-use App\Model\Admin\SubCategory;
+use App\Models\Admin\Category;
+use App\Models\Admin\SubCategory;
 
 class SubCategoryController extends Controller
 {

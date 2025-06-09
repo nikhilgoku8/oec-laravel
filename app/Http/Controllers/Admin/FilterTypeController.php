@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Admin\FilterType;
+use App\Models\Admin\FilterType;
 
 class FilterTypeController extends Controller
 {

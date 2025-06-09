@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sub_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('title')->index();
             $table->string('slug')->index();
             $table->integer('sort_order')->default(0);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('filter_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filter_type_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('filter_type_id')->constrained()->onDelete('cascade');
             $table->string('value')->index();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
