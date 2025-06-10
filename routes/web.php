@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductTabLabelController;
+use App\Http\Controllers\Admin\UploadDataController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +25,25 @@ Route::prefix('owm')->group(function () {
 
     Route::middleware([IsAdmin::class])->group( function (){
 
+        Route::get('/import-data', [UploadDataController::class, 'import_data'])->name('import_data.edit');
+        Route::post('/importData', [UploadDataController::class, 'importData'])->name('import_data.store');
+
+        Route::resource('categories', CategoryController::class);
+        Route::post('categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
+
+        Route::resource('sub-categories', SubCategoryController::class);
+        Route::post('sub-categories/bulk-delete', [SubCategoryController::class, 'bulkDelete'])->name('sub-categories.bulk-delete');
+        Route::post('get_sub_categories_by_category/{id}', [SubCategoryController::class, 'get_sub_categories_by_category'])->name('get_sub_categories_by_category');
+
+        Route::resource('products', ProductController::class);
+        Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
+
+        Route::resource('filter-types', ProductController::class);
+        Route::post('filter-types/bulk-delete', [ProductController::class, 'bulkDelete'])->name('filter-types.bulk-delete');
+
+        Route::resource('product-tab-labels', ProductTabLabelController::class);
+        Route::post('product-tab-labels/bulk-delete', [ProductTabLabelController::class, 'bulkDelete'])->name('product-tab-labels.bulk-delete');
+
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');
 
@@ -35,18 +56,6 @@ Route::prefix('owm')->group(function () {
             // Route::get('/admins/edit/{id}/google2fa_setup', [AdminController::class, 'show2FASetup'] );
             // Route::post('/admins/confirm2FA', [AdminController::class, 'confirm2FA'] );
         });
-
-        Route::resource('categories', CategoryController::class);
-        Route::post('categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
-
-        Route::resource('sub-categories', SubCategoryController::class);
-        Route::post('sub-categories/bulk-delete', [SubCategoryController::class, 'bulkDelete'])->name('sub-categories.bulk-delete');
-
-        Route::resource('products', ProductController::class);
-        Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
-
-        Route::resource('filter-types', ProductController::class);
-        Route::post('filter-types/bulk-delete', [ProductController::class, 'bulkDelete'])->name('filter-types.bulk-delete');
 
     });
 

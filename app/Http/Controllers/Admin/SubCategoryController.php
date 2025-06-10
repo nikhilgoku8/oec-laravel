@@ -125,4 +125,8 @@ class SubCategoryController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
     }
+
+    public function get_sub_categories_by_category($id){
+        return SubCategory::where('category_id',$id)->get();
+    }
 }
