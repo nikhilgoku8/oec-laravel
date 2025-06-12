@@ -89,22 +89,13 @@
 
                         @if(in_array(session('userType'), ['superadmin', 'manager']))
 
-                            <li>
+                            <!-- <li>
                                 <a><i class="fa fa-list-ul" aria-hidden="true"></i> Masters<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    <!-- <li><a href="{{ url('owm/managers'); }}">Managers</a></li>
-                                    <li><a href="{{ url('owm/zones'); }}">Zones</a></li>
-                                    <li><a href="{{ url('owm/states'); }}">States</a></li>
-                                    <li><a href="{{ url('owm/cities'); }}">Cities</a></li>
-                                    <li><a href="{{ url('owm/pincodes'); }}">Pincodes</a></li>
-                                    <li><a href="{{ url('owm/vendors'); }}">Dispatch Vendors</a></li>
-                                    <li><a href="{{ url('owm/productcategories'); }}">Product Categories</a></li>
-                                    <li><a href="{{ url('owm/products'); }}">Products</a></li>
-                                    <li><a href="{{ url('owm/offers'); }}">Scheme / Offer(PAP)</a></li>
-                                    <li><a href="{{ url('owm/indications'); }}">Indications</a></li> -->
+                                    <li><a href="{{ url('owm/managers'); }}">Managers</a></li>
+                                    <li><a href="{{ url('owm/indications'); }}">Indications</a></li>
                                 </ul>
-                                <!-- /.nav-second-level -->
-                            </li>
+                            </li> -->
 
                         @endif
                         

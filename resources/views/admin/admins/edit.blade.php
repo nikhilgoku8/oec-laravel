@@ -8,14 +8,14 @@
                 <div class="left_section">
                     <h1 class="">Admins</h1>
                     <ul class="breadcrumb">
-                        <li><a href="{{ url('nwm/dashboard'); }}">Home</a></li>
-                        <li><a href="{{ url('nwm/admins'); }}">Admins</a></li>
+                        <li><a href="{{ url('owm/dashboard'); }}">Home</a></li>
+                        <li><a href="{{ url('owm/admins'); }}">Admins</a></li>
                     </ul>    
                 </div>
                 
                 <div class="right_section">
                     <div class="blue_filled_btn">
-                        <a href="nwm/admins">Back</a>
+                        <a href="owm/admins">Back</a>
                     </div>
                 </div>
             </div>                    
@@ -126,14 +126,14 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "<?php echo URL::to('/'); ?>/nwm/admins/store",
+            url: "<?php echo URL::to('/'); ?>/owm/admins/store",
             data:  new FormData(this),
             dataType: 'json',
             cache: false,
             contentType: false,
             processData: false,
             success: function(result) {
-                location.href="<?php echo URL::to('/'); ?>/nwm/admins/";
+                location.href="<?php echo URL::to('/'); ?>/owm/admins/";
             },
             error: function(data){
                 var responseData = data.responseJSON;        
@@ -155,7 +155,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "<?php echo URL::to('/'); ?>/nwm/admins/getData_cities",
+            url: "<?php echo URL::to('/'); ?>/owm/admins/getData_cities",
             data: {"_token":"{{ csrf_token() }}", "state_id":state_id},
             dataType: 'json',
             success: function(result) {

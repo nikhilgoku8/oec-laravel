@@ -8,13 +8,13 @@
                     <h1 class="">Admins</h1>
                     <ul class="breadcrumb">
                         <li><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li><a href="{{ url('nwm/admins'); }}">Admins</a></li>
+                        <li><a href="{{ url('owm/admins'); }}">Admins</a></li>
                     </ul>    
                 </div>
                 
                 <div class="right_section">
                     <div class="purple_hollow_btn">
-                        <a href="{{ url('nwm/admins/create'); }}">Add New</a>
+                        <a href="{{ url('owm/admins/create'); }}">Add New</a>
                     </div>
                     <!-- <div class="orange_hollow_btn">
                         <a onclick="patientsFilters()">Filter</a>
@@ -72,13 +72,13 @@
                                foreach ($result as $row){
                             ?>
                             <tr>
-                                <td>{{ $row->name }}</td>
+                                <td>{{ $row->fname }}</td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->role }}</td>
                                 <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
                                 <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
                                 <td class="action">
-                                    <a href="{{ url('nwm/admins/edit/'.$row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href="{{ url('owm/admins/edit/'.$row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                     <span class="checkbox">
                                         <input name="dataID" class="styled" type="checkbox" value="{{ $row->id }}">
                                         <label for="checkbox1"></label>
@@ -121,7 +121,7 @@ $(document).ready(function() {
         if (confirm('Are you sure you want to delete these records?')) {
             $.ajax({
                 type: "POST",
-                url: '<?php echo URL::to('/'); ?>/nwm/admins/delete',
+                url: '<?php echo URL::to('/'); ?>/owm/admins/delete',
                 data: {"_token":"{{ csrf_token() }}", "dataID":dataID},
                 dataType: 'json',
                 success: function(response) {

@@ -4,7 +4,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Epilepsy</title>
+<title>OEC</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet">
