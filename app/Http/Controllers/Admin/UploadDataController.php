@@ -50,6 +50,8 @@ class UploadDataController extends Controller
             $categories = [];
             $subCategories = [];
             $products = [];
+            $duplicateProducts = [];
+
             $productTabLabels = [];
             $productTabValues = [];
             $filterTypes = [];
@@ -66,203 +68,250 @@ class UploadDataController extends Controller
                 }
 
                 // Cache Collection IDs
-                $collections[$collectionName] = $collections[$collectionName] ?? DB::table('collections')->where('name', $collectionName)->value('id');
-                if (!$collections[$collectionName]) {
-                    $collectionSlug = $this->string_filter($collectionName);
-                    $collections[$collectionName] = DB::table('collections')->insertGetId(['name' => $collectionName, 'slug' => $collectionSlug, 'img_file' => 'img_file_'.$index, 'description' => 'description', 'catalogue_file' => 'catalogue_file']);
-                }
-
-                // Cache End_Uses IDs
-                $endUsesId = [];
-                $endUsesName = array_filter(array_map('trim', explode(",", $endUseName)));
-                foreach($endUsesName as $item){
-
-                    // Try to get from cache or query
-                    $end_uses[$item] = $end_uses[$item] ?? DB::table('end_uses')->where('name', $item)->value('id');
-
-                    // If not found, insert it
-                    if (!$end_uses[$item]) {
-                        $end_uses[$item] = DB::table('end_uses')->insertGetId(['name' => $item]);
-                    }
-                    $endUsesId[] = $end_uses[$item];
-                }
+                // $collections[$collectionName] = $collections[$collectionName] ?? DB::table('collections')->where('title', $collectionName)->value('id');
+                // if (!$collections[$collectionName]) {
+                //     $collectionSlug = $this->string_filter($collectionName);
+                //     $collections[$collectionName] = DB::table('collections')->insertGetId(['title' => $collectionName, 'slug' => $collectionSlug, 'img_file' => 'img_file_'.$index, 'description' => 'description', 'catalogue_file' => 'catalogue_file']);
+                // }
 
                 // Cache Categories IDs
-                $categoriesId = [];
-                $categoriesName = array_filter(array_map('trim', explode(",", $categoryName)));
-                foreach($categoriesName as $item){
+                // $categoriesId = [];
+                // $categoriesName = array_filter(array_map('trim', explode(",", $categoryName)));
+                // foreach($categoriesName as $item){
 
-                    // Try to get from cache or query
-                    $categories[$item] = $categories[$item] ?? DB::table('categories')->where('name', $item)->value('id');
+                //     // Try to get from cache or query
+                //     $categories[$item] = $categories[$item] ?? DB::table('categories')->where('title', $item)->value('id');
 
-                    // If not found, insert it
-                    if (!$categories[$item]) {
-                        $categories[$item] = DB::table('categories')->insertGetId(['name' => $item]);
-                    }
-                    $categoriesId[] = $categories[$item]; // cleaner than array_push
-                }
-
-                // Cache Designs IDs
-                $designsId = [];
-                $designsName = array_filter(array_map('trim', explode(",", $designName)));
-                foreach($designsName as $item){
-
-                    // Try to get from cache or query
-                    $designs[$item] = $designs[$item] ?? DB::table('designs')->where('name', $item)->value('id');
-
-                    // If not found, insert it
-                    if (!$designs[$item]) {
-                        $designs[$item] = DB::table('designs')->insertGetId(['name' => $item]);
-                    }
-                    $designsId[] = $designs[$item]; // cleaner than array_push
-                }
-
-                // Cache Features IDs
-                $featuresId = [];
-                $featuresName = array_filter(array_map('trim', explode(",", $featureName)));
-                foreach($featuresName as $item){
-
-                    // Try to get from cache or query
-                    $features[$item] = $features[$item] ?? DB::table('features')->where('name', $item)->value('id');
-
-                    // If not found, insert it
-                    if (!$features[$item]) {
-                        $features[$item] = DB::table('features')->insertGetId(['name' => $item]);
-                    }
-                    $featuresId[] = $features[$item]; // cleaner than array_push
-                }
-
-                // Cache Cares IDs
-                $caresId = [];
-                $caresName = array_filter(array_map('trim', explode(",", $careName)));
-                foreach($caresName as $item){
-
-                    // Try to get from cache or query
-                    $cares[$item] = $cares[$item] ?? DB::table('cares')->where('name', $item)->value('id');
-
-                    // If not found, insert it
-                    if (!$cares[$item]) {
-                        $cares[$item] = DB::table('cares')->insertGetId(['name' => $item]);
-                    }
-                    $caresId[] = $cares[$item]; // cleaner than array_push
-                }
-
-                // Cache Compositions IDs
-                $compositions[$compositionName] = $compositions[$compositionName] ?? DB::table('compositions')->where('name', $compositionName)->value('id');
-                if (!$compositions[$compositionName]) {
-                    $compositions[$compositionName] = DB::table('compositions')->insertGetId(['name' => $compositionName]);
-                }
-
-                // Cache Quality IDs
-                $newQuality = false;
-                $qualities[$qualityName] = $qualities[$qualityName] ?? DB::table('qualities')->where('name', $qualityName)->value('id');
-                if (!$qualities[$qualityName]) {
-                    $qualitySlug = $this->string_filter($qualityName);
-                    $qualities[$qualityName] = DB::table('qualities')->insertGetId([
-                        'name' => $qualityName,
-                        'slug' => $qualitySlug,
-                        'composition_id' => $compositions[$compositionName],
-                        // 'glm' => $glm === "" ? NULL : $glm,
-                        'glm' => is_numeric($glm) ? $glm : NULL,
-                        'martindale' => is_numeric($martindale) ? $martindale : NULL
-                    ]);
-                    $newQuality = true;
-                }
+                //     // If not found, insert it
+                //     if (!$categories[$item]) {
+                //         $categories[$item] = DB::table('categories')->insertGetId(['title' => $item]);
+                //     }
+                //     $categoriesId[] = $categories[$item]; // cleaner than array_push
+                // }
 
                 // Fetch Eloquent Relation to update pivot tables
-                $quality = Quality::find($qualities[$qualityName]);
+                // $quality = Quality::find($qualities[$qualityName]);
 
-                $quality->collections()->syncWithoutDetaching((array) $collections[$collectionName]);
-                if (!empty($categoriesId)) {
-                    $quality->categories()->syncWithoutDetaching((array) $categoriesId);
-                }
-                if (!empty($featuresId)) {                
-                    $quality->features()->syncWithoutDetaching((array) $featuresId);
-                }
-                if (!empty($endUsesId)) {
-                    $quality->endUses()->syncWithoutDetaching((array) $endUsesId);
-                }
-                if (!empty($caresId)) {
-                    $quality->cares()->syncWithoutDetaching($caresId);
-                }
+                // $quality->collections()->syncWithoutDetaching((array) $collections[$collectionName]);
+                // if (!empty($categoriesId)) {
+                //     $quality->categories()->syncWithoutDetaching((array) $categoriesId);
+                // }
 
                 // Cache Design Number IDs
-                $newDesignNumber = false;
-                $design_numbers[$quality->id][$designNumber] = $design_numbers[$quality->id][$designNumber] ?? DB::table('design_numbers')->where('quality_id', $qualities[$qualityName])->where('design_number', $designNumber)->value('id');
-                if (!$design_numbers[$quality->id][$designNumber]) {
-                    $design_numbers[$quality->id][$designNumber] = DB::table('design_numbers')->insertGetId([
-                        'quality_id' => $qualities[$qualityName],
-                        'design_number' => $designNumber
+                // $newDesignNumber = false;
+                // $design_numbers[$quality->id][$designNumber] = $design_numbers[$quality->id][$designNumber] ?? DB::table('design_numbers')->where('quality_id', $qualities[$qualityName])->where('design_number', $designNumber)->value('id');
+                // if (!$design_numbers[$quality->id][$designNumber]) {
+                //     $design_numbers[$quality->id][$designNumber] = DB::table('design_numbers')->insertGetId([
+                //         'quality_id' => $qualities[$qualityName],
+                //         'design_number' => $designNumber
+                //     ]);
+                //     $newDesignNumber = true;
+                // }
+
+                // Cache Categories IDs
+                $categories[$categoryName] = $categories[$categoryName] ?? DB::table('categories')->where('title', $categoryName)->value('id');
+                if (!$categories[$categoryName]) {
+                    $categorySlug = $this->string_filter($categoryName);
+                    $categories[$categoryName] = DB::table('categories')->insertGetId(['title' => $categoryName, 'slug' => $categorySlug]);
+                }
+
+                // Cache Sub Categories IDs
+                $subCategories[$subCategoryName] = $subCategories[$subCategoryName] ?? DB::table('sub_categories')->where('title', $subCategoryName)->value('id');
+                if (!$subCategories[$subCategoryName]) {
+                    $subCategorySlug = $this->string_filter($subCategoryName);
+                    $subCategories[$subCategoryName] = DB::table('sub_categories')->insertGetId([
+                        'category_id' => $categories[$categoryName],
+                        'title' => $subCategoryName,
+                        'slug' => $subCategorySlug
                     ]);
-                    $newDesignNumber = true;
                 }
 
-                // Update main_design_number_id for new Quality
-                if($newQuality){
-                    DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
-                }
-
-                // Cache Product IDs
-                $products[$quality->id][$srNo] = $products[$quality->id][$srNo] ?? DB::table('products')
-                    ->join('design_numbers','products.design_number_id','design_numbers.id')
-                    // ->join('qualities','design_numbers.quality_id','qualities.id')
-                    ->where('design_numbers.quality_id', $qualities[$qualityName])
-                    ->where('design_numbers.id', $design_numbers[$quality->id][$designNumber])
-                    ->where('products.sr_no', $srNo)
-                    ->value('products.id');
-                if (!$products[$quality->id][$srNo]) {
-                    $products[$quality->id][$srNo] = DB::table('products')->insertGetId([
-                        'design_number_id' => $design_numbers[$quality->id][$designNumber],
-                        'sr_no' => $srNo,
-                        'horizontal_repeat_cms' => is_numeric($hrCms) ? $hrCms : NULL,
-                        'vertical_repeat_cms' => is_numeric($vrCms) ? $vrCms : NULL,
-                        'img_file' => $imgFile === "" ? $this->string_filter($qualityName).'-'.$srNo.'.jpg' : $imgFile,
-                        'created_by' => 'Bulk Upload',
-                        'updated_by' => 'Bulk Upload',
-                        'created_at' => $now,
-                        'updated_at' => $now
+                // Cache Products IDs
+                $products[$productName] = $products[$productName] ?? DB::table('products')->where('title', $productName)->value('id');
+                if (!$products[$productName]) {
+                    $products[$productName] = DB::table('products')->insertGetId([
+                        'sub_category_id ' => $subCategories[$subCategoryName],
+                        'title' => $productName,
+                        'description' => $description,
+                        'features' => $features
                     ]);
-                }   
-
-                $product = Product::find($products[$quality->id][$srNo]);
-
-                if (!empty($designsId)) {
-                    $product->designs()->syncWithoutDetaching((array) $designsId);
+                }else{
+                    // Duplicate products and skip that row to not create confusion
+                    $duplicateProducts[] = $productName;
+                    continue;
                 }
 
-                // Update main_product_id for new Design Number
-                if($newDesignNumber){
-                    DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
-                }
-
-                // Update main_product_id if main_product is yes
-                if($mainProduct == 'yes'){
-                    DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
-                    DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
-                }
-
-                // Collect sort order
-                if ($sortOrder) {
-                    $sortOrders[] = [
-                        'collection_id' => $collections[$collectionName],
-                        'product_id' => $products[$quality->id][$srNo],
-                        'sort_order' => $sortOrder,
+                // Add Images
+                $imagesArray = array_filter(array_map('trim', explode(",", $images)));
+                foreach($imagesArray as $item){
+                    // DB::table('product_images')->insert(['product_id' => $products[$productName],'image_file' => $item]);
+                    $productImagesBulk[] = [
+                        'product_id' => $products[$productName],
+                        'image_file' => $item,
                         'created_at'    => $now,
                         'updated_at'    => $now,
                     ];
-
-                    // **Insert in batches of 500**
-                    if (count($sortOrders) >= 500) {
-                        DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
-                        $sortOrders = []; // Reset array
-                    }
                 }
+
+                // **Insert in batches of 500**
+                if (count($productImagesBulk) >= 500) {
+                    DB::table('product_images')->insert($productImagesBulk);
+                    $productImagesBulk = []; // Reset array
+                }
+
+                // $filterTypes = [];
+                $maxIndex = 4; // Adjust to expected max fields
+
+                for ($i = 1; $i <= $maxIndex; $i++) {
+                    $nameVar = 'attributeName' . $i;
+                    $valueVar = 'attributeValue' . $i;
+
+                    if (empty($$nameVar) || empty($$valueVar)) {
+                        continue;
+                    }
+
+                    $attributeName = $$nameVar;
+                    $attributeValue = $$valueVar ?? null;
+
+                    // Step 1: Get or insert filter_type
+                    $filterTypes[$attributeName] = $filterTypes[$attributeName]
+                        ?? DB::table('filter_types')->where('title', $attributeName)->value('id');
+
+                    if (!$filterTypes[$attributeName]) {
+                        $filterTypes[$attributeName] = DB::table('filter_types')->insertGetId([
+                            'title' => $attributeName,
+                            'slug'  => $categorySlug,
+                        ]);
+                    }
+
+                    // Step 2: Get or insert filter_value
+                    $filterTypeId = $filterTypes[$attributeName];
+
+                    $filterValueId = DB::table('filter_values')
+                        ->where('filter_type_id', $filterTypeId)
+                        ->where('value', $attributeValue)
+                        ->value('id');
+
+                    if (!$filterValueId) {
+                        $filterValueId = DB::table('filter_values')->insertGetId([
+                            'filter_type_id' => $filterTypeId,
+                            'value'          => $attributeValue,
+                        ]);
+                    }
+
+                    // Step 3: Insert into pivot table
+                    DB::table('filter_value_product')->insert([
+                        'product_id'       => $productId,
+                        'filter_value_id'  => $filterValueId,
+                    ]);
+                }
+
+
+                // Cache Filter Type IDs
+                // if($attributeName1){
+                //     $filterTypes[$attributeName1] = $filterTypes[$attributeName1] ?? DB::table('filter_types')->where('title', $attributeName1)->value('id');
+                //     if (!$filterTypes[$attributeName1]) {
+                //         $filterTypes[$attributeName1] = DB::table('filter_types')->insertGetId(['title' => $attributeName1, 'slug' => $categorySlug]);
+                //     }
+                // }
+                // if($attributeName2){
+                //     $filterTypes[$attributeName2] = $filterTypes[$attributeName2] ?? DB::table('filter_types')->where('title', $attributeName2)->value('id');
+                //     if (!$filterTypes[$attributeName2]) {
+                //         $filterTypes[$attributeName2] = DB::table('filter_types')->insertGetId(['title' => $attributeName2, 'slug' => $categorySlug]);
+                //     }
+                // }
+
+
+
+
+                // // Cache Quality IDs
+                // $newQuality = false;
+                // $qualities[$qualityName] = $qualities[$qualityName] ?? DB::table('qualities')->where('title', $qualityName)->value('id');
+                // if (!$qualities[$qualityName]) {
+                //     $qualitySlug = $this->string_filter($qualityName);
+                //     $qualities[$qualityName] = DB::table('qualities')->insertGetId([
+                //         'title' => $qualityName,
+                //         'slug' => $qualitySlug,
+                //         'composition_id' => $compositions[$compositionName],
+                //         // 'glm' => $glm === "" ? NULL : $glm,
+                //         'glm' => is_numeric($glm) ? $glm : NULL,
+                //         'martindale' => is_numeric($martindale) ? $martindale : NULL
+                //     ]);
+                //     $newQuality = true;
+                // }
+
+
+                // // Update main_design_number_id for new Quality
+                // if($newQuality){
+                //     DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
+                // }
+
+                // // Cache Product IDs
+                // $products[$quality->id][$srNo] = $products[$quality->id][$srNo] ?? DB::table('products')
+                //     ->join('design_numbers','products.design_number_id','design_numbers.id')
+                //     // ->join('qualities','design_numbers.quality_id','qualities.id')
+                //     ->where('design_numbers.quality_id', $qualities[$qualityName])
+                //     ->where('design_numbers.id', $design_numbers[$quality->id][$designNumber])
+                //     ->where('products.sr_no', $srNo)
+                //     ->value('products.id');
+                // if (!$products[$quality->id][$srNo]) {
+                //     $products[$quality->id][$srNo] = DB::table('products')->insertGetId([
+                //         'design_number_id' => $design_numbers[$quality->id][$designNumber],
+                //         'sr_no' => $srNo,
+                //         'horizontal_repeat_cms' => is_numeric($hrCms) ? $hrCms : NULL,
+                //         'vertical_repeat_cms' => is_numeric($vrCms) ? $vrCms : NULL,
+                //         'img_file' => $imgFile === "" ? $this->string_filter($qualityName).'-'.$srNo.'.jpg' : $imgFile,
+                //         'created_by' => 'Bulk Upload',
+                //         'updated_by' => 'Bulk Upload',
+                //         'created_at' => $now,
+                //         'updated_at' => $now
+                //     ]);
+                // }   
+
+                // $product = Product::find($products[$quality->id][$srNo]);
+
+                // if (!empty($designsId)) {
+                //     $product->designs()->syncWithoutDetaching((array) $designsId);
+                // }
+
+                // // Update main_product_id for new Design Number
+                // if($newDesignNumber){
+                //     DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
+                // }
+
+                // // Update main_product_id if main_product is yes
+                // if($mainProduct == 'yes'){
+                //     DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
+                //     DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
+                // }
+
+                // // Collect sort order
+                // if ($sortOrder) {
+                //     $sortOrders[] = [
+                //         'collection_id' => $collections[$collectionName],
+                //         'product_id' => $products[$quality->id][$srNo],
+                //         'sort_order' => $sortOrder,
+                //         'created_at'    => $now,
+                //         'updated_at'    => $now,
+                //     ];
+
+                //     // **Insert in batches of 500**
+                //     if (count($sortOrders) >= 500) {
+                //         DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
+                //         $sortOrders = []; // Reset array
+                //     }
+                // }
+            }
+
+            // **Insert remaining product images**
+            if (!empty($productImagesBulk)) {
+                DB::table('product_images')->insert($productImagesBulk);
             }
 
             // **Insert remaining sort order**
-            if (!empty($sortOrders)) {
-                DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
-            }
+            // if (!empty($sortOrders)) {
+            //     DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
+            // }
 
             // **Delete the file after processing**
             $filePath = storage_path("app/imports/$filename");
