@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('content')     
+@section('content')
 
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +18,7 @@
                         <a href="{{ url()->previous() }}">Back</a>
                     </div>
                 </div>
-            </div>                    
+            </div>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -373,5 +373,5 @@ $(document).on('click', '.remove-filter', function() {
     });
 });
 </script>
-            
+
 @endsection

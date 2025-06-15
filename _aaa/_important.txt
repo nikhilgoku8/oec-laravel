@@ -5,4 +5,13 @@ Products
     Add filter (Dynamic addition)
         Only add values as id already added and update in pivot table
 
-Make middleware
+Filter Value - Check and insert based on db value
+Product Tab Label - Unique for each product
+
+docker run -d --name meilisearch -p 7700:7700 getmeili/meilisearch meilisearch --env development --master-key=masterKey123
+
+composer require laravel/scout meilisearch/meilisearch-php
+
+php artisan scout:import "App\Models\Admin\Product"
+
+docker stop meilisearch

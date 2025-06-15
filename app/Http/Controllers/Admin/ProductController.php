@@ -9,14 +9,45 @@ use App\Models\Admin\SubCategory;
 use App\Models\Admin\Product;
 use App\Models\Admin\ProductTabLabel;
 use App\Models\Admin\FilterType;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Laravel\Scout\Builder;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $result = Product::with('subCategory','subCategory.category')->paginate(100);
-        return view('admin.products.index', compact('result'));
+        $query = $request->input('q');
+        $filterParams = $request->input('filters', []);
+
+        // Get all filter types with their values
+        $filterTypes = FilterType::with('filterValues')->get();
+
+        // Start Meilisearch query
+        $builder = Product::search($query);
+
+        // Build filter string for Meilisearch
+        $filterStrings = [];
+        foreach ($filterParams as $typeId => $valueIds) {
+            foreach ($valueIds as $id) {
+                $filterStrings[] = 'filter_value_ids = ' . $id;
+            }
+        }
+
+        if (!empty($filterStrings)) {
+            $builder->where(implode(' AND ', $filterStrings));
+        }
+
+        // Paginate the search result
+        $products = $builder->paginate(12);
+
+        return view('admin.products.index', compact('products', 'filterTypes'));
     }
+    // public function index()
+    // {
+    //     $result = Product::with('subCategory','subCategory.category')->paginate(100);
+    //     return view('admin.products.index', compact('result'));
+    // }
 
     public function create()
     {
@@ -163,5 +194,15 @@ class ProductController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+
+        // $products = Product::search($query)->orderBy('title')->take(100)->get();
+        $products = Product::search($query)->take(100)->get();
+
+        return view('admin.products.search', compact('products', 'query'));
     }
 }
