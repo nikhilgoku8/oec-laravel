@@ -32,6 +32,7 @@ class UploadDataController extends Controller
         $validator = Validator::make($request->all(), $rules);
         
         if(!$validator->passes()){
+            dd($validator->errors());
             return response()->json([
                 'error' => true,
                 'error_type' => 'form',
@@ -56,57 +57,18 @@ class UploadDataController extends Controller
             $productTabValues = [];
             $filterTypes = [];
             $filterValues = [];
+            $filterValuesBulk = [];
+
             $now = now();
 
             foreach ($data as $index => $row) {
                 if ($index === 0) continue; // Skip header row
 
-                [$productName, $description, $categoryName, $subCategoryName, $images, $attributeName1, $attributeValue1, $attributeVisibility1, $attributeName2, $attributeValue2, $attributeVisibility2, $attributeName3, $attributeValue3, $attributeVisibility3, $attributeName4, $attributeValue4, $attributeVisibility4, $generalSpecification, $productSpecification, $certificationsAndCompliance, $dimensions, $electricalRating, $temperatureRating, $conductorRelated, $features, $catalogue] = array_map('trim', $row);
+                [$productName, $description, $categoryName, $subCategoryName, $images, $attributeName1, $attributeValue1, $attributeVisibility1, $attributeName2, $attributeValue2, $attributeVisibility2, $attributeName3, $attributeValue3, $attributeVisibility3, $attributeName4, $attributeValue4, $attributeVisibility4, $attributeName5, $attributeValue5, $attributeVisibility5, $attributeName6, $attributeValue6, $attributeVisibility6, $attributeName7, $attributeValue7, $attributeVisibility7, $attributeName8, $attributeValue8, $attributeVisibility8, $attributeName9, $attributeValue9, $attributeVisibility9, $generalSpecification, $productSpecification, $certificationsAndCompliance, $dimensions, $electricalRating, $temperatureRating, $conductorRelated, $features, $catalogue] = array_map('trim', $row);
 
                 if (!$productName || !$categoryName || !$subCategoryName) {
                     continue; // Skip invalid rows
                 }
-
-                // Cache Collection IDs
-                // $collections[$collectionName] = $collections[$collectionName] ?? DB::table('collections')->where('title', $collectionName)->value('id');
-                // if (!$collections[$collectionName]) {
-                //     $collectionSlug = $this->string_filter($collectionName);
-                //     $collections[$collectionName] = DB::table('collections')->insertGetId(['title' => $collectionName, 'slug' => $collectionSlug, 'img_file' => 'img_file_'.$index, 'description' => 'description', 'catalogue_file' => 'catalogue_file']);
-                // }
-
-                // Cache Categories IDs
-                // $categoriesId = [];
-                // $categoriesName = array_filter(array_map('trim', explode(",", $categoryName)));
-                // foreach($categoriesName as $item){
-
-                //     // Try to get from cache or query
-                //     $categories[$item] = $categories[$item] ?? DB::table('categories')->where('title', $item)->value('id');
-
-                //     // If not found, insert it
-                //     if (!$categories[$item]) {
-                //         $categories[$item] = DB::table('categories')->insertGetId(['title' => $item]);
-                //     }
-                //     $categoriesId[] = $categories[$item]; // cleaner than array_push
-                // }
-
-                // Fetch Eloquent Relation to update pivot tables
-                // $quality = Quality::find($qualities[$qualityName]);
-
-                // $quality->collections()->syncWithoutDetaching((array) $collections[$collectionName]);
-                // if (!empty($categoriesId)) {
-                //     $quality->categories()->syncWithoutDetaching((array) $categoriesId);
-                // }
-
-                // Cache Design Number IDs
-                // $newDesignNumber = false;
-                // $design_numbers[$quality->id][$designNumber] = $design_numbers[$quality->id][$designNumber] ?? DB::table('design_numbers')->where('quality_id', $qualities[$qualityName])->where('design_number', $designNumber)->value('id');
-                // if (!$design_numbers[$quality->id][$designNumber]) {
-                //     $design_numbers[$quality->id][$designNumber] = DB::table('design_numbers')->insertGetId([
-                //         'quality_id' => $qualities[$qualityName],
-                //         'design_number' => $designNumber
-                //     ]);
-                //     $newDesignNumber = true;
-                // }
 
                 // Cache Categories IDs
                 $categories[$categoryName] = $categories[$categoryName] ?? DB::table('categories')->where('title', $categoryName)->value('id');
@@ -130,7 +92,7 @@ class UploadDataController extends Controller
                 $products[$productName] = $products[$productName] ?? DB::table('products')->where('title', $productName)->value('id');
                 if (!$products[$productName]) {
                     $products[$productName] = DB::table('products')->insertGetId([
-                        'sub_category_id ' => $subCategories[$subCategoryName],
+                        'sub_category_id' => $subCategories[$subCategoryName],
                         'title' => $productName,
                         'description' => $description,
                         'features' => $features
@@ -160,7 +122,7 @@ class UploadDataController extends Controller
                 }
 
                 // $filterTypes = [];
-                $maxIndex = 4; // Adjust to expected max fields
+                $maxIndex = 9; // Adjust to expected max fields
 
                 for ($i = 1; $i <= $maxIndex; $i++) {
                     $nameVar = 'attributeName' . $i;
@@ -180,127 +142,148 @@ class UploadDataController extends Controller
                     if (!$filterTypes[$attributeName]) {
                         $filterTypes[$attributeName] = DB::table('filter_types')->insertGetId([
                             'title' => $attributeName,
-                            'slug'  => $categorySlug,
                         ]);
                     }
 
                     // Step 2: Get or insert filter_value
                     $filterTypeId = $filterTypes[$attributeName];
 
-                    $filterValueId = DB::table('filter_values')
+                    $filterValues[$attributeName][$attributeValue] = $filterValues[$attributeName][$attributeValue] ?? DB::table('filter_values')
                         ->where('filter_type_id', $filterTypeId)
                         ->where('value', $attributeValue)
                         ->value('id');
 
-                    if (!$filterValueId) {
-                        $filterValueId = DB::table('filter_values')->insertGetId([
+                    if (!$filterValues[$attributeName][$attributeValue]) {
+                        $filterValues[$attributeName][$attributeValue] = DB::table('filter_values')->insertGetId([
                             'filter_type_id' => $filterTypeId,
                             'value'          => $attributeValue,
                         ]);
                     }
 
                     // Step 3: Insert into pivot table
-                    DB::table('filter_value_product')->insert([
-                        'product_id'       => $productId,
-                        'filter_value_id'  => $filterValueId,
-                    ]);
+                    $filterValuesBulk[] = [
+                        'product_id'       => $products[$productName],
+                        'filter_value_id'  => $filterValues[$attributeName][$attributeValue],
+                    ];
+
+                    // **Insert in batches of 500**
+                    if (count($filterValuesBulk) >= 500) {
+                        DB::table('filter_value_product')->insert($filterValuesBulk);
+                        $filterValuesBulk = []; // Reset array
+                    }
                 }
 
+                // Add generalSpecification Tabs
+                if ($generalSpecification) {
+                    $productTabLabels['generalSpecification'] = $productTabLabels['generalSpecification']
+                        ?? DB::table('product_tab_labels')->where('title', 'General Specification')->value('id');
+                    if (!$productTabLabels['generalSpecification']) {
+                        $productTabLabels['generalSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'General Specification']);
+                    }
 
-                // Cache Filter Type IDs
-                // if($attributeName1){
-                //     $filterTypes[$attributeName1] = $filterTypes[$attributeName1] ?? DB::table('filter_types')->where('title', $attributeName1)->value('id');
-                //     if (!$filterTypes[$attributeName1]) {
-                //         $filterTypes[$attributeName1] = DB::table('filter_types')->insertGetId(['title' => $attributeName1, 'slug' => $categorySlug]);
-                //     }
-                // }
-                // if($attributeName2){
-                //     $filterTypes[$attributeName2] = $filterTypes[$attributeName2] ?? DB::table('filter_types')->where('title', $attributeName2)->value('id');
-                //     if (!$filterTypes[$attributeName2]) {
-                //         $filterTypes[$attributeName2] = DB::table('filter_types')->insertGetId(['title' => $attributeName2, 'slug' => $categorySlug]);
-                //     }
-                // }
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['generalSpecification'],
+                        'product_id' => $products[$productName],
+                        'content' => $generalSpecification
+                    ];
+                }
 
+                // Add productSpecification Tabs
+                if ($productSpecification) {
+                    $productTabLabels['productSpecification'] = $productTabLabels['productSpecification']
+                        ?? DB::table('product_tab_labels')->where('title', 'Product Specification')->value('id');
+                    if (!$productTabLabels['productSpecification']) {
+                        $productTabLabels['productSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Product Specification']);
+                    }
 
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['productSpecification'],
+                        'product_id' => $products[$productName],
+                        'content' => $productSpecification
+                    ];
+                }
 
+                // Add certificationsAndCompliance Tabs
+                if ($certificationsAndCompliance) {
+                    $productTabLabels['certificationsAndCompliance'] = $productTabLabels['certificationsAndCompliance']
+                        ?? DB::table('product_tab_labels')->where('title', 'Certifications And Compliance')->value('id');
+                    if (!$productTabLabels['certificationsAndCompliance']) {
+                        $productTabLabels['certificationsAndCompliance'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Certifications And Compliance']);
+                    }
 
-                // // Cache Quality IDs
-                // $newQuality = false;
-                // $qualities[$qualityName] = $qualities[$qualityName] ?? DB::table('qualities')->where('title', $qualityName)->value('id');
-                // if (!$qualities[$qualityName]) {
-                //     $qualitySlug = $this->string_filter($qualityName);
-                //     $qualities[$qualityName] = DB::table('qualities')->insertGetId([
-                //         'title' => $qualityName,
-                //         'slug' => $qualitySlug,
-                //         'composition_id' => $compositions[$compositionName],
-                //         // 'glm' => $glm === "" ? NULL : $glm,
-                //         'glm' => is_numeric($glm) ? $glm : NULL,
-                //         'martindale' => is_numeric($martindale) ? $martindale : NULL
-                //     ]);
-                //     $newQuality = true;
-                // }
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['certificationsAndCompliance'],
+                        'product_id' => $products[$productName],
+                        'content' => $certificationsAndCompliance
+                    ];
+                }
 
+                // Add dimensions Tabs
+                if ($dimensions) {
+                    $productTabLabels['dimensions'] = $productTabLabels['dimensions']
+                        ?? DB::table('product_tab_labels')->where('title', 'Dimensions')->value('id');
+                    if (!$productTabLabels['dimensions']) {
+                        $productTabLabels['dimensions'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Dimensions']);
+                    }
 
-                // // Update main_design_number_id for new Quality
-                // if($newQuality){
-                //     DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
-                // }
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['dimensions'],
+                        'product_id' => $products[$productName],
+                        'content' => $dimensions
+                    ];
+                }
 
-                // // Cache Product IDs
-                // $products[$quality->id][$srNo] = $products[$quality->id][$srNo] ?? DB::table('products')
-                //     ->join('design_numbers','products.design_number_id','design_numbers.id')
-                //     // ->join('qualities','design_numbers.quality_id','qualities.id')
-                //     ->where('design_numbers.quality_id', $qualities[$qualityName])
-                //     ->where('design_numbers.id', $design_numbers[$quality->id][$designNumber])
-                //     ->where('products.sr_no', $srNo)
-                //     ->value('products.id');
-                // if (!$products[$quality->id][$srNo]) {
-                //     $products[$quality->id][$srNo] = DB::table('products')->insertGetId([
-                //         'design_number_id' => $design_numbers[$quality->id][$designNumber],
-                //         'sr_no' => $srNo,
-                //         'horizontal_repeat_cms' => is_numeric($hrCms) ? $hrCms : NULL,
-                //         'vertical_repeat_cms' => is_numeric($vrCms) ? $vrCms : NULL,
-                //         'img_file' => $imgFile === "" ? $this->string_filter($qualityName).'-'.$srNo.'.jpg' : $imgFile,
-                //         'created_by' => 'Bulk Upload',
-                //         'updated_by' => 'Bulk Upload',
-                //         'created_at' => $now,
-                //         'updated_at' => $now
-                //     ]);
-                // }   
+                // Add electricalRating Tabs
+                if ($electricalRating) {
+                    $productTabLabels['electricalRating'] = $productTabLabels['electricalRating']
+                        ?? DB::table('product_tab_labels')->where('title', 'Electrical Rating')->value('id');
+                    if (!$productTabLabels['electricalRating']) {
+                        $productTabLabels['electricalRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Electrical Rating']);
+                    }
 
-                // $product = Product::find($products[$quality->id][$srNo]);
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['electricalRating'],
+                        'product_id' => $products[$productName],
+                        'content' => $electricalRating
+                    ];
+                }
 
-                // if (!empty($designsId)) {
-                //     $product->designs()->syncWithoutDetaching((array) $designsId);
-                // }
+                // Add temperatureRating Tabs
+                if ($temperatureRating) {
+                    $productTabLabels['temperatureRating'] = $productTabLabels['temperatureRating']
+                        ?? DB::table('product_tab_labels')->where('title', 'Temperature Rating')->value('id');
+                    if (!$productTabLabels['temperatureRating']) {
+                        $productTabLabels['temperatureRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Temperature Rating']);
+                    }
 
-                // // Update main_product_id for new Design Number
-                // if($newDesignNumber){
-                //     DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
-                // }
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['temperatureRating'],
+                        'product_id' => $products[$productName],
+                        'content' => $temperatureRating
+                    ];
+                }
 
-                // // Update main_product_id if main_product is yes
-                // if($mainProduct == 'yes'){
-                //     DB::table('qualities')->where('id', $qualities[$qualityName])->update(['main_design_number_id' => $design_numbers[$quality->id][$designNumber]]);
-                //     DB::table('design_numbers')->where('id', $design_numbers[$quality->id][$designNumber])->update(['main_product_id' => $product->id]);
-                // }
+                // Add conductorRelated Tabs
+                if ($conductorRelated) {
+                    $productTabLabels['conductorRelated'] = $productTabLabels['conductorRelated']
+                        ?? DB::table('product_tab_labels')->where('title', 'Conductor Related')->value('id');
+                    if (!$productTabLabels['conductorRelated']) {
+                        $productTabLabels['conductorRelated'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Conductor Related']);
+                    }
 
-                // // Collect sort order
-                // if ($sortOrder) {
-                //     $sortOrders[] = [
-                //         'collection_id' => $collections[$collectionName],
-                //         'product_id' => $products[$quality->id][$srNo],
-                //         'sort_order' => $sortOrder,
-                //         'created_at'    => $now,
-                //         'updated_at'    => $now,
-                //     ];
+                    $productTabValues[] = [
+                        'product_tab_label_id' => $productTabLabels['conductorRelated'],
+                        'product_id' => $products[$productName],
+                        'content' => $conductorRelated
+                    ];
+                }
 
-                //     // **Insert in batches of 500**
-                //     if (count($sortOrders) >= 500) {
-                //         DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
-                //         $sortOrders = []; // Reset array
-                //     }
-                // }
+                // **Insert in batches of 500**
+                if (count($productTabValues) >= 500) {
+                    DB::table('product_tab_contents')->insert($productTabValues);
+                    $productTabValues = []; // Reset array
+                }
+
             }
 
             // **Insert remaining product images**
@@ -308,10 +291,15 @@ class UploadDataController extends Controller
                 DB::table('product_images')->insert($productImagesBulk);
             }
 
-            // **Insert remaining sort order**
-            // if (!empty($sortOrders)) {
-            //     DB::table('collection_product')->upsert($sortOrders, ['collection_id', 'product_id'], ['sort_order']);
-            // }
+            // **Insert remaining Product Filter Values**
+            if (!empty($filterValuesBulk)) {
+                DB::table('filter_value_product')->insert($filterValuesBulk);
+            }
+
+            // **Insert remaining product_tab_contents**
+            if (!empty($productTabValues)) {
+                DB::table('product_tab_contents')->insert($productTabValues);
+            }
 
             // **Delete the file after processing**
             $filePath = storage_path("app/imports/$filename");
@@ -319,13 +307,15 @@ class UploadDataController extends Controller
                 unlink($filePath);
             }
 
+            $duplicateMessage =  $duplicateProducts ? count($duplicateProducts) . ' Duplicate Products - ' . implode(",",$duplicateProducts) : '';
+
             $response = array(
                 'success' => true,
-                'message' => 'Records added',
+                'message' => 'Records added ' . $duplicateMessage,
                 'class' => 'alert alert-success'
             );
             // Session::flash('success','Data imported successfully!');
-            session()->flash('success', 'Data imported successfully!');
+            session()->flash('success', 'Data imported successfully!' . $duplicateMessage);
 
             return response()->json($response);
 

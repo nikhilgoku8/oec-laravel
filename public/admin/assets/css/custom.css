@@ -1036,7 +1036,7 @@ td.no_records{
 .form_box .inner_boxes .input_boxes{
 	display: flex;
 	flex-wrap: wrap;
-	/*align-items: end;*/
+	align-items: end;
 }
 .form_box.flex_end .inner_boxes .input_boxes{
 /*	display: flex;

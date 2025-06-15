@@ -10,7 +10,7 @@ class FilterTypeController extends Controller
 {
     public function index()
     {
-        $result = FilterType::with('filterValues')->paginate(100);
+        $result = FilterType::with('filterValues')->orderBy('title')->paginate(100);
         return view('admin.filter-types.index', compact('result'));
     }
 

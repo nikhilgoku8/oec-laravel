@@ -104,35 +104,36 @@
                             <div class="filters-section">
                                 <div class="input_boxes filter-group">
                                     <!----Product ----->
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="input_box">
                                             <label>Filter 1</label>
                                             <div class="error form_error form-error-filters-0-id"></div>
                                             <select name="filters[0][id]">
                                                 <option value="" selected disabled>Select Filter Type</option>
-                                                @foreach ($filterTypes as $filterTypes)
-                                                <option value="{{$filterTypes->id}}">{{$filterTypes->title}}</option>
+                                                @foreach ($filterTypes as $filterType)
+                                                <option value="{{$filterType->id}}">{{$filterType->title}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-5">
                                         <div class="input_box">
                                             <label>Value</label>
                                             <div class="error form_error form-error-filters-0-value"></div>
-                                            <textarea name="filters[0][value]"></textarea>
+                                            <input type="text" name="filters[0][value]" placeholder="Value">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <input type="button" name="button" value="Add Filter" class="add-filter blue_filled_btn">
                         </div>
+                        <br>
 
                         <div class="tabs_wrapper">
                             <div class="tabs-section">
                                 <div class="input_boxes tab-group">
                                     <!----Product ----->
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="input_box">
                                             <label>Tab 1</label>
                                             <div class="error form_error form-error-tabs-0-id"></div>
@@ -144,7 +145,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-5">
                                         <div class="input_box">
                                             <label>Content</label>
                                             <div class="error form_error form-error-tabs-0-content"></div>
@@ -155,6 +156,7 @@
                             </div>
                             <input type="button" name="button" value="Add Tab" class="add-tab blue_filled_btn">
                         </div>
+                        <br>
 
                         <div class="input_boxes">
                             <div class="col-sm-4">
@@ -259,7 +261,7 @@ $(document).on('click', '.add-tab', function() {
 
     let newTabGroup = `
         <div class="input_boxes tab-group">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="input_box">
                     <label>Tab ${tabCount + 1}</label>
                     <div class="error form_error form-error-tabs-${tabCount}-id"></div>
@@ -271,7 +273,7 @@ $(document).on('click', '.add-tab', function() {
                     </select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="input_box">
                     <label>Content</label>
                     <div class="error form_error form-error-tabs-${tabCount}-content"></div>
@@ -320,7 +322,7 @@ $(document).on('click', '.add-filter', function() {
 
     let newFilterGroup = `
         <div class="input_boxes filter-group">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="input_box">
                     <label>Filter ${filterCount + 1}</label>
                     <div class="error form_error form-error-filters-${filterCount}-id"></div>
@@ -332,11 +334,11 @@ $(document).on('click', '.add-filter', function() {
                     </select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="input_box">
-                    <label>Content</label>
-                    <div class="error form_error form-error-filters-${filterCount}-content"></div>
-                    <textarea name="filters[0][content]"></textarea>
+                    <label>Value</label>
+                    <div class="error form_error form-error-filters-${filterCount}-value"></div>
+                    <input type="text" name="filters[0][value]" placeholder="Value">
                 </div>
             </div>
             <div class="col-sm-3">
