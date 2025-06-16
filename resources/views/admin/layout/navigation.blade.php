@@ -120,6 +120,7 @@
                                 <ul class="nav nav-second-level">
                                     <li><a href="{{ route('products.index') }}">All</a></li>
                                     <li><a href="{{ route('products.create') }}">Add New</a></li>
+                                    <li><a href="{{ route('products.search') }}">Search</a></li>
                                 </ul>
                             </li>
                             <li>

@@ -48,7 +48,7 @@
                 @endif
             </div>
                 <div class="table_pagination">
-                    {{ $products->links() }}
+                    <!-- @{{ $products->links() }} -->
                     <div class="clr"></div>
                 </div>
 

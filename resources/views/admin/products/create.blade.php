@@ -64,7 +64,7 @@
                                 <div class="input_box">
                                     <label>Sub Category</label>
                                     <div class="error form_error form-error-sub_category_id"></div>
-                                    <select name="sub_category_id">
+                                    <select name="sub_category_id" class="custom_select">
                                         <option value="" selected disabled>Sub Category</option>
                                     </select>
                                 </div>
@@ -230,11 +230,17 @@ $(document).ready(function() {
 
     $('select[name="category_id"]').on('change', function () {
         var categoryId = $(this).val();
+        var formData = new FormData();
+        var token = $('meta[name="csrf-token"]').attr('content');
+        formData.append('_token',token);
 
         if (categoryId) {
             $.ajax({
                 url: "{{ route('get_sub_categories_by_category', ':id') }}".replace(':id', categoryId),
-                type: 'GET',
+                type: 'POST',
+                data: {
+                    _token: token
+                },
                 success: function (data) {
                     let $subCategoriesSelect = $('select[name="sub_category_id"]');
                     $subCategoriesSelect.empty().append('<option value="" disabled selected>Sub Category</option>');

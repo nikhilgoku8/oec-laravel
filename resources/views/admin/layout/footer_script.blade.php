@@ -17,6 +17,9 @@ $(document).ready(function(){
     
     //$(".selSearch").select2();
     $("select").select2();
+    $(".custom_select").select2({
+        tags:true
+    });
 
     // Read selected option
     // $('#but_read').click(function(){
