@@ -145,11 +145,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <div class="input_box">
                                             <label>Content</label>
                                             <div class="error form_error form-error-tabs-0-content"></div>
-                                            <textarea name="tabs[0][content]"></textarea>
+                                            <textarea name="tabs[0][content]" class="toolbar"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -279,14 +279,14 @@ $(document).on('click', '.add-tab', function() {
                     </select>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <div class="input_box">
                     <label>Content</label>
                     <div class="error form_error form-error-tabs-${tabCount}-content"></div>
-                    <textarea name="tabs[0][content]"></textarea>
+                    <textarea name="tabs[${tabCount}][content]" class="toolbar"></textarea>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="input_box orange_filled_btn">
                     <button type="button" class="remove-tab">Remove Tab</button>
                 </div>
@@ -295,6 +295,8 @@ $(document).on('click', '.add-tab', function() {
     `;
 
     $tabsSection.append(newTabGroup);
+
+    $("select").select2();
 });
 
 $(document).on('click', '.remove-tab', function() {
@@ -309,11 +311,13 @@ $(document).on('click', '.remove-tab', function() {
 
         let $productTabLabelSelect = $(this).find('select');
         $productTabLabelSelect.attr('name', `tabs[${index}][id]`);
-        $productTabLabelSelect.prev().attr('class', `error form_error form-error-tabs-${index}-id`);
+        $productTabLabelSelect.prev('.form_error').attr('class', `error form_error form-error-tabs-${index}-id`);
+        // $productTabLabelSelect.prevAll('.form_error').first().attr('class', `error form_error form-error-tabs-${index}-id`);
 
         let $productTabLabelContent = $(this).find('textarea');
         $productTabLabelContent.attr('name', `tabs[${index}][content]`);
-        $productTabLabelContent.prev().attr('class', `error form_error form-error-tabs-${index}-content`);
+        $productTabLabelContent.prev('.form_error').attr('class', `error form_error form-error-tabs-${index}-content`);
+        // $productTabLabelContent.prevAll('.form_error').first().attr('class', `error form_error form-error-tabs-${index}-content`);
 
     });
 });
@@ -344,7 +348,7 @@ $(document).on('click', '.add-filter', function() {
                 <div class="input_box">
                     <label>Value</label>
                     <div class="error form_error form-error-filters-${filterCount}-value"></div>
-                    <input type="text" name="filters[0][value]" placeholder="Value">
+                    <input type="text" name="filters[${filterCount}][value]" placeholder="Value">
                 </div>
             </div>
             <div class="col-sm-3">
@@ -370,11 +374,11 @@ $(document).on('click', '.remove-filter', function() {
 
         let $productFilterLabelSelect = $(this).find('select');
         $productFilterLabelSelect.attr('name', `filters[${index}][id]`);
-        $productFilterLabelSelect.prev().attr('class', `error form_error form-error-filters-${index}-id`);
+        $productFilterLabelSelect.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-id`);
 
         let $productFilterLabelContent = $(this).find('textarea');
         $productFilterLabelContent.attr('name', `filters[${index}][content]`);
-        $productFilterLabelContent.prev().attr('class', `error form_error form-error-filters-${index}-content`);
+        $productFilterLabelContent.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-content`);
 
     });
 });

@@ -155,6 +155,33 @@ class ProductController extends Controller
                 $product->update($validated);
             }
 
+            // ==================================================================
+            // Create or update Tabs
+
+            // Get current tab label IDs in DB
+            $existingIds = $product->productTabContents()->pluck('product_tab_label_id')->toArray();
+
+            // Get incoming tab label IDs from request
+            $incoming = collect($request->tabs);
+            $incomingIds = $incoming->pluck('id')->toArray();
+
+            // 1. Delete removed tab labels
+            $idsToDelete = array_diff($existingIds, $incomingIds);
+            $product->productTabContents()->whereIn('product_tab_label_id', $idsToDelete)->delete();
+
+            // 2. Update or create each incoming tab content
+            foreach ($incoming as $tab) {
+                $product->productTabContents()->updateOrCreate(
+                    ['product_tab_label_id' => $tab['product_tab_label_id']],
+                    [
+                        'content' => $tab['id'],
+                        'updated_by' => auth()->id(),
+                        'created_by' => auth()->id(), // Optional
+                    ]
+                );
+            }
+            // ==================================================================
+
             return response()->json([
                 'status' => 'success',
                 'message' => $isNew ? 'Product created successfully!' : 'Product updated successfully!',

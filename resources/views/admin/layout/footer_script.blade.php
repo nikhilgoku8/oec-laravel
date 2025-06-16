@@ -59,8 +59,13 @@ tinymce.init({
         {title: 'Example 2', inline: 'span', classes: 'example2'},
         {title: 'Table styles'},
         {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-    ]
- }); 
+    ],
+        setup: function (editor) {
+            editor.on('init', function () {
+                $(editor.getElement()).addClass('mce-initialized'); // mark as initialized
+            });
+        }
+ });
 
 </script>
 
