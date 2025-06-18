@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\FilterTypeController;
+use App\Http\Controllers\Admin\FilterValueController;
 use App\Http\Controllers\Admin\ProductTabLabelController;
 use App\Http\Controllers\Admin\UploadDataController;
 
@@ -43,6 +44,8 @@ Route::prefix('owm')->group(function () {
 
         Route::resource('filter-types', FilterTypeController::class);
         Route::post('filter-types/bulk-delete', [FilterTypeController::class, 'bulkDelete'])->name('filter-types.bulk-delete');
+        
+        Route::post('get_filter_values_by_type/{id}', [FilterValueController::class, 'get_filter_values_by_type'])->name('get_filter_values_by_type');
 
         Route::resource('product-tab-labels', ProductTabLabelController::class);
         Route::post('product-tab-labels/bulk-delete', [ProductTabLabelController::class, 'bulkDelete'])->name('product-tab-labels.bulk-delete');

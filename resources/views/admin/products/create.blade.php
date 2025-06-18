@@ -108,7 +108,7 @@
                                         <div class="input_box">
                                             <label>Filter 1</label>
                                             <div class="error form_error form-error-filters-0-id"></div>
-                                            <select name="filters[0][id]">
+                                            <select name="filters[0][id]" class="filter-id">
                                                 <option value="" selected disabled>Select Filter Type</option>
                                                 @foreach ($filterTypes as $filterType)
                                                 <option value="{{$filterType->id}}">{{$filterType->title}}</option>
@@ -118,9 +118,12 @@
                                     </div>
                                     <div class="col-sm-5">
                                         <div class="input_box">
-                                            <label>Value</label>
+                                            <label>Value (Start with @ for custom values)</label>
                                             <div class="error form_error form-error-filters-0-value"></div>
-                                            <input type="text" name="filters[0][value]" placeholder="Value">
+                                            <!-- <input type="text" name="filters[0][value]" placeholder="Value"> -->
+                                            <select name="filters[0][value]" class="custom_select">
+                                                <option value="" selected disabled>Select Filter Value</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -230,9 +233,8 @@ $(document).ready(function() {
 
     $('select[name="category_id"]').on('change', function () {
         var categoryId = $(this).val();
-        var formData = new FormData();
+
         var token = $('meta[name="csrf-token"]').attr('content');
-        formData.append('_token',token);
 
         if (categoryId) {
             $.ajax({
@@ -255,6 +257,58 @@ $(document).ready(function() {
         }
     });
 
+});
+
+
+$(document).on('change', '.filter-id', function () {
+    let $idSelect = $(this);
+    let filterTypeId = $idSelect.val();
+
+    var token = $('meta[name="csrf-token"]').attr('content');
+
+    // Extract index from name, e.g., "filters[0][id]"
+    let nameAttr = $idSelect.attr('name');
+    let match = nameAttr.match(/^filters\[(\d+)]\[id]$/);
+    if (match) {
+        let index = match[1];
+        let $valueSelect = $(`select[name="filters[${index}][value]"]`);
+    // console.log($valueSelect);
+
+        if (!filterTypeId) {
+            $valueSelect.html('<option value="">Select Value</option>');
+            return;
+        }
+
+        // Fetch filter values from server
+        $.ajax({
+            url: "{{ route('get_filter_values_by_type', ':id') }}".replace(':id', filterTypeId),
+            method: 'POST',
+            data: { _token: token },
+            // success: function (response) {
+            //     let options = '<option value="">Select Value</option>';
+            //     response.forEach(function (item) {
+            //         options += `<option value="${item.id}">${item.label}</option>`;
+            //     });
+            //     $valueSelect.html(options);
+            // },
+            // error: function () {
+            //     alert('Failed to load filter values');
+            //     $valueSelect.html('<option value="">Select Value</option>');
+            // }
+            success: function (data) {
+                // console.log(data);
+                $valueSelect.empty().append('<option value="" disabled selected>Select Value</option>');
+
+                $.each(data, function (key, value) {
+                    $valueSelect.append('<option value="' + value.id + '">' + value.value + '</option>');
+                });
+
+                $(".custom_select").select2({
+                    tags:true
+                });
+            }
+        });
+    }
 });
 
 
@@ -297,6 +351,35 @@ $(document).on('click', '.add-tab', function() {
     $tabsSection.append(newTabGroup);
 
     $("select").select2();
+
+    tinymce.init({
+        selector: 'textarea.toolbar:not(.mce-initialized)', // skip already initialized
+        menubar: false,
+        statusbar: false,
+        theme: "modern",
+        height: 200,
+        plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+            "save table contextmenu directionality emoticons template paste textcolor"
+        ],
+        content_css: "css/content.css",
+        toolbar: "insertfile undo redo | styleselect | bold italic | bullist numlist | link image code | forecolor backcolor",
+        style_formats: [
+            {title: 'Bold text', inline: 'b'},
+            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Example 2', inline: 'span', classes: 'example2'},
+            {title: 'Table styles'},
+            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ],
+        setup: function (editor) {
+            editor.on('init', function () {
+                $(editor.getElement()).addClass('mce-initialized'); // mark as initialized
+            });
+        }
+    });
 });
 
 $(document).on('click', '.remove-tab', function() {
@@ -336,7 +419,7 @@ $(document).on('click', '.add-filter', function() {
                 <div class="input_box">
                     <label>Filter ${filterCount + 1}</label>
                     <div class="error form_error form-error-filters-${filterCount}-id"></div>
-                    <select name="filters[${filterCount}][id]">
+                    <select name="filters[${filterCount}][id]" class="filter-id">
                         <option value="" selected disabled>Select Filter Type</option>
                         @foreach ($filterTypes as $filterType)
                         <option value="{{$filterType->id}}">{{$filterType->title}}</option>
@@ -346,9 +429,11 @@ $(document).on('click', '.add-filter', function() {
             </div>
             <div class="col-sm-5">
                 <div class="input_box">
-                    <label>Value</label>
-                    <div class="error form_error form-error-filters-${filterCount}-value"></div>
-                    <input type="text" name="filters[${filterCount}][value]" placeholder="Value">
+                    <label>Value (Start with @ for custom values)</label>
+                    <div class="error form_error form-error-filters-${filterCount}-value"></div>    
+                    <select name="filters[${filterCount}][value]" class="custom_select">
+                        <option value="" selected disabled>Select Filter Value</option>
+                    </select>
                 </div>
             </div>
             <div class="col-sm-3">
@@ -360,6 +445,12 @@ $(document).on('click', '.add-filter', function() {
     `;
 
     $filtersSection.append(newFilterGroup);
+
+    $("select").select2();
+
+    $(".custom_select").select2({
+        tags:true
+    });
 });
 
 $(document).on('click', '.remove-filter', function() {

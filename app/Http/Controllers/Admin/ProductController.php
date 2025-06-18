@@ -107,7 +107,21 @@ class ProductController extends Controller
                 'tabs.*.content' => 'required',
                 'filters' => 'required|array|min:1', // Ensure at least one filter is added
                 'filters.*.id' => 'required|exists:filter_types,id', // Each filter_types must exist
-                'filters.*.value' => 'required',
+                // 'filters.*.value' => 'required|exists:filter_values,id',
+                'filters.*.value' => [
+                    'required',
+                    function ($attribute, $value, $fail) {
+                        if (is_numeric($value)) {
+                            // Must exist in filter_values table
+                            if (!\DB::table('filter_values')->where('id', $value)->exists()) {
+                                $fail("The selected filter value ID ($value) is invalid.");
+                            }
+                        } elseif (!preg_match('/^@.+$/', $value)) {
+                            // Must start with @ and have at least one more character
+                            $fail("Custom filter values must start with '@'.");
+                        }
+                    }
+                ],
             ];
 
             $messages = [];
@@ -116,8 +130,8 @@ class ProductController extends Controller
 
             $validator = Validator::make($request->all(), $rules , $messages, $attributes);
 
-            // **Custom validation for duplicate tabs IDs**
             $validator->after(function ($validator) use ($request) {
+                // **Custom validation for duplicate tabs IDs**
                 if (!empty($request->tabs)) {
                     $tabIds = array_column($request->tabs, 'id');
                     
@@ -125,10 +139,8 @@ class ProductController extends Controller
                         $validator->errors()->add('tabs', 'Duplicate Tabs are not allowed.');
                     }
                 }
-            });
-
-            // **Custom validation for duplicate tabs IDs**
-            $validator->after(function ($validator) use ($request) {
+                
+                // **Custom validation for duplicate filter_types IDs**
                 if (!empty($request->filters)) {
                     $filterIds = array_column($request->filters, 'id');
                     

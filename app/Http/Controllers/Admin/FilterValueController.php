@@ -131,4 +131,8 @@ class FilterValueController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
     }
+
+    public function get_filter_values_by_type($id){
+        return FilterValue::where('filter_type_id',$id)->get();
+    }
 }
