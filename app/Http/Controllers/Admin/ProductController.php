@@ -9,6 +9,7 @@ use App\Models\Admin\SubCategory;
 use App\Models\Admin\Product;
 use App\Models\Admin\ProductTabLabel;
 use App\Models\Admin\FilterType;
+use App\Models\Admin\FilterValue;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Laravel\Scout\Builder;
@@ -150,6 +151,24 @@ class ProductController extends Controller
                 }
             });
 
+            // ==================================================================
+            // Check Duplicate Custom Filter Values
+            if(!empty($request->filters)){
+                $i = 0;
+                foreach ($request->filters as $filter) {
+                    if (preg_match('/^@.+$/', $filter['value'])){
+                        $filterValue = preg_replace('/^@/', '', $filter['value']);
+                        $valueExists = FilterValue::where('filter_type_id',$filter['id'])->where('value',$filterValue)->exists();
+                        if($valueExists){
+                            $errorKey = 'filters-'.$i.'-value';
+                            $validator->errors()->add($errorKey, 'Value Already Exists.');
+                        }
+                    }
+                    $i++;
+                }
+            }
+            // ==================================================================
+
             // This validates and gives errors which are caught below and also stop further execution
             $validated = $validator->validated();
 
@@ -168,6 +187,28 @@ class ProductController extends Controller
             }
 
             // ==================================================================
+            // Create Custom Filter Values and Sync 
+            $filterIds = [];
+            if(!empty($request->filters)){
+                foreach ($request->filters as $filter) {
+                    if (preg_match('/^@.+$/', $filter['value'])){
+                        $filterValue = preg_replace('/^@/', '', $filter['value']);
+                        
+                        $newFilterValue = FilterValue::create([
+                            'filter_type_id' => $filter['id'],
+                            'value' => $filterValue
+                        ]);
+                        $filterIds[] = $newFilterValue->id;
+                    }else{
+                        $filterIds[] = $filter['value'];
+                    }
+                }
+
+                $product->filterValues()->sync($filterIds);
+            }
+            // ==================================================================
+
+            // ==================================================================
             // Create or update Tabs
 
             // Get current tab label IDs in DB
@@ -183,13 +224,17 @@ class ProductController extends Controller
 
             // 2. Update or create each incoming tab content
             foreach ($incoming as $tab) {
+                $tabData = [
+                    'content'     => $tab['content'],
+                    'updated_by'  => session('username'),
+                ];
+
+                if (!$dataID) {
+                    $tabData['created_by'] = session('username');
+                }
                 $product->productTabContents()->updateOrCreate(
-                    ['product_tab_label_id' => $tab['product_tab_label_id']],
-                    [
-                        'content' => $tab['id'],
-                        'updated_by' => auth()->id(),
-                        'created_by' => auth()->id(), // Optional
-                    ]
+                    ['product_tab_label_id' => $tab['id']],
+                    $tabData
                 );
             }
             // ==================================================================
