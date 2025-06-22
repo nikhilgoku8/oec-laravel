@@ -112,31 +112,46 @@
                                     @foreach($result->filterValues as $filterRow)
                                         <div class="input_boxes filter-group">
                                             <!----Product ----->
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="input_box">
-                                                    <label>Filter 1</label>
-                                                    <div class="error form_error form-error-filters-0-id"></div>
-                                                    <select name="filters[0][id]">
-                                                        <option value="" selected disabled>Select Filter Type</option>
+                                                    <label>Filter {{ $loop->iteration }}</label>
+                                                    <div class="error form_error form-error-filters-{{$loop->iteration - 1}}-id"></div>
+                                                    <select name="filters[{{$loop->iteration - 1}}][id]" class="filter-id">
+                                                        <option value="">Select Filter Type</option>
                                                         @foreach ($filterTypes as $filterType)
                                                         <option value="{{$filterType->id}}" @if($filterRow->filterType->id == $filterType->id) selected @endif>{{$filterType->title}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-5">
                                                 <div class="input_box">
-                                                    <label>Value</label>
-                                                    <div class="error form_error form-error-filters-0-value"></div>
-                                                    <textarea name="filters[0][value]">{{ $filterRow->value }}</textarea>
+                                                    <label>Value (Start with @ for custom values)</label>
+                                                    <div class="error form_error form-error-filters-{{$loop->iteration - 1}}-value"></div>
+                                                    <select name="filters[{{$loop->iteration - 1}}][value]" class="custom_select">
+                                                        <option value="">Select Filter Value</option>
+                                                        @if(!empty($filterRow->filterType->filterValues))
+                                                            @foreach($filterRow->filterType->filterValues as $row)
+                                                            <option value="{{ $row->id }}" @if($filterRow->id == $row->id) selected @endif>{{ $row->value }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
+                                            @if($loop->iteration != 1)
+                                            <div class="col-sm-3">
+                                                <div class="input_box orange_filled_btn">
+                                                    <button type="button" class="remove-filter">Remove Filter</button>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
                                     @endforeach
                                 @endif
                             </div>
                             <input type="button" name="button" value="Add Filter" class="add-filter blue_filled_btn">
                         </div>
+                        <br>
 
                         <div class="tabs_wrapper">
                             <div class="tabs-section">
@@ -144,29 +159,29 @@
                                     @foreach($result->productTabContents as $tabRow)
                                     <div class="input_boxes tab-group">
                                         <!----Product ----->
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="input_box">
-                                                <label>Tab 1</label>
+                                                <label>Tab {{ $loop->iteration }}</label>
                                                 <div class="error form_error form-error-tabs-{{$loop->iteration - 1}}-id"></div>
                                                 <select name="tabs[{{$loop->iteration - 1}}][id]">
-                                                    <option value="" selected disabled>Select Tab Label</option>
+                                                    <option value="">Select Tab Label</option>
                                                     @foreach ($productTabLabels as $productTabLabel)
                                                     <option value="{{$productTabLabel->id}}" @if($tabRow->productTabLabel->id == $productTabLabel->id) selected @endif>{{$productTabLabel->title}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6">
                                             <div class="input_box">
                                                 <label>Content</label>
                                                 <div class="error form_error form-error-tabs-{{$loop->iteration - 1}}-content"></div>
-                                                <textarea name="tabs[{{$loop->iteration - 1}}][content]">{{$tabRow->content}}</textarea>
+                                                <textarea name="tabs[{{$loop->iteration - 1}}][content]" class="toolbar">{!! $tabRow->content !!}</textarea>
                                             </div>
                                         </div>
                                         @if($loop->iteration != 1)
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             <div class="input_box orange_filled_btn">
-                                                <button type="button" class="remove-medicine">Remove Medicine</button>
+                                                <button type="button" class="remove-tab">Remove Medicine</button>
                                             </div>
                                         </div>
                                         @endif
@@ -176,6 +191,7 @@
                             </div>
                             <input type="button" name="button" value="Add Tab" class="add-tab blue_filled_btn">
                         </div>
+                        <br>
                         
                         <div class="input_boxes">
                             <div class="col-sm-4">
@@ -187,6 +203,7 @@
                             </div>
                             <div class="clr"></div>
                         </div>
+
                     </div>
                 </form>
             </div>
@@ -253,10 +270,15 @@ $(document).ready(function() {
     $('select[name="category_id"]').on('change', function () {
         var categoryId = $(this).val();
 
+        var token = $('meta[name="csrf-token"]').attr('content');
+
         if (categoryId) {
             $.ajax({
                 url: "{{ route('get_sub_categories_by_category', ':id') }}".replace(':id', categoryId),
-                type: 'GET',
+                type: 'POST',
+                data: {
+                    _token: token
+                },
                 success: function (data) {
                     let $subCategoriesSelect = $('select[name="sub_category_id"]');
                     $subCategoriesSelect.empty().append('<option value="" disabled selected>Sub Category</option>');
@@ -274,6 +296,59 @@ $(document).ready(function() {
 });
 
 
+$(document).on('change', '.filter-id', function () {
+    let $idSelect = $(this);
+    let filterTypeId = $idSelect.val();
+
+    var token = $('meta[name="csrf-token"]').attr('content');
+
+    // Extract index from name, e.g., "filters[0][id]"
+    let nameAttr = $idSelect.attr('name');
+    let match = nameAttr.match(/^filters\[(\d+)]\[id]$/);
+    if (match) {
+        let index = match[1];
+        let $valueSelect = $(`select[name="filters[${index}][value]"]`);
+    // console.log($valueSelect);
+
+        if (!filterTypeId) {
+            $valueSelect.html('<option value="">Select Value</option>');
+            return;
+        }
+
+        // Fetch filter values from server
+        $.ajax({
+            url: "{{ route('get_filter_values_by_type', ':id') }}".replace(':id', filterTypeId),
+            method: 'POST',
+            data: { _token: token },
+            // success: function (response) {
+            //     let options = '<option value="">Select Value</option>';
+            //     response.forEach(function (item) {
+            //         options += `<option value="${item.id}">${item.label}</option>`;
+            //     });
+            //     $valueSelect.html(options);
+            // },
+            // error: function () {
+            //     alert('Failed to load filter values');
+            //     $valueSelect.html('<option value="">Select Value</option>');
+            // }
+            success: function (data) {
+                // console.log(data);
+                $valueSelect.empty().append('<option value="" disabled selected>Select Value</option>');
+
+                $.each(data, function (key, value) {
+                    $valueSelect.append('<option value="' + value.id + '">' + value.value + '</option>');
+                });
+
+                setTimeout(function() {
+                    $(".custom_select").select2({
+                        tags:true
+                    });
+                }, 100);
+            }
+        });
+    }
+});
+
 
 $(document).on('click', '.add-tab', function() {
 
@@ -284,7 +359,7 @@ $(document).on('click', '.add-tab', function() {
 
     let newTabGroup = `
         <div class="input_boxes tab-group">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="input_box">
                     <label>Tab ${tabCount + 1}</label>
                     <div class="error form_error form-error-tabs-${tabCount}-id"></div>
@@ -296,14 +371,14 @@ $(document).on('click', '.add-tab', function() {
                     </select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-6">
                 <div class="input_box">
                     <label>Content</label>
                     <div class="error form_error form-error-tabs-${tabCount}-content"></div>
-                    <textarea name="tabs[0][content]"></textarea>
+                    <textarea name="tabs[${tabCount}][content]" class="toolbar"></textarea>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="input_box orange_filled_btn">
                     <button type="button" class="remove-tab">Remove Tab</button>
                 </div>
@@ -312,6 +387,41 @@ $(document).on('click', '.add-tab', function() {
     `;
 
     $tabsSection.append(newTabGroup);
+
+    setTimeout(function() {
+
+        $("select").select2();
+
+        tinymce.init({
+            selector: 'textarea.toolbar:not(.mce-initialized)', // skip already initialized
+            menubar: false,
+            statusbar: false,
+            theme: "modern",
+            height: 200,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | bullist numlist | link image code | forecolor backcolor",
+            style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ],
+            setup: function (editor) {
+                editor.on('init', function () {
+                    $(editor.getElement()).addClass('mce-initialized'); // mark as initialized
+                });
+            }
+        });
+
+    }, 100);
 });
 
 $(document).on('click', '.remove-tab', function() {
@@ -326,14 +436,17 @@ $(document).on('click', '.remove-tab', function() {
 
         let $productTabLabelSelect = $(this).find('select');
         $productTabLabelSelect.attr('name', `tabs[${index}][id]`);
-        $productTabLabelSelect.prev().attr('class', `error form_error form-error-tabs-${index}-id`);
+        $productTabLabelSelect.prev('.form_error').attr('class', `error form_error form-error-tabs-${index}-id`);
+        // $productTabLabelSelect.prevAll('.form_error').first().attr('class', `error form_error form-error-tabs-${index}-id`);
 
         let $productTabLabelContent = $(this).find('textarea');
         $productTabLabelContent.attr('name', `tabs[${index}][content]`);
-        $productTabLabelContent.prev().attr('class', `error form_error form-error-tabs-${index}-content`);
+        $productTabLabelContent.prev('.form_error').attr('class', `error form_error form-error-tabs-${index}-content`);
+        // $productTabLabelContent.prevAll('.form_error').first().attr('class', `error form_error form-error-tabs-${index}-content`);
 
     });
 });
+
 
 $(document).on('click', '.add-filter', function() {
 
@@ -344,11 +457,11 @@ $(document).on('click', '.add-filter', function() {
 
     let newFilterGroup = `
         <div class="input_boxes filter-group">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="input_box">
                     <label>Filter ${filterCount + 1}</label>
                     <div class="error form_error form-error-filters-${filterCount}-id"></div>
-                    <select name="filters[${filterCount}][id]">
+                    <select name="filters[${filterCount}][id]" class="filter-id">
                         <option value="" selected disabled>Select Filter Type</option>
                         @foreach ($filterTypes as $filterType)
                         <option value="{{$filterType->id}}">{{$filterType->title}}</option>
@@ -356,11 +469,13 @@ $(document).on('click', '.add-filter', function() {
                     </select>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="input_box">
-                    <label>Content</label>
-                    <div class="error form_error form-error-filters-${filterCount}-content"></div>
-                    <textarea name="filters[0][content]"></textarea>
+                    <label>Value (Start with @ for custom values)</label>
+                    <div class="error form_error form-error-filters-${filterCount}-value"></div>    
+                    <select name="filters[${filterCount}][value]" class="custom_select">
+                        <option value="" selected disabled>Select Filter Value</option>
+                    </select>
                 </div>
             </div>
             <div class="col-sm-3">
@@ -372,6 +487,14 @@ $(document).on('click', '.add-filter', function() {
     `;
 
     $filtersSection.append(newFilterGroup);
+
+    setTimeout(function() {
+        $("select").select2();
+
+        $(".custom_select").select2({
+            tags:true
+        });
+    }, 100);
 });
 
 $(document).on('click', '.remove-filter', function() {
@@ -384,14 +507,15 @@ $(document).on('click', '.remove-filter', function() {
     $filtersSection.find('.filter-group').each(function(index) {
         $(this).find('label:first').text(`Filter ${index + 1}`);
 
-        let $productFilterLabelSelect = $(this).find('select');
-        $productFilterLabelSelect.attr('name', `filters[${index}][id]`);
-        $productFilterLabelSelect.prev().attr('class', `error form_error form-error-filters-${index}-id`);
+        // let $productFilterTypeSelect = $(this).find('select');
+        let $productFilterTypeSelect = $(this).find('[name*=id]');
+        $productFilterTypeSelect.attr('name', `filters[${index}][id]`);
+        $productFilterTypeSelect.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-id`);
 
-        let $productFilterLabelContent = $(this).find('textarea');
-        $productFilterLabelContent.attr('name', `filters[${index}][content]`);
-        $productFilterLabelContent.prev().attr('class', `error form_error form-error-filters-${index}-content`);
-
+        // let $productFilterValueContent = $(this).find('select');
+        let $productFilterValueContent = $(this).find('[name*=value]');
+        $productFilterValueContent.attr('name', `filters[${index}][value]`);
+        $productFilterValueContent.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-value`);
     });
 });
 </script>

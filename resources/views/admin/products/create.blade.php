@@ -303,9 +303,12 @@ $(document).on('change', '.filter-id', function () {
                     $valueSelect.append('<option value="' + value.id + '">' + value.value + '</option>');
                 });
 
-                $(".custom_select").select2({
-                    tags:true
-                });
+
+                setTimeout(function() {
+                    $(".custom_select").select2({
+                        tags:true
+                    });
+                }, 100);
             }
         });
     }
@@ -350,36 +353,41 @@ $(document).on('click', '.add-tab', function() {
 
     $tabsSection.append(newTabGroup);
 
-    $("select").select2();
 
-    tinymce.init({
-        selector: 'textarea.toolbar:not(.mce-initialized)', // skip already initialized
-        menubar: false,
-        statusbar: false,
-        theme: "modern",
-        height: 200,
-        plugins: [
-            "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-            "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-            "save table contextmenu directionality emoticons template paste textcolor"
-        ],
-        content_css: "css/content.css",
-        toolbar: "insertfile undo redo | styleselect | bold italic | bullist numlist | link image code | forecolor backcolor",
-        style_formats: [
-            {title: 'Bold text', inline: 'b'},
-            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-            {title: 'Example 1', inline: 'span', classes: 'example1'},
-            {title: 'Example 2', inline: 'span', classes: 'example2'},
-            {title: 'Table styles'},
-            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-        ],
-        setup: function (editor) {
-            editor.on('init', function () {
-                $(editor.getElement()).addClass('mce-initialized'); // mark as initialized
-            });
-        }
-    });
+    setTimeout(function() {
+
+        $("select").select2();
+
+        tinymce.init({
+            selector: 'textarea.toolbar:not(.mce-initialized)', // skip already initialized
+            menubar: false,
+            statusbar: false,
+            theme: "modern",
+            height: 200,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | bullist numlist | link image code | forecolor backcolor",
+            style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ],
+            setup: function (editor) {
+                editor.on('init', function () {
+                    $(editor.getElement()).addClass('mce-initialized'); // mark as initialized
+                });
+            }
+        });
+
+    }, 100);
 });
 
 $(document).on('click', '.remove-tab', function() {
@@ -446,11 +454,14 @@ $(document).on('click', '.add-filter', function() {
 
     $filtersSection.append(newFilterGroup);
 
-    $("select").select2();
+    setTimeout(function() {
 
-    $(".custom_select").select2({
-        tags:true
-    });
+        // $("select").select2();
+
+        $(".custom_select").select2({
+            tags:true
+        });
+    }, 100);
 });
 
 $(document).on('click', '.remove-filter', function() {
@@ -463,13 +474,15 @@ $(document).on('click', '.remove-filter', function() {
     $filtersSection.find('.filter-group').each(function(index) {
         $(this).find('label:first').text(`Filter ${index + 1}`);
 
-        let $productFilterLabelSelect = $(this).find('select');
-        $productFilterLabelSelect.attr('name', `filters[${index}][id]`);
-        $productFilterLabelSelect.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-id`);
+        // let $productFilterTypeSelect = $(this).find('select');
+        let $productFilterTypeSelect = $(this).find('[name*=id]');
+        $productFilterTypeSelect.attr('name', `filters[${index}][id]`);
+        $productFilterTypeSelect.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-id`);
 
-        let $productFilterLabelContent = $(this).find('textarea');
-        $productFilterLabelContent.attr('name', `filters[${index}][content]`);
-        $productFilterLabelContent.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-content`);
+        // let $productFilterValueContent = $(this).find('select');
+        let $productFilterValueContent = $(this).find('[name*=value]');
+        $productFilterValueContent.attr('name', `filters[${index}][value]`);
+        $productFilterValueContent.prev('.form_error').attr('class', `error form_error form-error-filters-${index}-value`);
 
     });
 });

@@ -46,7 +46,7 @@ class ProductController extends Controller
     // }
     public function index()
     {
-        $result = Product::with('subCategory','subCategory.category')->paginate(100);
+        $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
         return view('admin.products.index', compact('result'));
     }
 
@@ -64,7 +64,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $productTabLabels = ProductTabLabel::all();
         $subCategories = SubCategory::all();
-        $filterTypes = FilterType::all();
+        $filterTypes = FilterType::with('filterValues')->get();
         return view('admin.products.show', compact('result','categories','subCategories','productTabLabels','filterTypes'));
     }
 
@@ -74,7 +74,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $productTabLabels = ProductTabLabel::all();
         $subCategories = SubCategory::all();
-        $filterTypes = FilterType::all();
+        $filterTypes = FilterType::with('filterValues')->get();
         return view('admin.products.edit', compact('result','categories','subCategories','productTabLabels','filterTypes'));
     }
 
@@ -192,6 +192,7 @@ class ProductController extends Controller
             if(!empty($request->filters)){
                 foreach ($request->filters as $filter) {
                     if (preg_match('/^@.+$/', $filter['value'])){
+                        
                         $filterValue = preg_replace('/^@/', '', $filter['value']);
                         
                         $newFilterValue = FilterValue::create([
