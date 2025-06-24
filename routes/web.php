@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsSuperAdmin;
 
+use App\Http\Controllers\Front\HomeController;
+
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -14,9 +16,11 @@ use App\Http\Controllers\Admin\FilterValueController;
 use App\Http\Controllers\Admin\ProductTabLabelController;
 use App\Http\Controllers\Admin\UploadDataController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('owm')->group(function () {
 
