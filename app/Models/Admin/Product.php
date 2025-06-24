@@ -8,7 +8,7 @@ use Laravel\Scout\Engines\MeilisearchEngine;
 
 class Product extends Model
 {
-    // use Searchable;
+    use Searchable;
 
     protected $table = 'products';
 
@@ -39,26 +39,33 @@ class Product extends Model
         return $this->hasMany(ProductTabContent::class);
     }
 
-    // protected static function booted()
-    // {
-    //     static::created(function () {
-    //         $index = (new MeilisearchEngine(app('scout.engine')->meilisearch()))
-    //             ->updateIndexSettings((new static)->searchableAs(), [
-    //                 'filterableAttributes' => ['filter_values'],
-    //                 'sortableAttributes' => ['title'],
-    //             ]);
-    //     });
-    // }
+    public static function makeAllSearchableUsing($query)
+    {
+        return $query->with('filterValues');
+    }
 
-    // // Optional: customize searchable fields
-    // public function toSearchableArray()
-    // {
-    //     return [
-    //         // 'id' => $this->id,
-    //         'title' => $this->title,
-    //         'description' => $this->description,
-    //         'filter_values' => $this->filterValues()->pluck('filter_value_product.id')->toArray(),
-    //         // Add other searchable fields if needed
-    //     ];
-    // }
+    protected static function booted()
+    {
+        static::created(function () {
+            $index = (new MeilisearchEngine(app('scout.engine')->meilisearch()))
+                ->updateIndexSettings((new static)->searchableAs(), [
+                    'filterableAttributes' => ['filter_value_ids'],
+                    'sortableAttributes' => ['title'],
+                ]);
+        });
+    }
+
+    // Optional: customize searchable fields
+    public function toSearchableArray()
+    {
+        $this->loadMissing('filterValues');
+
+        return [
+            // 'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'filter_value_ids' => $this->filterValues->pluck('id')->toArray(),
+            // Add other searchable fields if needed
+        ];
+    }
 }

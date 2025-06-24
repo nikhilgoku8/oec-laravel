@@ -38,6 +38,7 @@ Route::prefix('owm')->group(function () {
         Route::post('get_sub_categories_by_category/{id}', [SubCategoryController::class, 'get_sub_categories_by_category'])->name('get_sub_categories_by_category');
 
         Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
+        Route::get('products/search_new', [ProductController::class, 'search_new'])->name('products.search_new');
         Route::resource('products', ProductController::class);
         Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
 

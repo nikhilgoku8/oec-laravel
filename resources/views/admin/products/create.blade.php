@@ -100,6 +100,30 @@
                             <div class="clr"></div>
                         </div>
 
+                        <div class="images_wrapper">
+                            <div class="images-section">
+                                <div class="input_boxes image-group">
+                                    <!----Product ----->
+                                    <div class="col-sm-8">
+                                        <div class="input_box">
+                                            <label>Image Link 1</label>
+                                            <div class="error form_error form-error-images-0-link"></div>
+                                            <input type="text" name="images[0][link]" placeholder="Image Link">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="input_box">
+                                            <label>Sort Order</label>
+                                            <div class="error form_error form-error-images-0-sort_order"></div>
+                                            <input type="number" name="images[0][sort_order]" placeholder="Sort Order">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" name="button" value="Add Image" class="add-image blue_filled_btn">
+                        </div>
+                        <br>
+
                         <div class="filters_wrapper">
                             <div class="filters-section">
                                 <div class="input_boxes filter-group">
@@ -486,6 +510,65 @@ $(document).on('click', '.remove-filter', function() {
 
     });
 });
+
+$(document).on('click', '.add-image', function() {
+
+    let $imageWrapper = $(this).closest('.images_wrapper');
+    let $imagesSection = $imageWrapper.find('.images-section');
+    
+    let imageCount = $imagesSection.find('.image-group').length;
+
+    let newImageGroup = `
+        <div class="input_boxes image-group">
+            <div class="col-sm-8">
+                <div class="input_box">
+                    <label>Image Link ${imageCount + 1}</label>
+                    <div class="error form_error form-error-images-${imageCount}-link"></div>
+                    <input type="text" name="images[${imageCount}][link]" placeholder="Image Link">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_box">
+                    <label>Sort Order</label>
+                    <div class="error form_error form-error-images-${imageCount}-sort_order"></div>
+                    <input type="number" name="images[${imageCount}][sort_order]" placeholder="Sort Order">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_box orange_filled_btn">
+                    <button type="button" class="remove-image">Remove Image</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    $imagesSection.append(newImageGroup);
+
+});
+
+$(document).on('click', '.remove-image', function() {
+    let $imageWrapper = $(this).closest('.images_wrapper');
+    let $imagesSection = $imageWrapper.find('.images-section');
+
+    $(this).closest('.image-group').remove();
+
+    // Update labels (optional)
+    $imagesSection.find('.image-group').each(function(index) {
+        $(this).find('label:first').text(`Image ${index + 1}`);
+
+        let $productImageLink = $(this).find('[name*=link]');
+        $productImageLink.attr('name', `images[${index}][link]`);
+        $productImageLink.prev('.form_error').attr('class', `error form_error form-error-images-${index}-link`);
+        // $productImageLink.prevAll('.form_error').first().attr('class', `error form_error form-error-images-${index}-link`);
+
+        let $productImageSortOrder = $(this).find('[name*=sort_order]');
+        $productImageSortOrder.attr('name', `images[${index}][sort_order]`);
+        $productImageSortOrder.prev('.form_error').attr('class', `error form_error form-error-images-${index}-sort_order`);
+        // $productImageSort Order.prevAll('.form_error').first().attr('class', `error form_error form-error-images-${index}-sort_order`);
+
+    });
+});
+
 </script>
 
 @endsection

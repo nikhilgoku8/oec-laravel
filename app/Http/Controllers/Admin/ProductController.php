@@ -10,13 +10,34 @@ use App\Models\Admin\Product;
 use App\Models\Admin\ProductTabLabel;
 use App\Models\Admin\FilterType;
 use App\Models\Admin\FilterValue;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Laravel\Scout\Builder;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Meilisearch\Client;
+
 class ProductController extends Controller
 {
-    // public function index(Request $request)
+
+    public function index()
+    {
+        $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
+        return view('admin.products.index', compact('result'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+
+        // $products = Product::search($query)->orderBy('title')->take(100)->get();
+        $products = Product::search($query)->take(100)->get();
+
+        return view('admin.products.search', compact('products', 'query'));
+    }
+
+    // public function search_new(Request $request)
     // {
     //     $query = $request->input('q');
     //     $filterParams = $request->input('filters', []);
@@ -42,13 +63,169 @@ class ProductController extends Controller
     //     // Paginate the search result
     //     $products = $builder->paginate(12);
 
-    //     return view('admin.products.index', compact('products', 'filterTypes'));
+    //     return view('admin.products.search_new', compact('products', 'filterTypes'));
     // }
-    public function index()
+
+    // public function search_new(Request $request)
+    // {
+
+    //     // $products = Product::search('')
+    //     //         ->query('*', function ($meilisearch, $query, $options) {
+    //     //             $options['filter'] = 'filter_value_ids = 577'; // use a real filter_value_id from DB
+    //     //             return [$query, $options];
+    //     //         })
+    //     //         ->get();
+
+    //     //     dd($products);
+
+    //     $keyword = $request->input('q');
+    //     $selectedFilters = $request->get('filters', []); // array of filter_value_ids
+
+    //     $search = Product::search($keyword);
+
+    //     // if (!empty($selectedFilters)) {
+    //     //     // // Meilisearch syntax: `filter_value_ids = 3 AND filter_value_ids = 7`
+    //     //     // $filterString = implode(' AND ', array_map(fn($id) => "filter_value_ids = $id", $selectedFilters));
+            
+    //     //     // $search->query('', function ($meilisearch, $query, $options) use ($filterString) {
+    //     //     //     $options['filter'] = $filterString;
+    //     //     //     return [$query, $options];
+    //     //     // });
+
+    //     //     // Format for Meilisearch: filter_value_ids = 577 OR filter_value_ids = 578
+    //     //     $filterString = collect($selectedFilters)
+    //     //         ->map(fn($id) => "filter_value_ids = {$id}")
+    //     //         ->implode(' OR ');
+
+    //     //     $search = $search->query('', function ($meili, $queryString, $options) use ($filterString) {
+    //     //         $options['filter'] = $filterString;
+    //     //         return [$queryString, $options];
+    //     //     });
+    //     // }
+
+    //     if (!empty($selectedFilters)) {
+    //         // Meilisearch syntax for multiple values for the same attribute:
+    //         // filter_value_ids IN [577, 578]
+    //         $filterString = 'filter_value_ids IN [' . implode(', ', $selectedFilters) . ']';
+
+    //         $search->query('', function ($meili, $queryString, $options) use ($filterString) {
+    //             $options['filter'] = $filterString;
+    //             return [$queryString, $options];
+    //         });
+    //     }
+
+    //     $products = $search->get();
+    //     $productIds = $products->pluck('id')->toArray();
+    //     // -------------------
+    //     $relevantFilterValueIds = DB::table('filter_value_product')
+    //         ->whereIn('product_id', $productIds)
+    //         ->pluck('filter_value_id');
+
+    //     $filterTypes = FilterType::with(['filterValues' => function ($q) use ($relevantFilterValueIds) {
+    //             $q->whereIn('id', $relevantFilterValueIds);
+    //         }])->get();
+
+    //     $filterCounts = DB::table('filter_value_product')
+    //         ->select('filter_value_id', DB::raw('count(*) as count'))
+    //         ->whereIn('product_id', $productIds)
+    //         ->groupBy('filter_value_id')
+    //         ->pluck('count', 'filter_value_id');
+
+    //     // Paginate the search result
+    //     $products = $search->paginate(12);
+
+    //     return view('admin.products.search_new', compact('products', 'filterTypes', 'filterCounts'));
+    // }
+
+    public function search_new(Request $request)
     {
-        $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
-        return view('admin.products.index', compact('result'));
+        $query        = $request->input('q', '');
+        $filterParams = $request->input('filters', []);
+        $page         = $request->input('page', 1);
+        $perPage      = 12;
+
+        // Build the Meili filter clause
+        $filterStrings = [];
+        foreach ($filterParams as $typeId => $valueId) {
+            $filterStrings[] = "filter_value_ids = $valueId";
+        }
+        $filterClause = implode(' AND ', $filterStrings) ?: null;
+
+        // Instantiate Meili client & index name
+        $model   = new Product;
+        $indexId = $model->searchableAs();
+        $client  = new Client(
+            config('scout.meilisearch.host'),
+            config('scout.meilisearch.key')
+        );
+
+        // 1) Do the Meili search
+        /** @var \Meilisearch\Search\SearchResult $raw */
+        $raw = $client
+            ->index($indexId)
+            ->search(
+                $query === '' ? '*' : $query,
+                [
+                    'filter' => $filterClause,
+                    'limit'  => $perPage,
+                    'offset' => ($page - 1) * $perPage,
+                ]
+            );
+
+        // 2) Extract hits array from the SearchResult object
+        $hits = $raw->getHits();              // array of associative arrays
+        $hitIds = collect($hits)->pluck('id')->all();
+
+        // 3) Total matching documents
+        // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
+        $totalHits = method_exists($raw, 'getEstimatedTotalHits')
+            ? $raw->getEstimatedTotalHits()
+            : $raw->getNbHits();
+
+        // 4) Fetch Eloquent models in the Meili order
+        $products = Product::whereIn('id', $hitIds)
+            ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+            ->get();
+
+        // 5) Make a LengthAwarePaginator for Blade
+        $paginator = new LengthAwarePaginator(
+            $products,
+            $totalHits,
+            $perPage,
+            $page,
+            [
+                'path'  => url()->current(),
+                'query' => $request->query(),
+            ]
+        );
+
+        // 6) Also load filter types/values for the UI
+
+        $productIds = $products->pluck('id')->toArray();
+        // -------------------
+        $relevantFilterValueIds = DB::table('filter_value_product')
+            ->whereIn('product_id', $productIds)
+            ->pluck('filter_value_id');
+
+        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($relevantFilterValueIds) {
+                $q->whereIn('id', $relevantFilterValueIds);
+            }])->get();
+
+        $filterCounts = DB::table('filter_value_product')
+            ->select('filter_value_id', DB::raw('count(*) as count'))
+            ->whereIn('product_id', $productIds)
+            ->groupBy('filter_value_id')
+            ->pluck('count', 'filter_value_id');
+
+        return view('admin.products.search_new', [
+            'products'       => $paginator,
+            'filterTypes'    => $filterTypes,
+            'currentQ'       => $query,
+            'currentFilters' => $filterParams,
+            'filterCounts' => $filterCounts,
+        ]);
     }
+
 
     public function create()
     {
@@ -103,6 +280,19 @@ class ProductController extends Controller
                 'title' => 'required|string|max:255|unique:products,title,'.$dataID,
                 'description' => 'required',
                 'features' => 'required',
+                'images' => 'required|array|min:1',
+                'images.*.link' => 'required',
+                'images.*.sort_order' => [
+                        'required',
+                        'numeric',
+                        'min:1',
+                        function ($attribute, $value, $fail) use ($request) {
+                            $sortOrders = array_column($request->images, 'sort_order');
+                            if (count($sortOrders) !== count(array_unique($sortOrders))) {
+                                $fail('Sort order must be unique.');
+                            }
+                        }
+                    ],
                 'tabs' => 'required|array|min:1', // Ensure at least one tab is added
                 'tabs.*.id' => 'required|exists:product_tab_labels,id', // Each tabs must exist
                 'tabs.*.content' => 'required',
@@ -185,6 +375,42 @@ class ProductController extends Controller
             } else {
                 $product->update($validated);
             }
+
+            // ==================================================================
+            // Create or update Images
+
+            // Get current Image IDs in DB
+            $existingImageIds = $product->productImages()->pluck('id')->toArray();
+
+            // Get incoming Image IDs from request
+            $incomingImages = collect($request->images);
+            $incomingImagesIds = $incomingImages->pluck('id')->toArray();
+
+            // 1. Delete removed images
+            $imageIdsToDelete = array_diff($existingImageIds, $incomingImagesIds);
+            $product->productImages()->whereIn('id', $imageIdsToDelete)->delete();
+
+            // 2. Update or create each incoming image
+            foreach ($incomingImages as $image) {
+                $tabData = [
+                    'image_file' => $image['link'],
+                    'sort_order' => $image['sort_order'],
+                    'updated_by' => session('username'),
+                ];
+
+                if (!$dataID) {
+                    $tabData['created_by'] = session('username');
+                }
+
+                if (!empty($image['id'])) {
+                    // Update existing
+                    $product->productImages()->where('id', $image['id'])->update($tabData);
+                } else {
+                    // Create new
+                    $product->productImages()->create($tabData);
+                }
+            }
+            // ==================================================================
 
             // ==================================================================
             // Create Custom Filter Values and Sync 
@@ -279,15 +505,5 @@ class ProductController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->input('q');
-
-        // $products = Product::search($query)->orderBy('title')->take(100)->get();
-        $products = Product::search($query)->take(100)->get();
-
-        return view('admin.products.search', compact('products', 'query'));
     }
 }
