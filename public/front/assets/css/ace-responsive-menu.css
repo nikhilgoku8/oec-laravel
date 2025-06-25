@@ -37,27 +37,13 @@ ul {
     border: 0px;
     float: left;
 }
-.ace-responsive-menu li a {
-        color:#c0c0c0;
-}
 .ace-responsive-menu > li > a {
     display: block;
     position: relative;
     margin: 0;
     border: 0px;
-    padding: 5px 1px 5px 15px;
-    font-family: 'Open Sans', sans-serif;
+    /*padding: 5px 1px 5px 15px;*/
     text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    font-weight: 500;
-    color: #000000;
-    text-transform: uppercase;
-    line-height: 23px;
-}
-.ace-responsive-menu > li > a:hover{
-    color: #f48120;
-    font-weight: 600;
 }
 .ace-responsive-menu .dropbox{
     padding-top: 16px;
@@ -74,11 +60,6 @@ ul {
 .ace-responsive-menu li ul.sub-menu li a i {
     padding-right: 10px;
 }
-.ace-responsive-menu li.menu-active > a {
-  /*  background: #364655 !important;*/
-    color:#f38020;
-    font-weight: 600;
-}
 .ace-responsive-menu li .menu-active {
     position: relative;
 }
@@ -86,10 +67,10 @@ ul {
     margin-left: 1px;
     display: inline;
     font-size: 12px;
-    font-family: FontAwesome;
+    font-family: 'Font Awesome 5 Free';
     height: auto;
     content: "\f107";
-    font-weight: 300;
+    font-weight: 900;
     text-shadow: none;
     width: 10px;
 }
@@ -112,13 +93,10 @@ ul {
 .ace-responsive-menu li ul.sub-menu li a {
     display: block;
     margin: 0px 0px;
-    padding: 12px 20px 12px 15px;
+    padding: 15px 30px;
     text-decoration: none;
-    font-size: 12px;
     letter-spacing: 0.3px;
-    text-transform: uppercase;
     background: none;
-    color: #000000;
 }
 .ace-responsive-menu > li > ul.sub-menu > li {
     position: relative;
@@ -149,10 +127,10 @@ ul {
     margin-right: 0px;
     display: inline;
     font-size: 16px;
-    font-family: FontAwesome;
+    font-family: 'Font Awesome 5 Free';
     height: auto;
     content: "\f104";
-    font-weight: 300;
+    font-weight: 900;
     text-shadow: none;
 }
 
