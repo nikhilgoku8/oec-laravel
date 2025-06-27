@@ -29,31 +29,31 @@
                     <div class="rings_wrapper">
                         <div class="ring_box">
                             <div class="ring">
-                                <span class="lil_big">700,000</span>
+                                <span class="lil_big"><span class="counter" data-target="700000">0</span> +</span>
                                 <span class="lil_small">SQ.FT of Manufacturing</span>
                             </div>
                         </div>
                         <div class="ring_box">
                             <div class="ring">
-                                <span class="lil_big">15,000 +</span>
+                                <span class="lil_big"><span class="counter" data-target="15000">0</span> +</span>
                                 <span class="lil_small">SKU’s</span>
                             </div>
                         </div>
                         <div class="ring_box">
                             <div class="ring">
-                                <span class="lil_big">100 +</span>
+                                <span class="lil_big"><span class="counter" data-target="100">0</span> +</span>
                                 <span class="lil_small">Countries</span>
                             </div>
                         </div>
                         <div class="ring_box">
                             <div class="ring">
-                                <span class="lil_big">2,100 +</span>
+                                <span class="lil_big"><span class="counter" data-target="2100">0</span> +</span>
                                 <span class="lil_small">Employees</span>
                             </div>
                         </div>
                         <div class="ring_box">
                             <div class="ring">
-                                <span class="lil_big">5</span>
+                                <span class="lil_big"><span class="counter" data-target="5">0</span></span>
                                 <span class="lil_small">Facilities</span>
                             </div>
                         </div>
@@ -71,5 +71,145 @@
         </div>
     </div>
 </div>
+<!-- about end -->
+
+<div class="innovation">
+    <div class="container">
+        <div class="inner_container">
+            
+            <div class="heading">Innovation</div>
+
+            <div class="title">Products</div>
+            <p>OEC's comprehensive and diverse product portfolio is rigorously tested and certified to meet global standards, ensuring bespoke quality and durability. </p>
+
+            <div class="products_wrapper">
+                <div class="col-sm-6">
+                    <div class="product_box">
+                        <div class="img_box">
+                            <img src="{{ asset('front/assets/images/homepage/electricals.webp') }}">
+                        </div>
+                        <div class="text_box">
+                            <div class="title">Electrical</div>
+                            <div class="hidden_txt">
+                                <p>OEC designs and manufactures a wide range of UL-listed electrical products including connectors, fittings, and boxes.</p>
+                                <a href="#" class="hollow_btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="product_box">
+                        <div class="img_box">
+                            <img src="{{ asset('front/assets/images/homepage/automotive.webp') }}">
+                        </div>
+                        <div class="text_box">
+                            <div class="title">Automotive</div>
+                            <div class="hidden_txt">
+                                <p>OEC designs and manufactures a variety of fittings, tubing, and hoses for the heavy-duty trucking industry.</p>
+                                <a href="#" class="hollow_btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- innovation end -->
+
+<script>
+$(document).ready(function() {
+    $('.innovation .product_box')
+    .on('mouseenter', function() {
+        $(this).find('.hidden_txt').slideDown();
+        // $(this).find('p').fadeIn();
+    })
+    .on('mouseleave', function() {
+        $(this).find('.hidden_txt').slideUp();
+        // console.log('Out');
+    });
+});
+</script>
+
+<div class="home_parallex">
+    <div class="img_box">
+        <img src="{{ asset('front/assets/images/bg/parallax-logo.webp') }}">
+    </div>
+</div>
+<!-- home_parallex end -->
+
+<div class="markets">
+    <div class="container">
+        <div class="inner_container">
+            
+            <div class="heading">Markets</div>
+
+            <div class="text_box">
+                <div class="title">About OEC</div>
+                <p>For the utility, OEM, commercial, renewable, and industrial markets, OEC innovates & certifies products that meet emerging demands.</p>
+                <a href="#" class="hollow_btn">Read More</a>
+            </div>
+
+            <div class="video_wrapper">
+                <video autoplay muted loop>
+                    <source src="{{ asset('front/assets/videos/markets.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- markets end -->
+
+<div class="why_oec">
+    <div class="container">
+        <div class="inner_container">
+            
+            <div class="heading">Why OEC</div>
+
+            <div class="text_box">
+                <div class="title">Why Us</div>
+                <p>As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical and automotive requirements.</p>
+                <a href="#" class="hollow_btn">Read More</a>
+            </div>
+            <div class="img_box">
+                <img src="{{ asset('front/assets/images/homepage/whyusimg.webp') }}">
+            </div>
+
+            <div class="video_wrapper">
+                <video autoplay muted loop>
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- markets end -->
+
+<div class="sustainability">
+    <div class="container">
+        <div class="inner_container">
+            
+            <div class="heading">Sustainability</div>
+
+            <div class="text_box">
+                <div class="title">Sustainability</div>
+                <p>Ensuring a Greener and Brighter Tomorrow!</p>
+                <a href="#" class="hollow_btn">Read More</a>
+            </div>
+
+            <div class="video_wrapper">
+                <video autoplay muted loop>
+                    <source src="{{ asset('front/assets/videos/sustainability.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- sustainability end -->
 
 @endsection

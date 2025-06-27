@@ -47,7 +47,7 @@
 <div class="container">
     <div class="inner_container">
         <div class="logo">
-            <a href="{{ route('home') }}"><img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /></a>
+            <!-- <a href="{{ route('home') }}"><img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /></a> -->
         </div>
         <nav>
             <!-- Menu Toggle btn-->

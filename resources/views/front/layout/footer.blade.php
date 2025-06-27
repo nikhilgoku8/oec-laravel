@@ -1,4 +1,84 @@
 
+<footer>
+    <div class="upper_sec">
+        <div class="container">
+            <div class="inner_container">
+
+                <div class="info_box">
+                    <div class="logo_box">
+                        <a href="#">
+                            <!-- <img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /> -->
+                        </a>
+                    </div>
+                </div>
+                <div class="info_box">
+                    <div class="title">Company</div>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Products</div>
+                    <ul>
+                        <li><a href="#">Electrical</a></li>
+                        <li><a href="#">Automotive</a></li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Markets</div>
+                    <ul>
+                        <li><a href="#">Automotive</a></li>
+                        <li><a href="#">Construction</a></li>
+                        <li><a href="#">Data Center</a></li>
+                        <li><a href="#">Lightning Protection</a></li>
+                        <li><a href="#">Renewables</a></li>
+                        <li><a href="#">Utility</a></li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Location</div>
+                    <ul class="ctc_links">
+                        <li>
+                            <a href="#" class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+                                <span class="txt">106 Northfield Avenue,<br> Edison, NJ 08837.</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+1(732)4790469" class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-phone-alt"></i></span>
+                                <span class="txt">+1 (732) 479 0469</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@oec-americas.com" class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-envelope"></i></span>
+                                <span class="txt">info@oec-americas.com</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Subscribe Our Newsletter</div>
+                    <div class="subscribe_box">
+                        <div class="input_box">
+                            <input type="text" subscribe="Email Address *" placeholder="Email Address *">
+                        </div>
+                        <div class="submit_box">
+                            <button class="red_filled_btn">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="lower_sec">
+        <p>&copy; {{ date('Y') }} OEC USA INC. All Rights Reserved.</p>
+    </div>
+</footer>
 
 </div>
 <!-- main end -->
@@ -81,6 +161,31 @@ new WOW().init();
 <!--slider-->
 <script src="{{ asset('front/assets/plugins/owl-carousel/owl.carousel.js') }}"></script>
 <script src="{{ asset('front/assets/plugins/owl-carousel/owl-content-animation.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".counter").forEach(counter => {
+    const target = +counter.getAttribute("data-target");
+
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: target,
+      duration: 2,
+      ease: "power1.out",
+      onUpdate: function () {
+        counter.textContent = formatNumber(obj.val);
+      }
+    });
+  });
+
+  function formatNumber(num) {
+    return Math.floor(num).toLocaleString('en-US');
+  }
+});
+</script>
 
 </body>
 </html>
