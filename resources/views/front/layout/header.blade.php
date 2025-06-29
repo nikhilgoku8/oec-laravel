@@ -73,7 +73,7 @@
                         <span class="arrow"></span> 
                     </a>
                     <ul>
-                        <li><a href="@{{ route('about-oec') }}">About OEC</a></li>
+                        <li><a href="{{ route('overview') }}">About OEC</a></li>
                         <li><a href="@{{ route('careers') }}">Careers</a></li>
                         <li><a href="@{{ route('sustainability') }}">Sustainability</a></li>
                     </ul>
@@ -91,6 +91,11 @@
                 <li>
                     <a href="@{{ route('markets') }}">
                         Markets
+                    </a>
+                </li>
+                <li>
+                    <a href="@{{ route('reach-us') }}">
+                        Reach Us
                     </a>
                 </li>
                 <li>

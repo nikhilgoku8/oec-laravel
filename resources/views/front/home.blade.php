@@ -15,7 +15,7 @@
     <div class="container">
         <div class="inner_container">
             
-            <div class="heading">The Complete Manufacturer</div>
+            <div class="heading small">The Complete Manufacturer</div>
 
             <div class="inner_box">
                 <div class="col-sm-6">
@@ -123,12 +123,16 @@
 $(document).ready(function() {
     $('.innovation .product_box')
     .on('mouseenter', function() {
-        $(this).find('.hidden_txt').slideDown();
-        // $(this).find('p').fadeIn();
+        $(this)
+            .find('.hidden_txt')
+            .stop(true, true) // This is to clear animation queue
+            .slideDown();
     })
     .on('mouseleave', function() {
-        $(this).find('.hidden_txt').slideUp();
-        // console.log('Out');
+        $(this)
+            .find('.hidden_txt')
+            .stop(true, true)
+            .slideUp();
     });
 });
 </script>
@@ -147,7 +151,7 @@ $(document).ready(function() {
             <div class="heading">Markets</div>
 
             <div class="text_box">
-                <div class="title">About OEC</div>
+                <div class="title">Markets</div>
                 <p>For the utility, OEM, commercial, renewable, and industrial markets, OEC innovates & certifies products that meet emerging demands.</p>
                 <a href="#" class="hollow_btn">Read More</a>
             </div>
@@ -172,17 +176,17 @@ $(document).ready(function() {
             <div class="text_box">
                 <div class="title">Why Us</div>
                 <p>As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical and automotive requirements.</p>
-                <a href="#" class="hollow_btn">Read More</a>
+                <!-- <a href="#" class="hollow_btn">Read More</a> -->
             </div>
             <div class="img_box">
                 <img src="{{ asset('front/assets/images/homepage/whyusimg.webp') }}">
             </div>
 
-            <div class="video_wrapper">
+            <!-- <div class="video_wrapper">
                 <video autoplay muted loop>
                     <source src="" type="video/mp4">
                 </video>
-            </div>
+            </div> -->
 
         </div>
     </div>

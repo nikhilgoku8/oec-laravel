@@ -86,7 +86,7 @@
 
 
 <!--sticky header-->
-<!-- <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
+<script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
 <script>
 function init() {
 window.addEventListener('scroll', function(e){
@@ -103,7 +103,8 @@ window.addEventListener('scroll', function(e){
 });
 }
 window.onload = init();
-</script> -->
+</script>
+
 <script type="text/javascript" src="{{ asset('front/assets/js/common.js') }}"></script>
 <script src="{{ asset('front/assets/js/jquery.easing.1.3.js') }}"></script>
 
@@ -185,6 +186,45 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.floor(num).toLocaleString('en-US');
   }
 });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+    
+gsap.registerPlugin(ScrollTrigger);
+// gsap.utils.toArray(".heading").forEach(box => {
+//   gsap.to(box, {
+//     y: -100,
+//     scrollTrigger: {
+//       trigger: box,
+//       start: "top bottom",
+//       end: "bottom top",
+//       scrub: true,
+//       markers: true
+//     }
+//   });
+// });
+gsap.utils.toArray(".heading").forEach((heading) => {
+  gsap.fromTo(
+    heading,
+    {
+      y: 100
+    },
+    {
+      y: -100,
+      ease: "none",
+      scrollTrigger: {
+        trigger: heading,
+        start: "top bottom",     // when heading top hits bottom of viewport
+        end: "center top",    // when heading center hits viewport center
+        scrub: true,
+        smooth: 1
+      }
+    }
+  );
+});
+
 </script>
 
 </body>
