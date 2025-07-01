@@ -272,6 +272,12 @@ header.smaller nav {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 }
+.full_width{
+	width: 100%;
+}
+.square{
+	border-radius: 0;
+}
 
 .red{
 	color: var(--red);
@@ -448,6 +454,7 @@ footer .upper_sec .inner_container .info_box .subscribe_box .input_box input{
 	padding: 10px;
 	color: #fff;
 	margin: 0 0 15px;
+	width: 100%;
 }
 footer .upper_sec .inner_container .info_box .subscribe_box .input_box input::placeholder{
 	color: #ddd;
@@ -578,6 +585,7 @@ footer .lower_sec p{
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
+	position: relative;
 }
 .common_hero .text_box{
 	position: absolute;
@@ -640,6 +648,24 @@ footer .lower_sec p{
 	border: 1px solid #ededed61;
 	border-radius: 10px;
 }
+.form_wrapper form .input_box input[type=password]{
+	background: transparent;
+	color: #fff;
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	border: 1px solid #ededed61;
+	border-radius: 10px;
+}
+.form_wrapper form .input_box select{
+	background: transparent;
+	color: #fff;
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	border: 1px solid #ededed61;
+	border-radius: 10px;
+}
 .form_wrapper form .input_box textarea{
 	background: transparent;
 	color: #fff;
@@ -648,6 +674,11 @@ footer .lower_sec p{
 	padding: 10px;
 	border: 1px solid #ededed61;
 	border-radius: 10px;
+}
+.form_wrapper .note{
+	font-size: 12px;
+	display: block;
+	padding: 3px 0;
 }
 input[type="file"]{
   cursor: pointer;
@@ -741,4 +772,173 @@ input[type="file"]::file-selector-button:hover {
 }
 .sustainability_page .boxes_wrapper .text_on_image:nth-child(even) .inner_box .text_box{
 	margin: 0 calc((100vw / 2) - 585px) 0 auto;
+}
+
+/*markets_page*/
+.markets_page .common_hero{
+	background: url(../images/bg/market-banner.webp) no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.markets_page .common_hero .text_box{
+	background: #00000066;
+}
+.markets_page .boxes_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+}
+.markets_page .boxes_wrapper .text_on_image{
+	width: 100%;
+	height: 100vh;
+	position: relative;
+	background: var(--image) no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.markets_page .boxes_wrapper .text_on_image.automotive{
+	--image: url(../images/bg/automotive.webp);
+}
+.markets_page .boxes_wrapper .text_on_image.construction{
+	--image: url(../images/bg/construction.webp);
+}
+.markets_page .boxes_wrapper .text_on_image.data_centers{
+	--image: url(../images/bg/data-centers.webp);
+}
+.markets_page .boxes_wrapper .text_on_image.lightning_protection{
+	--image: url(../images/bg/lightning-protection.webp);
+}
+.markets_page .boxes_wrapper .text_on_image.renewables{
+	--image: url(../images/bg/renewables.webp);
+}
+.markets_page .boxes_wrapper .text_on_image.utility{
+	--image: url(../images/bg/utility.webp);
+}
+.markets_page .boxes_wrapper .text_on_image .inner_box{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #00000066;
+}
+.markets_page .boxes_wrapper .text_on_image .inner_box .text_box{
+	width: 585px;
+	margin: 0 auto 0 calc((100vw / 2) - 585px);
+}
+.markets_page .boxes_wrapper .text_on_image:nth-child(even) .inner_box .text_box{
+	margin: 0 calc((100vw / 2) - 585px) 0 auto;
+}
+
+/*reach_us_page*/
+.reach_us_page .common_hero{
+	height: calc(46.5vw + var(--header-height));
+	background: url(../images/bg/reach-us-banner.webp) no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: unset;
+	margin: var(--header-height) 0 0 0;
+}
+.reach_us_page .common_hero .text_box{
+	background: unset;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container{
+	display: flex;
+	flex-wrap: wrap;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info{
+	width: 35%;
+	padding: 50px 0;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .title{
+	text-transform: none;
+	font-size: 36px;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box{
+	padding: 0 0 20px;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box .icon{
+	font-size: 40px;
+	color: #fff;
+	transition: all 0.3s;
+	margin: 0 0 10px;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box .icon:hover{
+	color: var(--red);
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info{
+	width: 65%;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper{
+	background: #080808;
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin: -100px 0 50px;
+    position: relative;
+}
+
+/*single_form_page*/
+.single_form_page{
+	min-height: calc(100vh - 283.8px);
+	padding: var(--header-height) 0 0 0;
+	display: flex;
+}
+.single_form_page .overlay_box{
+	width: 100%;
+	/*height: 100%;*/
+	padding: 100px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #000;
+}
+.single_form_page .overlay_box .form_wrapper{
+	background: #fff;
+	border-radius: 15px;
+	padding: 40px 30px;
+	width: 500px;
+	max-width: 90%;
+}
+.single_form_page .overlay_box .form_wrapper .input_box input{
+	border: 1px solid #cccccc;
+	border-radius: 0;
+	font-size: 14px;
+	height: 50px;
+	color: #000;
+}
+.single_form_page .overlay_box .form_wrapper .submit_box{
+	padding: 0;
+}
+.single_form_page .overlay_box .form_wrapper .other_text{
+	text-align: center;
+	font-size: 14px;
+	padding: 15px 0 0 0;
+}
+.single_form_page .overlay_box .form_wrapper .other_text a{
+	color: #000;
+	transition: all 0.3s;
+}
+.single_form_page .overlay_box .form_wrapper .other_text a:hover{
+	color: var(--red);
+}
+.single_form_page .overlay_box .form_wrapper .input_box label[for=checkbox]{
+	color: #000;
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	font-size: 14px;
+}
+.single_form_page .overlay_box .form_wrapper .input_box input[type=checkbox]{
+	height: unset;
+	margin: 0 10px 0 0;
+	cursor: pointer;
+}
+
+/*login_page*/
+.login_page{
+
 }

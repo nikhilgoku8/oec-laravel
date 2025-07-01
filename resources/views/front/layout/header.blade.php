@@ -89,17 +89,17 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="@{{ route('markets') }}">
+                    <a href="{{ route('markets') }}">
                         Markets
                     </a>
                 </li>
                 <li>
-                    <a href="@{{ route('reach-us') }}">
+                    <a href="{{ route('reach-us') }}">
                         Reach Us
                     </a>
                 </li>
                 <li>
-                    <a href="@{{ route('login') }}">
+                    <a href="{{ route('login') }}">
                         Login/Register
                     </a>
                 </li>

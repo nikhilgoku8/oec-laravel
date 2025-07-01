@@ -26,4 +26,24 @@ class HomeController extends Controller
     {
         return view('front.sustainability');
     }
+    
+    public function markets()
+    {
+        return view('front.markets');
+    }
+    
+    public function reach_us()
+    {
+        return view('front.reach-us');
+    }
+    
+    public function login()
+    {
+        return view('front.login');
+    }
+    
+    public function register()
+    {
+        return view('front.register');
+    }
 }

@@ -24,6 +24,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('overview', [HomeController::class, 'overview'])->name('overview');
 Route::get('careers', [HomeController::class, 'careers'])->name('careers');
 Route::get('sustainability', [HomeController::class, 'sustainability'])->name('sustainability');
+Route::get('markets', [HomeController::class, 'markets'])->name('markets');
+Route::get('reach-us', [HomeController::class, 'reach_us'])->name('reach-us');
+Route::get('login', [HomeController::class, 'login'])->name('login');
+Route::get('register', [HomeController::class, 'register'])->name('register');
 
 Route::prefix('owm')->group(function () {
 
