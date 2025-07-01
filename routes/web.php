@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\UploadDataController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('overview', [HomeController::class, 'overview'])->name('overview');
+Route::get('careers', [HomeController::class, 'careers'])->name('careers');
+Route::get('sustainability', [HomeController::class, 'sustainability'])->name('sustainability');
 
 Route::prefix('owm')->group(function () {
 

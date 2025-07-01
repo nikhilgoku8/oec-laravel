@@ -16,4 +16,14 @@ class HomeController extends Controller
     {
         return view('front.overview');
     }
+    
+    public function careers()
+    {
+        return view('front.careers');
+    }
+    
+    public function sustainability()
+    {
+        return view('front.sustainability');
+    }
 }

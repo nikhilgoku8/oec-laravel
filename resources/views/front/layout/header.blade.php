@@ -74,8 +74,8 @@
                     </a>
                     <ul>
                         <li><a href="{{ route('overview') }}">About OEC</a></li>
-                        <li><a href="@{{ route('careers') }}">Careers</a></li>
-                        <li><a href="@{{ route('sustainability') }}">Sustainability</a></li>
+                        <li><a href="{{ route('careers') }}">Careers</a></li>
+                        <li><a href="{{ route('sustainability') }}">Sustainability</a></li>
                     </ul>
                 </li>
                 <li>

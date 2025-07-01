@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 50px;
+}
+
+.split-box {
+  position: relative;
+  width: 100%;
+}
+
+.text-wrapper-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  left: 50px;
+}
+
+.text-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.text-wrapper > .text {
+  position: absolute asdasd;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px black;
+}
+
+.text-fill {
+  color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+}
+
+.image {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+</style>
+<body>
+
+<div class="split-box">
+  <div class="text-wrapper-container">
+    <div class="text" data-direction="left-stroke">Dynamic Text</div>
+    <div class="text" data-direction="right-stroke">Dynamic Text 2</div>
+    <div class="text" data-direction="left-stroke">Dynamic Text 3</div>
+  </div>
+  <div class="image">
+    <img src="https://www.w3schools.com/html/pic_trulli.jpg" />
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<script>
+function prepareSplitBoxes() {
+  $('.split-box').each(function() {
+    const $box = $(this);
+
+    $box.find('.text').each(function() {
+      const $original = $(this);
+      const direction = $original.data('direction');
+      const textContent = $original.text();
+
+      // Create a wrapper for stacking
+      const $wrapper = $('<div class="text-wrapper"></div>');
+
+      const $outline = $('<div class="text text-outline"></div>').text(textContent);
+      $outline.attr('data-direction', direction);
+
+      const $fill = $('<div class="text text-fill"></div>').text(textContent);
+      $fill.attr('data-direction', direction);
+
+      $wrapper.append($outline).append($fill);
+      $original.replaceWith($wrapper);
+    });
+  });
+}
+
+function updateSplit() {
+  $('.split-box').each(function() {
+    const $box = $(this);
+    const textLeft = $box.find('.text-wrapper-container')[0].getBoundingClientRect().left;
+    const imageLeft = $box.find('.image')[0].getBoundingClientRect().left;
+
+    $box.find('.text-wrapper').each(function() {
+      const $wrapper = $(this);
+      const $outline = $wrapper.find('.text-outline');
+      const $fill = $wrapper.find('.text-fill');
+      const direction = $outline.data('direction');
+      const difference = $wrapper.width() - imageLeft;
+      console.log(difference);
+
+      if (direction === 'left-stroke') {
+        $outline.css('clip-path', `inset(0 ${difference + textLeft}px 0 0)`);
+        $fill.css('clip-path', `inset(0 0 0 ${imageLeft - textLeft}px)`);
+      } else if (direction === 'right-stroke') {
+        $fill.css('clip-path', `inset(0 ${difference + textLeft}px 0 0)`);
+        $outline.css('clip-path', `inset(0 0 0 ${imageLeft - textLeft}px)`);
+      }
+    });
+  });
+}
+
+$(window).on('load', function() {
+  prepareSplitBoxes();
+  updateSplit();
+});
+
+$(window).on('resize', updateSplit);
+</script>
+
+
+</body>
+</html>
+
