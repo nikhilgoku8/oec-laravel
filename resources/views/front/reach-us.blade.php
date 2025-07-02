@@ -6,8 +6,8 @@
     
 <div class="common_hero">
     <div class="text_box">
-        <div class="title">Reach Us</div>   
-        <div class="sub_title">Reach out to discuss your next project or explore exciting collaborations</div>   
+        <div class="title wow fadeInUp" data-wow-delay="0.1s">Reach Us</div>   
+        <div class="sub_title wow fadeInUp" data-wow-delay="0.2s">Reach out to discuss your next project or explore exciting collaborations</div>   
     </div>
 </div>
 
@@ -16,24 +16,24 @@
         <div class="inner_container">
 
             <div class="left_info">
-                <div class="title">Contact Info</div>
+                <div class="title wow fadeInUp" data-wow-delay="0.1s">Contact Info</div>
                 <div class="ctc_wrapper">
-                    <div class="ctc_box">
+                    <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <a href="tel:+1(929)5237411" class="icon"><i class="fas fa-phone-alt"></i></a>
                         <div class="text">Phone : +1 (929) 523 7411</div>
                     </div>
-                    <div class="ctc_box">
+                    <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="text">1207 Delaware Ave, Wilmington, DE 19806</div>
                     </div>
-                    <div class="ctc_box">
+                    <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <a href="mailto:info@oec-americas.com" class="icon"><i class="fas fa-envelope"></i></a>
                         <div class="text">info@oec-americas.com</div>
                     </div>
                 </div>
             </div>
             <div class="right_info">
-                <div class="form_wrapper">
+                <div class="form_wrapper wow fadeInRight" data-wow-delay="0.1s">
                     <form>
                         <div class="col-sm-6">
                             <div class="input_box">

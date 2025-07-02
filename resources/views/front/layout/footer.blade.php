@@ -6,8 +6,8 @@
 
                 <div class="info_box">
                     <div class="logo_box">
-                        <a href="#">
-                            <!-- <img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /> -->
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('front/assets/images/bg/parallax-logo.webp') }}" alt="" />
                         </a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ new WOW().init();
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".counter").forEach(counter => {
     const target = +counter.getAttribute("data-target");
@@ -179,6 +179,42 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  function formatNumber(num) {
+    return Math.floor(num).toLocaleString('en-US');
+  }
+});
+</script> -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".counter");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target); // Animate only once
+      }
+    });
+  }, { threshold: 0.5 }); // Adjust threshold as needed
+
+  counters.forEach(counter => {
+    observer.observe(counter);
+  });
+
+  function animateCounter(counter) {
+    const target = +counter.getAttribute("data-target");
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: target,
+      duration: 2,
+      ease: "power1.out",
+      onUpdate: function () {
+        counter.textContent = formatNumber(obj.val);
+      }
+    });
+  }
 
   function formatNumber(num) {
     return Math.floor(num).toLocaleString('en-US');

@@ -109,8 +109,8 @@
     <div class="container">
         <div class="inner_container">
             
-            <div class="hollow_heading">Electrical</div>
-            <div class="btn_warpper">
+            <div class="hollow_heading wow fadeInLeft">Electrical</div>
+            <div class="btn_warpper wow fadeInRight">
                 <a href="#" class="hollow_btn">Request a Catalogue</a>
             </div>
 

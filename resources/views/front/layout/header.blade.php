@@ -4,9 +4,11 @@
   
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>HTML Framework</title>
+<title>OEC</title>
 <meta name="description" content="," />
 <meta name="keywords" content="" />
+
+<link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/assets/images/favicon.webp') }}"> 
 
 <link href="{{ asset('front/assets/css/reset.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('front/assets/css/ace-responsive-menu.css') }}" rel="stylesheet" type="text/css" />
@@ -50,7 +52,7 @@
 <div class="container">
     <div class="inner_container">
         <div class="logo">
-            <!-- <a href="{{ route('home') }}"><img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /></a> -->
+            <a href="{{ route('home') }}"><img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /></a>
         </div>
         <nav>
             <!-- Menu Toggle btn-->
