@@ -32,6 +32,9 @@
 
 <link rel="stylesheet" href="{{ asset('front/assets/plugins/venobox/venobox.css') }}" type="text/css" media="screen" />
  -->
+
+@stack('css')
+
 <link href="{{ asset('front/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('front/assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
 
@@ -84,8 +87,8 @@
                         <span class="arrow"></span> 
                     </a>
                     <ul>
-                        <li><a href="@{{ route('electricals') }}">Electricals</a></li>
-                        <li><a href="@{{ route('automotive') }}">Automotive</a></li>
+                        <li><a href="{{ route('electricals') }}">Electricals</a></li>
+                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
                     </ul>
                 </li>
                 <li>

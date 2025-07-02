@@ -83,8 +83,6 @@
 </div>
 <!-- main end -->
 
-
-
 <!--sticky header-->
 <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
 <script>

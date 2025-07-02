@@ -942,3 +942,95 @@ input[type="file"]::file-selector-button:hover {
 .login_page{
 
 }
+
+/*products_page*/
+.products_page{
+	padding: var(--header-height) 0 0 0;
+	background: #191C22;
+}
+.products_page .main_slider_wrapper{
+	padding: 50px 0 calc(var(--header-height) + 50px) 0;
+}
+.products_page .swiper-wrapper .swiper-slide{
+	position: relative;
+}
+.products_page .swiper-wrapper .swiper-slide::before{
+	content: "";
+    background: #02050b;
+    opacity: 0.45;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container{
+	position: absolute;
+	left: -100px;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	z-index: 2;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container .text_aligned{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container .text_aligned .text{
+	white-space: nowrap;
+	font-size: 60px;
+	font-weight: 700;
+	display: inline-block;
+}
+.text-wrapper {
+  position: relative;
+  /*display: inline-block;*/
+}
+.text-outline {
+	color: transparent;
+	-webkit-text-stroke: 1px white;
+}
+
+.text-fill {
+	color: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+}
+.products_page .swiper-wrapper .swiper-slide .product_info{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 40%;
+	background: #ff1c22cc;
+	z-index: 3;
+	font-size: 12px;
+	padding: 25px 15px 15px 25px;
+	border-top-left-radius: 30px;
+	transform-origin: bottom right;
+}
+.products_page .request_catalogue_wrapper{
+	border-top: 3px solid var(--red);
+}
+.products_page .request_catalogue_wrapper .inner_container{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 0;
+}
+.products_page .request_catalogue_wrapper .inner_container .hollow_heading{
+	font-size: 50px;
+    text-transform: uppercase;
+    font-weight: 700;
+    -webkit-text-stroke: 1px #ffffff;
+    color: transparent;
+}
+.products_page .request_catalogue_wrapper .inner_container .hollow_btn{
+	margin: 0;
+}

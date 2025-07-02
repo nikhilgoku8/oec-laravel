@@ -37,6 +37,16 @@ class HomeController extends Controller
         return view('front.reach-us');
     }
     
+    public function electricals()
+    {
+        return view('front.electricals');
+    }
+    
+    public function automotive()
+    {
+        return view('front.automotive');
+    }
+    
     public function login()
     {
         return view('front.login');
