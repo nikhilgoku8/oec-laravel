@@ -56,4 +56,9 @@ class HomeController extends Controller
     {
         return view('front.register');
     }
+    
+    public function electrical()
+    {
+        return view('electrical.home');
+    }
 }

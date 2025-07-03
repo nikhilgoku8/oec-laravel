@@ -19,6 +19,9 @@ use App\Http\Controllers\Admin\UploadDataController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// Route::get('electrical', function(){
+//     print_r('Hello');
+// });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('overview', [HomeController::class, 'overview'])->name('overview');
@@ -30,6 +33,8 @@ Route::get('electricals', [HomeController::class, 'electricals'])->name('electri
 Route::get('automotive', [HomeController::class, 'automotive'])->name('automotive');
 Route::get('login', [HomeController::class, 'login'])->name('login');
 Route::get('register', [HomeController::class, 'register'])->name('register');
+
+Route::get('electrical', [HomeController::class, 'electrical'])->name('electrical');
 
 Route::prefix('owm')->group(function () {
 
