@@ -110,36 +110,20 @@ window.onload = init();
 <script src="{{ asset('front/assets/js/ace-responsive-menu.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#respMenu").aceResponsiveMenu({
+    $("#category_menu").aceResponsiveMenu({
         resizeWidth: '768', // Set the same in Media query       
         animationSpeed: 'fast', //slow, medium, fast
         accoridonExpAll: false //Expands all the accordion menu on click
     });
-
-     // Tab
-    // $('ul.tabs li').click(function(){
-    //     var tab_id = $(this).attr('data-tab');
-
-    //     $('ul.tabs li').removeClass('current');
-    //     $('.tab-content').removeClass('current');
-
-    //     $(this).addClass('current');
-    //     $("#"+tab_id).addClass('current');
-    // });
-
-    // $('ul.cs_tabs li').click(function(){
-    //     var tab_id = $(this).attr('data-tab');
-    //     console.log("inside second tab");
-    //     $('ul.cs_tabs li').removeClass('active');
-    //     $('.cs-tab-content').removeClass('active');
-
-    //     $(this).addClass('active');
-    //     $("#"+tab_id).addClass('active');
-    // });
+    $("#main_menu").aceResponsiveMenu({
+        resizeWidth: '768', // Set the same in Media query       
+        animationSpeed: 'fast', //slow, medium, fast
+        accoridonExpAll: false //Expands all the accordion menu on click
+    });
 });
 </script>
 
-<script type="text/javascript" src="{{ asset('front/assets/plugins/venobox/venobox.min.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('front/assets/plugins/venobox/venobox.min.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   /* default settings */
@@ -147,7 +131,7 @@ $(document).ready(function(){
     framewidth: '500px', 
   }); 
 });
-</script>
+</script> -->
 
 
 
@@ -158,33 +142,11 @@ new WOW().init();
 </script>
 
 <!--slider-->
-<script src="{{ asset('front/assets/plugins/owl-carousel/owl.carousel.js') }}"></script>
+<!-- <script src="{{ asset('front/assets/plugins/owl-carousel/owl.carousel.js') }}"></script>
 <script src="{{ asset('front/assets/plugins/owl-carousel/owl-content-animation.js') }}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-<!-- <script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".counter").forEach(counter => {
-    const target = +counter.getAttribute("data-target");
-
-    const obj = { val: 0 };
-
-    gsap.to(obj, {
-      val: target,
-      duration: 2,
-      ease: "power1.out",
-      onUpdate: function () {
-        counter.textContent = formatNumber(obj.val);
-      }
-    });
-  });
-
-  function formatNumber(num) {
-    return Math.floor(num).toLocaleString('en-US');
-  }
-});
-</script> -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const counters = document.querySelectorAll(".counter");
@@ -220,9 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.floor(num).toLocaleString('en-US');
   }
 });
-</script>
+</script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
     
@@ -259,7 +221,7 @@ gsap.utils.toArray(".heading").forEach((heading) => {
   );
 });
 
-</script>
+</script> -->
 
 </body>
 </html>

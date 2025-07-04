@@ -64,6 +64,10 @@ Website: www.webthemez.com
         $('#menu-btn').click(function () {
             $aceMenu.slideToggle().toggleClass('hide-menu');
         });
+        // This is custom
+        $aceMenu.prev().find('.menu-btn').click(function () {
+            $aceMenu.slideToggle().toggleClass('hide-menu');
+        });
 
 
         // Main function 

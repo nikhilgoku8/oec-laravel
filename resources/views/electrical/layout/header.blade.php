@@ -10,13 +10,13 @@
 
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/assets/images/favicon.webp') }}"> 
 
-<link href="{{ asset('front/assets/css/reset.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('front/assets/css/ace-responsive-menu.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/reset.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/ace-responsive-menu.css') }}" rel="stylesheet" type="text/css" />
 
-<link href="{{ asset('front/assets/css/animate.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/animate.css') }}" rel="stylesheet" type="text/css" />
 
 <!---fonts-->
-<link href="{{ asset('front/assets/css/fontawesome-5.15.3.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/fontawesome-5.15.3.css') }}" rel="stylesheet" type="text/css" />
 <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"> -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,8 +35,8 @@
 
 @stack('css')
 
-<link href="{{ asset('front/assets/css/electrical-style.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('front/assets/css/electrical-responsive.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('electrical-assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
@@ -44,69 +44,142 @@
 
 <body>
 
-<header>  
+<header>
 
-<div class="container">
-    <div class="inner_container">
-        <div class="logo">
-            <a href="{{ route('home') }}"><img src="{{ asset('front/assets/images/logo.webp') }}" alt="" /></a>
-        </div>
-        <nav>
-            <!-- Menu Toggle btn-->
-            <div class="menu-toggle">
-                <h3>Menu</h3>
-                <button type="button" id="menu-btn">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+<div class="upper_sec">
+    <div class="container">
+        <div class="inner_container">
+            <div class="logo">
+                <a href="{{ route('electrical') }}"><img src="{{ asset('electrical-assets/images/logo.webp') }}" alt="" /></a>
             </div>
-            <!-- Responsive Menu Structure-->
-            <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
-            <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
-                <li>
-                    <a href="{{ route('home') }}">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a>
-                        Company
-                        <span class="arrow"></span> 
-                    </a>
-                    <ul>
-                        <li><a href="{{ route('overview') }}">About OEC</a></li>
-                        <li><a href="{{ route('careers') }}">Careers</a></li>
-                        <li><a href="{{ route('sustainability') }}">Sustainability</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a>
-                        Products
-                        <span class="arrow"></span> 
-                    </a>
-                    <ul>
-                        <li><a href="{{ route('electricals') }}">Electricals</a></li>
-                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{ route('markets') }}">
-                        Markets
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('reach-us') }}">
-                        Reach Us
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('login') }}">
-                        Login/Register
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            <div class="search_wrapper">
+                <div class="input_box">
+                    <input type="text" name="search" placeholder="Search Products">
+                </div>
+                <button class="icon_box"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="my_account_links">
+                <div class="head">My Account</div>
+                <ul>
+                    <li><a href="#">Dashbaord</a></li>
+                    <li><a href="#">Dashbaord</a></li>
+                    <li><a href="#">Dashbaord</a></li>
+                    <li><a href="#">Dashbaord</a></li>
+                </ul>
+            </div>
+            <div class="menu_cart_wrapper">
+                <div class="icon_box"><i class="fas fa-shopping-cart"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="lower_sec">
+    <div class="container">
+        <div class="inner_container">
+            
+            <nav>
+                <!-- Menu Toggle btn-->
+                <div class="menu-toggle">
+                    <h3>Menu</h3>
+                    <button type="button" class="menu-btn">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Responsive Menu Structure-->
+                <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+                <ul id="category_menu" class="ace-responsive-menu" data-menu-style="horizontal">
+                    <li>
+                        <a>
+                            Browse Categories 
+                            <span class="arrow"></span> 
+                        </a>
+                        <ul>
+                            <li>
+                                <a>Test 1</a>
+                                <ul>
+                                    <li>asdasd 1</li>
+                                    <li>asdasd 2</li>
+                                    <li>asdasd 3</li>
+                                    <li>asdasd 4</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Test 2</a>
+                                <ul>
+                                    <li>asdasd 1</li>
+                                    <li>asdasd 2</li>
+                                    <li>asdasd 3</li>
+                                    <li>asdasd 4</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
+            <nav>
+                <div class="menu-toggle">
+                    <h3>Menu</h3>
+                    <button type="button" class="menu-btn">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <ul id="main_menu" class="ace-responsive-menu" data-menu-style="horizontal">
+                    <li>
+                        <a href="{{ route('electrical') }}">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Industries
+                            <span class="arrow"></span> 
+                        </a>
+                        <ul>
+                            <li><a href="{{ route('overview') }}">Commercial & Industrial</a></li>
+                            <li><a href="{{ route('careers') }}">Landscape & Irrigation Solutions</a></li>
+                            <li><a href="{{ route('sustainability') }}">Energy Systems & Renewables</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Resources
+                            <span class="arrow"></span> 
+                        </a>
+                        <ul>
+                            <li>
+                                <a>Technical Resources</a>
+                                <ul>
+                                    <li><a href="#">Operation Manual</a></li>
+                                    <li><a href="#">Safety Standards</a></li>
+                                    <li><a href="#">NABL Testing Lab</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Catalogs & Brochure</a>
+                                <ul>
+                                    <li><a href="#">Brochure</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Terms & Conditions</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ route('markets') }}">
+                            <span><i class="fas fa-crosshairs"></i></span>
+                            Cross Reference
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
     </div>
 </div>
 </header>
