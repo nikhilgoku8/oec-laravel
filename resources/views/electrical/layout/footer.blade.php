@@ -83,6 +83,25 @@
 </div>
 <!-- main end -->
 
+
+<script>
+$(document).ready(function() {
+    $('.my_account_links')
+    .on('mouseenter', function() {
+        $(this)
+            .find('ul')
+            .stop(true, true) // This is to clear animation queue
+            .slideDown();
+    })
+    .on('mouseleave', function() {
+        $(this)
+            .find('ul')
+            .stop(true, true)
+            .slideUp();
+    });
+});
+</script>
+
 <!--sticky header-->
 <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
 <script>

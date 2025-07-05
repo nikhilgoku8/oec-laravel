@@ -61,14 +61,20 @@
             <div class="my_account_links">
                 <div class="head">My Account</div>
                 <ul>
-                    <li><a href="#">Dashbaord</a></li>
-                    <li><a href="#">Dashbaord</a></li>
-                    <li><a href="#">Dashbaord</a></li>
-                    <li><a href="#">Dashbaord</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Orders</a></li>
+                    <li><a href="#">Downloads</a></li>
+                    <li><a href="#">Addresses</a></li>
+                    <li><a href="#">Account details</a></li>
+                    <li><a href="#">Logout</a></li>
                 </ul>
             </div>
             <div class="menu_cart_wrapper">
                 <div class="icon_box"><i class="fas fa-shopping-cart"></i></div>
+                <div class="cart_count_wrapper">
+                    <span class="cart_count">0</span>
+                    <span class="text">items</span>
+                </div>
             </div>
         </div>
     </div>
@@ -92,17 +98,21 @@
                 <ul id="category_menu" class="ace-responsive-menu" data-menu-style="horizontal">
                     <li>
                         <a>
-                            Browse Categories 
+                            <span class="ham_with_txt">
+                                <i class="fas fa-bars"></i>
+                                Browse Categories 
+                            </span>
                             <span class="arrow"></span> 
                         </a>
                         <ul>
                             <li>
-                                <a>Test 1</a>
+                                <a>Compression <span class="arrow"></span></a>
                                 <ul>
-                                    <li>asdasd 1</li>
-                                    <li>asdasd 2</li>
-                                    <li>asdasd 3</li>
-                                    <li>asdasd 4</li>
+                                    <li><a>asdaasdasdsd 1</a></li>
+                                    <li><a>asdaasdasdsd 2</a></li>
+                                    <li><a>asdaasdasdsd 3</a></li>
+                                    <li><a>asdaasdasdsd 4</a></li>
+                                    <li><a>asdaasdasdsd 5</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -152,7 +162,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a>Technical Resources</a>
+                                <a>Technical Resources <span class="arrow"></span></a>
                                 <ul>
                                     <li><a href="#">Operation Manual</a></li>
                                     <li><a href="#">Safety Standards</a></li>
@@ -160,7 +170,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a>Catalogs & Brochure</a>
+                                <a>Catalogs & Brochure <span class="arrow"></span></a>
                                 <ul>
                                     <li><a href="#">Brochure</a></li>
                                 </ul>
