@@ -1,5 +1,5 @@
 
-<footer>
+<!-- <footer>
     <div class="upper_sec">
         <div class="container">
             <div class="inner_container">
@@ -78,7 +78,7 @@
     <div class="lower_sec">
         <p>&copy; {{ date('Y') }} OEC USA INC. All Rights Reserved.</p>
     </div>
-</footer>
+</footer> -->
 
 </div>
 <!-- main end -->
@@ -241,6 +241,51 @@ gsap.utils.toArray(".heading").forEach((heading) => {
 });
 
 </script> -->
+
+<script src="{{ asset('front/assets/plugins/swiper/swiper-bundle.min.js') }}" type="text/javascript"></script>
+<script>
+const our_brands_slider = new Swiper('.our_brands_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 2,
+    loop: false,
+    // Responsive breakpoints
+    breakpoints: {
+        // // when window width is >= 480px
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 6,
+            // spaceBetween: 200,
+        }
+    }
+});
+
+const featured_categories_slider = new Swiper('.featured_categories_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 2,
+    loop: false,
+    // Responsive breakpoints
+    breakpoints: {
+        // // when window width is >= 480px
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 5,
+            // spaceBetween: 200,
+        }
+    }
+});
+</script>
 
 </body>
 </html>

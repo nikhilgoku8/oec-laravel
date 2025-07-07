@@ -33,6 +33,9 @@
 <link rel="stylesheet" href="{{ asset('front/assets/plugins/venobox/venobox.css') }}" type="text/css" media="screen" />
  -->
 
+<!-- Swiper Slider -->
+<link href="{{ asset('front/assets/plugins/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
+
 @stack('css')
 
 <link href="{{ asset('electrical-assets/css/style.css') }}" rel="stylesheet" type="text/css" />

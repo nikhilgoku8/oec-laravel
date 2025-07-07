@@ -268,12 +268,30 @@ header.smaller .upper_sec .my_account_links .head{
 }
 
 .heading{
-	font-size: 100px;
-	text-transform: uppercase;
-	font-weight: 700;
-	-webkit-text-stroke: 1px #ffffff47;
-	color: transparent;
-	padding: 0 0 20px 0;
+	font-size: 28px;
+	font-weight: 600;
+	color: #242424;
+	text-transform: none;
+	position: relative;
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+.heading.back_stroke::before{
+	position: absolute;
+	content: '';
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 1px;
+	background: #c4c4c4;
+	z-index: 1;
+}
+
+.heading.back_stroke span{
+	position: relative;
+	background: #fff;
+	z-index: 2;
+	padding: 0 20px;
 }
 .heading.small{
 	font-size: 60px;
@@ -508,4 +526,18 @@ header .upper_sec .menu_cart_wrapper .cart_count_wrapper .cart_count{
 }
 header .upper_sec .menu_cart_wrapper .cart_count_wrapper .text{
 	padding: 0 0 0 5px;
+}
+
+/*our_brands*/
+.our_brands .inner_container{
+	padding: 50px 15px;
+}
+.our_brands .inner_container .our_brands_slider .item_box{
+	padding: 0 15px;
+}
+.featured_categories .inner_container{
+	padding: 50px 15px;
+}
+.featured_categories .inner_container .featured_categories_slider .item_box{
+	padding: 0 10px;
 }
