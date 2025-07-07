@@ -1,0 +1,104 @@
+<!-- Product Card Example -->
+<div class="product-card" data-product-id="123">
+  <img src="thumb.jpg" alt="Thumbnail">
+  <button class="quick-view-btn">Quick View</button>
+</div>
+
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- Content will be injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+let quickViewSwiper = null;
+
+// Handle click on "Quick View" button
+$('.quick-view-btn').on('click', function () {
+    const productId = $(this).closest('.product-card').data('product-id');
+
+    // Show modal immediately with loading message
+    $('#quickViewModal .modal-body').html('<p>Loading...</p>');
+    $('#quickViewModal').modal('show');
+
+    // Get product quick view data
+    $.ajax({
+        url: '/product/quick-view/' + productId,
+        method: 'GET',
+        success: function (data) {
+            const images = data.images; // ['img1.jpg', 'img2.jpg', ...]
+            
+            preloadImages(images, function () {
+                showQuickView(data, images);
+            });
+        },
+        error: function () {
+            $('#quickViewModal .modal-body').html('<p>Failed to load product details.</p>');
+        }
+    });
+});
+
+// Preload images one by one, then run callback when done
+function preloadImages(imageUrls, callback) {
+    let loadedCount = 0;
+    const total = imageUrls.length;
+
+    if (total === 0) {
+        callback();
+        return;
+    }
+
+    imageUrls.forEach(url => {
+        const img = new Image();
+        img.onload = img.onerror = function () {
+            loadedCount++;
+            if (loadedCount === total) {
+                callback();
+            }
+        };
+        img.src = url;
+    });
+}
+
+// Display the quick view with loaded images and product info
+function showQuickView(data, images) {
+    const slidesHtml = images.map(
+        (src) => `<div class="swiper-slide"><img src="${src}" class="img-fluid" /></div>`
+    ).join('');
+
+    const modalHtml = `
+        <div class="swiper-container quick-view-slider">
+            <div class="swiper-wrapper">
+                ${slidesHtml}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <h3>${data.name}</h3>
+        <p>${data.description}</p>
+        <p>Price: ₹${data.price}</p>
+    `;
+
+    $('#quickViewModal .modal-body').html(modalHtml);
+
+    // Initialize Swiper
+    quickViewSwiper = new Swiper('.quick-view-slider', {
+        loop: true,
+        slidesPerView: 1,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+}
+
+// Clean up swiper when modal closes
+$('#quickViewModal').on('hidden.bs.modal', function () {
+    if (quickViewSwiper) {
+        quickViewSwiper.destroy(true, true);
+        quickViewSwiper = null;
+    }
+});

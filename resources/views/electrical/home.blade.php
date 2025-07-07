@@ -171,6 +171,30 @@
         </div>
     <!-- </div> -->
 </div>
-<!-- our_brands end -->
+<!-- featured_categories end -->
+
+<div class="featured_products">
+    <div class="container">
+        <div class="inner_container">
+            
+            <div class="heading back_stroke">
+                <span>Featured Products</span>
+            </div>
+
+            <div class="products_wrapper">
+                <div class="product_box">
+                    <a href="#" class="img_box">
+                        <img src="{{ asset('electrical-assets/images/featured-products/cable-glands.png') }}">
+                    </a>
+                    <a href="#" class="product_title">asdasd</a>
+                    <a href="#" class="category_title">asdasd</a>
+                    <a href="#" class="add_to_cart">Add To Enquiry</a>
+                    <a href="#" class="quick_view"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @endsection

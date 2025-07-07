@@ -355,6 +355,10 @@ video{
 	width: 100%;
 }
 
+.swiper-horizontal{
+	overflow: hidden;
+}
+
 .form_wrapper form .input_box{
 	padding: 0 0 20px;
 }
@@ -537,6 +541,9 @@ header .upper_sec .menu_cart_wrapper .cart_count_wrapper .text{
 }
 .featured_categories .inner_container{
 	padding: 50px 15px;
+}
+.featured_categories .inner_container .featured_categories_slider{
+	padding: 30px 0 0 0;
 }
 .featured_categories .inner_container .featured_categories_slider .item_box{
 	padding: 0 10px;
