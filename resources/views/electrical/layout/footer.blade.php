@@ -1,84 +1,43 @@
 
-<!-- <footer>
+<footer>
     <div class="upper_sec">
         <div class="container">
             <div class="inner_container">
 
-                <div class="info_box">
-                    <div class="logo_box">
-                        <a href="{{ route('home') }}">
-                            <img src="{{ asset('front/assets/images/bg/parallax-logo.webp') }}" alt="" />
-                        </a>
-                    </div>
+                <div class="icon_box">
+                    <div class="icon"><img src="{{ asset('electrical-assets/images/icons/retail-247.svg') }}" width="50px" height="50px"></div>
+                    <div class="text">Customer Convince</div>
                 </div>
-                <div class="info_box">
-                    <div class="title">Company</div>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Sustainability</a></li>
-                    </ul>
+                <div class="icon_box">
+                    <div class="icon"><img src="{{ asset('electrical-assets/images/icons/retail-payment.svg') }}" width="50px" height="50px"></div>
+                    <div class="text">Quality Assurance</div>
                 </div>
-                <div class="info_box">
-                    <div class="title">Products</div>
-                    <ul>
-                        <li><a href="#">Electrical</a></li>
-                        <li><a href="#">Automotive</a></li>
-                    </ul>
-                </div>
-                <div class="info_box">
-                    <div class="title">Markets</div>
-                    <ul>
-                        <li><a href="#">Automotive</a></li>
-                        <li><a href="#">Construction</a></li>
-                        <li><a href="#">Data Center</a></li>
-                        <li><a href="#">Lightning Protection</a></li>
-                        <li><a href="#">Renewables</a></li>
-                        <li><a href="#">Utility</a></li>
-                    </ul>
-                </div>
-                <div class="info_box">
-                    <div class="title">Location</div>
-                    <ul class="ctc_links">
-                        <li>
-                            <a href="#" class="ctc_link_box">
-                                <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
-                                <span class="txt">106 Northfield Avenue,<br> Edison, NJ 08837.</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+1(732)4790469" class="ctc_link_box">
-                                <span class="icon"><i class="fas fa-phone-alt"></i></span>
-                                <span class="txt">+1 (732) 479 0469</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@oec-americas.com" class="ctc_link_box">
-                                <span class="icon"><i class="fas fa-envelope"></i></span>
-                                <span class="txt">info@oec-americas.com</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="info_box">
-                    <div class="title">Subscribe Our Newsletter</div>
-                    <div class="subscribe_box">
-                        <div class="input_box">
-                            <input type="text" subscribe="Email Address *" placeholder="Email Address *">
-                        </div>
-                        <div class="submit_box">
-                            <button class="red_filled_btn">Subscribe</button>
-                        </div>
-                    </div>
+                <div class="icon_box">
+                    <div class="icon"><img src="{{ asset('electrical-assets/images/icons/retail-delivery-man.svg') }}" width="50px" height="50px"></div>
+                    <div class="text">Industry Experts</div>
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="lower_sec">
-        <p>&copy; {{ date('Y') }} OEC USA INC. All Rights Reserved.</p>
+    <div class="middle_sec">
+        <div class="container">
+            <div class="inner_container">
+                <div class="logo">
+                    <a href="{{ route('electrical') }}">
+                        <img src="{{ asset('electrical-assets/images/logo.webp') }}">
+                    </a>
+                </div>
+                <div class="text_box">
+                    <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors, fittings, cable glands, automotive fittings, air brake tubing, and hoses. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
+                </div>
+            </div>
+        </div>
     </div>
-</footer> -->
+    <div class="lower_sec">
+        <p>&copy; {{ date('Y') }}  OEC AMERICA . All Rights Reserved.</p>
+    </div>
+</footer>
 
 </div>
 <!-- main end -->

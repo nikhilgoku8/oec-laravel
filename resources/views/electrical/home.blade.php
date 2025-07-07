@@ -182,19 +182,58 @@
             </div>
 
             <div class="products_wrapper">
+                @for($i=1 ; $i<=2; $i++)
                 <div class="product_box">
                     <a href="#" class="img_box">
-                        <img src="{{ asset('electrical-assets/images/featured-products/cable-glands.png') }}">
+                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/FS152-1.png">
                     </a>
                     <a href="#" class="product_title">asdasd</a>
                     <a href="#" class="category_title">asdasd</a>
                     <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view"></a>
+                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-eye"></i></a>
                 </div>
+                <div class="product_box">
+                    <a href="#" class="img_box">
+                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
+                    </a>
+                    <a href="#" class="product_title">asdasd</a>
+                    <a href="#" class="category_title">asdasd</a>
+                    <a href="#" class="add_to_cart">Add To Enquiry</a>
+                    <a href="#" class="quick_view" data-product-id="1"><i class="fas fa-expand"></i></a>
+                </div>
+                <div class="product_box">
+                    <a href="#" class="img_box">
+                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/FS152-1.png">
+                    </a>
+                    <a href="#" class="product_title">asdasd</a>
+                    <a href="#" class="category_title">asdasd</a>
+                    <a href="#" class="add_to_cart">Add To Enquiry</a>
+                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-window-restore"></i></a>
+                </div>
+                <div class="product_box">
+                    <a href="#" class="img_box">
+                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
+                    </a>
+                    <a href="#" class="product_title">asdasd</a>
+                    <a href="#" class="category_title">asdasd</a>
+                    <a href="#" class="add_to_cart">Add To Enquiry</a>
+                    <a href="#" class="quick_view" data-product-id="1"><i class="fas fa-expand-arrows-alt"></i></a>
+                </div>
+                <div class="product_box">
+                    <a href="#" class="img_box">
+                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
+                    </a>
+                    <a href="#" class="product_title">asdasd</a>
+                    <a href="#" class="category_title">asdasd</a>
+                    <a href="#" class="add_to_cart">Add To Enquiry</a>
+                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-clone"></i></a>
+                </div>
+                @endfor
             </div>
 
         </div>
     </div>
 </div>
+<!-- featured_products end -->
 
 @endsection
