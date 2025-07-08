@@ -1,6 +1,6 @@
 :root{
 	/*--red: #D21414;*/
-	--red: #ff0100;
+	--red: #ec1c24;
 	--lato: "Lato", sans-serif;
 	--header-height: 131px;
 }
@@ -41,7 +41,7 @@ th, td {
 }
 th {
     background-color: #104660;
-    color: #fff;
+    color: #444;
 }
 
 a{
@@ -56,7 +56,7 @@ span{
 p{
 	font-size: 16px;
 	line-height: 1.8em;
-	color: #fff;
+	color: #444;
 	padding: 0 0 15px 0;
 }
 video{
@@ -254,6 +254,7 @@ header.smaller .upper_sec .my_account_links .head{
 }
 .ace-responsive-menu > li > ul.sub-menu > li ul.sub-menu{
 	left: 100%;
+	min-width: 60%;
 }
 .ace-responsive-menu > li > ul.sub-menu > li ul.sub-menu li{
 	/*width: unset;*/
@@ -309,7 +310,7 @@ header.smaller .upper_sec .my_account_links .head{
 .sub_title{
 	font-size: 20px;
 	font-weight: 600;
-	color: #fff;
+	color: #242424;
 	padding: 0 0 20px 0;
 }
 .hollow_btn{
@@ -357,6 +358,7 @@ video{
 
 .swiper-horizontal{
 	overflow: hidden;
+	position: relative;
 }
 
 .form_wrapper form .input_box{
@@ -530,6 +532,9 @@ header .upper_sec .menu_cart_wrapper .cart_count_wrapper .cart_count{
 }
 header .upper_sec .menu_cart_wrapper .cart_count_wrapper .text{
 	padding: 0 0 0 5px;
+}
+header .lower_sec{	
+	border-bottom: 1px solid #0000001a;
 }
 
 /*our_brands*/
@@ -710,4 +715,290 @@ footer .lower_sec p{
 	text-align: center;
 	padding: 15px 0;
 	font-size: 14px;
+}
+
+/*industries_page*/
+.industries_page .section_one{
+	padding: 20px 0 20px 0;
+}
+.industries_page .section_one .text_box{
+	padding: 30px 0 15px;
+}
+.industries_page .section_two{
+	padding: 0 0 70px;
+}
+.industries_page .section_two .industries_slider{
+	padding: 0 0 40px 0;
+}
+.industries_page .section_two .industries_slider .item_box{
+	text-align: center;
+}
+.industries_page .section_two .industries_slider .item_box .img_box{
+	width: 60%;
+	margin: auto;
+}
+.industries_page .section_two .industries_slider .item_box .img_box img{
+	width: 100%;
+}
+.industries_page .section_two .industries_slider .item_box .category_title{
+	font-size: 14px;
+	color: #a4a4a4;
+	padding: 10px 0 0 0;
+}
+.industries_page .section_two .industries_slider .item_box .sub_category_title{
+	font-size: 18px;
+	color: #242424;
+	padding: 10px 0;
+}
+.industries_page .section_two .industries_slider .item_box .red_filled_btn{
+	font-size: 13px;
+    letter-spacing: 0.5px;
+}
+.swiper-button-next, .swiper-button-prev{
+	color: var(--red);
+}
+.swiper-button-next:after, .swiper-button-prev:after{
+	font-size: 20px;
+	font-weight: 700;
+}
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction{
+	top: unset;
+	bottom: 0;
+}
+.swiper-pagination-bullet-active{
+	background: var(--red);
+}
+
+/*operation_manual_page*/
+.operation_manual_page{
+	padding: 20px 0;
+}
+.operation_manual_page .text_box{
+	padding: 0 0 50px;
+}
+.operation_manual_page .pdf_boxes{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -20px;
+}
+.operation_manual_page .pdf_boxes .pdf_box{
+	width: 33.33%;
+	padding: 0 20px 50px 20px;
+	text-align: center;
+}
+.operation_manual_page .pdf_boxes .pdf_box .pdf_title{
+	font-size: 16px;
+	color: #242424;
+	font-weight: 600;
+	padding: 10px 0;
+}
+.operation_manual_page .pdf_boxes .pdf_box .red_filled_btn{
+	text-transform: none;
+	letter-spacing: unset;
+}
+
+/*safety_standards_page*/
+.safety_standards_page{
+	padding: 20px 0;
+}
+.safety_standards_page .text_box{
+	padding: 0 0 20px;
+}
+.safety_standards_page .info_boxes{
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+.safety_standards_page .info_boxes .middle_line{
+	position: absolute;
+	content: '';
+	top: 0;
+	height: 100%;
+	left: calc(50% - 1px);
+	border-left: 2px dashed #000;
+}
+.safety_standards_page .info_boxes .middle_line::before{
+	--size: 8px;
+	position: absolute;
+	content: '';
+	left: -5px;
+	top: 0;
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+	background: #000;
+}
+.safety_standards_page .info_boxes .middle_line::after{
+	--size: 8px;
+	position: absolute;
+	content: '';
+	left: -5px;
+	bottom: 0;
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+	background: #000;
+}
+.safety_standards_page .info_boxes .info_box{
+	width: 50%;
+	padding: 30px;
+}
+.safety_standards_page .info_boxes .info_box:nth-child(odd){
+	text-align: right;
+}
+.safety_standards_page .info_boxes .info_box .inner_box{
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.13);
+	padding: 30px;
+	position: relative;
+}
+.safety_standards_page .info_boxes .info_box .inner_box::before{
+	position: absolute;
+	content: '';
+    top: calc(50% - 5px);
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+    background-color: currentColor;
+    color: #fff;
+
+    left: calc(100% - 5px);
+
+    box-shadow: 2px -2px 3px -2px rgba(0, 0, 0, 0.2);
+}
+.safety_standards_page .info_boxes .info_box:nth-child(even) .inner_box::before{
+	left: unset;
+	right: calc(100% - 5px);
+	box-shadow: -2px 2px 3px -2px rgba(0, 0, 0, 0.2);
+}
+.safety_standards_page .info_boxes .info_box:nth-child(even) .inner_box::after{
+	position: absolute;
+    content: '';
+    top: calc(50% - 6px);
+    left: -36px;
+    width: 12px;
+    height: 12px;
+    border: solid 2px #ffffff;
+    border-radius: 50%;
+    background: #ff0000;
+}
+.safety_standards_page .info_boxes .info_box .inner_box .title{
+	font-size: 18px;
+	text-transform: unset;
+	padding: 15px 0;
+}
+.safety_standards_page .info_boxes .info_box .inner_box .text p{
+	font-size: 14px;
+	color: #666;
+}
+.safety_standards_page .info_boxes .info_box .inner_box .text p:last-child{
+	padding: 0;
+}
+
+.nabl_testing_lab_page .section_one{
+	padding: 20px 0;
+}
+.nabl_testing_lab_page .section_one .img_box{
+	padding: 0 0 20px;
+}
+.nabl_testing_lab_page .section_two .inner_container{
+	display: flex;
+	flex-wrap: wrap;
+	padding: 20px 0 50px 0;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box{
+	width: 50%;
+	text-align: center;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box .sub_title{
+	font-size: 20px;
+	font-weight: 600;
+	color: #242424;
+	padding: 0 0 15px;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box ul{
+	list-style: none;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box ul li{
+	list-style: none;
+	padding: 0 0 15px;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box ul li .sub_head{
+	font-size: 16px;
+	color: #000;
+	font-weight: 600;
+	padding: 0 0 5px;
+}
+.nabl_testing_lab_page .section_two .inner_container .info_box ul li .text{
+	font-size: 14px;
+	color: #777;
+}
+
+/*brochure_page*/
+.brochure_page .section_one{
+	padding: 20px 0 80px;
+}
+.brochure_page .section_one .brochure_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -20px;
+	padding: 20px 0 0;
+}
+.brochure_page .section_one .brochure_wrapper .brochure_box{
+	width: 33.33%;
+	padding: 0 20px;
+	text-align: center;
+}
+.brochure_page .section_one .brochure_wrapper .brochure_box .img_box{
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.13);
+}
+.brochure_page .section_one .brochure_wrapper .brochure_box .img_box img{
+	width: 100%;
+}
+.brochure_page .section_one .brochure_wrapper .brochure_box .brochure_title{
+	color: #242424;
+	font-size: 18px;
+	font-weight: 600;
+	padding: 10px 0;
+}
+.brochure_page .section_one .brochure_wrapper .brochure_box .red_filled_btn{
+	text-transform: none;
+	letter-spacing: unset;
+}
+
+/*cross_reference_page*/
+.cross_reference_page .inner_container{
+	padding: 20px 0 80px;
+	min-height: calc(100vh - var(--header-height) - 451px);
+}
+.cross_reference_page .competitor_search_wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ddd;
+	border-radius: 50px;
+	margin: 50px 0 0;
+}
+.cross_reference_page .competitor_search_wrapper .input_box{
+	width: calc(100% - 45px);
+}
+.cross_reference_page .competitor_search_wrapper .input_box input{
+	font-size: 16px;
+	padding: 10px 20px;
+	border-radius: 50px;
+	outline: none;
+	border: none;
+	width: 100%;
+}
+.cross_reference_page .competitor_search_wrapper .icon_box{
+	font-size: 20px;
+	padding: 10px 15px 10px 10px;
+	color: #fff;
+	background: var(--red);
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	border: none;
+	outline: none;
+}
+.cross_reference_page .note{
+	padding: 15px 0 0;
 }

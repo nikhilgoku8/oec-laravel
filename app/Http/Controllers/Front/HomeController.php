@@ -61,4 +61,44 @@ class HomeController extends Controller
     {
         return view('electrical.home');
     }
+    
+    public function commercial_and_industrial()
+    {
+        return view('electrical.commercial-and-industrial');
+    }
+    
+    public function landscape_irrigation_solutions()
+    {
+        return view('electrical.landscape-irrigation-solutions');
+    }
+    
+    public function energy_systems_renewables()
+    {
+        return view('electrical.energy-systems-renewables');
+    }
+    
+    public function operation_manual()
+    {
+        return view('electrical.operation-manual');
+    }
+    
+    public function safety_standards()
+    {
+        return view('electrical.safety-standards');
+    }
+    
+    public function nabl_testing_lab()
+    {
+        return view('electrical.nabl-testing-lab');
+    }
+    
+    public function brochure()
+    {
+        return view('electrical.brochure');
+    }
+    
+    public function cross_reference()
+    {
+        return view('electrical.cross-reference');
+    }
 }

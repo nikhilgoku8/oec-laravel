@@ -101,15 +101,23 @@ $(document).ready(function () {
 });
 </script>
 
-<!-- <script type="text/javascript" src="{{ asset('front/assets/plugins/venobox/venobox.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/assets/plugins/venobox/venobox.min.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   /* default settings */
-  $('.venobox').venobox({
-    framewidth: '500px', 
-  }); 
+  // $('.venobox').venobox({
+  //   framewidth: '500px', 
+  // }); 
+
+    new VenoBox({
+        selector: '.image_veno',
+        // numeration: true,
+        // infinigall: true,
+        // share: true,
+        // spinner: 'rotating-plane'
+    });
 });
-</script> -->
+</script>
 
 
 
@@ -240,6 +248,35 @@ const featured_categories_slider = new Swiper('.featured_categories_slider', {
         // when window width is >= 640px
         640: {
             slidesPerView: 5,
+            // spaceBetween: 200,
+        }
+    }
+});
+
+const industries_slider = new Swiper('.industries_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 2,
+    loop: false,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+      },
+    // Responsive breakpoints
+    breakpoints: {
+        // // when window width is >= 480px
+        480: {
+          slidesPerView: 3,
+          // spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 4,
             // spaceBetween: 200,
         }
     }

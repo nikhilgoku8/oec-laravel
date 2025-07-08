@@ -28,10 +28,10 @@
 
 <!-- slider -->
 <!-- <link href="{{ asset('front/assets/plugins/owl-carousel/owl.carousel.min.css') }}" rel="stylesheet">
-<link href="{{ asset('front/assets/plugins/owl-carousel/owl.theme.default.min.css') }}" rel="stylesheet">
+<link href="{{ asset('front/assets/plugins/owl-carousel/owl.theme.default.min.css') }}" rel="stylesheet"> -->
 
 <link rel="stylesheet" href="{{ asset('front/assets/plugins/venobox/venobox.css') }}" type="text/css" media="screen" />
- -->
+
 
 <!-- Swiper Slider -->
 <link href="{{ asset('front/assets/plugins/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
@@ -153,9 +153,9 @@
                             <span class="arrow"></span> 
                         </a>
                         <ul>
-                            <li><a href="{{ route('overview') }}">Commercial & Industrial</a></li>
-                            <li><a href="{{ route('careers') }}">Landscape & Irrigation Solutions</a></li>
-                            <li><a href="{{ route('sustainability') }}">Energy Systems & Renewables</a></li>
+                            <li><a href="{{ route('commercial-and-industrial') }}">Commercial & Industrial</a></li>
+                            <li><a href="{{ route('landscape-irrigation-solutions') }}">Landscape & Irrigation Solutions</a></li>
+                            <li><a href="{{ route('energy-systems-renewables') }}">Energy Systems & Renewables</a></li>
                         </ul>
                     </li>
                     <li>
@@ -167,24 +167,24 @@
                             <li>
                                 <a>Technical Resources <span class="arrow"></span></a>
                                 <ul>
-                                    <li><a href="#">Operation Manual</a></li>
-                                    <li><a href="#">Safety Standards</a></li>
-                                    <li><a href="#">NABL Testing Lab</a></li>
+                                    <li><a href="{{ route('operation-manual') }}">Operation Manual</a></li>
+                                    <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
+                                    <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a>Catalogs & Brochure <span class="arrow"></span></a>
                                 <ul>
-                                    <li><a href="#">Brochure</a></li>
+                                    <li><a href="{{ route('brochure') }}">Brochure</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a>Terms & Conditions</a>
+                                <a href="https://oec-americas.com/electrical/wp-content/uploads/2025/05/oec-tc.pdf">Terms & Conditions</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('markets') }}">
+                        <a href="{{ route('cross-reference') }}">
                             <span><i class="fas fa-crosshairs"></i></span>
                             Cross Reference
                         </a>

@@ -35,6 +35,14 @@ Route::get('login', [HomeController::class, 'login'])->name('login');
 Route::get('register', [HomeController::class, 'register'])->name('register');
 
 Route::get('electrical', [HomeController::class, 'electrical'])->name('electrical');
+Route::get('electrical/commercial-and-industrial', [HomeController::class, 'commercial_and_industrial'])->name('commercial-and-industrial');
+Route::get('electrical/landscape-irrigation-solutions', [HomeController::class, 'landscape_irrigation_solutions'])->name('landscape-irrigation-solutions');
+Route::get('electrical/energy-systems-renewables', [HomeController::class, 'energy_systems_renewables'])->name('energy-systems-renewables');
+Route::get('electrical/operation-manual', [HomeController::class, 'operation_manual'])->name('operation-manual');
+Route::get('electrical/safety-standards', [HomeController::class, 'safety_standards'])->name('safety-standards');
+Route::get('electrical/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
+Route::get('electrical/brochure', [HomeController::class, 'brochure'])->name('brochure');
+Route::get('electrical/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
 
 Route::prefix('owm')->group(function () {
 
