@@ -4,7 +4,7 @@
 
 <div class="hero">
     <div class="video_wrapper">
-        <video autoplay muted loop poster="https://placehold.co/1920x900/?text=Slider">
+        <video autoplay muted loop poster="https://placehold.co/1920x600/?text=Slider">
             <source src="" type="video/mp4">
         </video>
     </div>
