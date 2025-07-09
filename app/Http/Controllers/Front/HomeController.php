@@ -101,4 +101,46 @@ class HomeController extends Controller
     {
         return view('electrical.cross-reference');
     }
+    
+    public function my_account()
+    {
+        $this->data['dashboard'] = 'active';
+        return view('electrical.my-account.dashboard', $this->data);
+    }
+    
+    public function orders()
+    {
+        $this->data['orders'] = 'active';
+        return view('electrical.my-account.orders', $this->data);
+    }
+    
+    public function view_order($order_no)
+    {
+        $this->data['orders'] = 'active';
+        return view('electrical.my-account.view-order', $this->data);
+    }
+    
+    public function addresses()
+    {
+        $this->data['addresses'] = 'active';
+        return view('electrical.my-account.addresses', $this->data);
+    }
+    
+    public function edit_address($id)
+    {
+        $this->data['addresses'] = 'active';
+        return view('electrical.my-account.edit-address', $this->data);
+    }
+    
+    public function account_details()
+    {
+        $this->data['accountDetails'] = 'active';
+        return view('electrical.my-account.account-details', $this->data);
+    }
+    
+    public function logout()
+    {
+        $this->data['logout'] = 'active';
+        return view('electrical.my-account.logout', $this->data);
+    }
 }

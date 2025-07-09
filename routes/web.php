@@ -43,6 +43,13 @@ Route::get('electrical/safety-standards', [HomeController::class, 'safety_standa
 Route::get('electrical/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
 Route::get('electrical/brochure', [HomeController::class, 'brochure'])->name('brochure');
 Route::get('electrical/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
+Route::get('electrical/my-account/dashboard', [HomeController::class, 'my_account'])->name('my-account.dashboard');
+Route::get('electrical/my-account/orders', [HomeController::class, 'orders'])->name('my-account.orders');
+Route::get('electrical/my-account/view-order/{order_no}', [HomeController::class, 'view_order'])->name('my-account.view-order');
+Route::get('electrical/my-account/addresses', [HomeController::class, 'addresses'])->name('my-account.addresses');
+Route::get('electrical/my-account/edit-address/{id}', [HomeController::class, 'edit_address'])->name('my-account.edit-address');
+Route::get('electrical/my-account/account-details', [HomeController::class, 'account_details'])->name('my-account.account-details');
+Route::get('electrical/my-account/logout', [HomeController::class, 'logout'])->name('my-account.logout');
 
 Route::prefix('owm')->group(function () {
 

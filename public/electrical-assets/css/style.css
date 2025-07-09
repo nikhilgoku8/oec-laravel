@@ -30,7 +30,7 @@ table{
 	width: 100%;
 }
 table, th, td {
-    border: 1px solid #1a5f80;
+    border: 1px solid #e1e1e1;
     border-collapse: collapse;    
 }
 th, td {
@@ -40,8 +40,13 @@ th, td {
     text-align: center;
 }
 th {
-    background-color: #104660;
     color: #444;
+}
+
+table .red_filled_btn{
+	padding: 5px 20px;
+	letter-spacing: unset;
+	text-transform: none;
 }
 
 a{
@@ -301,7 +306,7 @@ header.smaller .upper_sec .my_account_links .head{
 	text-align: center;
 }
 .title{
-	font-size: 30px;
+	font-size: 25px;
 	text-transform: uppercase;
 	font-weight: 600;
 	color: #000;
@@ -361,25 +366,29 @@ video{
 	position: relative;
 }
 
+.form_wrapper{
+	margin: 0 -10px;
+}
 .form_wrapper form .input_box{
 	padding: 0 0 20px;
 }
 .form_wrapper form .input_box label{
-	padding: 0 0 5px;
+	padding: 0 0 10px 15px;
 	display: inline-block;
+	color: #242424;
 }
 .form_wrapper form .input_box input[type=text]{
 	background: transparent;
-	color: #fff;
+	color: #000;
 	width: 100%;
 	height: 40px;
-	padding: 10px;
-	border: 1px solid #ededed61;
-	border-radius: 10px;
+	padding: 10px 15px;
+	border: 1px solid #0000001a;
+	border-radius: 100px;
 }
 .form_wrapper form .input_box input[type=password]{
 	background: transparent;
-	color: #fff;
+	color: #000;
 	width: 100%;
 	height: 40px;
 	padding: 10px;
@@ -388,7 +397,7 @@ video{
 }
 .form_wrapper form .input_box select{
 	background: transparent;
-	color: #fff;
+	color: #000;
 	width: 100%;
 	height: 40px;
 	padding: 10px;
@@ -397,12 +406,39 @@ video{
 }
 .form_wrapper form .input_box textarea{
 	background: transparent;
-	color: #fff;
+	color: #000;
 	width: 100%;
 	height: 100px;
 	padding: 10px;
 	border: 1px solid #ededed61;
 	border-radius: 10px;
+}
+.form_wrapper fieldset{
+	padding: 30px 20px 20px;
+}
+.form_wrapper form .input_box .password_wrapper{
+	position: relative;
+}
+.form_wrapper form .input_box .password_wrapper button.eye{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 45px;
+	height: 40px;
+	border: none;
+	outline: none;
+	background: #f0f0f0;
+	font-size: 16px;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	transition: all 0.3s;
+	padding: 0 2px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.form_wrapper form .input_box .password_wrapper button.eye:hover{
+	color: var(--red);
 }
 .form_wrapper .note{
 	font-size: 12px;
@@ -1001,4 +1037,119 @@ footer .lower_sec p{
 }
 .cross_reference_page .note{
 	padding: 15px 0 0;
+}
+
+/*my_account_page*/
+.my_account_page{
+	padding: 20px 0;
+}
+.my_account_page .info_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+}
+.my_account_page .info_wrapper .left_pane{
+	width: 25%;
+	border-right: 1px solid #0000001b;
+	padding: 10px 30px;
+}
+.my_account_page .info_wrapper .left_pane .title{
+	font-size: 18px;
+	padding: 0 0 10px;
+}
+.my_account_page .info_wrapper .left_pane .account_links .title{
+	border-bottom: 1px solid #0000001b;
+}
+.my_account_page .info_wrapper .left_pane .account_links ul li a{
+	color: #242424;
+	padding: 10px 15px;
+	font-size: 14px;
+	display: block;
+	font-weight: 500;
+}
+.my_account_page .info_wrapper .left_pane .account_links ul li a:hover{
+	background: #0000000f;
+}
+.my_account_page .info_wrapper .left_pane .account_links ul li.active a{
+	background: var(--red);
+	color: #fff;
+}
+.my_account_page .info_wrapper .left_pane .you_may_like{
+	padding: 30px 0;
+}
+.my_account_page .info_wrapper .left_pane .you_may_like ul li{
+	border-bottom: 1px solid #0000001b;
+}
+.my_account_page .info_wrapper .left_pane .you_may_like ul li a{
+	display: flex;
+	align-items: center;
+}
+.my_account_page .info_wrapper .left_pane .you_may_like ul li a .img_box{
+	width: 30%;
+}
+.my_account_page .info_wrapper .left_pane .you_may_like ul li a .text{
+	width: 70%;
+	color: #333;
+	font-weight: 500;
+	font-size: 14px;
+	padding: 0 0 0 10px;
+}
+.my_account_page .info_wrapper .right_pane{
+	width: 75%;
+	padding: 10px 30px;
+}
+.my_account_page .info_wrapper .right_pane .text_box .imp_txt{
+	background: #f7f7f7;
+	color: #242424;
+	padding: 5px;
+}
+.my_account_page .info_wrapper .right_pane .nav_links{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -10px;
+}
+.my_account_page .info_wrapper .right_pane .nav_links .link_box{
+	width: 25%;
+	padding: 10px;
+}
+.my_account_page .info_wrapper .right_pane .nav_links .link_box a{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 0 4px #0000002e;
+	padding: 20px;
+	transition: all 0.3s;
+}
+.my_account_page .info_wrapper .right_pane .nav_links .link_box a:hover{
+	background: #00000008;
+}
+.my_account_page .info_wrapper .right_pane .nav_links .link_box a .icon_box{
+	width: 50%;
+	margin: auto;
+	max-width: 50px;
+}
+.my_account_page .info_wrapper .right_pane .nav_links .link_box a .link_title{
+	font-weight: 500;
+	padding: 10px 0 0 0;
+}
+.my_account_page .info_wrapper .right_pane .order_details_wrapper{
+	padding: 30px 0 0;
+}
+.my_account_page .info_wrapper .right_pane .order_details_wrapper table.order_details th{
+	background: var(--red);
+	text-align: left;
+	color: #fff;
+	font-size: 20px;
+}
+.my_account_page .info_wrapper .right_pane .order_details_wrapper table.order_details td{
+	text-align: left;
+}
+.my_account_page .info_wrapper .right_pane .order_details_wrapper .billing_address{
+	padding: 40px 0 0;
+}
+.my_account_page .info_wrapper .right_pane .billing_address .title{
+	padding: 0 0 10px;
+}
+.my_account_page .info_wrapper .right_pane .billing_address .address div{
+	padding: 0 0 5px;
 }
