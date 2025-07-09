@@ -64,12 +64,12 @@
             <div class="my_account_links">
                 <div class="head">My Account</div>
                 <ul>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Orders</a></li>
-                    <li><a href="#">Downloads</a></li>
-                    <li><a href="#">Addresses</a></li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{{ route('my-account.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ route('my-account.orders') }}">Orders</a></li>
+                    <!-- <li><a href="#">Downloads</a></li> -->
+                    <li><a href="{{ route('my-account.addresses') }}">Addresses</a></li>
+                    <li><a href="{{ route('my-account.account-details') }}">Account details</a></li>
+                    <li><a href="{{ route('my-account.logout') }}">Logout</a></li>
                 </ul>
             </div>
             <div class="menu_cart_wrapper">
