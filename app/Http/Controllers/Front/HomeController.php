@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Product;
+use App\Models\Admin\SubCategory;
 
 class HomeController extends Controller
 {
@@ -142,5 +144,13 @@ class HomeController extends Controller
     {
         $this->data['logout'] = 'active';
         return view('electrical.my-account.logout', $this->data);
+    }
+    
+    public function products($category, $subCategory)
+    {
+        // $this->data['logout'] = 'active';
+        $subCategoryId = SubCategory::where('slug',$subCategory)->value('id');
+        $this->data['products'] = Product::where('sub_category_id', $subCategoryId)->get();
+        return view('electrical.products.list', $this->data);
     }
 }

@@ -42,6 +42,7 @@
 <link href="{{ asset('electrical-assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 
 </head>
 
@@ -116,7 +117,7 @@
                                 @if(!empty($category->subCategories) && $category->subCategories->count() > 0)
                                 <ul>
                                     @foreach($category->subCategories as $subCategory)
-                                    <li><a href="{{ url('electrical/'.$category->slug.'/'.$subCategory->slug) }}">{{ $subCategory->title }}</a></li>
+                                    <li><a href="{{ route('products', ['category' => $category->slug, 'subCategory' => $subCategory->slug]) }}">{{ $subCategory->title }}</a></li>
                                     @endforeach
                                 </ul>
                                 @endif

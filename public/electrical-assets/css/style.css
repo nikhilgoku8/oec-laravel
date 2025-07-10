@@ -1153,3 +1153,53 @@ footer .lower_sec p{
 .my_account_page .info_wrapper .right_pane .billing_address .address div{
 	padding: 0 0 5px;
 }
+
+/*products_list_page*/
+.products_list_page .heading{
+	padding: 30px 0;
+	background: linear-gradient(45deg, rgb(255 1 0 / 10%), rgb(0 0 0 / 10%));
+    color: #000;
+}
+.products_list_page .products_wrapper .inner_container{
+	display: flex;
+	flex-wrap: wrap;
+}
+.products_list_page .products_wrapper .inner_container .left_pane{
+	width: 25%;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion{
+	border-bottom: 1px solid #0000001b;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion h3{
+	font-size: 16px;
+	text-transform: none;
+	color: #333;
+	padding: 15px 0;
+	border-top: 1px solid #0000001b;
+	cursor: pointer;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion div{
+	padding: 0px 0 20px 0;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion div ul li label{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	color: #767676;
+	padding: 5px 0;
+	margin: 0 0 5px;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion div ul li label span.text{
+	padding: 0 0 0 10px;
+	font-size: 14px;
+}
+.products_list_page .products_wrapper .left_pane .filters_wrapper #accordion div ul li label span.count{
+	margin: 0 0 0 auto;
+	padding: 2px 5px;
+	font-size: 12px;
+	border: 1px solid #0000001b;
+	border-radius: 5px;
+}
+.products_list_page .products_wrapper .inner_container .right_pane{
+	width: 75%;
+}
