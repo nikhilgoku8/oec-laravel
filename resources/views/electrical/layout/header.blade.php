@@ -108,17 +108,21 @@
                             <span class="arrow"></span> 
                         </a>
                         <ul>
+                            @foreach($categories as $category)
                             <li>
-                                <a>Compression <span class="arrow"></span></a>
+                                <a>{{ $category->title }} 
+                                    @if(!empty($category->subCategories))<span class="arrow"></span>@endif
+                                </a>
+                                @if(!empty($category->subCategories) && $category->subCategories->count() > 0)
                                 <ul>
-                                    <li><a>asdaasdasdsd 1</a></li>
-                                    <li><a>asdaasdasdsd 2</a></li>
-                                    <li><a>asdaasdasdsd 3</a></li>
-                                    <li><a>asdaasdasdsd 4</a></li>
-                                    <li><a>asdaasdasdsd 5</a></li>
+                                    @foreach($category->subCategories as $subCategory)
+                                    <li><a href="{{ url('electrical/'.$category->slug.'/'.$subCategory->slug) }}">{{ $subCategory->title }}</a></li>
+                                    @endforeach
                                 </ul>
+                                @endif
                             </li>
-                            <li>
+                            @endforeach
+                            <!-- <li>
                                 <a>Test 2</a>
                                 <ul>
                                     <li>asdasd 1</li>
@@ -126,7 +130,7 @@
                                     <li>asdasd 3</li>
                                     <li>asdasd 4</li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                 </ul>
