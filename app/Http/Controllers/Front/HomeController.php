@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product;
+use App\Models\Admin\Category;
 use App\Models\Admin\SubCategory;
 
 class HomeController extends Controller
@@ -146,11 +147,26 @@ class HomeController extends Controller
         return view('electrical.my-account.logout', $this->data);
     }
     
+    public function categories()
+    {
+        return view('electrical.products.categories');
+    }
+    
+    public function sub_categories($category)
+    {
+        $categoryId = Category::where('slug',$category)->value('id');
+        $this->data['subCategories'] = SubCategory::where('category_id', $categoryId)->paginate(12);
+        return view('electrical.products.categories', $this->data);
+    }
+    
     public function products($category, $subCategory)
     {
         // $this->data['logout'] = 'active';
-        $subCategoryId = SubCategory::where('slug',$subCategory)->value('id');
-        $this->data['products'] = Product::where('sub_category_id', $subCategoryId)->get();
+        $category = Category::where('slug',$category)->first();
+        $subCategory = SubCategory::where('slug',$subCategory)->first();
+        $this->data['products'] = Product::where('sub_category_id', $subCategory->id)->paginate(12);
+        $this->data['category'] = $category;
+        $this->data['subCategory'] = $subCategory;
         return view('electrical.products.list', $this->data);
     }
 }

@@ -51,7 +51,10 @@ Route::get('electrical/my-account/edit-address/{id}', [HomeController::class, 'e
 Route::get('electrical/my-account/account-details', [HomeController::class, 'account_details'])->name('my-account.account-details');
 Route::get('electrical/my-account/logout', [HomeController::class, 'logout'])->name('my-account.logout');
 
+Route::get('electrical/categories', [HomeController::class, 'categories'])->name('categories');
+Route::get('electrical/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
 Route::get('electrical/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
+Route::get('electrical/{category}/{subCategory}/{product}', [HomeController::class, 'product'])->name('product');
 
 Route::prefix('owm')->group(function () {
 

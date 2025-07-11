@@ -38,6 +38,13 @@
                                         <span class="count">76</span>
                                     </label>
                                 </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="">
+                                        <span class="text">123432</span>
+                                        <span class="count">76</span>
+                                    </label>
+                                </li>
                             </ul>
                         </div>
                         <h3>Section 2</h3>
@@ -56,7 +63,52 @@
                 </div>
             </div>
             <div class="right_pane">
-                {{$products->count()}}
+                <div class="list_heading">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a class="txt" href="{{ route('electrical') }}">Home</a></li>
+                            <li><a class="txt" href="{{ route('sub-categories', $category->slug) }}">{{ $category->title }}</a></li>
+                            <li><span class="txt">{{ $subCategory->title }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="total_count_text">
+                        @if ($products->total() > 0)
+                            Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
+                        @endif
+                    </div>
+                </div>
+                <div class="products_list">
+                    @foreach($products as $product)
+                        <div class="product_box">
+                            <a href="{{ route('product', [
+                                    'category' => $subCategory->slug,
+                                    'subCategory' => $subCategory->slug,
+                                    'product' => $product->title
+                                ]) }}" class="img_box">
+                                <img src="{{ $product->productImages?->first()->image_file }}">
+                            </a>
+                            <div class="text_box">
+                                <a href="{{ route('product', [
+                                    'category' => $subCategory->slug,
+                                    'subCategory' => $subCategory->slug,
+                                    'product' => $product->title
+                                ]) }}" class="product_title">{{ $product->title }}</a>
+                                <div class="sub_category_title">{{ $subCategory->title }}</div>
+                                <div class="description">{{ $product->description }}</div>
+                                <button class="red_filled_btn">Add To Enquiry</button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="page_links">
+                    {{ $products->onEachSide(3)->links('pagination.numbers') }}
+                </div>
+                <!-- @{{ $products->links('pagination::bootstrap-5') }} -->
+                <!-- @if ($products->total() > 0)
+                    Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
+                @else
+                    No results found.
+                @endif -->
             </div>
 
         </div>
