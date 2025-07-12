@@ -91,9 +91,11 @@ class UploadDataController extends Controller
                 // Cache Products IDs
                 $products[$productName] = $products[$productName] ?? DB::table('products')->where('title', $productName)->value('id');
                 if (!$products[$productName]) {
+                    $productSlug = $this->string_filter($productName);
                     $products[$productName] = DB::table('products')->insertGetId([
                         'sub_category_id' => $subCategories[$subCategoryName],
                         'title' => $productName,
+                        'slug' => $productSlug,
                         'description' => $description,
                         'features' => $features
                     ]);

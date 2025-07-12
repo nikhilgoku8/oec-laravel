@@ -169,4 +169,15 @@ class HomeController extends Controller
         $this->data['subCategory'] = $subCategory;
         return view('electrical.products.list', $this->data);
     }
+    
+    public function product_detail($category, $subCategory, $product)
+    {
+        // $this->data['logout'] = 'active';
+        $category = Category::where('slug',$category)->first();
+        $subCategory = SubCategory::where('slug',$subCategory)->first();
+        $this->data['product'] = Product::with('productImages','productTabContents')->find($product);
+        $this->data['category'] = $category;
+        $this->data['subCategory'] = $subCategory;
+        return view('electrical.products.detail', $this->data);
+    }
 }

@@ -83,7 +83,7 @@
                             <a href="{{ route('product', [
                                     'category' => $subCategory->slug,
                                     'subCategory' => $subCategory->slug,
-                                    'product' => $product->title
+                                    'product' => $product->id
                                 ]) }}" class="img_box">
                                 <img src="{{ $product->productImages?->first()->image_file }}">
                             </a>
@@ -91,7 +91,7 @@
                                 <a href="{{ route('product', [
                                     'category' => $subCategory->slug,
                                     'subCategory' => $subCategory->slug,
-                                    'product' => $product->title
+                                    'product' => $product->id
                                 ]) }}" class="product_title">{{ $product->title }}</a>
                                 <div class="sub_category_title">{{ $subCategory->title }}</div>
                                 <div class="description">{{ $product->description }}</div>

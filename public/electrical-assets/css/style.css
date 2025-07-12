@@ -305,6 +305,9 @@ header.smaller .upper_sec .my_account_links .head{
 .center{
 	text-align: center;
 }
+.left{
+	text-align: left;
+}
 .title{
 	font-size: 25px;
 	text-transform: uppercase;
@@ -1173,7 +1176,7 @@ footer .lower_sec p{
 }
 .products_list_page .products_wrapper .left_pane .filters_wrapper #accordion h3{
 	font-size: 16px;
-	text-transform: none;
+	text-transform: uppercase;
 	color: #333;
 	padding: 15px 0;
 	border-top: 1px solid #0000001b;

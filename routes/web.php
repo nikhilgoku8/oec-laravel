@@ -54,7 +54,7 @@ Route::get('electrical/my-account/logout', [HomeController::class, 'logout'])->n
 Route::get('electrical/categories', [HomeController::class, 'categories'])->name('categories');
 Route::get('electrical/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
 Route::get('electrical/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
-Route::get('electrical/{category}/{subCategory}/{product}', [HomeController::class, 'product'])->name('product');
+Route::get('electrical/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
 
 Route::prefix('owm')->group(function () {
 
