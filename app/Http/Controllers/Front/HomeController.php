@@ -173,6 +173,7 @@ class HomeController extends Controller
     public function product_detail($category, $subCategory, $product)
     {
         // $this->data['logout'] = 'active';
+        // dd($category);
         $category = Category::where('slug',$category)->first();
         $subCategory = SubCategory::where('slug',$subCategory)->first();
         $this->data['product'] = Product::with('productImages','productTabContents')->find($product);

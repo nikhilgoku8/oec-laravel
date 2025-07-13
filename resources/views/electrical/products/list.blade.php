@@ -81,7 +81,7 @@
                     @foreach($products as $product)
                         <div class="product_box">
                             <a href="{{ route('product', [
-                                    'category' => $subCategory->slug,
+                                    'category' => $category->slug,
                                     'subCategory' => $subCategory->slug,
                                     'product' => $product->id
                                 ]) }}" class="img_box">
@@ -89,7 +89,7 @@
                             </a>
                             <div class="text_box">
                                 <a href="{{ route('product', [
-                                    'category' => $subCategory->slug,
+                                    'category' => $category->slug,
                                     'subCategory' => $subCategory->slug,
                                     'product' => $product->id
                                 ]) }}" class="product_title">{{ $product->title }}</a>

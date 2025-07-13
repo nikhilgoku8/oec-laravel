@@ -349,6 +349,18 @@ header.smaller .upper_sec .my_account_links .head{
 	text-transform: uppercase;
 	letter-spacing: 2px;
 }
+.red_hollow_btn{
+	font-size: 14px;
+	color: var(--red);
+	background: #fff;
+	font-weight: 500;
+	padding: 12px 24px;
+	border-radius: 100px;
+	border: 1px solid var(--red);
+	outline: none;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
 .full_width{
 	width: 100%;
 }
@@ -1217,31 +1229,31 @@ footer .lower_sec p{
 	background: #efefef;
 	padding: 0 10px 0 0;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul{
+.breadcrumbs ul{
 	display: flex;
 	align-items: center;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li{
+.breadcrumbs ul li{
 	padding: 10px 16px 10px 10px;
 	position: relative;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li .txt{
+.breadcrumbs ul li .txt{
 	font-size: 14px;
 	font-weight: 600;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li a.txt{
+.breadcrumbs ul li a.txt{
 	color: #767676;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li span.txt{
+.breadcrumbs ul li span.txt{
 	color: #333;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li::before{
+.breadcrumbs ul li::before{
 	position: absolute;
 	content: '/';
 	right: 0;
 	font-weight: 500;
 }
-.products_list_page .products_wrapper .inner_container .right_pane .list_heading .breadcrumbs ul li:last-child::before{
+.breadcrumbs ul li:last-child::before{
 	display: none;
 }
 .products_list_page .products_wrapper .inner_container .right_pane .list_heading .total_count_text{
@@ -1321,4 +1333,37 @@ footer .lower_sec p{
 }
 .pagination li.page-item a:hover{
 	background: #f2f2f2;
+}
+
+/*product_detail_page*/
+.product_detail_page{
+	padding: 15px 0 0 0;
+}
+.product_detail_page .right_pane .heading_pane{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 0 20px 0;
+}
+.product_detail_page .right_pane .heading_pane .breadcrumbs ul li:first-child{
+	padding-left: 0;
+}
+.product_detail_page .right_pane .heading_pane .other_nav{
+	display: flex;
+	align-items: center;
+}
+.product_detail_page .right_pane .heading_pane .other_nav .arrow{
+	font-size: 22px;
+}
+.product_detail_page .right_pane .heading_pane .other_nav .shop_btn{
+	font-size: 16px;
+	margin: 0 10px;
+}
+.product_detail_page .right_pane .product_info .description{
+	color: #777777;
+	font-size: 14px;
+	padding: 0 0 20px;
+}
+.product_detail_page .right_pane .product_info .features .sub_title{
+	/*font-size: 20px;*/
 }
