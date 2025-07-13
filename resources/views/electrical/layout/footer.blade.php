@@ -281,6 +281,35 @@ const industries_slider = new Swiper('.industries_slider', {
         }
     }
 });
+
+const related_products_slider = new Swiper('.related_products_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 2,
+    loop: false,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+      },
+    // Responsive breakpoints
+    breakpoints: {
+        // // when window width is >= 480px
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+        }
+    }
+});
 </script>
 
 </body>

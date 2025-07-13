@@ -177,8 +177,38 @@ class HomeController extends Controller
         $category = Category::where('slug',$category)->first();
         $subCategory = SubCategory::where('slug',$subCategory)->first();
         $this->data['product'] = Product::with('productImages','productTabContents')->find($product);
+        $this->data['relatedProducts'] = Product::with('productImages')
+            ->where('id', '!=', $this->data['product']->id)
+            ->where('sub_category_id', $subCategory->id)
+            ->inRandomOrder()
+            ->limit(10)
+            ->get();
         $this->data['category'] = $category;
         $this->data['subCategory'] = $subCategory;
+
+        // Step 1
+        // Get all product IDs in same subcategory
+        $productIds = Product::where('sub_category_id', $this->data['product']->sub_category_id)
+            ->orderBy('id')
+            ->pluck('id')
+            ->toArray();
+
+        // Step 2
+        $currentIndex = array_search($this->data['product']->id, $productIds);
+
+        // Step 3
+        $total = count($productIds);
+        $prevIndex = ($currentIndex - 1 + $total) % $total;
+        $nextIndex = ($currentIndex + 1) % $total;
+
+        // Step 4
+        $prevProductId = $productIds[$prevIndex];
+        $nextProductId = $productIds[$nextIndex];
+
+        // Step 5
+        $this->data['prevProduct'] = Product::with('productImages')->find($prevProductId);
+        $this->data['nextProduct'] = Product::with('productImages')->find($nextProductId);
+
         return view('electrical.products.detail', $this->data);
     }
 }

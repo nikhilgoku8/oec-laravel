@@ -127,15 +127,6 @@ $(document).ready(function () {
         $("#"+tab_id).addClass('current');
     });
 
-    $('ul.cs_tabs li').click(function(){
-        var tab_id = $(this).attr('data-tab');
-        console.log("inside second tab");
-        $('ul.cs_tabs li').removeClass('active');
-        $('.cs-tab-content').removeClass('active');
-
-        $(this).addClass('active');
-        $("#"+tab_id).addClass('active');
-    });
 });
 </script>
 
