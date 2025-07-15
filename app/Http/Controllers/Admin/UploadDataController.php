@@ -22,6 +22,36 @@ class UploadDataController extends Controller
         return $string;
     }
 
+    public function migrateDbData()
+    {
+        // $oldData = DB::connection('mysql_old')
+        //     ->table('wp5y_users')
+        //     ->select(
+        //         'wp5y_users.user_email as email',
+        //         'wp5y_users.user_registered as registered_at',
+        //         'wp5y_users.user_status as status',
+        //     )
+        //     ->leftJoin('wp5y_usermeta','wp5y_usermeta.user_id','=','wp5y_users.id')
+        //     ->where('wp5y_usermeta.meta_key', 'phone')
+        //     ->get();
+
+        $metaByUser = DB::connection('mysql_old')
+            ->table('wp5y_usermeta')
+            ->get()
+            ->groupBy('user_id')
+            ->map(fn($items) => $items->pluck('meta_value', 'meta_key'));
+
+        $users = DB::connection('mysql_old')
+            ->table('wp5y_users')
+            ->get();
+
+        foreach ($users as $user) {
+            $user->meta = $metaByUser[$user->ID] ?? [];
+        }
+
+        dd($user);
+    }
+
     public function importData(Request $request)
     {
 

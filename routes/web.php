@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\UploadDataController;
 //     print_r('Hello');
 // });
 
+Route::get('migrateDbData', [UploadDataController::class, 'migrateDbData']);
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('overview', [HomeController::class, 'overview'])->name('overview');
 Route::get('careers', [HomeController::class, 'careers'])->name('careers');
