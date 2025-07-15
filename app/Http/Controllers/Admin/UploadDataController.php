@@ -45,11 +45,50 @@ class UploadDataController extends Controller
             ->table('wp5y_users')
             ->get();
 
+        $newUserData = [];
+
         foreach ($users as $user) {
             $user->meta = $metaByUser[$user->ID] ?? [];
+
+            $newUserData[] = [
+                'fname' => $user->meta['first_name'] ?? '',
+                'lname' => $user->meta['last_name'] ?? '',
+                'email' => $user->user_email ?? '',
+                'registered_at' => $user->user_registered ?? '',
+                'billing_first_name' => $user->meta['billing_first_name'] ?? '',
+                'billing_last_name' => $user->meta['billing_last_name'] ?? '',
+                'billing_phone' => $user->meta['billing_phone'] ?? '',
+                'billing_email' => $user->meta['billing_email'] ?? '',
+                'billing_company' => $user->meta['billing_company'] ?? '',
+                'billing_address' => $user->meta['billing_address_1'] ?? '',
+                'billing_city' => $user->meta['billing_city'] ?? '',
+                'billing_state' => $user->meta['billing_state'] ?? '',
+                'billing_country' => $user->meta['billing_country'] ?? '',
+                'billing_postcode' => $user->meta['billing_postcode'] ?? '',
+                'same_adress' => $user->meta['same_adress'] ?? true,
+                'shipping_first_name' => $user->meta['shipping_first_name'] ?? '',
+                'shipping_last_name' => $user->meta['shipping_last_name'] ?? '',
+                'shipping_phone' => $user->meta['shipping_phone'] ?? '',
+                'shipping_email' => $user->meta['shipping_email'] ?? '',
+                'shipping_company' => $user->meta['shipping_company'] ?? '',
+                'shipping_address' => $user->meta['shipping_address'] ?? '',
+                'shipping_city' => $user->meta['shipping_city'] ?? '',
+                'shipping_state' => $user->meta['shipping_state'] ?? '',
+                'shipping_country' => $user->meta['shipping_country'] ?? '',
+                'shipping_postcode' => $user->meta['shipping_postcode'] ?? '',
+                'paying_customer' => $user->meta['paying_customer'] ?? false,
+                'status' => $user->meta['pw_user_status'] ?? 'pending',
+            ];
         }
 
-        dd($user);
+        $newUserDataUnique = collect($newUserData)
+            ->unique('email')
+            ->values()
+            ->all();
+
+        DB::table('users')->insert($newUserDataUnique);
+
+        echo "Done";
     }
 
     public function importData(Request $request)
