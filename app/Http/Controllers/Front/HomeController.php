@@ -52,12 +52,29 @@ class HomeController extends Controller
     
     public function showRegisterForm()
     {
+        if (session('isUser') == 'yes') {
+            return redirect()->route('electrical');
+        }
+
         return view('front.register');
     }
     
     public function login()
     {
+        if (session('isUser') == 'yes') {
+            return redirect()->route('electrical');
+        }
+
         return view('front.login');
+    }
+    
+    public function showResetPasswordForm()
+    {
+        if (session('isUser') == 'yes') {
+            return redirect()->route('electrical');
+        }
+
+        return view('front.reset-password');
     }
     
     public function electrical()

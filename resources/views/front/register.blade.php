@@ -186,7 +186,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(result) {
-                location.href="{{ route('register.post') }}";
+                location.href="{{ route('login') }}";
             },
             // error: function(data){
             //     var responseData = data.responseJSON;
@@ -212,9 +212,6 @@ $(document).ready(function() {
                         // $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
                     });
                     $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
-                } else if (data.status === 419) {
-                    alert("Error - "+419);
-                    console.log(data.responseJSON.message);
                 } else if (data.status === 401) {
                     alert("Please log in.");
                     // window.location.href = "/login";
@@ -222,6 +219,9 @@ $(document).ready(function() {
                     alert("You don’t have permission.");
                 } else if (data.status === 404) {
                     alert("The resource was not found.");
+                } else if (data.status === 419) {
+                    alert("Error - "+419);
+                    console.log(data.responseJSON.message);
                 } else if (data.status === 500) {
                     alert("Something went wrong on the server.");
                     console.log(data.console_message);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\User;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use Carbon\Carbon;
 use App\Mail\PasswordResetOtpMail;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,6 +22,14 @@ class UserController extends Controller
             ]);
 
             $email = $validated['email'];
+
+            // Block OTP for locked Users
+            $user = User::where('email', $email)->first();
+            if($user && $user->is_locked == 1){
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'email' => 'This account is locked contact admin.',
+                ]);
+            }
 
             // Check rate limiting
             if (session()->has('otp_last_sent_at')) {
@@ -95,7 +104,7 @@ class UserController extends Controller
                 'lname'=>'required',
                 'company_name'=>'required',
                 'email'=>'required|email|unique:users,email',
-                'otp'=>'required|numeric|digit:6',
+                'otp'=>'required|numeric|digits:6',
                 'password'=> 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_password'=> 'required|same:password',
                 'accept_terms'=>'required'
@@ -119,7 +128,7 @@ class UserController extends Controller
             // This validates and gives errors which are caught below and also stop further execution
             $validated = $validator->validated();
 
-            if(session('otp') !== $request->otp){
+            if(session('otp') != $request->otp){
                 $validator->getMessageBag()->add('otp', 'OTP does not match');
                 throw new \Illuminate\Validation\ValidationException($validator);
             }elseif (session('otp_email') !== $request->email) {
@@ -129,17 +138,6 @@ class UserController extends Controller
                 $validator->getMessageBag()->add('otp', 'OTP Expired');
                 throw new \Illuminate\Validation\ValidationException($validator);
             }
-
-            $old_password = DB::table('admins')->where('id', $request['dataID'])->value('password');
-            if (Hash::check($request->password, $old_password)){
-                
-                return response()->json([
-                    'error' => true,
-                    'error_type' => 'form',
-                    'message' => 'Invalid request',
-                    'errors' => ['password' => 'Previous Password Not Allowed'],
-                ], 422);
-            }
             
             $data = array(
                 'fname' => $request->fname,
@@ -147,6 +145,8 @@ class UserController extends Controller
                 'company_name' => $request->company_name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'last_password_changed' => now(),
+                'registered_at' => now(),
                 'created_by' => $request->fname.' '.$request->lname,
                 'updated_by' => $request->fname.' '.$request->lname
             );
@@ -176,5 +176,99 @@ class UserController extends Controller
                 'console_message' => $e->getMessage(),
             ], 500);
         }
+    }
+    
+    public function authenticateUser(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'email'=>'required|email',
+                'password'=> 'required'
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $user = User::where('email', $request->email)->first();
+
+            if($user){
+
+                if ($user->is_locked) {
+                    $validator->getMessageBag()->add('email', 'Account Is Locked');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
+                $passwordExpiry = Carbon::parse($user->last_password_changed)->addDays(90);
+                if($passwordExpiry < now()){
+                    $validator->getMessageBag()->add('password', 'Password Expired');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
+                if (Hash::check($request->password, $user->password)) {
+
+                    $userData = [
+                        'last_login' => now(),
+                        'login_attempts' => 0
+                    ];
+
+                    User::where('email', $request->email)->update($userData);
+
+                    $request->session()->put('username', $user->fname.' '.$user->lname);
+                    $request->session()->put('isUser', 'yes');
+                    $request->session()->put('last_login', $user->last_login ?? now());
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Login successful'
+                    ]);
+
+                }else{
+
+                    $user->increment('login_attempts');
+
+                    $validator->getMessageBag()->add('password', 5 - $user->login_attempts . ' - Attempts Left');
+
+                    if ($user->login_attempts >= 5) {
+                        $user->is_locked = true;
+                        $validator->getMessageBag()->add('email', 'Account Is Locked Maximum Tries Reached');
+                    }
+                    $user->save();
+
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+                
+            }else{
+                return response()->json([
+                    'error' => true,
+                    'error_type' => 'login',
+                    'message' => 'User not found',
+                    'errors' => ['email' => 'Email not registered']
+                ], 422);
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function logout()
+    {
+        session()->flush();
     }
 }

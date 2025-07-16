@@ -37,8 +37,12 @@ Route::get('reach-us', [HomeController::class, 'reach_us'])->name('reach-us');
 Route::get('electricals', [HomeController::class, 'electricals'])->name('electricals');
 Route::get('automotive', [HomeController::class, 'automotive'])->name('automotive');
 Route::get('login', [HomeController::class, 'login'])->name('login');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::get('register', [HomeController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [UserController::class, 'register'])->name('register.post');
+Route::post('authenticateUser', [UserController::class, 'authenticateUser'])->name('authenticateUser');
+Route::get('reset-password', [HomeController::class, 'showResetPasswordForm'])->name('reset-password');
+Route::post('reset-password', [HomeController::class, 'reset_password'])->name('reset-password.post');
 
 Route::get('electrical', [HomeController::class, 'electrical'])->name('electrical');
 Route::get('electrical/commercial-and-industrial', [HomeController::class, 'commercial_and_industrial'])->name('commercial-and-industrial');

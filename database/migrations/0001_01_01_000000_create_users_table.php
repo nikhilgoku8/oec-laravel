@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->dateTime('last_password_changed')->nullable();
             $table->dateTime('last_login')->nullable();
-            $table->integer('login_attempts')->nullable();
-            $table->boolean('is_locked')->nullable();
+            $table->integer('login_attempts')->default(0);
+            $table->boolean('is_locked')->default(false);
             $table->dateTime('registered_at')->nullable();
             $table->string('billing_first_name')->nullable();
             $table->string('billing_last_name')->nullable();
