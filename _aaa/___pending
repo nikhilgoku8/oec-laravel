@@ -16,3 +16,22 @@ Competitors
 Shop page
 
 Filters
+
+
+password
+last_password_changed - 90 days
+last_login
+login_attempts - MAX 5 after that flag is_locked true
+is_locked - after 5 incorrect password attempts
+
+Limit OTP for 2 minutes interval
+session(['otp_last_sent_at' => now()]);
+if (session('otp_last_sent_at') && now()->diffInSeconds(session('otp_last_sent_at')) < 120) {
+    return back()->with('status', 'Please wait before requesting another OTP.');
+}
+
+User password change logs
+
+User comes we check if password expired if yes then redirect to change password page
+Send Otp to reset password with 2 minutes interval
+verify OTP and update password and reset login_attempts = 0 and redirect to login page or log in the user

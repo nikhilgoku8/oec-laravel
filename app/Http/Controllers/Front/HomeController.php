@@ -50,14 +50,14 @@ class HomeController extends Controller
         return view('front.automotive');
     }
     
+    public function showRegisterForm()
+    {
+        return view('front.register');
+    }
+    
     public function login()
     {
         return view('front.login');
-    }
-    
-    public function register()
-    {
-        return view('front.register');
     }
     
     public function electrical()

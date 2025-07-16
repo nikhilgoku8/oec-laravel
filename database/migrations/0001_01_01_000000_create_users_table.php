@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->dateTime('last_password_changed')->nullable();
-            $table->integer('password_reset_otp')->nullable();
-            $table->dateTime('password_reset_otp_expires_at')->nullable();
+            $table->dateTime('last_login')->nullable();
+            $table->integer('login_attempts')->nullable();
+            $table->boolean('is_locked')->nullable();
             $table->dateTime('registered_at')->nullable();
             $table->string('billing_first_name')->nullable();
             $table->string('billing_last_name')->nullable();
@@ -44,6 +45,8 @@ return new class extends Migration
             $table->string('shipping_postcode')->nullable();
             $table->boolean('paying_customer')->default(false);
             $table->string('status')->default('pending')->comment('pending,approved,denied');
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
 

@@ -5,6 +5,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsSuperAdmin;
 
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\UserController;
 
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\AdminController;
@@ -24,6 +25,8 @@ use App\Http\Controllers\Admin\UploadDataController;
 // });
 
 Route::get('migrateDbData', [UploadDataController::class, 'migrateDbData']);
+Route::get('test-otp-mail', [UserController::class, 'testOtpMail']);
+Route::post('sendOtpViaEmail', [UserController::class, 'sendOtpViaEmail'])->name('sendOtpViaEmail');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('overview', [HomeController::class, 'overview'])->name('overview');
@@ -34,7 +37,8 @@ Route::get('reach-us', [HomeController::class, 'reach_us'])->name('reach-us');
 Route::get('electricals', [HomeController::class, 'electricals'])->name('electricals');
 Route::get('automotive', [HomeController::class, 'automotive'])->name('automotive');
 Route::get('login', [HomeController::class, 'login'])->name('login');
-Route::get('register', [HomeController::class, 'register'])->name('register');
+Route::get('register', [HomeController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [UserController::class, 'register'])->name('register.post');
 
 Route::get('electrical', [HomeController::class, 'electrical'])->name('electrical');
 Route::get('electrical/commercial-and-industrial', [HomeController::class, 'commercial_and_industrial'])->name('commercial-and-industrial');
