@@ -24,7 +24,7 @@
                 <div class="right_pane">
                     <div class="inner_box">
                         <div class="text_box">
-                            <p>Hello OEC Ameriaca (not OEC Ameriaca? Log out)</p>
+                            <p>Hello {{ $user->fname . ' ' . $user->lname }} (not {{ $user->fname . ' ' . $user->lname }}? <a href="{{ route('my-account.logout') }}">Log out</a>)</p>
                             <p>From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
                         </div>
                         <div class="nav_links">

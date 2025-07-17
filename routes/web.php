@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsUser;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsSuperAdmin;
 
@@ -36,35 +37,48 @@ Route::get('markets', [HomeController::class, 'markets'])->name('markets');
 Route::get('reach-us', [HomeController::class, 'reach_us'])->name('reach-us');
 Route::get('electricals', [HomeController::class, 'electricals'])->name('electricals');
 Route::get('automotive', [HomeController::class, 'automotive'])->name('automotive');
+
 Route::get('login', [HomeController::class, 'login'])->name('login');
-Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::get('register', [HomeController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [UserController::class, 'register'])->name('register.post');
 Route::post('authenticateUser', [UserController::class, 'authenticateUser'])->name('authenticateUser');
-Route::get('reset-password', [HomeController::class, 'showResetPasswordForm'])->name('reset-password');
-Route::post('reset-password', [HomeController::class, 'reset_password'])->name('reset-password.post');
 
-Route::get('electrical', [HomeController::class, 'electrical'])->name('electrical');
-Route::get('electrical/commercial-and-industrial', [HomeController::class, 'commercial_and_industrial'])->name('commercial-and-industrial');
-Route::get('electrical/landscape-irrigation-solutions', [HomeController::class, 'landscape_irrigation_solutions'])->name('landscape-irrigation-solutions');
-Route::get('electrical/energy-systems-renewables', [HomeController::class, 'energy_systems_renewables'])->name('energy-systems-renewables');
-Route::get('electrical/operation-manual', [HomeController::class, 'operation_manual'])->name('operation-manual');
-Route::get('electrical/safety-standards', [HomeController::class, 'safety_standards'])->name('safety-standards');
-Route::get('electrical/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
-Route::get('electrical/brochure', [HomeController::class, 'brochure'])->name('brochure');
-Route::get('electrical/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
-Route::get('electrical/my-account/dashboard', [HomeController::class, 'my_account'])->name('my-account.dashboard');
-Route::get('electrical/my-account/orders', [HomeController::class, 'orders'])->name('my-account.orders');
-Route::get('electrical/my-account/view-order/{order_no}', [HomeController::class, 'view_order'])->name('my-account.view-order');
-Route::get('electrical/my-account/addresses', [HomeController::class, 'addresses'])->name('my-account.addresses');
-Route::get('electrical/my-account/edit-address/{id}', [HomeController::class, 'edit_address'])->name('my-account.edit-address');
-Route::get('electrical/my-account/account-details', [HomeController::class, 'account_details'])->name('my-account.account-details');
-Route::get('electrical/my-account/logout', [HomeController::class, 'logout'])->name('my-account.logout');
+Route::get('/reset-password', [HomeController::class, 'showResetPasswordForm'])->name('reset-password');
+Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password.post');
 
-Route::get('electrical/categories', [HomeController::class, 'categories'])->name('categories');
-Route::get('electrical/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
-Route::get('electrical/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
-Route::get('electrical/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
+Route::middleware([IsUser::class])->group(function(){
+    
+    Route::prefix('electrical')->group(function(){
+
+        Route::get('/', [HomeController::class, 'electrical'])->name('electrical');
+        Route::get('/commercial-and-industrial', [HomeController::class, 'commercial_and_industrial'])->name('commercial-and-industrial');
+        Route::get('/landscape-irrigation-solutions', [HomeController::class, 'landscape_irrigation_solutions'])->name('landscape-irrigation-solutions');
+        Route::get('/energy-systems-renewables', [HomeController::class, 'energy_systems_renewables'])->name('energy-systems-renewables');
+        Route::get('/operation-manual', [HomeController::class, 'operation_manual'])->name('operation-manual');
+        Route::get('/safety-standards', [HomeController::class, 'safety_standards'])->name('safety-standards');
+        Route::get('/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
+        Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
+        Route::get('/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
+
+        Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
+        Route::get('/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
+        Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
+        Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
+
+    });
+
+    Route::prefix('my-account')->group(function(){
+        Route::get('/dashboard', [UserController::class, 'my_account'])->name('my-account.dashboard');
+        Route::get('/orders', [UserController::class, 'orders'])->name('my-account.orders');
+        Route::get('/view-order/{order_no}', [UserController::class, 'view_order'])->name('my-account.view-order');
+        Route::get('/addresses', [UserController::class, 'addresses'])->name('my-account.addresses');
+        Route::get('/edit-address/{id}', [UserController::class, 'edit_address'])->name('my-account.edit-address');
+        Route::get('/account-details', [UserController::class, 'account_details'])->name('my-account.account-details');
+        Route::post('/account-details', [UserController::class, 'update_account_details'])->name('account-details.post');
+        Route::get('/logout', [UserController::class, 'logout'])->name('my-account.logout');
+    });
+
+});
 
 Route::prefix('owm')->group(function () {
 

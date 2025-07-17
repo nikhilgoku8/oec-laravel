@@ -406,9 +406,9 @@ video{
 	color: #000;
 	width: 100%;
 	height: 40px;
-	padding: 10px;
-	border: 1px solid #ededed61;
-	border-radius: 10px;
+	padding: 10px 15px;
+	border: 1px solid #0000001a;
+	border-radius: 100px;
 }
 .form_wrapper form .input_box select{
 	background: transparent;
@@ -416,8 +416,8 @@ video{
 	width: 100%;
 	height: 40px;
 	padding: 10px;
-	border: 1px solid #ededed61;
-	border-radius: 10px;
+	border: 1px solid #0000001a;
+	border-radius: 100px;
 }
 .form_wrapper form .input_box textarea{
 	background: transparent;
@@ -425,7 +425,7 @@ video{
 	width: 100%;
 	height: 100px;
 	padding: 10px;
-	border: 1px solid #ededed61;
+	border: 1px solid #0000001a;
 	border-radius: 10px;
 }
 .form_wrapper fieldset{
@@ -433,6 +433,9 @@ video{
 }
 .form_wrapper form .input_box .password_wrapper{
 	position: relative;
+}
+.form_wrapper form .input_box .password_wrapper input{
+	outline: none;
 }
 .form_wrapper form .input_box .password_wrapper button.eye{
 	position: absolute;
@@ -454,6 +457,18 @@ video{
 }
 .form_wrapper form .input_box .password_wrapper button.eye:hover{
 	color: var(--red);
+}
+.form_wrapper form .input_box .password_wrapper button.eye .eye_open{
+	display: none;
+}
+.form_wrapper form .input_box .password_wrapper button.eye .eye_closed{
+	display: block;
+}
+.form_wrapper form .input_box .password_wrapper button.eye.show_password .eye_open{
+	display: block;
+}
+.form_wrapper form .input_box .password_wrapper button.eye.show_password .eye_closed{
+	display: none;
 }
 .form_wrapper .note{
 	font-size: 12px;
@@ -1526,4 +1541,26 @@ footer .lower_sec p{
 	margin: 0;
 	box-shadow: none;
 	border: 1px solid #0000001b;
+}
+
+.form_error{
+	color: var(--red);
+	font-size: 13px;
+	/*line-height: 2em;*/
+	font-weight: 500;
+	display: block;
+}
+.form_error.all_errors{
+	font-size: 12px;
+}
+.alert-danger{
+	padding: 0 0 10px;
+	display: block;
+}
+.alert-success{
+	color: green;
+	font-size: 14px;
+	font-weight: 500;
+	display: block;
+	padding: 0 0 10px;
 }

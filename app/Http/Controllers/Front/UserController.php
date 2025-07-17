@@ -18,7 +18,7 @@ class UserController extends Controller
         try {
 
             $validated = $request->validate([
-                'email' => 'required|email|unique:users,email'
+                'email' => 'required|email'
             ]);
 
             $email = $validated['email'];
@@ -142,7 +142,8 @@ class UserController extends Controller
             $data = array(
                 'fname' => $request->fname,
                 'lname' => $request->lname,
-                'company_name' => $request->company_name,
+                'billing_company' => $request->company_name,
+                'shipping_company' => $request->company_name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'last_password_changed' => now(),
@@ -202,6 +203,14 @@ class UserController extends Controller
                     throw new \Illuminate\Validation\ValidationException($validator);
                 }
 
+                if ($user->status == 'pending') {
+                    $validator->getMessageBag()->add('email', 'Account Activation Pending by Admin');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }elseif ($user->status == 'denied') {
+                    $validator->getMessageBag()->add('email', 'Account Access Denied by Admin');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
                 $passwordExpiry = Carbon::parse($user->last_password_changed)->addDays(90);
                 if($passwordExpiry < now()){
                     $validator->getMessageBag()->add('password', 'Password Expired');
@@ -218,6 +227,7 @@ class UserController extends Controller
                     User::where('email', $request->email)->update($userData);
 
                     $request->session()->put('username', $user->fname.' '.$user->lname);
+                    $request->session()->put('userId', $user->id);
                     $request->session()->put('isUser', 'yes');
                     $request->session()->put('last_login', $user->last_login ?? now());
 
@@ -266,9 +276,204 @@ class UserController extends Controller
             ], 500);
         }
     }
+    
+    public function resetPassword(Request $request)
+    {
 
+        try {
+
+            $rules = [
+                'email'=>'required|email',
+                'otp'=>'required|numeric|digits:6',
+                'password'=> 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                'confirm_password'=> 'required|same:password'
+            ];
+
+            $messages = [];
+
+            $attributes = [
+                'email'=>'Email',
+                'otp'=>'OTP',
+                'password'=> 'Password',
+                'confirm_password'=> 'Confirm Password'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $user = User::where('email', $request->email)->first();
+
+            if($user){
+
+                if ($user->is_locked) {
+                    $validator->getMessageBag()->add('email', 'Account Is Locked');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
+                if(session('otp') != $request->otp){
+                    $validator->getMessageBag()->add('otp', 'OTP does not match');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }elseif (session('otp_email') !== $request->email) {
+                    $validator->getMessageBag()->add('email', 'Email must match OTP sent email');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }elseif (session('otp_expires_at') < now()) {
+                    $validator->getMessageBag()->add('otp', 'OTP Expired');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
+                $user->password = Hash::make($request->password);
+                $user->last_password_changed = now();
+                $user->save();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Password Change Successful'
+                ]);
+                
+            }else{
+                return response()->json([
+                    'error' => true,
+                    'error_type' => 'login',
+                    'message' => 'User not found',
+                    'errors' => ['email' => 'Email not registered']
+                ], 422);
+            }
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
+    public function my_account()
+    {
+        // $this->data['user'] = User::find(session('userId'));
+        $this->data['dashboard'] = 'active';
+        return view('electrical.my-account.dashboard', $this->data);
+    }
+    
+    public function orders()
+    {
+        $this->data['orders'] = 'active';
+        return view('electrical.my-account.orders', $this->data);
+    }
+    
+    public function view_order($order_no)
+    {
+        $this->data['orders'] = 'active';
+        return view('electrical.my-account.view-order', $this->data);
+    }
+    
+    public function addresses()
+    {
+        $this->data['addresses'] = 'active';
+        return view('electrical.my-account.addresses', $this->data);
+    }
+    
+    public function edit_address($id)
+    {
+        $this->data['addresses'] = 'active';
+        return view('electrical.my-account.edit-address', $this->data);
+    }
+    
+    public function account_details()
+    {
+        $this->data['accountDetails'] = 'active';
+        return view('electrical.my-account.account-details', $this->data);
+    }
+    
+    public function update_account_details(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'fname'=>'required',
+                'lname'=>'required',
+                'current_password'=>'nullable',
+                'new_password'=> 'nullable|required_with:current_password|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                'confirm_new_password'=> 'bail|required_with:new_password|same:new_password'
+            ];
+
+            $messages = [];
+
+            $attributes = [
+                'fname'=>'First Name',
+                'lname'=>'Last Name',
+                'current_password'=>'Current Password',
+                'new_password'=> 'New Password',
+                'confirm_new_password'=> 'Confirm New Password'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $user = User::find(session('userId'));
+
+            $user->fname = $request->fname;
+            $user->lname = $request->lname;
+
+            if(!empty($request->new_password)){
+
+                if (Hash::check($request->current_password, $user->password)){
+                    if (Hash::check($request->new_password, $user->password)){
+                        $validator->getMessageBag()->add('new_password', 'New and Current Password cannot be same');
+                        throw new \Illuminate\Validation\ValidationException($validator);
+                    }
+                    $newPassword = Hash::make($request->new_password);
+                    $user->password = $newPassword;
+                    $user->last_password_changed = now();
+
+                    session()->flash('password_changed','Password Change Successful');
+                }else{
+                    $validator->getMessageBag()->add('current_password', 'Incorrect Password');
+                    throw new \Illuminate\Validation\ValidationException($validator);
+                }
+
+            }
+
+            $user->save();
+            session()->flash('success','Data Updation Successful');
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Updation Successful'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
     public function logout()
     {
         session()->flush();
+        return redirect()->route('login');
     }
 }

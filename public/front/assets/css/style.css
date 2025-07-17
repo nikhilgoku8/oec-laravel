@@ -734,6 +734,19 @@ footer .lower_sec p{
     font-size: 12px;
     margin: 0 0 5px 0;
 }*/
+
+.alert-danger{
+	padding: 0 0 10px;
+	display: block;
+}
+.alert-success{
+	color: green;
+	font-size: 14px;
+	font-weight: 500;
+	display: block;
+	padding: 0 0 10px;
+}
+
 /*apply_at_oec*/
 .apply_at_oec{
 	padding: 100px 0;

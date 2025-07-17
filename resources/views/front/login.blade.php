@@ -30,6 +30,9 @@
                     <div class="other_text">
                         <a href="{{ route('register') }}">Don't have an account? Signup now</a>
                     </div>
+                    <div class="other_text">
+                        <a href="{{ route('reset-password') }}">Forgot Password? Reset Password</a>
+                    </div>
                 </div>
                 <div class="clr"></div>
             </form>
