@@ -1,27 +1,10 @@
 DONE
 User Register
 User Login
+User Status Access (pending/denied)
 Reset Password
 User Account
---------------------------------------------------------------------------
 User Address
-User Orders
-
-User Status Access
-
-enquiry pop up products
-
-Quick View
-
-cart controller
-Cart functionality
-
-Competitors 
-
-Shop page
-
-Filters
-
 
 password
 last_password_changed - 90 days
@@ -30,10 +13,23 @@ login_attempts - MAX 5 after that flag is_locked true
 is_locked - after 5 incorrect password attempts
 
 Limit OTP for 2 minutes interval
-session(['otp_last_sent_at' => now()]);
-if (session('otp_last_sent_at') && now()->diffInSeconds(session('otp_last_sent_at')) < 120) {
-    return back()->with('status', 'Please wait before requesting another OTP.');
-}
+--------------------------------------------------------------------------
+Quick View
+
+Shop page
+Filters
+
+cart controller
+Cart functionality
+
+User Orders
+
+enquiry pop up products
+
+Competitors 
+
+
+Admin - User Activation
 
 User password change logs
 

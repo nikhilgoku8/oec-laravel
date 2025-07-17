@@ -389,6 +389,78 @@ class UserController extends Controller
         return view('electrical.my-account.edit-address', $this->data);
     }
     
+    public function address_update(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'billing_first_name'=>'required|string|max:50',
+                'billing_last_name'=>'required|string|max:50',
+                'billing_email'=>'required|email',
+                'billing_phone'=>'nullable|string|max:20|regex:/^\+?[0-9\s\-()]+$/',
+                'billing_company'=>'nullable|string|max:255',
+                'billing_address'=>'nullable|string|max:255',
+                'billing_city'=>'nullable|string|max:100',
+                'billing_state'=>'nullable|string|max:50',
+                'billing_country'=>'nullable|string|max:60',
+                'billing_postcode'=>'nullable|string|max:20',
+                'same_address'=>'nullable',
+                'shipping_first_name'=>'required|string|max:50',
+                'shipping_last_name'=>'required|string|max:50',
+                'shipping_email'=>'required|email',
+                'shipping_phone'=>'nullable|string|max:20|regex:/^\+?[0-9\s\-()]+$/',
+                'shipping_company'=>'nullable|string|max:255',
+                'shipping_address'=>'nullable|string|max:255',
+                'shipping_city'=>'nullable|string|max:100',
+                'shipping_state'=>'nullable|string|max:50',
+                'shipping_country'=>'nullable|string|max:60',
+                'shipping_postcode'=>'nullable|string|max:20',
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $validated['updated_by'] = session('username');
+
+            if($request->same_address){
+                $validated['same_address'] = 1;
+            }else{
+                $validated['same_address'] = 0;
+            }
+            // dd($validated['same_address']);
+
+            User::find(session('userId'))->update($validated);
+
+            // $user = User::find(session('userId'));
+
+            // $user->save();
+
+            session()->flash('success','Data Updation Successful');
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Updation Successful'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
     public function account_details()
     {
         $this->data['accountDetails'] = 'active';

@@ -28,7 +28,7 @@ class User extends Model
         'billing_state',
         'billing_country',
         'billing_postcode',
-        'same_adress',
+        'same_address',
         'shipping_first_name',
         'shipping_last_name',
         'shipping_phone',

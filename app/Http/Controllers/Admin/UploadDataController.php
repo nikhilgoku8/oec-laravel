@@ -65,7 +65,7 @@ class UploadDataController extends Controller
                 'billing_state' => $user->meta['billing_state'] ?? '',
                 'billing_country' => $user->meta['billing_country'] ?? '',
                 'billing_postcode' => $user->meta['billing_postcode'] ?? '',
-                'same_adress' => $user->meta['same_adress'] ?? true,
+                'same_address' => $user->meta['same_address'] ?? true,
                 'shipping_first_name' => $user->meta['shipping_first_name'] ?? '',
                 'shipping_last_name' => $user->meta['shipping_last_name'] ?? '',
                 'shipping_phone' => $user->meta['shipping_phone'] ?? '',

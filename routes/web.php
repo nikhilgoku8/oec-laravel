@@ -72,6 +72,7 @@ Route::middleware([IsUser::class])->group(function(){
         Route::get('/orders', [UserController::class, 'orders'])->name('my-account.orders');
         Route::get('/view-order/{order_no}', [UserController::class, 'view_order'])->name('my-account.view-order');
         Route::get('/addresses', [UserController::class, 'addresses'])->name('my-account.addresses');
+        Route::post('/addresses', [UserController::class, 'address_update'])->name('my-account.addresses.post');
         Route::get('/edit-address/{id}', [UserController::class, 'edit_address'])->name('my-account.edit-address');
         Route::get('/account-details', [UserController::class, 'account_details'])->name('my-account.account-details');
         Route::post('/account-details', [UserController::class, 'update_account_details'])->name('account-details.post');

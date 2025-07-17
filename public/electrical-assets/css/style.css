@@ -437,6 +437,13 @@ video{
 .form_wrapper form .input_box .password_wrapper input{
 	outline: none;
 }
+.form_wrapper form .input_box input[readonly]{
+	background: #ddd;
+	/*pointer-events: none;*/
+	user-select: none;
+	cursor: not-allowed;
+	outline: none;
+}
 .form_wrapper form .input_box .password_wrapper button.eye{
 	position: absolute;
 	right: 0;
