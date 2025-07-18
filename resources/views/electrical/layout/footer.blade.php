@@ -312,5 +312,7 @@ const related_products_slider = new Swiper('.related_products_slider', {
 });
 </script>
 
+@stack('js')
+
 </body>
 </html>

@@ -1,3 +1,7 @@
+@push('css')
+<link href="{{ asset('front/assets/plugins/easyzoom/easyzoom.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
 @extends('electrical.layout.master')
 
 @section('content')
@@ -11,13 +15,25 @@
             <div class="col-sm-6">
                 <div class="product_images">
                     @if(!empty($product->productImages) && count($product->productImages) > 0)
-                        @if(count($product->productImages) == 1)
-                            <img src="{{ $product->productImages[0]->image_file }}">
-                        @else
+
+                        @if(count($product->productImages) > 1)
+                        <ul class="thumbnails">
                             @foreach($product->productImages as $image)
-                            <img src="{{ $image->image_file }}" width="50px">
+                            <li>
+                                <a href="{{ $image->image_file }}" data-standard="{{ $image->image_file }}">
+                                    <img src="{{ $image->image_file }}" width="110px" alt="" />
+                                </a>
+                            </li>
                             @endforeach
+                        </ul>
                         @endif
+                        
+                        <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
+                            <a href="{{ $product->productImages[0]->image_file }}">
+                                <img src="{{ $product->productImages[0]->image_file }}" alt="" />
+                            </a>
+                        </div>
+
                     @endif
                 </div>
             </div>
@@ -152,13 +168,17 @@
                     @foreach($relatedProducts as $row)
                     <div class="swiper-slide">
                         <div class="product_box">
-                            <a href="#" class="img_box">
+                            <a href="{{ route('product', [
+                                        'category' => $row->subCategory->category->slug,
+                                        'subCategory' => $row->subCategory->slug,
+                                        'product' => $row->id
+                                    ]) }}" class="img_box">
                                 <img src="{{ $row->productImages[0]->image_file }}">
                             </a>
                             <a href="#" class="product_title">{{ $row->title }}</a>
                             <a href="#" class="category_title">{{ $row->subCategory->title }}</a>
                             <a href="#" class="add_to_cart">Add To Enquiry</a>
-                            <a href="#" class="quick_view" data-product-id="1"><i class="far fa-window-restore"></i></a>
+                            <a href="#" class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></a>
                         </div>
                     </div>
                     @endforeach
@@ -172,6 +192,48 @@
 </div>
 <!-- related_products end -->
 @endif
+
+</div>
+<!-- product_detail_page end -->
+
+<div class="quick_view_wrapper">
+    <div class="inner_box">
+        <div class="quick_view_box">
+            <div class="left_pane">
+                <div class="product_images_slider">
+                    <div class="swiper-wrapper">
+
+                        @for($i=1; $i<=10; $i++)
+                        <div class="swiper-slide">
+                            <div class="item_box">
+                                <div class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/sub-categories/1.webp') }}">
+                                </div>
+                            </div>
+                        </div>
+                        @endfor
+
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!-- industries_slider end -->
+            </div>
+            <div class="right_pane"></div>
+        </div>
+        <div class="close"></div>
+    </div>
+</div>
+<!-- quick_view_wrapper end -->
+
+<script>
+$(document).ready(function() {
+    $('.quick_view').on('click', function(){
+        alert($(this).data('product-id'));
+    });
+});
+</script>
 
 <script>
 // Show the first tab and hide the rest
@@ -189,11 +251,53 @@ $('#tabs-nav li').click(function(){
     $(activeTab).fadeIn();
     return false;
 });
-
-
 </script>
 
-</div>
-<!-- product_detail_page end -->
+<script src="{{ asset('front/assets/plugins/easyzoom/easyzoom.js') }}" type="text/javascript"></script>
+<script>
+$(document).ready(function() {
+    // Instantiate EasyZoom instances
+    var $easyzoom = $('.easyzoom').easyZoom();
+
+    // Setup thumbnails example
+    var api1 = $easyzoom.filter('.easyzoom--with-thumbnails').data('easyZoom');
+
+    $('.thumbnails').on('click', 'a', function(e) {
+        var $this = $(this);
+
+        e.preventDefault();
+
+        // Use EasyZoom's `swap` method
+        api1.swap($this.data('standard'), $this.attr('href'));
+    });
+});
+</script>
+
+@push('js')
+
+<script>
+const product_images_slider = new Swiper('.product_images_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 1,
+    loop: false,
+    // Responsive breakpoints
+    breakpoints: {
+        // // when window width is >= 480px
+        480: {
+          slidesPerView: 1,
+          // spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 1,
+            // spaceBetween: 200,
+        }
+    }
+});
+</script>
+
+@endpush
 
 @endsection

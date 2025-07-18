@@ -152,7 +152,7 @@ class HomeController extends Controller
         $category = Category::where('slug',$category)->first();
         $subCategory = SubCategory::where('slug',$subCategory)->first();
         $this->data['product'] = Product::with('productImages','productTabContents')->find($product);
-        $this->data['relatedProducts'] = Product::with('productImages')
+        $this->data['relatedProducts'] = Product::with('productImages','subCategory','subCategory.category')
             ->where('id', '!=', $this->data['product']->id)
             ->where('sub_category_id', $subCategory->id)
             ->inRandomOrder()

@@ -101,7 +101,7 @@
                     @endforeach
                 </div>
                 <div class="page_links">
-                    {{ $products->onEachSide(3)->links('pagination.numbers') }}
+                    {{ $products->onEachSide(1)->links('pagination.numbers') }}
                 </div>
                 <!-- @{{ $products->links('pagination::bootstrap-5') }} -->
                 <!-- @if ($products->total() > 0)

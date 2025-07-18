@@ -15,6 +15,8 @@
   </div>
 </div>
 
+<script>
+
 let quickViewSwiper = null;
 
 // Handle click on "Quick View" button
@@ -102,3 +104,5 @@ $('#quickViewModal').on('hidden.bs.modal', function () {
         quickViewSwiper = null;
     }
 });
+
+</script>
