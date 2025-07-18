@@ -113,9 +113,9 @@
                             <button class="red_filled_btn add_to_cart">Add to Enquiry</button>
                         </div>
                         <div class="other_btns">
-                            <a class="red_hollow_btn">Specifications</a>
-                            <a class="red_hollow_btn">Catalog</a>
-                            <a class="red_hollow_btn">Sales Drawing</a>
+                            <a href="#" class="red_hollow_btn">Specifications</a>
+                            <a href="#" class="red_hollow_btn">Catalog</a>
+                            <a href="#" class="red_hollow_btn">Sales Drawing</a>
                         </div>
                     </div>
                 </div>
@@ -196,45 +196,6 @@
 </div>
 <!-- product_detail_page end -->
 
-<div class="quick_view_wrapper">
-    <div class="inner_box">
-        <div class="quick_view_box">
-            <div class="left_pane">
-                <div class="product_images_slider">
-                    <div class="swiper-wrapper">
-
-                        @for($i=1; $i<=10; $i++)
-                        <div class="swiper-slide">
-                            <div class="item_box">
-                                <div class="img_box">
-                                    <img src="{{ asset('electrical-assets/images/sub-categories/1.webp') }}">
-                                </div>
-                            </div>
-                        </div>
-                        @endfor
-
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-                <!-- industries_slider end -->
-            </div>
-            <div class="right_pane"></div>
-        </div>
-        <div class="close"></div>
-    </div>
-</div>
-<!-- quick_view_wrapper end -->
-
-<script>
-$(document).ready(function() {
-    $('.quick_view').on('click', function(){
-        alert($(this).data('product-id'));
-    });
-});
-</script>
-
 <script>
 // Show the first tab and hide the rest
 $('#tabs-nav li:first-child').addClass('active');
@@ -275,7 +236,7 @@ $(document).ready(function() {
 
 @push('js')
 
-<script>
+<!-- <script>
 const product_images_slider = new Swiper('.product_images_slider', {
     // parallax: true,
     // effect: 'slide',
@@ -296,7 +257,7 @@ const product_images_slider = new Swiper('.product_images_slider', {
         }
     }
 });
-</script>
+</script> -->
 
 @endpush
 

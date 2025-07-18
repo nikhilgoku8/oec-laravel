@@ -42,6 +42,186 @@
 </div>
 <!-- main end -->
 
+<!-- QUICK VIEW -->
+<div class="quick_view_wrapper">
+    <div class="inner_box">
+        <div class="quick_view_box">
+            <!-- <div class="left_pane">
+                <div class="product_images_slider">
+                    <div class="swiper-wrapper">
+
+                        @for($i=1; $i<=10; $i++)
+                        <div class="swiper-slide">
+                            <div class="img_box">
+                                <img src="@{{ $product->productImages[0]->image_file }}">
+                            </div>
+                        </div>
+                        @endfor
+
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <a href="#" class="red_filled_btn full_width square view_details">View Details</a>
+            </div>
+            <div class="right_pane">
+                <div class="product_info">
+                    <a class="heading left">@{{ $product->title }}</a>
+                    <div class="description">@{!! $product->description !!}</div>
+                    <div class="add_to_cart_inputs">
+                        <div class="number_input">
+                            <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                            <input type="number" value="1" min="1">
+                            <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                        </div>
+                        <button class="red_filled_btn add_to_cart">Add to Enquiry</button>
+                    </div>
+                    <div class="other_btns">
+                        <a href="#" class="red_hollow_btn">Catalog</a>
+                        <a href="#" class="red_hollow_btn">Sales Drawing</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="close"></div>
+    </div>
+</div>
+<!-- quick_view_wrapper end -->
+
+<script>
+
+let quickViewSwiper = null;
+
+// Handle click on "Quick View" button
+$('.quick_view').on('click', function () {
+    const productId = $(this).data('product-id');
+
+    // Show modal immediately with loading message
+    $('.quick_view_box').html('<p class="center red" style="width:100%;padding:15px 0;">Loading...</p>');
+    // $('#quickViewModal').modal('show');
+    $('.quick_view_wrapper').css('display', 'flex').hide().fadeIn();
+
+    // Get product quick view data
+    $.ajax({
+        url: "{{ route('quick-view-product', ':id' ) }}".replace(':id', productId),
+        method: 'POST',
+        data: {
+            product_id: productId,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function (data) {
+            const images = data.images; // ['img1.jpg', 'img2.jpg', ...]
+            // console.log(images);
+            preloadImages(images, function () {
+                showQuickView(data, images);
+            });
+        },
+        error: function () {
+            $('.quick_view_box').html('<p class="center red" style="width:100%;padding:15px 0;">Failed to load product details.</p>');
+        }
+    });
+});
+
+// Preload images one by one, then run callback when done
+function preloadImages(imageUrls, callback) {
+    let loadedCount = 0;
+    const total = imageUrls.length;
+
+    if (total === 0) {
+        callback();
+        return;
+    }
+
+    imageUrls.forEach(url => {
+        const img = new Image();
+        img.onload = img.onerror = function () {
+            loadedCount++;
+            if (loadedCount === total) {
+                callback();
+            }
+        };
+        img.src = url;
+    });
+}
+
+// Display the quick view with loaded images and product info
+function showQuickView(data, images) {
+    const slidesHtml = images.map(
+        // (src) => `<div class="swiper-slide"><img src="${src}" class="img-fluid" /></div>`
+        (src) => `<div class="swiper-slide">
+                        <div class="img_box">
+                            <img src="${src}">
+                        </div>
+                    </div>`
+    ).join('');
+
+    const modalHtml = `
+        <div class="left_pane">
+            <div class="product_images_slider">
+                <div class="swiper-wrapper">
+                    ${slidesHtml}
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <!-- product_images_slider end -->
+            <a href="/electrical/${data.category}/${data.subCategory}/${data.id}" class="red_filled_btn full_width square view_details">View Details</a>
+        </div>
+        <div class="right_pane">
+            <div class="product_info">
+                <a href="/electrical/${data.category}/${data.subCategory}/${data.id}" class="heading left">${data.title}</a>
+                <div class="description">${data.description}</div>
+                <div class="add_to_cart_inputs">
+                    <div class="number_input">
+                        <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                        <input type="number" value="1" min="1">
+                        <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                    </div>
+                    <button class="red_filled_btn add_to_cart">Add to Enquiry</button>
+                </div>
+                <div class="other_btns">
+                    <a href="#" class="red_hollow_btn">Catalog</a>
+                    <a href="#" class="red_hollow_btn">Sales Drawing</a>
+                </div>
+            </div>
+        </div>
+    `;
+
+    $('.quick_view_box').html(modalHtml);
+
+    // Initialize Swiper
+    quickViewSwiper = new Swiper('.product_images_slider', {
+        loop: true,
+        slidesPerView: 1,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+    });
+}
+
+$('.quick_view_wrapper').find('.close').on('click', function() {
+    $('.quick_view_wrapper').fadeOut();
+    // Clean up swiper when modal closes
+    if (quickViewSwiper) {
+        quickViewSwiper.destroy(true, true);
+        quickViewSwiper = null;
+    }
+});
+
+$(".quick_view_wrapper").on('click', function(event){
+    if (!$(event.target).closest('.inner_box').length) {
+        $(".quick_view_wrapper").fadeOut();
+        // Clean up swiper when modal closes
+        if (quickViewSwiper) {
+            quickViewSwiper.destroy(true, true);
+            quickViewSwiper = null;
+        }
+    }
+});
+
+</script>
+<!-- QUICK VIEW END -->
 
 <script>
 $(document).ready(function() {

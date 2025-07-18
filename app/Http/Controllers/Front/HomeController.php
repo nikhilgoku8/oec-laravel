@@ -186,4 +186,18 @@ class HomeController extends Controller
 
         return view('electrical.products.detail', $this->data);
     }
+    
+    public function quick_view_product($id)
+    {
+        $product = Product::with('productImages','productTabContents')->find($id);
+        return response()->json([
+            'success' => true,
+            'id' => $product->id,
+            'title' => $product->title,
+            'description' => $product->description,
+            'category' => $product->subCategory->category->slug,
+            'subCategory' => $product->subCategory->slug,
+            'images' => $product->productImages->pluck('image_file') // or getFullUrlAttribute
+        ]);
+    }
 }

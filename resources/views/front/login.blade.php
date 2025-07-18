@@ -54,6 +54,10 @@ $(document).ready(function() {
         $this.find(".form_error").html("");
         $this.find(".form_error").removeClass("alert alert-danger");
 
+        var button = $(this).find('[type=submit]');
+        button.attr('disabled', 'disabled');
+        button.addClass('spinners');
+
         $.ajax({
             type: "POST",
             url: "{{ route('authenticateUser') }}",
@@ -94,6 +98,8 @@ $(document).ready(function() {
                     alert("Unexpected error: " + data.status);
                     console.log(data);
                 }
+
+                button.prop('disabled', false).removeClass('spinners');
             }
         });
 
