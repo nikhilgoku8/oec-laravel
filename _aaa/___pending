@@ -17,8 +17,8 @@ Send Otp to reset password with 2 minutes interval
 verify OTP and update password and reset login_attempts = 0 and redirect to login page or log in the user
 
 Limit OTP for 2 minutes interval
-Quick View
 Product Zoom and Slider
+Quick View
 --------------------------------------------------------------------------
 
 Shop page

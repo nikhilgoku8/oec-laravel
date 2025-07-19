@@ -13,53 +13,32 @@
             <div class="left_pane">
                 <div class="filters_wrapper">
                     <div class="title">Filters</div>
-                    <div id="accordion">
-                        <h3>Section 1</h3>
-                        <div>
-                            <ul>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="">
-                                        <span class="text">123432</span>
-                                        <span class="count">76</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="">
-                                        <span class="text">123432</span>
-                                        <span class="count">76</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="">
-                                        <span class="text">123432</span>
-                                        <span class="count">76</span>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="">
-                                        <span class="text">123432</span>
-                                        <span class="count">76</span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3>Section 2</h3>
-                        <div>
-                            <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-                        </div>
-                        <h3>Section 3</h3>
-                        <div>
-                            <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-                        </div>
-                        <h3>Section 4</h3>
-                        <div>
-                            <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.</p>
-                        </div>
-                    </div>
+                    @if(!empty($filterTypes) && count($filterTypes) > 0)
+                        <form method="GET" action="{{ route('products', ['category' => $category->slug, 'subCategory' => $subCategory->slug]) }}">
+                        <input type="hidden" name="q" value="{{ request('q') }}">
+                            <div id="accordion">
+                                 @foreach ($filterTypes as $type)
+                                     @if(count($type->filterValues) > 0)
+                                        <h3>{{ $type->title }}</h3>
+                                        <div>
+                                            <ul>
+                                                @foreach ($type->filterValues as $value)
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" name="filters[]" value="{{ $value->id }}" {{ in_array($value->id, request()->get('filters', [])) ? 'checked' : '' }}>
+                                                        <span class="text">{{ $value->value }}</span>
+                                                        <span class="count">{{ $filterCounts[$value->id] ?? 0 }}</span>
+                                                    </label>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <button class="btn btn-secondary mt-2">Apply Filters</button>
+                        </form>
+                    @endif
                 </div>
             </div>
             <div class="right_pane">
@@ -101,7 +80,8 @@
                     @endforeach
                 </div>
                 <div class="page_links">
-                    {{ $products->onEachSide(1)->links('pagination.numbers') }}
+                    <!-- @{{ $products->onEachSide(1)->links('pagination.numbers') }} -->
+                    {{ $products->withQueryString()->links('pagination.numbers') }}
                 </div>
                 <!-- @{{ $products->links('pagination::bootstrap-5') }} -->
                 <!-- @if ($products->total() > 0)
