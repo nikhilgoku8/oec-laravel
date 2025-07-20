@@ -56,12 +56,12 @@
             <div class="logo">
                 <!-- <a href="{{ route('electrical') }}"><img src="{{ asset('electrical-assets/images/logo.webp') }}" alt="" /></a> -->
             </div>
-            <div class="search_wrapper">
+            <form method="GET" action="{{ route('shop') }}" class="search_wrapper">
                 <div class="input_box">
-                    <input type="text" name="search" placeholder="Search Products">
+                    <input type="text" class="search_input" name="q" placeholder="Search Products" value="{{ request('q') }}">
                 </div>
                 <button class="icon_box"><i class="fas fa-search"></i></button>
-            </div>
+            </form>
             <div class="my_account_links">
                 <div class="head">My Account</div>
                 <ul>
@@ -73,13 +73,13 @@
                     <li><a href="{{ route('my-account.logout') }}">Logout</a></li>
                 </ul>
             </div>
-            <div class="menu_cart_wrapper">
+            <button type="button" class="menu_cart_wrapper open_side_cart">
                 <div class="icon_box"><i class="fas fa-shopping-cart"></i></div>
                 <div class="cart_count_wrapper">
-                    <span class="cart_count">0</span>
+                    <span class="cart_count">{{ !empty($cartProducts) ? count($cartProducts) : 0 }}</span>
                     <span class="text">items</span>
                 </div>
-            </div>
+            </button>
         </div>
     </div>
 </div>

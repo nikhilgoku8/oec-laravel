@@ -34,6 +34,9 @@ class MeiliConfigure extends Command
         $settings = [
             'filterableAttributes' => ['filter_value_ids', 'sub_category_id'],
             'sortableAttributes'   => ['title'],
+            'pagination' => [
+                'maxTotalHits' => 10000,
+            ],
         ];
 
         $client->index($indexName)->updateSettings($settings);

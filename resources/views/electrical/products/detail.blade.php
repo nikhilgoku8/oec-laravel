@@ -110,7 +110,7 @@
                                 <input type="number" value="1" min="1">
                                 <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
                             </div>
-                            <button class="red_filled_btn add_to_cart">Add to Enquiry</button>
+                            <button class="red_filled_btn add_to_cart" data-product-id="{{ $product->id }}">Add to Enquiry</button>
                         </div>
                         <div class="other_btns">
                             <a href="#" class="red_hollow_btn">Specifications</a>
@@ -178,7 +178,7 @@
                             <a href="#" class="product_title">{{ $row->title }}</a>
                             <a href="#" class="category_title">{{ $row->subCategory->title }}</a>
                             <a href="#" class="add_to_cart">Add To Enquiry</a>
-                            <a href="#" class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></a>
+                            <button class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></button>
                         </div>
                     </div>
                     @endforeach

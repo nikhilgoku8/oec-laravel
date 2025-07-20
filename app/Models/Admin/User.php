@@ -44,4 +44,8 @@ class User extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function cartItems(){
+        return $this->hasMany(CartItem::class);
+    }
 }

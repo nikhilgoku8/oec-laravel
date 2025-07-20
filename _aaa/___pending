@@ -19,13 +19,15 @@ verify OTP and update password and reset login_attempts = 0 and redirect to logi
 Limit OTP for 2 minutes interval
 Product Zoom and Slider
 Quick View
---------------------------------------------------------------------------
-
 Shop page
-Filters
-
 Cart controller
 Cart functionality
+--------------------------------------------------------------------------
+
+Filters - keep others and clear filter and clear selected option
+Cart slide to right
+Cart no reload
+
 
 User Orders
 

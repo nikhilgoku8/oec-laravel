@@ -42,6 +42,177 @@
 </div>
 <!-- main end -->
 
+<!-- CART -->
+<div class="cart_wrapper @if(Session::has('show_cart')) {{Session::get('show_cart')}} @endif">
+    <div class="inner_box">
+        <div class="cart_box">
+            <div class="head_wrapper">
+                <div class="title">Shopping Cart</div>
+                <div class="close"></div>
+            </div>
+            @if(!empty($cartProducts) && count($cartProducts) > 0)
+                <div class="products_wrapper">
+                    @foreach($cartProducts as $row)
+                        <div class="product_box">
+                            <a href="{{ route('product', [
+                                'category' => $row->product->subCategory->category->slug,
+                                'subCategory' => $row->product->subCategory->slug,
+                                'product' => $row->product->id
+                            ]) }}">
+                                <div class="img_box">
+                                    <img src="{{ $row->product->productImages[0]->image_file }}">
+                                </div>
+                                <div class="text_box">
+                                    <div class="product_title">{{ $row->product->title }}</div>
+                                    <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
+                                    <div class="product_count">
+                                        <span class="number">{{ $row->quantity }}</span>
+                                        <span class="times">x</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="c2a_btns">
+                    <a href="{{ route('cart.index') }}" class="red_hollow_btn full_width">View Enquiry List</a>
+                    <a href="#" class="red_filled_btn full_width">Request Quote</a>
+                </div>
+            @else
+            <div class="heading">Empty Cart</div>
+            @endif
+        </div>
+    </div>
+</div>
+<!-- CART END -->
+
+<script>
+$(document).on('click','.add_to_cart', function(){
+    let addToCartBtn = $(this);
+    let product_id = addToCartBtn.data('product-id');
+    let quantity = addToCartBtn.parent().find('[type=number]').val();
+    // alert(quantity);
+
+    let formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('product_id', product_id);
+    formData.append('quantity', quantity);
+
+    $.ajax({
+        type: "POST",
+        url: "{{ route('cart.add') }}",
+        data:  formData,
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            // location.href="{{ route('login') }}";
+            window.location.reload();
+        },
+        error: function(data){
+            if (data.status === 422) {
+                let errors = data.responseJSON.errors;
+                let allErrors = '';
+                $.each(errors, function (key, val) {
+                    var fieldName = key.replace(/\./g, '-');
+                    // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                    allErrors += val + '<br>';
+                    $this.find(".form-error-"+fieldName).html(val).addClass('alert alert-danger');
+                    // $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+                });
+                $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+            } else if (data.status === 401) {
+                alert("Please log in.");
+                // window.location.href = "/login";
+            } else if (data.status === 403) {
+                alert("You don’t have permission.");
+            } else if (data.status === 404) {
+                alert("The resource was not found.");
+            } else if (data.status === 419) {
+                alert("Error - "+419);
+                console.log(data.responseJSON.message);
+            } else if (data.status === 500) {
+                alert("Something went wrong on the server.");
+                console.log(data.console_message);
+            } else {
+                alert("Unexpected error: " + data.status);
+                console.log(data);
+            }
+        }
+    });
+});
+</script>
+
+<script>
+$(".cart_wrapper").on('click', function(event){
+    if (!$(event.target).closest('.inner_box').length) {
+        $(".cart_wrapper").fadeOut();
+    }
+});
+$(".open_side_cart").on('click', function(event){
+    $(".cart_wrapper").css('display', 'flex').hide().fadeIn();
+});
+$(document).on('click', '.cart_wrapper .close', function(event){
+    $(".cart_wrapper").fadeOut();
+});
+$(document).on('click','.remove_product', function(){
+    let removeProduct = $(this);
+    let cart_item_id = removeProduct.data('cart-item-id');
+    // alert(quantity);
+
+    $this = $(this).closest('form');
+
+    let formData = new FormData();
+    formData.append('_token', '{{ csrf_token() }}');
+    formData.append('cart_item_id', cart_item_id);
+
+    $.ajax({
+        type: "POST",
+        url: "{{ route('cart.remove') }}",
+        data:  formData,
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(result) {
+            window.location.reload();
+        },
+        error: function(data){
+            if (data.status === 422) {
+                let errors = data.responseJSON.errors;
+                let allErrors = '';
+                $.each(errors, function (key, val) {
+                    var fieldName = key.replace(/\./g, '-');
+                    // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                    allErrors += val + '<br>';
+                    $this.find(".form-error-"+fieldName).html(val).addClass('alert alert-danger');
+                    // $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+                });
+                $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+            } else if (data.status === 401) {
+                alert("Please log in.");
+                // window.location.href = "/login";
+            } else if (data.status === 403) {
+                alert("You don’t have permission.");
+            } else if (data.status === 404) {
+                alert("The resource was not found.");
+            } else if (data.status === 419) {
+                alert("Error - "+419);
+                console.log(data.responseJSON.message);
+            } else if (data.status === 500) {
+                alert("Something went wrong on the server.");
+                console.log(data.console_message);
+            } else {
+                alert("Unexpected error: " + data.status);
+                console.log(data);
+            }
+        }
+    });
+});
+</script>
+
 <!-- QUICK VIEW -->
 <div class="quick_view_wrapper">
     <div class="inner_box">

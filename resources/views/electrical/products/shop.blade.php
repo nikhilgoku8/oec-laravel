@@ -4,17 +4,25 @@
 
 <div class="products_list_page">
     
-<div class="heading">Copper Lugs</div>
+<div class="heading">Shop</div>
 
 <div class="products_wrapper">
     <div class="container">
         <div class="inner_container">
+
+            @if (session('success'))
+                <div class="col-sm-12">
+                    <div class="alert alert-success center title">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
             
             <div class="left_pane">
                 <div class="filters_wrapper">
                     <div class="title">Filters</div>
                     @if(!empty($filterTypes) && count($filterTypes) > 0)
-                        <form method="GET" action="{{ route('products', ['category' => $category->slug, 'subCategory' => $subCategory->slug]) }}">
+                        <form method="GET" action="{{ route('shop') }}">
                         <input type="hidden" name="q" value="{{ request('q') }}">
                             <div id="accordion">
                                  @foreach ($filterTypes as $type)
@@ -47,8 +55,7 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li><a class="txt" href="{{ route('electrical') }}">Home</a></li>
-                            <li><a class="txt" href="{{ route('sub-categories', $category->slug) }}">{{ $category->title }}</a></li>
-                            <li><span class="txt">{{ $subCategory->title }}</span></li>
+                            <li><span class="txt">Shop</span></li>
                         </ul>
                     </div>
                     <div class="total_count_text">
@@ -61,19 +68,19 @@
                     @foreach($products as $product)
                         <div class="product_box">
                             <a href="{{ route('product', [
-                                    'category' => $category->slug,
-                                    'subCategory' => $subCategory->slug,
+                                    'category' => $product->subCategory->category->slug,
+                                    'subCategory' => $product->subCategory->slug,
                                     'product' => $product->id
                                 ]) }}" class="img_box">
                                 <img src="{{ $product->productImages?->first()->image_file }}">
                             </a>
                             <div class="text_box">
                                 <a href="{{ route('product', [
-                                    'category' => $category->slug,
-                                    'subCategory' => $subCategory->slug,
+                                    'category' => $product->subCategory->category->slug,
+                                    'subCategory' => $product->subCategory->slug,
                                     'product' => $product->id
                                 ]) }}" class="product_title">{{ $product->title }}</a>
-                                <div class="sub_category_title">{{ $subCategory->title }}</div>
+                                <div class="sub_category_title">{{ $product->subCategory->title }}</div>
                                 <div class="description">{{ $product->description }}</div>
                                 <button class="red_filled_btn">Add To Enquiry</button>
                             </div>

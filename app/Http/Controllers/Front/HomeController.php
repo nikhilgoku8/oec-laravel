@@ -278,6 +278,117 @@ class HomeController extends Controller
 
         return view('electrical.products.list', $this->data);
     }
+
+    public function shop(Request $request)
+    {
+
+        $query        = $request->input('q', '');
+        $filterParams = $request->input('filters', []);
+        $page         = $request->input('page', 1);
+        $perPage      = 12;
+
+        // Build the Meili filter clause
+        $filterStrings = [];
+        foreach ($filterParams as $typeId => $valueId) {
+            $filterStrings[] = "filter_value_ids = $valueId";
+        }
+
+        $filterClause = implode(' AND ', $filterStrings) ?: null;
+
+        // Instantiate Meili client & index name
+        $model   = new Product;
+        $indexId = $model->searchableAs();
+        $client  = new Client(
+            config('scout.meilisearch.host'),
+            config('scout.meilisearch.key')
+        );
+
+        // 1) Do the Meili search
+        /** @var \Meilisearch\Search\SearchResult $raw */
+        $raw = $client
+            ->index($indexId)
+            ->search(
+                $query === '' ? '*' : $query,
+                [
+                    'filter' => $filterClause,
+                    'limit'  => $perPage,
+                    'offset' => ($page - 1) * $perPage,
+                    'facets' => ['filter_value_ids'],  // ← ask for counts
+                ]
+            );
+
+        $facetedResult = $client
+            ->index($indexId)
+            ->search($query, [
+                'filter' => $filterClause,
+                'facets' => ['filter_value_ids'],
+                'limit' => 0, // ← no hits, only facets & totalHits
+            ]);
+
+        // 2) Extract hits array from the SearchResult object
+        $hits = $raw->getHits();              // array of associative arrays
+        $hitIds = collect($hits)->pluck('id')->all();
+
+        $filterCounts = $facetedResult->getFacetDistribution()['filter_value_ids'] ?? [];
+        // $filterCounts is now an array like: [ '577' => 5, '578' => 12, ... ]
+
+        // Just get the IDs (the keys)
+        $filterValueIds = array_keys($filterCounts);
+
+        // 3) Total matching documents
+        // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
+        $totalHits = method_exists($raw, 'getEstimatedTotalHits')
+            ? $raw->getEstimatedTotalHits()
+            : $raw->getNbHits();
+
+        // 4) Fetch Eloquent models in the Meili order
+        $products = Product::whereIn('id', $hitIds)
+            ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+            ->get();
+
+        // 5) Make a LengthAwarePaginator for Blade
+        $paginator = new LengthAwarePaginator(
+            $products,
+            $totalHits,
+            $perPage,
+            $page,
+            [
+                'path'  => url()->current(),
+                'query' => $request->query(),
+            ]
+        );
+
+        // 6) Also load filter types/values for the UI
+
+        $productIds = $products->pluck('id')->toArray();
+        // -------------------
+        // $relevantFilterValueIds = DB::table('filter_value_product')
+        //     ->whereIn('product_id', $hitIds) // We are using $hitIds cause we need to get all products not just the current page
+        //     ->pluck('filter_value_id');
+
+        // $filterTypes = FilterType::with(['filterValues' => function ($q) use ($relevantFilterValueIds) {
+        //         $q->whereIn('id', $relevantFilterValueIds);
+        //     }])->get();
+
+        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
+                $q->whereIn('id', $filterValueIds);
+            }])->get();
+
+        // $filterCounts = DB::table('filter_value_product')
+        //     ->select('filter_value_id', DB::raw('count(*) as count'))
+        //     ->whereIn('product_id', $hitIds) // We are using $hitIds cause we need to get all products not just the current page
+        //     ->groupBy('filter_value_id')
+        //     ->pluck('count', 'filter_value_id');
+
+        // return view('admin.products.search_new', [
+        return view('electrical.products.shop', [
+            'products'       => $paginator,
+            'filterTypes'    => $filterTypes,
+            'currentQ'       => $query,
+            'currentFilters' => $filterParams,
+            'filterCounts' => $filterCounts,
+        ]);
+    }
     
     public function product_detail($category, $subCategory, $product)
     {

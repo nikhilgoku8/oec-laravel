@@ -1,0 +1,133 @@
+@extends('electrical.layout.master')
+
+@section('content')
+
+<div class="cart_page">
+    
+<div class="heading">Shopping cart</div>
+
+<div class="products_wrapper">
+    <div class="container">
+        <div class="inner_container">
+
+            @if (session('success'))
+                <div class="col-sm-12">
+                    <div class="alert alert-success center title">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
+            @if(!empty($cartProducts) && count($cartProducts) > 0)
+            <form id="update_cart_form" action="" method="POST">
+                @csrf
+                <table>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Remove</th>
+                    </tr>
+                    @foreach($cartProducts as $row)
+                    <tr>
+                        <th><img src="{{ $row->product->productImages[0]->image_file }}" width="80px"></th>
+                        <th>
+                            <div class="product_title">{{ $row->product->title }}</div>
+                            <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
+                        </th>
+                        <th>
+                            <div class="error form_error form-error-items-{{$loop->iteration}}-id"></div>
+                            <div class="error form_error form-error-items-{{$loop->iteration}}-quantity"></div>
+                            <input type="hidden" name="items[{{$loop->iteration}}][id]" value="{{ $row->id }}">
+                            <div class="number_input">
+                                <button onclick="this.parentNode.querySelector('input').stepDown()" type="button">-</button>
+                                <input type="number" name="items[{{$loop->iteration}}][quantity]" value="{{ $row->quantity }}" min="0">
+                                <button onclick="this.parentNode.querySelector('input').stepUp()" type="button">+</button>
+                            </div>
+                        </th>
+                        <th>
+                            <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
+                        </th>
+                    </tr>
+                    @endforeach
+                </table>
+                <br>
+                <div class="c2a_btns">
+                    <button type="submit" class="red_filled_btn">Update Cart</button>
+                    <a href="{{ route('cart.clear') }}" class="red_hollow_btn">Clear Cart</a>
+                </div>
+            </form>
+            @else
+            <div class="heading">Your cart is currently empty!</div>
+            @endif
+
+        </div>
+    </div>
+</div>
+<!-- products_wrapper end -->
+
+</div>
+<!-- products_list_page end -->
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $("#update_cart_form").on('submit',(function(e){
+
+        $this = $(this);
+
+        e.preventDefault();
+        $this.find(".form_error").html("");
+        $this.find(".form_error").removeClass("alert alert-danger");
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('cart.update') }}",
+            data:  new FormData(this),
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                window.location.reload();
+            },
+            error: function(data){
+                if (data.status === 422) {
+                    let errors = data.responseJSON.errors;
+                    let allErrors = '';
+                    $.each(errors, function (key, val) {
+                        var fieldName = key.replace(/\./g, '-');
+                        // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                        allErrors += val + '<br>';
+                        $this.find(".form-error-"+fieldName).html(val).addClass('alert alert-danger');
+                        // $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+                    });
+                    $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+                } else if (data.status === 401) {
+                    alert("Please log in.");
+                    // window.location.href = "/login";
+                } else if (data.status === 403) {
+                    alert("You don’t have permission.");
+                } else if (data.status === 404) {
+                    alert("The resource was not found.");
+                } else if (data.status === 419) {
+                    alert("Error - "+419);
+                    console.log(data.responseJSON.message);
+                } else if (data.status === 500) {
+                    alert("Something went wrong on the server.");
+                    console.log(data.console_message);
+                } else {
+                    alert("Unexpected error: " + data.status);
+                    console.log(data);
+                }
+            }
+        });
+
+    }));
+
+});
+</script>
+
+@endsection

@@ -7,6 +7,7 @@ use App\Http\Middleware\IsSuperAdmin;
 
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\UserController;
+use App\Http\Controllers\Front\CartController;
 
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\AdminController;
@@ -60,7 +61,14 @@ Route::middleware([IsUser::class])->group(function(){
         Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
         Route::get('/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
 
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+        Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+        Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+        Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
+        Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
         Route::get('/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
         Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');

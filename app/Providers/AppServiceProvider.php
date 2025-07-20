@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Admin\Category;
 use App\Models\Admin\User;
+use App\Models\Admin\CartItem;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,13 +27,16 @@ class AppServiceProvider extends ServiceProvider
             $categories = Category::with('subCategories')->get();
 
             $user = null;
+            $cartProducts = null;
             if (session('isUser') === 'yes' && session()->has('userId')) {
                 $user = User::find(session('userId'));
+                $cartProducts = CartItem::with('product')->where('user_id',session('userId'))->get();
             }
 
             $view->with([
                 'categories' => $categories,
                 'user' => $user,
+                'cartProducts' => $cartProducts,
             ]);
         });
     }
