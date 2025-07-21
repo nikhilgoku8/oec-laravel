@@ -30,12 +30,12 @@
                     </tr>
                     @foreach($cartProducts as $row)
                     <tr>
-                        <th><img src="{{ $row->product->productImages[0]->image_file }}" width="80px"></th>
-                        <th>
+                        <td><img src="{{ $row->product->productImages[0]->image_file }}" width="80px"></td>
+                        <td>
                             <div class="product_title">{{ $row->product->title }}</div>
-                            <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
-                        </th>
-                        <th>
+                            <div class="product_description">{{ Str::limit($row->product->description, 180) }}</div>
+                        </td>
+                        <td>
                             <div class="error form_error form-error-items-{{$loop->iteration}}-id"></div>
                             <div class="error form_error form-error-items-{{$loop->iteration}}-quantity"></div>
                             <input type="hidden" name="items[{{$loop->iteration}}][id]" value="{{ $row->id }}">
@@ -44,19 +44,25 @@
                                 <input type="number" name="items[{{$loop->iteration}}][quantity]" value="{{ $row->quantity }}" min="0">
                                 <button onclick="this.parentNode.querySelector('input').stepUp()" type="button">+</button>
                             </div>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
-                        </th>
+                        </td>
                     </tr>
                     @endforeach
                 </table>
                 <br>
                 <div class="c2a_btns">
                     <button type="submit" class="red_filled_btn">Update Cart</button>
-                    <a href="{{ route('cart.clear') }}" class="red_hollow_btn">Clear Cart</a>
+                    <a href="{{ route('cart.clear') }}" class="red_hollow_btn" onclick="return confirm('Are you sure you want to clear the cart?')">Clear Cart</a>
                 </div>
             </form>
+            <div class="right_pane">
+                <div class="checkout_btn_wrapper">
+                    <div class="sub_title">Click to next steps</div>
+                    <a href="{{ route('checkout') }}" class="red_filled_btn">Request a Quote</a>
+                </div>
+            </div>
             @else
             <div class="heading">Your cart is currently empty!</div>
             @endif

@@ -73,7 +73,7 @@
                     <li><a href="{{ route('my-account.logout') }}">Logout</a></li>
                 </ul>
             </div>
-            <button type="button" class="menu_cart_wrapper open_side_cart">
+            <button type="button" class="menu_cart_wrapper @if(request()->path() !== 'electrical/cart') open_side_cart @endif">
                 <div class="icon_box"><i class="fas fa-shopping-cart"></i></div>
                 <div class="cart_count_wrapper">
                     <span class="cart_count">{{ !empty($cartProducts) ? count($cartProducts) : 0 }}</span>

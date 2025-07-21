@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\User;
+use App\Models\Admin\CartItem;
+use App\Models\Admin\Order;
+use App\Models\Admin\OrderProduct;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use Carbon\Carbon;
@@ -547,5 +550,111 @@ class UserController extends Controller
     {
         session()->flush();
         return redirect()->route('login');
+    }
+    
+    public function checkout()
+    {
+        $cartProducts = CartItem::with('product')->where('user_id',session('userId'))->get();
+
+        // We only allow checkout page for minimum 1 product
+        if(!empty($cartProducts) && count($cartProducts) > 0){
+            return view('electrical.checkout');
+        }else{
+            return redirect()->route('cart.index');
+        }
+    }
+    
+    public function place_order(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'billing_fname'=>'required',
+                'billing_lname'=>'required',
+                'billing_email'=>'required|email',
+                'billing_phone'=>'nullable|string|max:20',
+                'billing_country'=>'required',
+                'enquiry_notes'=>'nullable'
+            ];
+
+            $messages = [];
+
+            $attributes = [
+                'billing_fname'=>'First Name',
+                'billing_lname'=>'Last Name',
+                'company_name'=>'Company Name',
+                'billing_email'=>'Email',
+                'billing_phone'=>'Phone',
+                'billing_country'=> 'Country'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $order_ref_id = date('Ymdhis');
+            
+            $orderData = array(
+                'user_id'=>session('userId'),
+                'order_ref_id'=>$order_ref_id,
+                'billing_fname'=>$request->billing_fname,
+                'billing_lname'=>$request->billing_lname,
+                'billing_email'=>$request->billing_email,
+                'billing_phone'=>$request->billing_phone,
+                'billing_country'=>$request->billing_country,
+                'enquiry_notes'=>$request->enquiry_notes,
+                'created_by' => session('username'),
+                'updated_by' => session('username')
+            );
+
+            // Create Order
+            $order = Order::create($orderData);
+
+            // Cart Products
+            $cartProducts = CartItem::where('user_id',session('userId'))->get();
+
+            // Create Order products
+            $orderProductsData = [];
+            foreach($cartProducts as $item){
+                $orderProductsData[] =[
+                    'order_id' => $order->id,
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            // Add Order Products Data
+            $OrderProducts = OrderProduct::insert($orderProductsData);
+
+            // Now delete cart as order placed
+            CartItem::where('user_id', session('userId'))->delete();
+
+            $response = array(
+                'success' => true,
+                'message' => 'Record created',
+                'class' => 'alert alert-success'
+            );
+
+            return response()->json($response);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

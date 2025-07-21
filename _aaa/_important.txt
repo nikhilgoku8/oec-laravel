@@ -1,4 +1,4 @@
-php artisan migrate:refresh --path=/database/migrations/0001_01_01_000000_create_users_table.php
+php artisan migrate:refresh --path=/database/migrations/2025_07_21_120720_create_order_products_table.php
 
 Products
     Check toolbar

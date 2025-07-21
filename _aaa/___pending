@@ -28,10 +28,12 @@ Filters - keep others and clear filter and clear selected option
 Cart slide to right
 Cart no reload
 
+update users phone on account page
+	(update db, try to add slug as well for products)
+
+add phone in orders after adding phone in users
 
 User Orders
-
-enquiry pop up products
 
 Competitors 
 
@@ -42,3 +44,5 @@ Admin - User Activation
 User password change logs
 
 Correct products and links
+
+enquiry pop up products

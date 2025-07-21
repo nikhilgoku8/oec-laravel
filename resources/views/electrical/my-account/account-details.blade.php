@@ -59,7 +59,14 @@
                                     <div class="input_box">
                                         <label>Email address <span class="red">*</span></label>
                                         <div class="error form_error"></div>
-                                        <input type="text" name="" value="estore@oec-americas.com" disabled>
+                                        <input type="text" value="{{ $user->email }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input_box">
+                                        <label>Phone (Optional)</label>
+                                        <div class="error form_error form-error-phone"></div>
+                                        <input type="text" name="phone" value="{{ $user->phone }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

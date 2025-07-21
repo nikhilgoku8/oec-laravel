@@ -67,6 +67,9 @@ Route::middleware([IsUser::class])->group(function(){
         Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
         Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+        Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
+        Route::post('/checkout', [UserController::class, 'place_order'])->name('checkout.post');
+
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
         Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
         Route::get('/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');

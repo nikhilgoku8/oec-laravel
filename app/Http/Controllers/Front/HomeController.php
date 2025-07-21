@@ -342,9 +342,18 @@ class HomeController extends Controller
             : $raw->getNbHits();
 
         // 4) Fetch Eloquent models in the Meili order
-        $products = Product::whereIn('id', $hitIds)
-            ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-            ->get();
+        // $products = Product::whereIn('id', $hitIds)
+        //     ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+        //     ->get();
+
+        if (!empty($hitIds)) {
+            $products = Product::whereIn('id', $hitIds)
+                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                ->get();
+        } else {
+            // Just return empty collection to keep paginator happy
+            $products = collect();
+        }
 
         // 5) Make a LengthAwarePaginator for Blade
         $paginator = new LengthAwarePaginator(
