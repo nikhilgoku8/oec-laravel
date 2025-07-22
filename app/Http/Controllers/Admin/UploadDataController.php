@@ -51,12 +51,12 @@ class UploadDataController extends Controller
             $user->meta = $metaByUser[$user->ID] ?? [];
 
             $newUserData[] = [
-                'fname' => $user->meta['first_name'] ?? '',
-                'lname' => $user->meta['last_name'] ?? '',
+                'fname' => $user->meta['first_name'] ?: $user->display_name ?: '-',
+                'lname' => $user->meta['last_name'] ?: '-',
                 'email' => $user->user_email ?? '',
                 'registered_at' => $user->user_registered ?? '',
-                'billing_first_name' => $user->meta['billing_first_name'] ?? '',
-                'billing_last_name' => $user->meta['billing_last_name'] ?? '',
+                'billing_fname' => $user->meta['billing_first_name'] ?? '',
+                'billing_lname' => $user->meta['billing_last_name'] ?? '',
                 'billing_phone' => $user->meta['billing_phone'] ?? '',
                 'billing_email' => $user->meta['billing_email'] ?? '',
                 'billing_company' => $user->meta['billing_company'] ?? '',
@@ -66,8 +66,8 @@ class UploadDataController extends Controller
                 'billing_country' => $user->meta['billing_country'] ?? '',
                 'billing_postcode' => $user->meta['billing_postcode'] ?? '',
                 'same_address' => $user->meta['same_address'] ?? true,
-                'shipping_first_name' => $user->meta['shipping_first_name'] ?? '',
-                'shipping_last_name' => $user->meta['shipping_last_name'] ?? '',
+                'shipping_fname' => $user->meta['shipping_first_name'] ?? '',
+                'shipping_lname' => $user->meta['shipping_last_name'] ?? '',
                 'shipping_phone' => $user->meta['shipping_phone'] ?? '',
                 'shipping_email' => $user->meta['shipping_email'] ?? '',
                 'shipping_company' => $user->meta['shipping_company'] ?? '',
@@ -101,7 +101,7 @@ class UploadDataController extends Controller
         $validator = Validator::make($request->all(), $rules);
         
         if(!$validator->passes()){
-            dd($validator->errors());
+            // dd($validator->errors());
             return response()->json([
                 'error' => true,
                 'error_type' => 'form',

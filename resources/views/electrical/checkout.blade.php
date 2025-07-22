@@ -59,11 +59,7 @@
                                 <label for="name">Country <span class="red">*</span></label>
                                 <div class="error form_error form-error-billing_country"></div>
                                 <select name="billing_country">
-                                    <option value="">Select Country</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @include('countries-dropdown', ['country' => old('country', $user->billing_country ?? '')])
                                 </select>
                                 <!-- <input type="text" name="billing_country" placeholder="Country" value="{{ $user->billing_country }}"> -->
                             </div>

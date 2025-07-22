@@ -105,7 +105,10 @@
                                     <div class="input_box">
                                         <label>Country</label>
                                         <div class="error form_error form-error-billing_country"></div>
-                                        <input type="text" name="billing_country" placeholder="Country" value="{{ $user->billing_country }}">
+                                        <!-- <input type="text" name="billing_country" placeholder="Country" value="{{ $user->billing_country }}"> -->
+                                        <select name="billing_country">
+                                            @include('countries-dropdown', ['country' => old('country', $user->billing_country ?? '')])
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -186,7 +189,10 @@
                                     <div class="input_box">
                                         <label>Country</label>
                                         <div class="error form_error form-error-shipping_country"></div>
-                                        <input type="text" name="shipping_country" placeholder="Country" value="{{ $user->shipping_country }}">
+                                        <!-- <input type="text" name="shipping_country" placeholder="Country" value="{{ $user->shipping_country }}"> -->
+                                        <select name="billing_country">
+                                            @include('countries-dropdown', ['country' => old('country', $user->shipping_country ?? '')])
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

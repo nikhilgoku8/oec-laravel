@@ -30,9 +30,10 @@ User Orders
 update users phone on account page
 
 Admin - User Activation
---------------------------------------------------------------------------
 
 Add Countries dropdown everywhere
+
+--------------------------------------------------------------------------
 
 Correct products and links
 
@@ -49,3 +50,5 @@ product slug as url
 User password change logs
 
 enquiry pop up products
+
+All forms activation

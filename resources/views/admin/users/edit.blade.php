@@ -116,7 +116,7 @@
                     <div class="input_boxes">
                         <div class="col-sm-4">
                             <div class="input_box">
-                                <input type="submit" name="submit" id="submit" value="Save" class="btn btn-primary">
+                                <input type="submit" name="submit" value="Save" class="btn btn-primary">
                             </div>
                         </div>
                         <div class="clr"></div>
@@ -214,7 +214,10 @@
                         <div class="input_box">
                             <label>Country</label>
                             <div class="error form_error form-error-billing_country"></div>
-                            <input type="text" name="billing_country" placeholder="Country" value="{{ $result->billing_country }}">
+                            <!-- <input type="text" name="billing_country" placeholder="Country" value="{{ $result->billing_country }}"> -->
+                            <select name="billing_country">
+                                @include('countries-dropdown', ['country' => old('country', $result->billing_country ?? '')])
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -295,7 +298,10 @@
                         <div class="input_box">
                             <label>Country</label>
                             <div class="error form_error form-error-shipping_country"></div>
-                            <input type="text" name="shipping_country" placeholder="Country" value="{{ $result->shipping_country }}">
+                            <!-- <input type="text" name="shipping_country" placeholder="Country" value="{{ $result->shipping_country }}"> -->
+                            <select name="shipping_country">
+                                @include('countries-dropdown', ['country' => old('country', $result->shipping_country ?? '')])
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -323,7 +329,7 @@
                 <div class="input_boxes">
                     <div class="col-sm-4">
                         <div class="input_box">
-                            <input type="submit" name="submit" id="submit" value="Save" class="btn btn-primary">
+                            <input type="submit" name="submit" value="Save" class="btn btn-primary">
                         </div>
                     </div>
                     <div class="clr"></div>
@@ -364,6 +370,11 @@ $(document).ready(function() {
                 setTimeout(updateShippingAddress, 100);
             }
         });
+        $(`[name=billing_${field}]`).on('change', function () {
+            if ($('#same_address').is(':checked')) {
+                setTimeout(updateShippingAddress, 100);
+            }
+        });
     });
 
     // function updateShippingAddress() {
@@ -382,7 +393,7 @@ $(document).ready(function() {
     function updateShippingAddress() {
         fields.forEach(function (field) {
             const billingVal = $(`[name=billing_${field}]`).val();
-            $(`[name=shipping_${field}]`).val(billingVal);
+            $(`[name=shipping_${field}]`).val(billingVal).trigger('change');
         });
     }
 

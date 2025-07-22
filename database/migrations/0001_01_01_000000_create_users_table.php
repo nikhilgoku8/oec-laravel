@@ -23,8 +23,8 @@ return new class extends Migration
             $table->integer('login_attempts')->default(0);
             $table->boolean('is_locked')->default(false);
             $table->dateTime('registered_at')->nullable();
-            $table->string('billing_first_name', 50)->nullable();
-            $table->string('billing_last_name', 50)->nullable();
+            $table->string('billing_fname', 50)->nullable();
+            $table->string('billing_lname', 50)->nullable();
             $table->string('billing_phone', 20)->nullable();
             $table->string('billing_email')->nullable();
             $table->string('billing_company')->nullable();
@@ -34,8 +34,8 @@ return new class extends Migration
             $table->string('billing_country', 60)->nullable();
             $table->string('billing_postcode', 20)->nullable();
             $table->boolean('same_address')->default(true);
-            $table->string('shipping_first_name', 50)->nullable();
-            $table->string('shipping_last_name', 50)->nullable();
+            $table->string('shipping_fname', 50)->nullable();
+            $table->string('shipping_lname', 50)->nullable();
             $table->string('shipping_phone', 20)->nullable();
             $table->string('shipping_email')->nullable();
             $table->string('shipping_company')->nullable();

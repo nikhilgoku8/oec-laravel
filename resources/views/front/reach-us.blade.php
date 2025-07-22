@@ -96,6 +96,9 @@
                                 <label for="name">Country <span class="red">*</span></label>
                                 <div class="error form_error"></div>
                                 <input type="text" name="name" id="name">
+                                <select name="billing_country">
+                                    @include('countries-dropdown', ['country' => old('country', $user->billing_country ?? '')])
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
