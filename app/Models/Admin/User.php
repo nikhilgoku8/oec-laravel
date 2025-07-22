@@ -18,8 +18,8 @@ class User extends Model
         'login_attempts',
         'is_locked',
         'registered_at',
-        'billing_first_name',
-        'billing_last_name',
+        'billing_fname',
+        'billing_lname',
         'billing_phone',
         'billing_email',
         'billing_company',
@@ -29,8 +29,8 @@ class User extends Model
         'billing_country',
         'billing_postcode',
         'same_address',
-        'shipping_first_name',
-        'shipping_last_name',
+        'shipping_fname',
+        'shipping_lname',
         'shipping_phone',
         'shipping_email',
         'shipping_company',
@@ -44,6 +44,10 @@ class User extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 
     public function cartItems(){
         return $this->hasMany(CartItem::class);

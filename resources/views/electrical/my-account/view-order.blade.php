@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="my_account_page dashboard">
+<div class="my_account_page view_order_page">
 
 <div class="section_one">
     <div class="container">
@@ -24,7 +24,10 @@
                 <div class="right_pane">
                     <div class="inner_box">
                         <div class="text_box">
-                            <p>Order #<b class="imp_txt">93007</b> was placed on <b class="imp_txt">March 31, 2025</b> and is currently <b class="imp_txt">Processing</b>.</p>
+                            <p>Order #<b class="imp_txt">{{ $order->order_ref_id }}</b> was placed on <b class="imp_txt">{{ \Carbon\Carbon::parse($order->order_ref_id)->format('F d, Y') }}</b> and is currently <b class="imp_txt">{{ ucwords($order->status) }}</b>.</p>
+                            @if(!empty($order->admin_remark))
+                                <p>Admin Remark : {{ $order->admin_remark }}</p>
+                            @endif
                         </div>
                         <div class="order_details_wrapper">
                             <div class="title">Order details</div>
@@ -32,34 +35,24 @@
                                 <tr>
                                     <th>Product(s)</th>
                                 </tr>
+                                @foreach($order->orderProducts as $row)
                                 <tr>
                                     <td>
-                                        <div>98001</div>
-                                        <div>OEC 98001, 8 AWG, #10 Stud, Copper, One Hole Standard Barrel Compression Lug, with Inspection…</div>
-                                        <div>× 1</div>
+                                        <div class="product_title">{{ $row->product->title }}</div>
+                                        <div class="product_description">{{ $row->product->description }}</div>
+                                        <div class="product_quantity">× {{ $row->quantity }}</div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div>98001</div>
-                                        <div>OEC 98001, 8 AWG, #10 Stud, Copper, One Hole Standard Barrel Compression Lug, with Inspection…</div>
-                                        <div>× 1</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div>98001</div>
-                                        <div>OEC 98001, 8 AWG, #10 Stud, Copper, One Hole Standard Barrel Compression Lug, with Inspection…</div>
-                                        <div>× 1</div>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </table>
                             <div class="billing_address">
                                 <div class="title">Billing address</div>
                                 <div class="address">
-                                    <div class="name">Sameer Parab</div>
-                                    <div class="mobile">9769830993</div>
-                                    <div class="email">estore@oec-americas.com</div>
+                                    <div class="name">{{ $order->billing_fname .' '. $order->billing_lname }}</div>
+                                    <div class="mobile">{{ $order->billing_phone }}</div>
+                                    <div class="email">{{ $order->billing_email }}</div>
+                                    <br>
+                                    <div class="address">{{ $order->billing_address .' '. $order->billing_city .' '. $order->billing_state .' '. $order->billing_country .' '. $order->billing_postcode }}</div>
                                 </div>
                             </div>
                         </div>

@@ -77,7 +77,7 @@
                 </div>
                 <div class="c2a_btns">
                     <a href="{{ route('cart.index') }}" class="red_hollow_btn full_width">View Enquiry List</a>
-                    <a href="#" class="red_filled_btn full_width">Request Quote</a>
+                    <a href="{{ route('checkout') }}" class="red_filled_btn full_width">Request Quote</a>
                 </div>
             @else
             <div class="heading">Empty Cart</div>

@@ -14,9 +14,9 @@
                 </ul>    
             </div>
             
-            <div class="right_section">                        
+            <div class="right_section">
                 <div class="purple_hollow_btn">
-                    <a href="{{ url('owm/dashboard/export') }}" target="_blank">Export Data</a>
+                    <!-- <a href="{{ url('owm/dashboard/export') }}" target="_blank">Export Data</a> -->
                 </div>
                 <div class="blue_filled_btn">
                     <!-- <a href="{{ url('owm/dashboard/log_activities') }}" target="_blank">Activities</a> -->

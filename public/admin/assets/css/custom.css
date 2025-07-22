@@ -1223,6 +1223,10 @@ textarea{
 	padding: 25px 0 0 0;
 	border-top: 1px solid #d4d4d4;
 	margin: 15px 0 0 0;
+
+	display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .table_pagination ul{
 	display: flex;

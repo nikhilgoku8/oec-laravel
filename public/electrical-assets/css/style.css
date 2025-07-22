@@ -1192,6 +1192,12 @@ footer .lower_sec p{
 .my_account_page .info_wrapper .right_pane .order_details_wrapper table.order_details td{
 	text-align: left;
 }
+.my_account_page .info_wrapper .right_pane .order_details_wrapper table.order_details td .product_title{
+	font-weight: 700;
+}
+.my_account_page .info_wrapper .right_pane .order_details_wrapper table.order_details td .product_description{
+	font-size: 13px;
+}
 .my_account_page .info_wrapper .right_pane .order_details_wrapper .billing_address{
 	padding: 40px 0 0;
 }

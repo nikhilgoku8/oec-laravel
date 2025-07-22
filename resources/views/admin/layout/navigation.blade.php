@@ -137,6 +137,24 @@
                                     <li><a href="{{ route('product-tab-labels.create') }}">Add New</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Orders<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="{{ route('orders.index') }}">All</a></li>
+                                    <li><a href="{{ route('orders.pending') }}">Pending</a></li>
+                                    <li><a href="{{ route('orders.completed') }}">Completed</a></li>
+                                    <li><a href="{{ route('orders.denied') }}">Denied</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Users<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="{{ route('users.index') }}">All</a></li>
+                                    <li><a href="{{ route('users.pending') }}">Pending</a></li>
+                                    <li><a href="{{ route('users.approved') }}">Approved</a></li>
+                                    <li><a href="{{ route('users.denied') }}">Denied</a></li>
+                                </ul>
+                            </li>
 
                         @endif
                         

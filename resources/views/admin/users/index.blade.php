@@ -5,16 +5,16 @@
         <div class="col-lg-12">
             <div class="page-header my_style">
                 <div class="left_section">
-                    <h1 class="">Products</h1>
+                    <h1 class="">Users</h1>
                     <ul class="breadcrumb">
                         <li><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li><a href="{{ route('products.index') }}">Products</a></li>
+                        <li><a href="{{ route('users.index') }}">Users</a></li>
                     </ul>    
                 </div>
                 
                 <div class="right_section">
                     <div class="purple_hollow_btn">
-                        <a href="{{ route('products.create'); }}">Add New</a>
+                        <a href="{{ route('users.create'); }}">Add New</a>
                     </div>
                     <!-- <div class="orange_hollow_btn">
                         <a id="filter_option">Filter</a>
@@ -41,7 +41,7 @@
 
                 <div class="upper_sec">
                     <div class="left_section">
-                        <div class="title">Products Data</div>
+                        <div class="title">Users Data</div>
                         <div class="sub_title"> </div>
                     </div>
                     <div class="right_section">
@@ -54,9 +54,11 @@
                     <table>
                         <tbody>
                             <tr>
-                                <th>Product</th>
-                                <th>Sub Category</th>
-                                <th>Category</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Is Locked</th>
+                                <th>Status</th>
                                 <th>Created By</th>
                                 <th>Updated By</th>
                                 <th class="action">ACTION</th>
@@ -64,13 +66,15 @@
                             @if(!empty($result))
                                 @foreach ($result as $row)
                                     <tr>
-                                        <td>{{ $row->title }}</td>
-                                        <td><a href="{{ route('sub-categories.edit', $row->subCategory->id) }}">{{ $row->subCategory->title }}</a></td>
-                                        <td><a href="{{ route('categories.edit', $row->subCategory->category->id) }}">{{ $row->subCategory->category->title }}</a></td>
+                                        <td>{{ $row->fname }}</td>
+                                        <td>{{ $row->lname }}</td>
+                                        <td>{{ $row->email }}</td>
+                                        <td>{{ $row->is_locked ? 'Yes' : 'No' }}</td>
+                                        <td>{{ ucwords($row->status) }}</td>
                                         <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
                                         <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
                                         <td class="action">
-                                            <a href="{{ route('products.edit', $row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="{{ route('users.edit', $row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <span class="checkbox">
                                                 <input name="dataID" class="styled" type="checkbox" value="{{ $row->id }}">
                                                 <label for="checkbox1"></label>
@@ -93,7 +97,7 @@
         </div>
         <!-- fourth_row end -->
     </div>
-    <!-- /.row -->
+    <!-- /.row -->    
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -112,15 +116,11 @@ $(document).ready(function() {
         if (confirm('Are you sure you want to delete these records?')) {
             $.ajax({
                 type: "POST",
-                url: "{{ route('products.bulk-delete') }}",
+                url: "{{ route('users.bulk-delete') }}",
                 data: {"_token":"{{ csrf_token() }}", "dataID":dataID},
                 dataType: 'json',
                 success: function(response) {
                     window.location.reload(true);
-                },
-                error: function(data){
-                    console.log(data.message);
-                    console.log(data.responseJSON.message);
                 }
             });
         }

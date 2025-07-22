@@ -377,6 +377,7 @@ class UserController extends Controller
     public function view_order($order_no)
     {
         $this->data['orders'] = 'active';
+        $this->data['order'] = Order::where('order_ref_id',$order_no)->first();
         return view('electrical.my-account.view-order', $this->data);
     }
     
@@ -398,8 +399,8 @@ class UserController extends Controller
         try {
 
             $rules = [
-                'billing_first_name'=>'required|string|max:50',
-                'billing_last_name'=>'required|string|max:50',
+                'billing_fname'=>'required|string|max:50',
+                'billing_lname'=>'required|string|max:50',
                 'billing_email'=>'required|email',
                 'billing_phone'=>'nullable|string|max:20|regex:/^\+?[0-9\s\-()]+$/',
                 'billing_company'=>'nullable|string|max:255',
@@ -409,8 +410,8 @@ class UserController extends Controller
                 'billing_country'=>'nullable|string|max:60',
                 'billing_postcode'=>'nullable|string|max:20',
                 'same_address'=>'nullable',
-                'shipping_first_name'=>'required|string|max:50',
-                'shipping_last_name'=>'required|string|max:50',
+                'shipping_fname'=>'required|string|max:50',
+                'shipping_lname'=>'required|string|max:50',
                 'shipping_email'=>'required|email',
                 'shipping_phone'=>'nullable|string|max:20|regex:/^\+?[0-9\s\-()]+$/',
                 'shipping_company'=>'nullable|string|max:255',
@@ -476,8 +477,9 @@ class UserController extends Controller
         try {
 
             $rules = [
-                'fname'=>'required',
-                'lname'=>'required',
+                'fname'=>'required|string|max:50',
+                'lname'=>'required|string|max:50',
+                'phone'=>'nullable|string|max:20',
                 'current_password'=>'nullable',
                 'new_password'=> 'nullable|required_with:current_password|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_new_password'=> 'bail|required_with:new_password|same:new_password'
@@ -502,6 +504,7 @@ class UserController extends Controller
 
             $user->fname = $request->fname;
             $user->lname = $request->lname;
+            $user->phone = $request->phone ?? NULL;
 
             if(!empty($request->new_password)){
 

@@ -48,15 +48,15 @@
                                 <div class="col-sm-6">
                                     <div class="input_box">
                                         <label>First name <span class="red">*</span></label>
-                                        <div class="error form_error form-error-billing_first_name"></div>
-                                        <input type="text" name="billing_first_name" placeholder="First Name" value="{{ $user->billing_first_name ?? $user->fname }}">
+                                        <div class="error form_error form-error-billing_fname"></div>
+                                        <input type="text" name="billing_fname" placeholder="First Name" value="{{ $user->billing_fname ?? $user->fname }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input_box">
                                         <label>Last name <span class="red">*</span></label>
-                                        <div class="error form_error form-error-billing_last_name"></div>
-                                        <input type="text" name="billing_last_name" placeholder="Last Name" value="{{ $user->billing_last_name ?? $user->lname }}">
+                                        <div class="error form_error form-error-billing_lname"></div>
+                                        <input type="text" name="billing_lname" placeholder="Last Name" value="{{ $user->billing_lname ?? $user->lname }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -129,15 +129,15 @@
                                 <div class="col-sm-6">
                                     <div class="input_box">
                                         <label>First name <span class="red">*</span></label>
-                                        <div class="error form_error form-error-shipping_first_name"></div>
-                                        <input type="text" name="shipping_first_name" placeholder="First Name" value="{{ $user->shipping_first_name ?? $user->fname }}">
+                                        <div class="error form_error form-error-shipping_fname"></div>
+                                        <input type="text" name="shipping_fname" placeholder="First Name" value="{{ $user->shipping_fname ?? $user->fname }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input_box">
                                         <label>Last name <span class="red">*</span></label>
-                                        <div class="error form_error form-error-shipping_last_name"></div>
-                                        <input type="text" name="shipping_last_name" placeholder="Last Name" value="{{ $user->shipping_last_name ?? $user->lname }}">
+                                        <div class="error form_error form-error-shipping_lname"></div>
+                                        <input type="text" name="shipping_lname" placeholder="Last Name" value="{{ $user->shipping_lname ?? $user->lname }}">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -299,7 +299,7 @@ $(document).ready(function(){
 
     }));
 
-    const fields = ['first_name', 'last_name', 'phone', 'email', 'company', 'address', 'city', 'state', 'country', 'postcode'];
+    const fields = ['fname', 'lname', 'phone', 'email', 'company', 'address', 'city', 'state', 'country', 'postcode'];
 
     $('#same_address').on('change', function () {
         if ($(this).is(':checked')) {

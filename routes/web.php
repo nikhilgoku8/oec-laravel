@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\FilterTypeController;
 use App\Http\Controllers\Admin\FilterValueController;
 use App\Http\Controllers\Admin\ProductTabLabelController;
 use App\Http\Controllers\Admin\UploadDataController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -126,6 +128,19 @@ Route::prefix('owm')->group(function () {
 
         Route::resource('product-tab-labels', ProductTabLabelController::class);
         Route::post('product-tab-labels/bulk-delete', [ProductTabLabelController::class, 'bulkDelete'])->name('product-tab-labels.bulk-delete');
+
+        Route::get('orders/pending', [OrderController::class, 'pending'])->name('orders.pending');
+        Route::get('orders/completed', [OrderController::class, 'completed'])->name('orders.completed');
+        Route::get('orders/denied', [OrderController::class, 'denied'])->name('orders.denied');
+        Route::post('orders/bulk-delete', [OrderController::class, 'bulkDelete'])->name('orders.bulk-delete');
+        Route::resource('orders', OrderController::class);
+
+        Route::get('users/pending', [AdminUserController::class, 'pending'])->name('users.pending');
+        Route::get('users/approved', [AdminUserController::class, 'approved'])->name('users.approved');
+        Route::get('users/denied', [AdminUserController::class, 'denied'])->name('users.denied');
+        Route::post('users/address_update', [AdminUserController::class, 'address_update'])->name('users.address_update');
+        Route::post('users/bulk-delete', [AdminUserController::class, 'bulkDelete'])->name('users.bulk-delete');
+        Route::resource('users', AdminUserController::class);
 
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');

@@ -32,15 +32,21 @@
                                 <th>Total</th>
                                 <th>Actions</th>
                             </tr>
-                            @for($i=1; $i<=5; $i++)
+                            @if(!empty($user->orders) && count($user->orders) > 0)
+                                @foreach($user->orders as $order)
+                                <tr>
+                                    <td><a href="{{ route('my-account.view-order', $order->order_ref_id) }}">#{{$order->order_ref_id}}</a></td>
+                                    <td>{{ $order->created_at }}</td>
+                                    <td>{{ ucwords($order->status) }}</td>
+                                    <td>for {{count($order->orderProducts)}} item</td>
+                                    <td><a class="red_filled_btn" href="{{ route('my-account.view-order', $order->order_ref_id) }}">View</a></td>
+                                </tr>
+                                @endforeach
+                            @else
                             <tr>
-                                <td><a href="{{ route('my-account.view-order', '9300'.$i) }}">#9300{{$i}}</a></td>
-                                <td>{{ now() }}</td>
-                                <td>Processing</td>
-                                <td>for 1 item</td>
-                                <td><a class="red_filled_btn" href="{{ route('my-account.view-order', '9300'.$i) }}">View</a></td>
+                                <td colspan="5">No Orders</td>
                             </tr>
-                            @endfor
+                            @endif
                         </table>
 
                     </div>

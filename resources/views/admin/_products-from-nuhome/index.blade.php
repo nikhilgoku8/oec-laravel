@@ -111,10 +111,12 @@
                         </tbody>
                     </table>
                 </div>
+                @if(method_exists($result, 'links'))
                 <div class="table_pagination">
-                    {{ $result->links() }}
+                    {{ $result->links('pagination.numbers') }}
                     <div class="clr"></div>
                 </div>
+                @endif
             </div>
 
         </div>

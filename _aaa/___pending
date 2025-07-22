@@ -22,27 +22,30 @@ Quick View
 Shop page
 Cart controller
 Cart functionality
+User Orders
+	Placed
+	Admin Edit
+	Update status on user
+
+update users phone on account page
+
+Admin - User Activation
 --------------------------------------------------------------------------
+
+Add Countries dropdown everywhere
+
+Correct products and links
 
 Filters - keep others and clear filter and clear selected option
 Cart slide to right
 Cart no reload
 
-update users phone on account page
-	(update db, try to add slug as well for products)
-
-add phone in orders after adding phone in users
-
-User Orders
+Filter in User and Orders
 
 Competitors 
 
 product slug as url
 
-Admin - User Activation
-
 User password change logs
-
-Correct products and links
 
 enquiry pop up products
