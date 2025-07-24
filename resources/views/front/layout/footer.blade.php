@@ -64,6 +64,7 @@
                     <div class="title">Subscribe Our Newsletter</div>
                     <div class="subscribe_box">
                         <div class="input_box">
+                            <div class="error form_error"></div>
                             <input type="text" subscribe="Email Address *" placeholder="Email Address *">
                         </div>
                         <div class="submit_box">
@@ -87,18 +88,18 @@
 <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
 <script>
 function init() {
-window.addEventListener('scroll', function(e){
-  var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-  shrinkOn = 50,
-  header = document.querySelector("header");
-  if (distanceY > shrinkOn) {
-  classie.add(header,"smaller");
-  } else {
-  if (classie.has(header,"smaller")) {
-    classie.remove(header,"smaller");
-  }
-  }
-});
+    window.addEventListener('scroll', function(e){
+        var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+        shrinkOn = 50,
+        header = document.querySelector("header");
+        if (distanceY > shrinkOn) {
+            classie.add(header,"smaller");
+        } else {
+            if (classie.has(header,"smaller")) {
+                classie.remove(header,"smaller");
+            }
+        }
+    });
 }
 window.onload = init();
 </script>
