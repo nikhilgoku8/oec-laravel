@@ -48,6 +48,12 @@ Route::post('authenticateUser', [UserController::class, 'authenticateUser'])->na
 
 Route::get('/reset-password', [HomeController::class, 'showResetPasswordForm'])->name('reset-password');
 Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password.post');
+Route::post('subscribeNewsletter', [HomeController::class, 'subscribeNewsletter'])->name('subscribeNewsletter');
+
+Route::post('careerEnquiry', [HomeController::class, 'careerEnquiry'])->name('careerEnquiry');
+Route::get('career-thank-you', [HomeController::class, 'career_thank_you'])->name('career.thankyou');
+Route::post('reachUsEnquiry', [HomeController::class, 'reachUsEnquiry'])->name('reach-us.post');
+Route::get('reach-us-thank-you', [HomeController::class, 'reach_us_thank_you'])->name('reach-us.thankyou');
 
 Route::middleware([IsUser::class])->group(function(){
     

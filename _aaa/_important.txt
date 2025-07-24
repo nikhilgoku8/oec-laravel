@@ -1,4 +1,4 @@
-php artisan migrate:refresh --path=/database/migrations/2025_07_21_120720_create_order_products_table.php
+php artisan migrate:refresh --path=/database/migrations/2025_07_24_171600_create_newsletter_subscriptions_table.php
 
 Products
     Check toolbar

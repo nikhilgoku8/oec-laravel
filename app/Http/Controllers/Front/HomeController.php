@@ -9,6 +9,10 @@ use App\Models\Admin\Category;
 use App\Models\Admin\SubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\FilterType;
+use App\Models\Admin\NewsletterSubscription;
+use App\Models\Admin\Career;
+use App\Models\Admin\ReachUs;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
@@ -585,5 +589,205 @@ class HomeController extends Controller
             'subCategory' => $product->subCategory->slug,
             'images' => $product->productImages->pluck('image_file') // or getFullUrlAttribute
         ]);
+    }
+    
+    public function subscribeNewsletter(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'email'=>'required|email|unique:newsletter_subscriptions,email'
+            ];
+
+            $messages = [
+                'unique' => 'Email Already Registered'
+            ];
+
+            $attributes = [
+                'email'=>'Email'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            NewsletterSubscription::create($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Newsletter Subscribed Successfully'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function string_filter($string){
+        $string = str_replace('--', '-', preg_replace('/[^A-Za-z0-9\-\']/', '', str_replace(' ', '-', str_replace("- ","-", str_replace(" -","-", str_replace("&","and", preg_replace("!\s+!"," ",strtolower($string))))))));
+        return $string;
+    }
+    
+    public function careerEnquiry(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'name'=>'required|string|max:100',
+                'email'=>'required|email|unique:careers,email',
+                'position'=>'required|string|max:100',
+                'message'=>'required|string|max:255',
+                'resume'=>'required|file|mimes:doc,docx,pdf|max:2048'
+            ];
+
+            $messages = [
+                'email.unique' => 'Existing application on provided email',
+                'resume.max' => 'The resume field must not be greater than 2MB.'
+            ];
+
+            $attributes = [];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $fileName = null;
+            if($request->hasFile('resume')){
+                $destination = public_path('uploads/resumes');
+
+                if (!file_exists($destination)) {
+                    mkdir($destination, 0755, true); // recursive = true to create nested folders
+                }
+
+                $fileName = $this->string_filter($validated['name']) .'_'.time().'.'.$request->file('resume')->getClientOriginalExtension();
+                $request->file('resume')->move($destination, $fileName);
+            }
+
+            // $request->file('resume')
+            $validated['resume'] = $fileName;
+            $validated['created_by'] = $validated['name'];
+            $validated['updated_by'] = $validated['name'];
+
+            Career::create($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Application submitted successfully'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
+    public function career_thank_you()
+    {
+        return view('front.thank-you-career');
+    }
+    
+    public function reachUsEnquiry(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'name'=>'required|string|max:100',
+                'email'=>'required|email',
+                'phone'=>'required|string|max:20',
+                'company_name'=>'required|string|max:100',
+                'company_website'=>['nullable', 'regex:/^(https?:\/\/)?([\da-z\.-]+\.[a-z\.]{2,6})([\/\w\.-]*)*\/?$/'],
+                'street_address'=>'nullable|string|max:100',
+                'city'=>'nullable|string|max:100',
+                'state'=>'required|string|max:50',
+                'country'=>'required|string|max:60',
+                'postcode'=>'nullable|string|max:20',
+                'contact_reason'=>'required|string|max:100',
+                'message'=>'nullable|string|max:255',
+                'document'=>'nullable|file|mimes:doc,docx,pdf,jpg,jpeg,png,webp|max:5120'
+            ];
+
+            $messages = [
+                'document.max' => 'The resume field must not be greater than 5MB.'
+            ];
+
+            $attributes = [];
+
+            $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+
+            // This validates and gives errors which are caught below and also stop further execution
+            $validated = $validator->validated();
+
+            $fileName = null;
+            if($request->hasFile('document')){
+                $destination = public_path('uploads/reach-us-documents');
+
+                if (!file_exists($destination)) {
+                    mkdir($destination, 0755, true); // recursive = true to create nested folders
+                }
+
+                $fileName = $this->string_filter($validated['name']) .'_'.time().'.'.$request->file('document')->getClientOriginalExtension();
+                $request->file('document')->move($destination, $fileName);
+            }
+
+            // $request->file('resume')
+            $validated['document'] = $fileName;
+            $validated['created_by'] = $validated['name'];
+            $validated['updated_by'] = $validated['name'];
+
+            ReachUs::create($validated);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Application submitted successfully'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'form',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json([
+                'status' => 'error',
+                'error_type' => 'server',
+                'message' => 'Something went wrong. Please try again later.',
+                'console_message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
+    public function reach_us_thank_you()
+    {
+        return view('front.thank-you-reach-us');
     }
 }

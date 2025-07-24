@@ -34,102 +34,106 @@
             </div>
             <div class="right_info">
                 <div class="form_wrapper wow fadeInRight" data-wow-delay="0.1s">
-                    <form>
+                    <form id="reach_us_form" action="" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="col-sm-6">
                             <div class="input_box">
-                                <label for="name">First Name <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <label for="name">Name <span class="red">*</span></label>
+                                <div class="error form_error form-error-name"></div>
+                                <input type="text" name="name">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Contact Phone <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-phone"></div>
+                                <input type="text" name="phone">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Email Address <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-email"></div>
+                                <input type="text" name="email">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Company Name <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-company_name"></div>
+                                <input type="text" name="company_name">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Company Website </label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-company_website"></div>
+                                <input type="text" name="company_website">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Street Address </label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-street_address"></div>
+                                <input type="text" name="street_address">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">City</label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-city"></div>
+                                <input type="text" name="city">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">State <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <div class="error form_error form-error-state"></div>
+                                <input type="text" name="state">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label for="name">Country <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
-                                <select name="billing_country">
-                                    @include('countries-dropdown', ['country' => old('country', $user->billing_country ?? '')])
+                                <div class="error form_error form-error-country"></div>
+                                <select name="country">
+                                    @include('countries-dropdown')
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
-                                <label for="name">ZIP</label>
-                                <div class="error form_error"></div>
-                                <input type="text" name="name" id="name">
+                                <label for="name">ZIP / Postcode</label>
+                                <div class="error form_error form-error-postcode"></div>
+                                <input type="text" name="postcode">
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
                                 <label for="name">Contact Reason <span class="red">*</span></label>
-                                <div class="error form_error"></div>
-                                <select>
+                                <div class="error form_error form-error-contact_reason"></div>
+                                <select name="contact_reason">
+                                    <option value="">Please select an option</option>
                                     <option>New Product Idea</option>
+                                    <option>Product Information</option>
+                                    <option>Quality Issue</option>
+                                    <option>Technical Support</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
                                 <label for="message">Your Message</label>
-                                <div class="error form_error"></div>
-                                <textarea name="message" id="message"></textarea>
+                                <div class="error form_error form-error-message"></div>
+                                <textarea name="message"></textarea>
                                 <span class="note">Please provide additional details to help us address your need as quickly as possible.</span>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
                                 <label for="name">Upload Document</label>
-                                <div class="error form_error"></div>
-                                <input type="file" name="name" id="name">
+                                <div class="error form_error form-error-document"></div>
+                                <input type="file" name="document">
                                 <span class="note">Accepted file types: word, pdf, jpg, Max. file size: 5 MB</span>
                             </div>
                         </div>
@@ -151,5 +155,71 @@
 
 </div>
 <!-- careers_page end -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $("#reach_us_form").on('submit',(function(e){
+
+        $this = $(this);
+
+        e.preventDefault();
+        $this.find(".form_error").html("");
+        $this.find(".form_error").removeClass("alert alert-danger");
+
+        var button = $(this).find('[type=submit]');
+        button.attr('disabled', 'disabled');
+        button.addClass('spinners');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('reach-us.post') }}",
+            data:  new FormData(this),
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                location.href="{{ route('reach-us.thankyou') }}";
+                // $this.html('<p>Subscribed Successfully</p>');
+            },
+            error: function(data){
+                if (data.status === 422) {
+                    let errors = data.responseJSON.errors;
+                    let allErrors = '';
+                    $.each(errors, function (key, val) {
+                        var fieldName = key.replace(/\./g, '-');
+                        // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                        allErrors += val + '<br>';
+                        $this.find(".form-error-"+fieldName).html(val).addClass('alert alert-danger');
+                        $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+                    });
+                    $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+                } else if (data.status === 401) {
+                    alert("Please log in.");
+                    // window.location.href = "/login";
+                } else if (data.status === 403) {
+                    alert("You don’t have permission.");
+                } else if (data.status === 404) {
+                    alert("The resource was not found.");
+                } else if (data.status === 419) {
+                    alert("Error - "+419);
+                    console.log(data.responseJSON.message);
+                } else if (data.status === 500) {
+                    alert("Something went wrong on the server.");
+                    console.log(data.console_message);
+                } else {
+                    alert("Unexpected error: " + data.status);
+                    console.log(data);
+                }
+
+                button.prop('disabled', false).removeClass('spinners');
+            }
+        });
+
+    }));
+
+});
+</script>
 
 @endsection

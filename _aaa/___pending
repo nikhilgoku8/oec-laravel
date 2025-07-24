@@ -38,6 +38,9 @@ product slug as url
 --------------------------------------------------------------------------
 
 All forms activation
+	front forms added to DB
+	make admin access as RUD
+	add database to live(careers,newsletter_subscriptions,reach_us_enquiries)
 
 Correct products and links
 

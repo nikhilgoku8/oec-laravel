@@ -62,15 +62,16 @@
                 </div>
                 <div class="info_box">
                     <div class="title">Subscribe Our Newsletter</div>
-                    <div class="subscribe_box">
+                    <form class="subscribe_box" id="subscribe_form" action="" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="input_box">
-                            <div class="error form_error"></div>
-                            <input type="text" subscribe="Email Address *" placeholder="Email Address *">
+                            <div class="error form_error form-error-email"></div>
+                            <input type="text" name="email" placeholder="Email Address *">
                         </div>
                         <div class="submit_box">
-                            <button class="red_filled_btn">Subscribe</button>
+                            <button class="red_filled_btn" type="submit">Subscribe</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
@@ -83,6 +84,74 @@
 
 </div>
 <!-- main end -->
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $("#subscribe_form").on('submit',(function(e){
+
+        $this = $(this);
+
+        e.preventDefault();
+        $this.find(".form_error").html("");
+        $this.find(".form_error").removeClass("alert alert-danger");
+
+        var button = $(this).find('[type=submit]');
+        button.attr('disabled', 'disabled');
+        button.addClass('spinners');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('subscribeNewsletter') }}",
+            data:  new FormData(this),
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                // location.href="{{ route('electrical') }}";
+                $this.html('<p>Subscribed Successfully</p>');
+            },
+            error: function(data){
+                if (data.status === 422) {
+                    let errors = data.responseJSON.errors;
+                    let allErrors = '';
+                    $.each(errors, function (key, val) {
+                        var fieldName = key.replace(/\./g, '-');
+                        // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                        allErrors += val + '<br>';
+                        $this.find(".form-error-"+fieldName).html(val).addClass('alert alert-danger');
+                        $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+                    });
+                    $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+                } else if (data.status === 401) {
+                    alert("Please log in.");
+                    // window.location.href = "/login";
+                } else if (data.status === 403) {
+                    alert("You don’t have permission.");
+                } else if (data.status === 404) {
+                    alert("The resource was not found.");
+                } else if (data.status === 419) {
+                    alert("Error - "+419);
+                    console.log(data.responseJSON.message);
+                } else if (data.status === 500) {
+                    alert("Something went wrong on the server.");
+                    console.log(data.console_message);
+                } else {
+                    alert("Unexpected error: " + data.status);
+                    console.log(data);
+                }
+
+                button.prop('disabled', false).removeClass('spinners');
+            }
+        });
+
+    }));
+
+});
+</script>
 
 <!--sticky header-->
 <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>

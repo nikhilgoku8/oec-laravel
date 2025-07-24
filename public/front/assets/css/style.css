@@ -700,6 +700,7 @@ footer .lower_sec p{
 	background: var(--red);
 	color: #fff;
 	z-index: 10;
+	border-radius: inherit;
 }
 .spinners::after{
 	position: absolute;
@@ -1023,6 +1024,12 @@ input[type="file"]::file-selector-button:hover {
     margin: -100px 0 50px;
     position: relative;
 }
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper select{
+	padding: 0 10px;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper select option{
+	background: #080808;
+}
 
 /*single_form_page*/
 .single_form_page{
@@ -1176,4 +1183,14 @@ input[type="file"]::file-selector-button:hover {
 }
 .products_page .request_catalogue_wrapper .inner_container .hollow_btn{
 	margin: 0;
+}
+
+/*thank_you_page*/
+.thank_you_page{
+	min-height: calc(100vh - 284px);
+    padding-top: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
