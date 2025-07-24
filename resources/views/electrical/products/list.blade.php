@@ -4,7 +4,7 @@
 
 <div class="products_list_page">
     
-<div class="heading">Copper Lugs</div>
+<div class="heading">{{ $subCategory->title }}</div>
 
 <div class="products_wrapper">
     <div class="container">
@@ -49,7 +49,7 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li><a class="txt" href="{{ route('electrical') }}">Home</a></li>
-                            <li><a class="txt" href="{{ route('sub-categories', $category->slug) }}">{{ $category->title }}</a></li>
+                            <li><a class="txt" href="{{ route('category.products', $category->slug) }}">{{ $category->title }}</a></li>
                             <li><span class="txt">{{ $subCategory->title }}</span></li>
                         </ul>
                     </div>
@@ -66,7 +66,7 @@
                             <a href="{{ route('product', [
                                     'category' => $category->slug,
                                     'subCategory' => $subCategory->slug,
-                                    'product' => $product->id
+                                    'product' => $product->slug
                                 ]) }}" class="img_box">
                                 <img src="{{ $product->productImages?->first()->image_file }}">
                             </a>
@@ -74,7 +74,7 @@
                                 <a href="{{ route('product', [
                                     'category' => $category->slug,
                                     'subCategory' => $subCategory->slug,
-                                    'product' => $product->id
+                                    'product' => $product->slug
                                 ]) }}" class="product_title">{{ $product->title }}</a>
                                 <div class="sub_category_title">{{ $subCategory->title }}</div>
                                 <div class="description">{{ $product->description }}</div>

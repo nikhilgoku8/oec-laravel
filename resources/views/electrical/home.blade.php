@@ -23,42 +23,42 @@
 
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'compression') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/duracrimp.png') }}">
                             </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'insulated') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/orion.png') }}">
                             </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'grounding') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/terrafix.png') }}">
                             </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'conduit-bodies') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/series-e.png') }}">
                             </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'weatherproof-products') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/dry-shield.png') }}">
                             </a>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'fittings') }}">
                                 <img src="{{ asset('electrical-assets/images/our-brands/unisteel.png') }}">
                             </a>
                         </div>
@@ -85,7 +85,7 @@
 
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'compression') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/compression.png') }}">
                                 <span>Compression</span>
                             </a>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'mechanical') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/mechanical.png') }}">
                                 <span>Mechanical</span>
                             </a>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'insulated') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/insulated.png') }}">
                                 <span>Insulated</span>
                             </a>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'grounding') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/grounding.png') }}">
                                 <span>Grounding</span>
                             </a>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'conduit-bodies') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/conduit-body.png') }}">
                                 <span>Conduit Bodies</span>
                             </a>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'weatherproof-products') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/weatherproof.png') }}">
                                 <span>Weatherproof Products</span>
                             </a>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'fittings') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/fittings.png') }}">
                                 <span>Fittings</span>
                             </a>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'service-entrance') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/service-entrance.png') }}">
                                 <span>Service Entrance</span>
                             </a>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'junctions-boxes') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/ac.png') }}">
                                 <span>Junctions Boxes</span>
                             </a>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="item_box">
-                            <a href="#">
+                            <a href="{{ route('category.products', 'cable-glands') }}">
                                 <img src="{{ asset('electrical-assets/images/featured-categories/cable-glands.png') }}">
                                 <span>Cable Glands</span>
                             </a>
@@ -165,6 +165,7 @@
                     </div>
 
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
 
         </div>
@@ -181,53 +182,35 @@
             </div>
 
             <div class="products_wrapper">
-                @for($i=1 ; $i<=2; $i++)
-                <div class="product_box">
-                    <a href="#" class="img_box">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/FS152-1.png">
-                    </a>
-                    <a href="#" class="product_title">asdasd</a>
-                    <a href="#" class="category_title">asdasd</a>
-                    <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-eye"></i></a>
-                </div>
-                <div class="product_box">
-                    <a href="#" class="img_box">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
-                    </a>
-                    <a href="#" class="product_title">asdasd</a>
-                    <a href="#" class="category_title">asdasd</a>
-                    <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view" data-product-id="1"><i class="fas fa-expand"></i></a>
-                </div>
-                <div class="product_box">
-                    <a href="#" class="img_box">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/FS152-1.png">
-                    </a>
-                    <a href="#" class="product_title">asdasd</a>
-                    <a href="#" class="category_title">asdasd</a>
-                    <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-window-restore"></i></a>
-                </div>
-                <div class="product_box">
-                    <a href="#" class="img_box">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
-                    </a>
-                    <a href="#" class="product_title">asdasd</a>
-                    <a href="#" class="category_title">asdasd</a>
-                    <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view" data-product-id="1"><i class="fas fa-expand-arrows-alt"></i></a>
-                </div>
-                <div class="product_box">
-                    <a href="#" class="img_box">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2024/10/ELC050THCG-1-263x300.webp">
-                    </a>
-                    <a href="#" class="product_title">asdasd</a>
-                    <a href="#" class="category_title">asdasd</a>
-                    <a href="#" class="add_to_cart">Add To Enquiry</a>
-                    <a href="#" class="quick_view" data-product-id="1"><i class="far fa-clone"></i></a>
-                </div>
-                @endfor
+                @foreach($featuredProducts as $row)
+                    <div class="product_box">
+                        <a href="{{ route('product', [
+                                    'category' => $row->subCategory->category->slug,
+                                    'subCategory' => $row->subCategory->slug,
+                                    'product' => $row->slug
+                                ]) }}" class="img_box">
+                            <img src="{{ $row->productImages[0]->image_file }}">
+                        </a>
+                        <a href="{{ route('product', [
+                                    'category' => $row->subCategory->category->slug,
+                                    'subCategory' => $row->subCategory->slug,
+                                    'product' => $row->slug
+                                ]) }}" class="product_title">{{ $row->title }}</a>
+                        <a href="{{ route('products', [
+                                    'category' => $row->subCategory->category->slug,
+                                    'subCategory' => $row->subCategory->slug
+                                ]) }}" class="category_title">{{ $row->subCategory->title }}</a>
+                        <div class="add_to_cart_inputs">
+                            <div class="number_input">
+                                <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                                <input type="number" value="1" min="1">
+                                <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                            </div>
+                            <button class="red_filled_btn add_to_cart" data-product-id="{{ $row->id }}">Add to Enquiry</button>
+                        </div>
+                        <button class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></button>
+                    </div>
+                @endforeach
             </div>
 
         </div>

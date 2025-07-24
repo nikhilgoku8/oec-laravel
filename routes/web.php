@@ -74,7 +74,7 @@ Route::middleware([IsUser::class])->group(function(){
 
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
         Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-        Route::get('/{category}', [HomeController::class, 'sub_categories'])->name('sub-categories');
+        Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
         Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
 

@@ -111,7 +111,7 @@
                         <ul>
                             @foreach($categories as $category)
                             <li>
-                                <a>{{ $category->title }} 
+                                <a>{{ $category->title }}
                                     @if(!empty($category->subCategories))<span class="arrow"></span>@endif
                                 </a>
                                 @if(!empty($category->subCategories) && $category->subCategories->count() > 0)

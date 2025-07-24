@@ -57,7 +57,7 @@
                             <a href="{{ route('product', [
                                 'category' => $row->product->subCategory->category->slug,
                                 'subCategory' => $row->product->subCategory->slug,
-                                'product' => $row->product->id
+                                'product' => $row->product->slug
                             ]) }}">
                                 <div class="img_box">
                                     <img src="{{ $row->product->productImages[0]->image_file }}">
@@ -92,6 +92,8 @@ $(document).on('click','.add_to_cart', function(){
     let addToCartBtn = $(this);
     let product_id = addToCartBtn.data('product-id');
     let quantity = addToCartBtn.parent().find('[type=number]').val();
+
+    addToCartBtn.addClass('spinners').attr('disabled', true);
     // alert(quantity);
 
     let formData = new FormData();
@@ -336,11 +338,11 @@ function showQuickView(data, images) {
                 <div class="swiper-button-prev"></div>
             </div>
             <!-- product_images_slider end -->
-            <a href="/electrical/${data.category}/${data.subCategory}/${data.id}" class="red_filled_btn full_width square view_details">View Details</a>
+            <a href="/electrical/${data.category}/${data.subCategory}/${data.product_slug}" class="red_filled_btn full_width square view_details">View Details</a>
         </div>
         <div class="right_pane">
             <div class="product_info">
-                <a href="/electrical/${data.category}/${data.subCategory}/${data.id}" class="heading left">${data.title}</a>
+                <a href="/electrical/${data.category}/${data.subCategory}/${data.product_slug}" class="heading left">${data.title}</a>
                 <div class="description">${data.description}</div>
                 <div class="add_to_cart_inputs">
                     <div class="number_input">
@@ -348,7 +350,7 @@ function showQuickView(data, images) {
                         <input type="number" value="1" min="1">
                         <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
                     </div>
-                    <button class="red_filled_btn add_to_cart">Add to Enquiry</button>
+                    <button class="red_filled_btn add_to_cart" data-product-id="${data.id}">Add to Enquiry</button>
                 </div>
                 <div class="other_btns">
                     <a href="#" class="red_hollow_btn">Catalog</a>
@@ -589,6 +591,11 @@ const featured_categories_slider = new Swiper('.featured_categories_slider', {
     // speed: 1000,
     slidesPerView: 2,
     loop: false,
+    pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+      },
     // Responsive breakpoints
     breakpoints: {
         // // when window width is >= 480px
@@ -617,6 +624,7 @@ const industries_slider = new Swiper('.industries_slider', {
     pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
+        clickable: true,
       },
     // Responsive breakpoints
     breakpoints: {
@@ -646,6 +654,7 @@ const related_products_slider = new Swiper('.related_products_slider', {
     pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
+        clickable: true,
       },
     // Responsive breakpoints
     breakpoints: {

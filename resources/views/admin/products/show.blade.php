@@ -96,6 +96,16 @@
                                     <textarea name="features" placeholder="Features" class="toolbar">{!! $result->features !!}</textarea>
                                 </div>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="input_box">
+                                    <label>Featured</label>
+                                    <div class="error form_error form-error-featured"></div>
+                                    <select name="featured">
+                                        <option value="1" @selected(($result->featured ?? '') == "1")>Yes</option>
+                                        <option value="0" @selected(($result->featured ?? '') == "0")>No</option>
+                                    </select>
+                                </div>
+                            </div>
                             <!-- <div class="col-sm-3">
                                 <div class="input_box">
                                     <label>Images</label>

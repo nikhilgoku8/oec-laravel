@@ -43,7 +43,7 @@
                         <div class="breadcrumbs">
                             <ul>
                                 <li><a class="txt" href="{{ route('electrical') }}">Home</a></li>
-                                <li><a class="txt" href="{{ route('sub-categories', $category->slug) }}">{{ $category->title }}</a></li>
+                                <li><a class="txt" href="{{ route('category.products', $category->slug) }}">{{ $category->title }}</a></li>
                                 <li><a class="txt" href="{{ route('products', [$category->slug,$subCategory->slug]) }}">{{ $subCategory->title }}</a></li>
                                 <li><span class="txt">{{ $product->title }}</span></li>
                             </ul>
@@ -53,20 +53,20 @@
                                 <a href="{{ route('product', [
                                         'category' => $category->slug,
                                         'subCategory' => $subCategory->slug,
-                                        'product' => $prevProduct->id
+                                        'product' => $prevProduct->slug
                                     ]) }}" class="arrow"><i class="fas fa-caret-left"></i></a>
                                 <span class="product_box">
                                     <a href="{{ route('product', [
                                         'category' => $category->slug,
                                         'subCategory' => $subCategory->slug,
-                                        'product' => $prevProduct->id
+                                        'product' => $prevProduct->slug
                                     ]) }}" class="img_box">
                                         <img src="{{ $prevProduct->productImages[0]->image_file }}">
                                     </a>
                                     <a href="{{ route('product', [
                                         'category' => $category->slug,
                                         'subCategory' => $subCategory->slug,
-                                        'product' => $prevProduct->id
+                                        'product' => $prevProduct->slug
                                     ]) }}" class="txt_box">{{ $prevProduct->title }}</a>
                                 </span>
                             </span>
@@ -76,20 +76,20 @@
                                 <a href="{{ route('product', [
                                         'category' => $category->slug,
                                         'subCategory' => $subCategory->slug,
-                                        'product' => $nextProduct->id
+                                        'product' => $nextProduct->slug
                                     ]) }}" class="arrow"><i class="fas fa-caret-right"></i></a>
                                 <span class="product_box">
                                     <a href="{{ route('product', [
                                         'category' => $category->slug,
                                         'subCategory' => $subCategory->slug,
-                                        'product' => $nextProduct->id
+                                        'product' => $nextProduct->slug
                                     ]) }}" class="img_box">
                                         <img src="{{ $nextProduct->productImages[0]->image_file }}">
                                     </a>
                                     <a href="{{ route('product', [
                                             'category' => $category->slug,
                                             'subCategory' => $subCategory->slug,
-                                            'product' => $nextProduct->id
+                                            'product' => $nextProduct->slug
                                         ]) }}" class="txt_box">{{ $nextProduct->title }}</a>
                                 </span>
                             </span>
@@ -171,13 +171,28 @@
                             <a href="{{ route('product', [
                                         'category' => $row->subCategory->category->slug,
                                         'subCategory' => $row->subCategory->slug,
-                                        'product' => $row->id
+                                        'product' => $row->slug
                                     ]) }}" class="img_box">
                                 <img src="{{ $row->productImages[0]->image_file }}">
                             </a>
-                            <a href="#" class="product_title">{{ $row->title }}</a>
-                            <a href="#" class="category_title">{{ $row->subCategory->title }}</a>
-                            <a href="#" class="add_to_cart">Add To Enquiry</a>
+                            <a href="{{ route('product', [
+                                        'category' => $row->subCategory->category->slug,
+                                        'subCategory' => $row->subCategory->slug,
+                                        'product' => $row->slug
+                                    ]) }}" class="product_title">{{ $row->title }}</a>
+                            <a href="{{ route('products', [
+                                        'category' => $row->subCategory->category->slug,
+                                        'subCategory' => $row->subCategory->slug
+                                    ]) }}" class="category_title">{{ $row->subCategory->title }}</a>
+                            <!-- <a href="#" class="add_to_cart">Add To Enquiry</a> -->
+                            <div class="add_to_cart_inputs">
+                                <div class="number_input">
+                                    <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
+                                    <input type="number" value="1" min="1">
+                                    <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
+                                </div>
+                                <button class="red_filled_btn add_to_cart" data-product-id="{{ $row->id }}">Add to Enquiry</button>
+                            </div>
                             <button class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></button>
                         </div>
                     </div>

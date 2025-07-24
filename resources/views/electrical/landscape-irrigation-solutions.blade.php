@@ -35,28 +35,7 @@
                 <span>We Provide High-Quality Electrical Products for Landscape & Irrigation Solutions</span>
             </div>
 
-            <div class="industries_slider">
-                <div class="swiper-wrapper">
-
-                    @for($i=1; $i<=10; $i++)
-                    <div class="swiper-slide">
-                        <div class="item_box">
-                            <div class="img_box">
-                                <img src="{{ asset('electrical-assets/images/sub-categories/1.webp') }}">
-                            </div>
-                            <div class="category_title">Category 1</div>
-                            <div class="sub_category_title">Sub_Category 1</div>
-                            <a href="#" class="red_filled_btn">View Products</a>
-                        </div>
-                    </div>
-                    @endfor
-
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-            <!-- industries_slider end -->
+            @include('electrical.includes.industries-slider')
 
         </div>
     </div>

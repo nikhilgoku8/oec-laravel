@@ -280,6 +280,7 @@ class ProductController extends Controller
                 'title' => 'required|string|max:255|unique:products,title,'.$dataID,
                 'description' => 'required',
                 'features' => 'required',
+                'featured' => 'required',
                 'images' => 'required|array|min:1',
                 'images.*.link' => 'required',
                 'images.*.sort_order' => [

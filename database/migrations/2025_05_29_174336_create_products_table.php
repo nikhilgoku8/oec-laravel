@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->index();
             $table->text('description');
             $table->text('features');
+            $table->boolean('featured')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

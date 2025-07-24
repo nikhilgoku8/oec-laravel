@@ -84,7 +84,8 @@ class HomeController extends Controller
     
     public function electrical()
     {
-        return view('electrical.home');
+        $this->data['featuredProducts'] = Product::where('featured', 1)->limit(10)->get();
+        return view('electrical.home', $this->data);
     }
     
     public function commercial_and_industrial()
@@ -132,11 +133,131 @@ class HomeController extends Controller
         return view('electrical.products.categories');
     }
     
-    public function sub_categories($category)
+    public function category_products(Request $request)
     {
-        $categoryId = Category::where('slug',$category)->value('id');
-        $this->data['subCategories'] = SubCategory::where('category_id', $categoryId)->paginate(12);
-        return view('electrical.products.categories', $this->data);
+
+        $category = Category::where('slug',$request->category)->first();
+        $this->data['category'] = $category;
+        $subCategoryIds = $category->subcategories->pluck('id')->toArray();
+
+        $query        = $request->input('q', '');
+        $filterParams = $request->input('filters', []);
+        $page         = $request->input('page', 1);
+        $perPage      = 12;
+
+        // Build the Meili filter clause
+        $filterStrings = [];
+        foreach ($filterParams as $typeId => $valueId) {
+            $filterStrings[] = "filter_value_ids = $valueId";
+        }
+
+        // if ($subCategory && $subCategory->id) {
+        //     $filterStrings[] = "sub_category_id = {$subCategory->id}";
+        // }
+        if (!empty($subCategoryIds)) {
+            $ids = implode(' OR ', array_map(fn($id) => "sub_category_id = $id", $subCategoryIds));
+            $filterStrings[] = "($ids)";
+        }
+
+        $filterClause = implode(' AND ', $filterStrings) ?: null;
+
+        // Instantiate Meili client & index name
+        $model   = new Product;
+        $indexId = $model->searchableAs();
+        $client  = new Client(
+            config('scout.meilisearch.host'),
+            config('scout.meilisearch.key')
+        );
+
+        // 1) Do the Meili search
+        /** @var \Meilisearch\Search\SearchResult $raw */
+        $raw = $client
+            ->index($indexId)
+            ->search(
+                $query === '' ? '*' : $query,
+                [
+                    'filter' => $filterClause,
+                    'limit'  => $perPage,
+                    'offset' => ($page - 1) * $perPage,
+                    'facets' => ['filter_value_ids'],  // ← ask for counts
+                ]
+            );
+
+        $facetedResult = $client
+            ->index($indexId)
+            ->search($query, [
+                'filter' => $filterClause,
+                'facets' => ['filter_value_ids'],
+                'limit' => 0, // ← no hits, only facets & totalHits
+            ]);
+
+        // 2) Extract hits array from the SearchResult object
+        $hits = $raw->getHits();              // array of associative arrays
+        $hitIds = collect($hits)->pluck('id')->all();
+
+        $filterCounts = $facetedResult->getFacetDistribution()['filter_value_ids'] ?? [];
+        // $filterCounts is now an array like: [ '577' => 5, '578' => 12, ... ]
+
+        // Just get the IDs (the keys)
+        $filterValueIds = array_keys($filterCounts);
+
+        // 3) Total matching documents
+        // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
+        $totalHits = method_exists($raw, 'getEstimatedTotalHits')
+            ? $raw->getEstimatedTotalHits()
+            : $raw->getNbHits();
+
+        // 4) Fetch Eloquent models in the Meili order
+        $products = Product::with('subCategory')
+            ->whereIn('id', $hitIds)
+            ->whereIn('sub_category_id', $subCategoryIds)
+            ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+            ->get();
+
+        // 5) Make a LengthAwarePaginator for Blade
+        $paginator = new LengthAwarePaginator(
+            $products,
+            $totalHits,
+            $perPage,
+            $page,
+            [
+                'path'  => url()->current(),
+                'query' => $request->query(),
+            ]
+        );
+
+        // 6) Also load filter types/values for the UI
+
+        $productIds = $products->pluck('id')->toArray();
+        // -------------------
+        // $relevantFilterValueIds = DB::table('filter_value_product')
+        //     ->whereIn('product_id', $hitIds) // We are using $hitIds cause we need to get all products not just the current page
+        //     ->pluck('filter_value_id');
+
+        // $filterTypes = FilterType::with(['filterValues' => function ($q) use ($relevantFilterValueIds) {
+        //         $q->whereIn('id', $relevantFilterValueIds);
+        //     }])->get();
+
+        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
+                $q->whereIn('id', $filterValueIds);
+            }])->get();
+
+        // $filterCounts = DB::table('filter_value_product')
+        //     ->select('filter_value_id', DB::raw('count(*) as count'))
+        //     ->whereIn('product_id', $hitIds) // We are using $hitIds cause we need to get all products not just the current page
+        //     ->groupBy('filter_value_id')
+        //     ->pluck('count', 'filter_value_id');
+
+        // return view('admin.products.search_new', [
+        return view('electrical.products.list-by-category', [
+            'products'       => $paginator,
+            'category'       => $category,
+            'filterTypes'    => $filterTypes,
+            'currentQ'       => $query,
+            'currentFilters' => $filterParams,
+            'filterCounts' => $filterCounts,
+        ]);
+        // return view('electrical.products.list-by-category', $this->data);
     }
     
     // public function products($category, $subCategory)
@@ -226,10 +347,20 @@ class HomeController extends Controller
             : $raw->getNbHits();
 
         // 4) Fetch Eloquent models in the Meili order
-        $products = Product::whereIn('id', $hitIds)
-            ->where('sub_category_id', $subCategory->id)
-            ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-            ->get();
+        // $products = Product::whereIn('id', $hitIds)
+        //     ->where('sub_category_id', $subCategory->id)
+        //     ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+        //     ->get();
+
+        if (!empty($hitIds)) {
+            $products = Product::whereIn('id', $hitIds)
+                ->where('sub_category_id', $subCategory->id)
+                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                ->get();
+        } else {
+            // Just return empty collection to keep paginator happy
+            $products = collect();
+        }
 
         // 5) Make a LengthAwarePaginator for Blade
         $paginator = new LengthAwarePaginator(
@@ -276,7 +407,7 @@ class HomeController extends Controller
             'filterCounts' => $filterCounts,
         ]);
 
-        return view('electrical.products.list', $this->data);
+        // return view('electrical.products.list', $this->data);
     }
 
     public function shop(Request $request)
@@ -405,7 +536,7 @@ class HomeController extends Controller
         // dd($category);
         $category = Category::where('slug',$category)->first();
         $subCategory = SubCategory::where('slug',$subCategory)->first();
-        $this->data['product'] = Product::with('productImages','productTabContents')->find($product);
+        $this->data['product'] = Product::with('productImages','productTabContents')->where('slug', $product)->first();
         $this->data['relatedProducts'] = Product::with('productImages','subCategory','subCategory.category')
             ->where('id', '!=', $this->data['product']->id)
             ->where('sub_category_id', $subCategory->id)
@@ -447,6 +578,7 @@ class HomeController extends Controller
         return response()->json([
             'success' => true,
             'id' => $product->id,
+            'product_slug' => $product->slug,
             'title' => $product->title,
             'description' => $product->description,
             'category' => $product->subCategory->category->slug,

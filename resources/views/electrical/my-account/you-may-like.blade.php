@@ -1,12 +1,12 @@
 <ul>
-                            @for($i=1; $i<=5; $i++)
+                            @foreach($productsMayLike as $row)
                             <li>
                                 <a>
                                     <span class="img_box">
-                                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/07/96368-1-1-430x430.webp">
+                                        <img src="{{ $row->productImages[0]->image_file }}">
                                     </span>
-                                    <span class="text">12345</span>
+                                    <span class="text">{{ $row->title }}</span>
                                 </a>
                             </li>
-                            @endfor
+                            @endforeach
                         </ul>
