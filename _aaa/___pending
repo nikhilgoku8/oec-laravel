@@ -35,14 +35,17 @@ Add Countries dropdown everywhere
 
 product slug as url
 
---------------------------------------------------------------------------
-
 All forms activation
 	front forms added to DB
 	make admin access as RUD
-	add database to live(careers,newsletter_subscriptions,reach_us_enquiries)
+--------------------------------------------------------------------------
 
-Correct products and links
+Add database to live(careers,newsletter_subscriptions,reach_us_enquiries)
+
+Need any flagging?
+	Careers
+	Newsletter
+	Reach us
 
 Competitors 
 
@@ -51,7 +54,5 @@ Cart slide to right
 Cart no reload
 
 User password change logs
-
-enquiry pop up products
 
 Filter in User and Orders

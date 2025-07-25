@@ -20,6 +20,9 @@ use App\Http\Controllers\Admin\ProductTabLabelController;
 use App\Http\Controllers\Admin\UploadDataController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\CareerController;
+use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\ReachUsController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -147,6 +150,15 @@ Route::prefix('owm')->group(function () {
         Route::post('users/address_update', [AdminUserController::class, 'address_update'])->name('users.address_update');
         Route::post('users/bulk-delete', [AdminUserController::class, 'bulkDelete'])->name('users.bulk-delete');
         Route::resource('users', AdminUserController::class);
+
+        Route::resource('careers', CareerController::class);
+        Route::post('careers/bulk-delete', [CareerController::class, 'bulkDelete'])->name('careers.bulk-delete');
+
+        Route::resource('newsletters', NewsletterController::class);
+        Route::post('newsletters/bulk-delete', [NewsletterController::class, 'bulkDelete'])->name('newsletters.bulk-delete');
+
+        Route::resource('reach-us', ReachUsController::class)->parameters(['reach-us' => 'reachUs']);
+        Route::post('reach-us/bulk-delete', [ReachUsController::class, 'bulkDelete'])->name('reach-us.bulk-delete');
 
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');

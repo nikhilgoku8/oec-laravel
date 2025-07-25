@@ -19,4 +19,14 @@ class Career extends Model
         'created_by',
         'updated_by'
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($career) {
+            $folderPath = public_path('uploads/resumes');
+            if ($career->resume && file_exists($folderPath.'/'.$career->resume)) {
+                @unlink($folderPath.'/'.$career->resume);
+            }
+        });
+    }
 }

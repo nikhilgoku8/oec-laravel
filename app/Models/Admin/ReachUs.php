@@ -25,4 +25,14 @@ class ReachUs extends Model
         'created_by',
         'updated_by'
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($reachUs) {
+            $folderPath = public_path('uploads/reach-us-documents');
+            if ($reachUs->document && file_exists($folderPath.'/'.$reachUs->document)) {
+                @unlink($folderPath.'/'.$reachUs->document);
+            }
+        });
+    }
 }

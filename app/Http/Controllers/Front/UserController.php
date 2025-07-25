@@ -48,6 +48,7 @@ class UserController extends Controller
             // Check if OTP exists and still valid
             if (
                 session()->has('otp') &&
+                ( session()->has('otp_email') && session('otp_email') == $email ) &&
                 session()->has('otp_expires_at') &&
                 now()->lessThan(session('otp_expires_at'))
             ) {
