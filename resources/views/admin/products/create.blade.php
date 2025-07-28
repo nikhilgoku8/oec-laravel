@@ -212,6 +212,60 @@
     </div>
     <!-- /.row -->
 
+    <div class="row">
+
+            <div class="my_panel form_box">
+                <form id="competitor_form" action="" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="page-header my_style less_margin">
+                        <div class="left_section">
+                            <div class="title_text">
+                                <div class="title">Add Competitors</div>
+                                <div class="sub_title">Please fillup the form </div>
+                            </div>
+                        </div>
+                        <div class="right_section">
+                            <!-- <div class="purple_filled_btn">
+                                <a href="#">Save</a>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="inner_boxes">
+
+                        <div class="competitors_wrapper">
+                            <div class="competitors-section">
+                                <div class="input_boxes competitor-group">
+                                    <div class="col-sm-12">
+                                        <div class="input_box">
+                                            <label>Competitor Name</label>
+                                            <div class="error form_error form-error-competitors-0-name"></div>
+                                            <input type="text" name="competitors[0][name]" placeholder="Competitor Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" name="button" value="Add Competitor" class="add-competitor blue_filled_btn">
+                        </div>
+                        <br>
+
+                        <div class="input_boxes">
+                            <div class="col-sm-4">
+                                <div class="input_box">
+                                    <div class="error form_error form-error-tabs"></div>
+                                    <div class="error form_error form-error-filters"></div>
+                                    <input type="submit" name="submit" id="submit" value="Save" class="btn btn-primary">
+                                </div>
+                            </div>
+                            <div class="clr"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+    </div>
+    <!-- /.row -->
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -575,6 +629,52 @@ $(document).on('click', '.remove-image', function() {
         $productImageSortOrder.attr('name', `images[${index}][sort_order]`);
         $productImageSortOrder.prev('.form_error').attr('class', `error form_error form-error-images-${index}-sort_order`);
         // $productImageSort Order.prevAll('.form_error').first().attr('class', `error form_error form-error-images-${index}-sort_order`);
+
+    });
+});
+
+$(document).on('click', '.add-competitor', function() {
+
+    let $competitorWrapper = $(this).closest('.competitors_wrapper');
+    let $competitorsSection = $competitorWrapper.find('.competitors-section');
+    
+    let competitorCount = $competitorsSection.find('.competitor-group').length;
+
+    let newCompetitorGroup = `
+        <div class="input_boxes competitor-group">
+            <div class="col-sm-10">
+                <div class="input_box">
+                    <label>Competitor Name ${competitorCount + 1}</label>
+                    <div class="error form_error form-error-competitors-${competitorCount}-name"></div>
+                    <input type="text" name="competitors[${competitorCount}][name]" placeholder="Competitor Name">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_box orange_filled_btn">
+                    <button type="button" class="remove-competitor">Remove Competitor</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    $competitorsSection.append(newCompetitorGroup);
+
+});
+
+$(document).on('click', '.remove-competitor', function() {
+    let $competitorWrapper = $(this).closest('.competitors_wrapper');
+    let $competitorsSection = $competitorWrapper.find('.competitors-section');
+
+    $(this).closest('.competitor-group').remove();
+
+    // Update labels (optional)
+    $competitorsSection.find('.competitor-group').each(function(index) {
+        $(this).find('label:first').text(`Competitor ${index + 1}`);
+
+        let $productCompetitorLink = $(this).find('[name*=name]');
+        $productCompetitorLink.attr('name', `competitors[${index}][name]`);
+        $productCompetitorLink.prev('.form_error').attr('class', `error form_error form-error-competitors-${index}-name`);
+        // $productCompetitorLink.prevAll('.form_error').first().attr('class', `error form_error form-error-competitors-${index}-name`);
 
     });
 });

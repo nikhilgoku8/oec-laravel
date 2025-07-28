@@ -17,23 +17,31 @@
                     </div>
                 </div>
             @endif
-            <div class="right_pane">
+            <div class="competitors_wrapper">
+                <div class="competitors_search_wrapper">
+                    <form method="GET" action="{{ route('competitors.search') }}" class="competitors_search">
+                        <div class="input_box">
+                            <input type="text" class="search_input" name="q" placeholder="Search Competitors" value="{{ request('q') }}">
+                        </div>
+                        <button class="icon_box"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
                 <div class="list_heading">
-                    <div class="breadcrumbs">
+                    <!-- <div class="breadcrumbs">
                         <ul>
                             <li><a class="txt" href="{{ route('electrical') }}">Home</a></li>
                             <li><span class="txt">Shop</span></li>
                         </ul>
-                    </div>
-                    <div class="total_count_text">
-                        @if ($products->total() > 0)
-                            Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
+                    </div> -->
+                    <!-- <div class="total_count_text">
+                        @if ($competitors->total() > 0)
+                            Showing {{ $competitors->firstItem() }} to {{ $competitors->lastItem() }} of {{ $competitors->total() }} results
                         @endif
-                    </div>
+                    </div> -->
                 </div>
-                @if(count($products))
+                @if(count($competitors))
                 <div class="products_list">
-                    @foreach($products as $product)
+                    @foreach($competitors as $product)
                         <div class="product_box">
                             <a href="{{ route('product', [
                                     'category' => $product->subCategory->category->slug,
@@ -43,13 +51,21 @@
                                 <img src="{{ $product->productImages?->first()->image_file }}">
                             </a>
                             <div class="text_box">
+                                <div class="competitor_title">Lorem Ipsum Dolor</div>
                                 <a href="{{ route('product', [
                                     'category' => $product->subCategory->category->slug,
                                     'subCategory' => $product->subCategory->slug,
                                     'product' => $product->slug
                                 ]) }}" class="product_title">{{ $product->title }}</a>
-                                <div class="sub_category_title">{{ $product->subCategory->title }}</div>
-                                <div class="description">{{ $product->description }}</div>
+                                <a href="{{ route('products', [
+                                        'category' => $product->subCategory->category->slug,
+                                        'subCategory' => $product->subCategory->slug
+                                    ]) }}" class="sub_category_title">{{ $product->subCategory->title }}</a>
+                                <a href="{{ route('product', [
+                                    'category' => $product->subCategory->category->slug,
+                                    'subCategory' => $product->subCategory->slug,
+                                    'product' => $product->slug
+                                ]) }}" class="description">{{ $product->description }}</a>
                                 <!-- <button class="red_filled_btn">Add To Enquiry</button> -->
                                 <div class="add_to_cart_inputs">
                                     <div class="number_input">
@@ -64,7 +80,7 @@
                     @endforeach
                 </div>
                 <div class="page_links">
-                    {{ $products->withQueryString()->links('pagination.numbers') }}
+                    {{ $competitors->withQueryString()->links('pagination.numbers') }}
                 </div>
                 @else
                     <br>

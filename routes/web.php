@@ -84,7 +84,8 @@ Route::middleware([IsUser::class])->group(function(){
 
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
         Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-        Route::get('/competitors', [HomeController::class, 'competitors'])->name('competitors');
+        Route::get('/competitors', [HomeController::class, 'shop'])->name('competitors');
+        Route::get('/competitors-search', [HomeController::class, 'competitors_search'])->name('competitors.search');
 
         Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');

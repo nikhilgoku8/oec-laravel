@@ -525,98 +525,101 @@ class HomeController extends Controller
         //     ->groupBy('filter_value_id')
         //     ->pluck('count', 'filter_value_id');
 
-        // return view('admin.products.search_new', [
-        return view('electrical.products.shop', [
-            'products'       => $paginator,
-            'filterTypes'    => $filterTypes,
-            'currentQ'       => $query,
-            'currentFilters' => $filterParams,
-            'filterCounts' => $filterCounts,
-        ]);
-    }
+        // return view('electrical.products.shop', [
+        //     'products'       => $paginator,
+        //     'filterTypes'    => $filterTypes,
+        //     'currentQ'       => $query,
+        //     'currentFilters' => $filterParams,
+        //     'filterCounts' => $filterCounts,
+        // ]);
 
-    public function competitors(Request $request)
-    {
-
-        $query        = $request->input('q', '');
-        $page         = $request->input('page', 1);
-        $perPage      = 12;
-
-        // Return empty paginator if no query
-        if (trim($query) === '') {
-            $emptyPaginator = new LengthAwarePaginator(
-                collect(), // empty collection
-                0,         // total
-                $perPage,
-                $page,
-                [
-                    'path'  => url()->current(),
-                    'query' => $request->query(),
-                ]
-            );
-
-            return view('electrical.competitors', [
-                'products' => $emptyPaginator,
-            ]);
-        }
-
-        // Instantiate Meili client & index name
-        $model   = new Competitor;
-        $indexId = $model->searchableAs();
-        $client  = new Client(
-            config('scout.meilisearch.host'),
-            config('scout.meilisearch.key')
-        );
-
-        // 1) Do the Meili search
-        /** @var \Meilisearch\Search\SearchResult $raw */
-        $raw = $client
-            ->index($indexId)
-            ->search(
-                $query === '' ? '*' : $query,
-                [
-                    'limit'  => $perPage,
-                    'offset' => ($page - 1) * $perPage,
-                ]
-            );
-
-        // 2) Extract hits array from the SearchResult object
-        $hits = $raw->getHits();              // array of associative arrays
-        $hitIds = collect($hits)->pluck('product_id')->all();
-
-        // 3) Total matching documents
-        // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
-        $totalHits = method_exists($raw, 'getEstimatedTotalHits')
-            ? $raw->getEstimatedTotalHits()
-            : $raw->getNbHits();
-
-        // 4) Fetch Eloquent models in the Meili order
-        if (!empty($hitIds)) {
-            $products = Product::whereIn('id', $hitIds)
-                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-                ->get();
-        } else {
-            // Just return empty collection to keep paginator happy
-            $products = collect();
-        }
-
-        // 5) Make a LengthAwarePaginator for Blade
-        $paginator = new LengthAwarePaginator(
-            $products,
-            $totalHits,
-            $perPage,
-            $page,
-            [
-                'path'  => url()->current(),
-                'query' => $request->query(),
-            ]
-        );
-
-        // return view('admin.products.search_new', [
         return view('electrical.competitors', [
-            'products'       => $paginator,
+            'competitors'       => $paginator,
         ]);
     }
+
+    // public function competitors(Request $request)
+    // {
+
+    //     $query        = $request->input('q', '');
+    //     $page         = $request->input('page', 1);
+    //     $perPage      = 12;
+
+    //     // Return empty paginator if no query
+    //     if (trim($query) === '') {
+    //         $emptyPaginator = new LengthAwarePaginator(
+    //             collect(), // empty collection
+    //             0,         // total
+    //             $perPage,
+    //             $page,
+    //             [
+    //                 'path'  => url()->current(),
+    //                 'query' => $request->query(),
+    //             ]
+    //         );
+
+    //         return view('electrical.competitors', [
+    //             'products' => $emptyPaginator,
+    //         ]);
+    //     }
+
+    //     // Instantiate Meili client & index name
+    //     $model   = new Competitor;
+    //     $indexId = $model->searchableAs();
+    //     $client  = new Client(
+    //         config('scout.meilisearch.host'),
+    //         config('scout.meilisearch.key')
+    //     );
+
+    //     // 1) Do the Meili search
+    //     /** @var \Meilisearch\Search\SearchResult $raw */
+    //     $raw = $client
+    //         ->index($indexId)
+    //         ->search(
+    //             $query === '' ? '*' : $query,
+    //             [
+    //                 'limit'  => $perPage,
+    //                 'offset' => ($page - 1) * $perPage,
+    //             ]
+    //         );
+
+    //     // 2) Extract hits array from the SearchResult object
+    //     $hits = $raw->getHits();              // array of associative arrays
+    //     $hitIds = collect($hits)->pluck('id')->all();
+
+    //     // 3) Total matching documents
+    //     // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
+    //     $totalHits = method_exists($raw, 'getEstimatedTotalHits')
+    //         ? $raw->getEstimatedTotalHits()
+    //         : $raw->getNbHits();
+
+    //     // 4) Fetch Eloquent models in the Meili order
+    //     if (!empty($hitIds)) {
+    //         $competitors = Competitor::with('product')->whereIn('id', $hitIds)
+    //             ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+    //             ->get();
+    //     } else {
+    //         // Just return empty collection to keep paginator happy
+    //         $competitors = collect();
+    //     }
+
+    //     // 5) Make a LengthAwarePaginator for Blade
+    //     $paginator = new LengthAwarePaginator(
+    //         $competitors,
+    //         $totalHits,
+    //         $perPage,
+    //         $page,
+    //         [
+    //             'path'  => url()->current(),
+    //             'query' => $request->query(),
+    //         ]
+    //     );
+
+    //     // return view('admin.products.search_new', [
+    //     return view('electrical.competitors', [
+    //         'competitors'       => $paginator,
+    //     ]);
+    // }
     
     public function product_detail($category, $subCategory, $product)
     {

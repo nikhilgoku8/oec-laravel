@@ -227,7 +227,7 @@
                                         @if($loop->iteration != 1)
                                         <div class="col-sm-2">
                                             <div class="input_box orange_filled_btn">
-                                                <button type="button" class="remove-tab">Remove Medicine</button>
+                                                <button type="button" class="remove-tab">Remove Tab</button>
                                             </div>
                                         </div>
                                         @endif
