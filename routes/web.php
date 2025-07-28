@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\ReachUsController;
+use App\Http\Controllers\Admin\CompetitorController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -83,12 +84,13 @@ Route::middleware([IsUser::class])->group(function(){
 
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
         Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+        Route::get('/competitors', [HomeController::class, 'competitors'])->name('competitors');
+
         Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
         Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
 
         Route::post('/quick-view-product/{id}', [HomeController::class, 'quick_view_product'])->name('quick-view-product');
-
     });
 
     Route::prefix('my-account')->group(function(){

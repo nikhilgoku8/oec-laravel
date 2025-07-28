@@ -1,4 +1,4 @@
-php artisan migrate:refresh --path=/database/migrations/2025_07_24_171600_create_newsletter_subscriptions_table.php
+php artisan migrate:refresh --path=/database/migrations/2025_07_28_124053_create_competitors_table.php
 
 Products
     Check toolbar
@@ -16,6 +16,9 @@ composer require laravel/scout meilisearch/meilisearch-php
 
 php artisan scout:flush "App\Models\Admin\Product"
 php artisan scout:import "App\Models\Admin\Product"
+
+php artisan scout:flush "App\Models\Admin\Competitor"
+php artisan scout:import "App\Models\Admin\Competitor"
 
 This is a custom command to update settings for sortable and filterable
 php artisan scout:meili-configure

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Meilisearch\Client;
 use App\Models\Admin\Product;
+use App\Models\Admin\Competitor;
 
 class MeiliConfigure extends Command
 {
@@ -28,18 +29,40 @@ class MeiliConfigure extends Command
     public function handle()
     {
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-        $model = new Product;
-        $indexName = $model->searchableAs();
+        // $model = new Product;
+        // $indexName = $model->searchableAs();
 
-        $settings = [
+        // $settings = [
+        //     'filterableAttributes' => ['filter_value_ids', 'sub_category_id'],
+        //     'sortableAttributes'   => ['title'],
+        //     'pagination' => [
+        //         'maxTotalHits' => 10000,
+        //     ],
+        // ];
+
+        // $client->index($indexName)->updateSettings($settings);
+        // $this->info("Configured index: $indexName");
+
+        // -------- Configure Product Index -------- //
+        $product = new Product;
+        $productIndex = $product->searchableAs();
+
+        $productSettings = [
             'filterableAttributes' => ['filter_value_ids', 'sub_category_id'],
             'sortableAttributes'   => ['title'],
-            'pagination' => [
-                'maxTotalHits' => 10000,
-            ],
+            'pagination'           => ['maxTotalHits' => 10000],
         ];
 
-        $client->index($indexName)->updateSettings($settings);
-        $this->info("Configured index: $indexName");
+        $client->index($productIndex)->updateSettings($productSettings);
+        $this->info("Configured index: $productIndex");
+
+        // -------- Configure Competitor Index -------- //
+        $competitor = new Competitor;
+        $competitorIndex = $competitor->searchableAs();
+
+        $competitorSettings = ['pagination' => ['maxTotalHits' => 10000]];
+
+        $client->index($competitorIndex)->updateSettings($competitorSettings);
+        $this->info("Configured index: $competitorIndex");
     }
 }

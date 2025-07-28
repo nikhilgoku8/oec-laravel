@@ -33,6 +33,10 @@ class Product extends Model
         return $this->hasMany(ProductImage::class)->orderBy('sort_order');
     }
 
+    public function competitors(){
+        return $this->hasMany(Competitor::class)->orderBy('title');
+    }
+
     public function filterValues(){
         return $this->belongsToMany(FilterValue::class)->withTimestamps();
     }
@@ -46,7 +50,7 @@ class Product extends Model
         return $query->with('filterValues');
     }
     
-    // We dont need this as new product doesnt need to be added in existing settings set by custom scout:meili-configure command
+    // // We dont need this as new product doesnt need to be added in existing settings set by custom scout:meili-configure command
     // protected static function booted()
     // {
     //     static::created(function () {
