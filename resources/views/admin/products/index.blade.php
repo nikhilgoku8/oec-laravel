@@ -16,15 +16,17 @@
                     <div class="purple_hollow_btn">
                         <a href="{{ route('products.create'); }}">Add New</a>
                     </div>
-                    <!-- <div class="orange_hollow_btn">
+                    <div class="orange_hollow_btn">
                         <a id="filter_option">Filter</a>
-                    </div> -->
+                    </div>
                 </div>
             </div>                    
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+
+    @include('admin.products.filter')
 
     <div class="row">
         <div class="fourth_row">
@@ -127,6 +129,32 @@ $(document).ready(function() {
     }  
 
   }));
+
+    $('select[name="category_id"]').on('change', function () {
+        var categoryId = $(this).val();
+
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        if (categoryId) {
+            $.ajax({
+                url: "{{ route('get_sub_categories_by_category', ':id') }}".replace(':id', categoryId),
+                type: 'POST',
+                data: {
+                    _token: token
+                },
+                success: function (data) {
+                    let $subCategoriesSelect = $('select[name="sub_category_id"]');
+                    $subCategoriesSelect.empty().append('<option value="" disabled selected>Sub Category</option>');
+
+                    $.each(data, function (key, value) {
+                        $subCategoriesSelect.append('<option value="' + value.id + '">' + value.title + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('select[name="sub_category_id"]').empty().append('<option value="" disabled selected>Sub Category</option>');
+        }
+    });
 
 });
 </script>

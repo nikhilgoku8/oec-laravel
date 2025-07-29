@@ -23,10 +23,111 @@ use Meilisearch\Client;
 class ProductController extends Controller
 {
 
-    public function index()
+    // public function index()
+    // {
+    //     $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
+    //     $categories = Category::all();
+    //     return view('admin.products.index', compact('result','categories'));
+    // }
+
+    public function index(Request $request)
     {
-        $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
-        return view('admin.products.index', compact('result'));
+
+        $query        = $request->input('q', '');
+        $filterParams = $request->input('filters', []);
+        $page         = $request->input('page', 1);
+        $perPage      = 100;
+
+        // Build the Meili filter clause
+        $filterStrings = [];
+        $subCategoryIds = [];
+        $sub_categories = [];
+
+        if(!empty($request->input('category_id'))){
+            $category = Category::find($request->input('category_id'));
+            $sub_categories = SubCategory::where('category_id', $request->input('category_id'))->get();
+            $subCategoryIds = $category->subcategories->pluck('id')->toArray();
+
+            if (!empty($subCategoryIds)) {
+                $ids = implode(' OR ', array_map(fn($id) => "sub_category_id = $id", $subCategoryIds));
+                $filterStrings[] = "($ids)";
+            }
+        }
+
+        if(!empty($request->input('sub_category_id'))){
+            $ids = (array) $request->input('sub_category_id');
+            $ids = implode(' OR ', array_map(fn($id) => "sub_category_id = $id", $ids));
+            $filterStrings[] = "($ids)";
+        }
+
+        $filterClause = implode(' AND ', $filterStrings) ?: null;
+
+        // Instantiate Meili client & index name
+        $model   = new Product;
+        $indexId = $model->searchableAs();
+        $client  = new Client(
+            config('scout.meilisearch.host'),
+            config('scout.meilisearch.key')
+        );
+
+        // 1) Do the Meili search
+        /** @var \Meilisearch\Search\SearchResult $raw */
+        $raw = $client
+            ->index($indexId)
+            ->search(
+                $query === '' ? '*' : $query,
+                [
+                    'filter' => $filterClause,
+                    'limit'  => $perPage,
+                    'offset' => ($page - 1) * $perPage,
+                ]
+            );
+
+        // 2) Extract hits array from the SearchResult object
+        $hits = $raw->getHits();              // array of associative arrays
+        $hitIds = collect($hits)->pluck('id')->all();
+
+        // 3) Total matching documents
+        // Depending on your Meili client version, this might be getEstimatedTotalHits() or getNbHits()
+        $totalHits = method_exists($raw, 'getEstimatedTotalHits')
+            ? $raw->getEstimatedTotalHits()
+            : $raw->getNbHits();
+
+        // 4) Fetch Eloquent models in the Meili order
+        if (!empty($subCategoryIds)){
+            $products = Product::with('subCategory','subCategory.category')
+                ->whereIn('id', $hitIds)
+                ->whereIn('sub_category_id', $subCategoryIds)
+                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                ->get();
+        }else{            
+            $products = Product::with('subCategory','subCategory.category')
+                ->whereIn('id', $hitIds)
+                // ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                ->get();
+        }
+
+        // 5) Make a LengthAwarePaginator for Blade
+        $paginator = new LengthAwarePaginator(
+            $products,
+            $totalHits,
+            $perPage,
+            $page,
+            [
+                'path'  => url()->current(),
+                'query' => $request->query(),
+            ]
+        );
+
+        // $result = Product::with('subCategory','subCategory.category')->orderByDesc('created_at')->paginate(100);
+        $categories = Category::all();
+
+        // return view('admin.products.index', compact('result','categories'));
+        return view('admin.products.index', [
+            'result'       => $paginator,
+            'categories'       => $categories,
+            'sub_categories'       => $sub_categories,
+        ]);
     }
 
     public function search(Request $request)

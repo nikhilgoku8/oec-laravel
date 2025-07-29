@@ -19,7 +19,10 @@
                             <input type="hidden" name="q" value="{{ request('q') }}">
                                 <div id="accordion">
                                      @foreach ($filterTypes as $type)
-                                         @if(count($type->filterValues) > 0)
+                                        @php
+                                            $valueCount = $type->filterValues->sum(fn($value) => $filterCounts[$value->id] ?? 0);
+                                        @endphp
+                                        @if(count($type->filterValues) > 0 && $valueCount > 0)
                                             <h3>{{ $type->title }}</h3>
                                             <div>
                                                 <ul>

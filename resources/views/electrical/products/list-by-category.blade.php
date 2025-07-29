@@ -19,18 +19,23 @@
                             <input type="hidden" name="q" value="{{ request('q') }}">
                                 <div id="accordion">
                                      @foreach ($filterTypes as $type)
-                                         @if(count($type->filterValues) > 0)
+                                        @php
+                                            $valueCount = $type->filterValues->sum(fn($value) => $filterCounts[$value->id] ?? 0);
+                                        @endphp
+                                         @if(count($type->filterValues) > 0 && $valueCount > 0)
                                             <h3>{{ $type->title }}</h3>
                                             <div>
                                                 <ul>
                                                     @foreach ($type->filterValues as $value)
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox" name="filters[]" value="{{ $value->id }}" {{ in_array($value->id, request()->get('filters', [])) ? 'checked' : '' }}>
-                                                            <span class="text">{{ $value->value }}</span>
-                                                            <span class="count">{{ $filterCounts[$value->id] ?? 0 }}</span>
-                                                        </label>
-                                                    </li>
+                                                        @if(!empty($filterCounts[$value->id]))
+                                                            <li>
+                                                                <label>
+                                                                    <input type="checkbox" name="filters[]" value="{{ $value->id }}" {{ in_array($value->id, request()->get('filters', [])) ? 'checked' : '' }}>
+                                                                    <span class="text">{{ $value->value }}</span>
+                                                                    <span class="count">{{ $filterCounts[$value->id] ?? 0 }}</span>
+                                                                </label>
+                                                            </li>
+                                                        @endif
                                                     @endforeach
                                                 </ul>
                                             </div>
