@@ -71,7 +71,8 @@ Route::middleware([IsUser::class])->group(function(){
         Route::get('/safety-standards', [HomeController::class, 'safety_standards'])->name('safety-standards');
         Route::get('/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
         Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
-        Route::get('/cross-reference', [HomeController::class, 'cross_reference'])->name('cross-reference');
+        Route::get('/cross-reference', [HomeController::class, 'competitors'])->name('cross-reference');
+        Route::get('/competitors-search', [HomeController::class, 'competitors_search'])->name('competitors.search');
 
         Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -84,8 +85,6 @@ Route::middleware([IsUser::class])->group(function(){
 
         Route::get('/categories', [HomeController::class, 'categories'])->name('categories');
         Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-        Route::get('/competitors', [HomeController::class, 'shop'])->name('competitors');
-        Route::get('/competitors-search', [HomeController::class, 'competitors_search'])->name('competitors.search');
 
         Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');

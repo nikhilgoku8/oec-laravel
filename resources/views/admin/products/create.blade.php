@@ -133,6 +133,7 @@
                             <input type="button" name="button" value="Add Image" class="add-image blue_filled_btn">
                         </div>
                         <br>
+                        <br>
 
                         <div class="filters_wrapper">
                             <div class="filters-section">
@@ -165,6 +166,7 @@
                             <input type="button" name="button" value="Add Filter" class="add-filter blue_filled_btn">
                         </div>
                         <br>
+                        <br>
 
                         <div class="tabs_wrapper">
                             <div class="tabs-section">
@@ -194,44 +196,7 @@
                             <input type="button" name="button" value="Add Tab" class="add-tab blue_filled_btn">
                         </div>
                         <br>
-
-                        <div class="input_boxes">
-                            <div class="col-sm-4">
-                                <div class="input_box">
-                                    <div class="error form_error form-error-tabs"></div>
-                                    <div class="error form_error form-error-filters"></div>
-                                    <input type="submit" name="submit" id="submit" value="Save" class="btn btn-primary">
-                                </div>
-                            </div>
-                            <div class="clr"></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-    </div>
-    <!-- /.row -->
-
-    <div class="row">
-
-            <div class="my_panel form_box">
-                <form id="competitor_form" action="" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="page-header my_style less_margin">
-                        <div class="left_section">
-                            <div class="title_text">
-                                <div class="title">Add Competitors</div>
-                                <div class="sub_title">Please fillup the form </div>
-                            </div>
-                        </div>
-                        <div class="right_section">
-                            <!-- <div class="purple_filled_btn">
-                                <a href="#">Save</a>
-                            </div> -->
-                        </div>
-                    </div>
-
-                    <div class="inner_boxes">
+                        <br>
 
                         <div class="competitors_wrapper">
                             <div class="competitors-section">
@@ -239,14 +204,15 @@
                                     <div class="col-sm-12">
                                         <div class="input_box">
                                             <label>Competitor Name</label>
-                                            <div class="error form_error form-error-competitors-0-name"></div>
-                                            <input type="text" name="competitors[0][name]" placeholder="Competitor Name">
+                                            <div class="error form_error form-error-competitors-0-title"></div>
+                                            <input type="text" name="competitors[0][title]" placeholder="Competitor Name">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <input type="button" name="button" value="Add Competitor" class="add-competitor blue_filled_btn">
                         </div>
+                        <br>
                         <br>
 
                         <div class="input_boxes">
@@ -645,8 +611,8 @@ $(document).on('click', '.add-competitor', function() {
             <div class="col-sm-10">
                 <div class="input_box">
                     <label>Competitor Name ${competitorCount + 1}</label>
-                    <div class="error form_error form-error-competitors-${competitorCount}-name"></div>
-                    <input type="text" name="competitors[${competitorCount}][name]" placeholder="Competitor Name">
+                    <div class="error form_error form-error-competitors-${competitorCount}-title"></div>
+                    <input type="text" name="competitors[${competitorCount}][title]" placeholder="Competitor Name">
                 </div>
             </div>
             <div class="col-sm-2">
@@ -671,10 +637,10 @@ $(document).on('click', '.remove-competitor', function() {
     $competitorsSection.find('.competitor-group').each(function(index) {
         $(this).find('label:first').text(`Competitor ${index + 1}`);
 
-        let $productCompetitorLink = $(this).find('[name*=name]');
-        $productCompetitorLink.attr('name', `competitors[${index}][name]`);
-        $productCompetitorLink.prev('.form_error').attr('class', `error form_error form-error-competitors-${index}-name`);
-        // $productCompetitorLink.prevAll('.form_error').first().attr('class', `error form_error form-error-competitors-${index}-name`);
+        let $productCompetitorLink = $(this).find('[name*=title]');
+        $productCompetitorLink.attr('name', `competitors[${index}][title]`);
+        $productCompetitorLink.prev('.form_error').attr('class', `error form_error form-error-competitors-${index}-title`);
+        // $productCompetitorLink.prevAll('.form_error').first().attr('class', `error form_error form-error-competitors-${index}-title`);
 
     });
 });

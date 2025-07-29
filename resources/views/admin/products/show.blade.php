@@ -186,6 +186,35 @@
                             </div>
                             <input type="button" name="button" value="Add Tab" class="add-tab blue_filled_btn">
                         </div>
+
+                        <div class="competitors_wrapper">
+                            <div class="competitors-section">
+                                @if(!empty($result->competitors))
+                                    @foreach($result->competitors as $competitorRow)
+                                        <div class="input_boxes competitor-group">
+                                            <input type="hidden" name="competitors[{{ $loop->iteration - 1 }}][id]" value="{{ $competitorRow->id }}">
+                                            <div class="col-sm-10">
+                                                <div class="input_box">
+                                                    <label>Competitor Name</label>
+                                                    <div class="error form_error form-error-competitors-{{$loop->iteration - 1}}-title"></div>
+                                                    <input type="text" name="competitors[{{$loop->iteration - 1}}][title]" placeholder="Competitor Name" value="{{ $competitorRow->title }}">
+                                                </div>
+                                            </div>
+                                            <!-- @@if($loop->iteration != 1) -->
+                                            <div class="col-sm-2">
+                                                <div class="input_box orange_filled_btn">
+                                                    <button type="button" class="remove-competitor">Remove Competitor</button>
+                                                </div>
+                                            </div>
+                                            <!-- @@endif -->
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <input type="button" name="button" value="Add Competitor" class="add-competitor blue_filled_btn">
+                        </div>
+                        <br>
+                        <br>
                         
                         <div class="input_boxes">
                             <div class="col-sm-4">

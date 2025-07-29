@@ -50,38 +50,40 @@
                 <div class="title">Shopping Cart</div>
                 <div class="close"></div>
             </div>
-            @if(!empty($cartProducts) && count($cartProducts) > 0)
-                <div class="products_wrapper">
-                    @foreach($cartProducts as $row)
-                        <div class="product_box">
-                            <a href="{{ route('product', [
-                                'category' => $row->product->subCategory->category->slug,
-                                'subCategory' => $row->product->subCategory->slug,
-                                'product' => $row->product->slug
-                            ]) }}">
-                                <div class="img_box">
-                                    <img src="{{ $row->product->productImages[0]->image_file }}">
-                                </div>
-                                <div class="text_box">
-                                    <div class="product_title">{{ $row->product->title }}</div>
-                                    <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
-                                    <div class="product_count">
-                                        <span class="number">{{ $row->quantity }}</span>
-                                        <span class="times">x</span>
+            <div id="cart_products">
+                @if(!empty($cartProducts) && count($cartProducts) > 0)
+                    <div class="products_wrapper">
+                        @foreach($cartProducts as $row)
+                            <div class="product_box">
+                                <a href="{{ route('product', [
+                                    'category' => $row->product->subCategory->category->slug,
+                                    'subCategory' => $row->product->subCategory->slug,
+                                    'product' => $row->product->slug
+                                ]) }}">
+                                    <div class="img_box">
+                                        <img src="{{ $row->product->productImages[0]->image_file }}">
                                     </div>
-                                </div>
-                            </a>
-                            <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="c2a_btns">
-                    <a href="{{ route('cart.index') }}" class="red_hollow_btn full_width">View Enquiry List</a>
-                    <a href="{{ route('checkout') }}" class="red_filled_btn full_width">Request Quote</a>
-                </div>
-            @else
-            <div class="heading">Empty Cart</div>
-            @endif
+                                    <div class="text_box">
+                                        <div class="product_title">{{ $row->product->title }}</div>
+                                        <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
+                                        <div class="product_count">
+                                            <span class="number">{{ $row->quantity }}</span>
+                                            <span class="times">x</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="c2a_btns">
+                        <a href="{{ route('cart.index') }}" class="red_hollow_btn full_width">View Enquiry List</a>
+                        <a href="{{ route('checkout') }}" class="red_filled_btn full_width">Request Quote</a>
+                    </div>
+                @else
+                <div class="heading">Empty Cart</div>
+                @endif
+            </div>
         </div>
     </div>
 </div>
@@ -111,7 +113,10 @@ $(document).on('click','.add_to_cart', function(){
         processData: false,
         success: function(result) {
             // location.href="{{ route('login') }}";
-            window.location.reload();
+            // window.location.reload();
+            addToCartBtn.removeClass('spinners').attr('disabled', false);
+            $('#cart_products').html(result.html);
+            openCart();
         },
         error: function(data){
             if (data.status === 422) {
@@ -149,16 +154,44 @@ $(document).on('click','.add_to_cart', function(){
 
 <script>
 $(".cart_wrapper").on('click', function(event){
-    if (!$(event.target).closest('.inner_box').length) {
-        $(".cart_wrapper").fadeOut();
+    if (!$(event.target).closest('.cart_box').length) {
+        // $(".cart_wrapper").fadeOut();
+        closeCart();
     }
 });
 $(".open_side_cart").on('click', function(event){
-    $(".cart_wrapper").css('display', 'flex').hide().fadeIn();
+    // $(".cart_wrapper").css('display', 'flex').hide().fadeIn();
+    openCart();
 });
 $(document).on('click', '.cart_wrapper .close', function(event){
-    $(".cart_wrapper").fadeOut();
+    // $(".cart_wrapper").fadeOut();
+    closeCart();
 });
+function openCart() {
+    $(".cart_wrapper").fadeIn(100);
+    setTimeout(function() {
+        $(".cart_wrapper .inner_box .cart_box").css({
+            'transition': 'transform 0.4s ease',
+            'transform': 'translateX(0%)'
+        });
+    }, 100);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(0%)");
+}
+function closeCart() {
+    // $(".cart_wrapper .inner_box .cart_box").animate({transform: 'translateX(100%)'},400,function() {
+    //     $(".cart_wrapper").fadeOut();
+    // });
+    $(".cart_wrapper .inner_box .cart_box").css({
+        'transition': 'transform 0.4s ease',
+        'transform': 'translateX(100%)'
+    });
+
+    setTimeout(function() {
+        $(".cart_wrapper").fadeOut();
+    }, 400);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(100%)");
+    // $(".cart_wrapper").fadeOut();
+}
 $(document).on('click','.remove_product', function(){
     let removeProduct = $(this);
     let cart_item_id = removeProduct.data('cart-item-id');

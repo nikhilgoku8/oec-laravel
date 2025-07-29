@@ -40,21 +40,20 @@ All forms activation
 	make admin access as RUD
 
 Add database to live(careers,newsletter_subscriptions,reach_us_enquiries)
+Cart slide to right
+Cart no reload
 --------------------------------------------------------------------------
 
 Competitors 
-	Incorrect mapping for 55 DB + 8 Wahtsapp products
+	Incorrect mapping for 55 DB + 8 Whatsapp products
 
 Need any flagging?
 	Careers
 	Newsletter
 	Reach us
 
-Filters - keep others and clear filter and clear selected option
-Cart slide to right
-Cart no reload
 Frontend Banners
 
-User password change logs
+Filter in User and Orders and Products
 
-Filter in User and Orders
+Filters - keep others and clear filter and clear selected option

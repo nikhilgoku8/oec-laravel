@@ -121,7 +121,7 @@
                                 @if(!empty($result->productImages))
                                     @foreach($result->productImages as $productImage)
                                         <div class="input_boxes image-group">
-                                        <input type="hidden" name="images[{{ $loop->iteration - 1 }}][id]" value="{{ $productImage->id }}">
+                                            <input type="hidden" name="images[{{ $loop->iteration - 1 }}][id]" value="{{ $productImage->id }}">
                                             <!----Product ----->
                                             <div class="col-sm-8">
                                                 <div class="input_box">
@@ -150,6 +150,7 @@
                             </div>
                             <input type="button" name="button" value="Add Image" class="add-image blue_filled_btn">
                         </div>
+                        <br>
                         <br>
 
                         <div class="filters_wrapper">
@@ -198,6 +199,7 @@
                             <input type="button" name="button" value="Add Filter" class="add-filter blue_filled_btn">
                         </div>
                         <br>
+                        <br>
 
                         <div class="tabs_wrapper">
                             <div class="tabs-section">
@@ -238,6 +240,36 @@
                             <input type="button" name="button" value="Add Tab" class="add-tab blue_filled_btn">
                         </div>
                         <br>
+                        <br>
+
+                        <div class="competitors_wrapper">
+                            <div class="competitors-section">
+                                @if(!empty($result->competitors))
+                                    @foreach($result->competitors as $competitorRow)
+                                        <div class="input_boxes competitor-group">
+                                            <input type="hidden" name="competitors[{{ $loop->iteration - 1 }}][id]" value="{{ $competitorRow->id }}">
+                                            <div class="col-sm-10">
+                                                <div class="input_box">
+                                                    <label>Competitor Name</label>
+                                                    <div class="error form_error form-error-competitors-{{$loop->iteration - 1}}-title"></div>
+                                                    <input type="text" name="competitors[{{$loop->iteration - 1}}][title]" placeholder="Competitor Name" value="{{ $competitorRow->title }}">
+                                                </div>
+                                            </div>
+                                            <!-- @@if($loop->iteration != 1) -->
+                                            <div class="col-sm-2">
+                                                <div class="input_box orange_filled_btn">
+                                                    <button type="button" class="remove-competitor">Remove Competitor</button>
+                                                </div>
+                                            </div>
+                                            <!-- @@endif -->
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <input type="button" name="button" value="Add Competitor" class="add-competitor blue_filled_btn">
+                        </div>
+                        <br>
+                        <br>
                         
                         <div class="input_boxes">
                             <div class="col-sm-4">
@@ -276,6 +308,55 @@ $(document).ready(function() {
             type: "POST",
             url: "{{ route('products.update', $result->id) }}",
             data:  formData,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                location.href="{{ route('products.index') }}";
+            },
+            error: function(data){
+                if (data.status === 422) {
+                    let errors = data.responseJSON.errors;
+                    $.each(errors, function (key, message) {
+
+                        var fieldName = key.replace(/\./g, '-');
+                        $this.find(".form-error-"+fieldName).html(message);
+                        $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
+
+                        // $('#form-error-' + key).html(message).addClass('alert alert-danger');
+                    });
+                } else if (data.status === 401) {
+                    alert("Please log in.");
+                    // window.location.href = "/login";
+                } else if (data.status === 403) {
+                    alert("You don’t have permission.");
+                } else if (data.status === 404) {
+                    alert("The resource was not found.");
+                } else if (data.status === 500) {
+                    alert("Something went wrong on the server.");
+                    console.log(data.console_message);
+                } else {
+                    alert("Unexpected error: " + data.status);
+                    console.log(data);
+                }
+            }
+        });
+
+    }));
+
+    $("#competitor_form").on('submit',(function(e){
+
+        $this = $(this);
+
+        e.preventDefault();
+        $this.find(".form_error").html("");
+        $this.find(".form_error").removeClass("alert alert-danger");
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('products.store') }}",
+            data:  new FormData(this),
             dataType: 'json',
             cache: false,
             contentType: false,
@@ -622,6 +703,59 @@ $(document).on('click', '.remove-image', function() {
 
     });
 });
+
+$(document).on('click', '.add-competitor', function() {
+
+    let $competitorWrapper = $(this).closest('.competitors_wrapper');
+    let $competitorsSection = $competitorWrapper.find('.competitors-section');
+    
+    let competitorCount = $competitorsSection.find('.competitor-group').length;
+
+    let newCompetitorGroup = `
+        <div class="input_boxes competitor-group">
+            <div class="col-sm-10">
+                <div class="input_box">
+                    <label>Competitor Name ${competitorCount + 1}</label>
+                    <div class="error form_error form-error-competitors-${competitorCount}-title"></div>
+                    <input type="text" name="competitors[${competitorCount}][title]" placeholder="Competitor Name">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="input_box orange_filled_btn">
+                    <button type="button" class="remove-competitor">Remove Competitor</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    $competitorsSection.append(newCompetitorGroup);
+
+});
+
+$(document).on('click', '.remove-competitor', function() {
+    let $competitorWrapper = $(this).closest('.competitors_wrapper');
+    let $competitorsSection = $competitorWrapper.find('.competitors-section');
+
+    $(this).closest('.competitor-group').remove();
+
+    // Update labels (optional)
+    $competitorsSection.find('.competitor-group').each(function(index) {
+        $(this).find('label:first').text(`Competitor ${index + 1}`);
+
+        let $productCompetitorId = $(this).find('[name*=id]');
+        $productCompetitorId.attr('name', `competitors[${index}][id]`);
+        $productCompetitorId.prev('.form_error').attr('class', `error form_error form-error-competitors-${index}-id`);
+        // $productCompetitorLink.prevAll('.form_error').first().attr('class', `error form_error form-error-competitors-${index}-title`);
+
+        let $productCompetitorLink = $(this).find('[name*=title]');
+        $productCompetitorLink.attr('name', `competitors[${index}][title]`);
+        $productCompetitorLink.prev('.form_error').attr('class', `error form_error form-error-competitors-${index}-title`);
+        // $productCompetitorLink.prevAll('.form_error').first().attr('class', `error form_error form-error-competitors-${index}-title`);
+
+    });
+});
+
+</script>
 
 </script>
             

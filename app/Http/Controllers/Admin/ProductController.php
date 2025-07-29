@@ -10,9 +10,11 @@ use App\Models\Admin\Product;
 use App\Models\Admin\ProductTabLabel;
 use App\Models\Admin\FilterType;
 use App\Models\Admin\FilterValue;
+use App\Models\Admin\Competitor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\Rule;
 use Laravel\Scout\Builder;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -314,7 +316,28 @@ class ProductController extends Controller
                         }
                     }
                 ],
+                'competitors' => 'nullable|array',
+                'competitors.*.title' => 'nullable|string',
+                // 'competitors.*.title' => [
+                //     'nullable',
+                //     'string',
+                //     Rule::unique('competitors', 'title')
+                //         ->where(function ($query) use ($dataID) {
+                //             return $query->where('product_id', $dataID);
+                //         })
+                // ],
             ];
+
+            // This allows unique competitor per product and also allows to update
+            // foreach ($request->competitors ?? [] as $index => $competitor) {
+            //     $rules["competitors.$index.title"] = [
+            //         'nullable',
+            //         'string',
+            //         Rule::unique('competitors', 'title')
+            //             ->where(fn($q) => $q->where('product_id', $dataID))
+            //             ->ignore($competitor['id'] ?? 0, 'id'),
+            //     ];
+            // }
 
             $messages = [];
 
@@ -360,6 +383,35 @@ class ProductController extends Controller
             }
             // ==================================================================
 
+            // ==================================================================
+            // Check Duplicate Competitors
+            if(!empty($request->competitors)){
+                $i = 0;
+                foreach ($request->competitors as $competitor) {
+                    // Skip empty titles
+                    if (empty(trim($competitor['title'] ?? ''))) {
+                        $i++;
+                        continue;
+                    }
+                    // Build query to check if competitor exists
+                    $query = Competitor::where('product_id', $dataID)->where('title', $competitor['title']);
+
+                    // If updating, exclude the current competitor id
+                    if (!empty($competitor['id'])) {
+                        $query->where('id', '!=', $competitor['id']);
+                    }
+
+                    // Check existence
+                    if ($query->exists()) {
+                        $errorKey = "competitors.$i.title"; // Matches Laravel's field naming
+                        $validator->errors()->add($errorKey, 'Name already exists for this product.');
+                    }
+
+                    $i++;
+                }
+            }
+            // ==================================================================
+
             // This validates and gives errors which are caught below and also stop further execution
             $validated = $validator->validated();
 
@@ -393,22 +445,22 @@ class ProductController extends Controller
 
             // 2. Update or create each incoming image
             foreach ($incomingImages as $image) {
-                $tabData = [
+                $imageData = [
                     'image_file' => $image['link'],
                     'sort_order' => $image['sort_order'],
                     'updated_by' => session('username'),
                 ];
 
                 if (!$dataID) {
-                    $tabData['created_by'] = session('username');
+                    $imageData['created_by'] = session('username');
                 }
 
                 if (!empty($image['id'])) {
                     // Update existing
-                    $product->productImages()->where('id', $image['id'])->update($tabData);
+                    $product->productImages()->where('id', $image['id'])->update($imageData);
                 } else {
                     // Create new
-                    $product->productImages()->create($tabData);
+                    $product->productImages()->create($imageData);
                 }
             }
             // ==================================================================
@@ -464,6 +516,49 @@ class ProductController extends Controller
                     ['product_tab_label_id' => $tab['id']],
                     $tabData
                 );
+            }
+            // ==================================================================
+
+            // ==================================================================
+            // Create or update Competitors
+
+            // Get current Competitor IDs in DB
+            $existingCompetitorIds = $product->competitors()->pluck('id')->toArray();
+
+            // Get incoming Competitor IDs from request
+            $incomingCompetitors = collect($request->competitors);
+            $incomingCompetitorsIds = $incomingCompetitors->pluck('id')->toArray();
+
+            // 1. Handle deletion
+            if (empty($incomingCompetitorsIds)) {
+                // ✅ Delete all competitors if none are sent in request
+                $product->competitors()->delete();
+            } else {
+                // ✅ Delete only removed competitors
+                $competitorIdsToDelete = array_diff($existingCompetitorIds, $incomingCompetitorsIds);
+                if (!empty($competitorIdsToDelete)) {
+                    $product->competitors()->whereIn('id', $competitorIdsToDelete)->delete();
+                }
+            }
+
+            // 2. Update or create each incoming competitor
+            foreach ($incomingCompetitors as $competitor) {
+                // Skip if title is empty or null
+                if (empty(trim($competitor['title'] ?? ''))) {
+                    continue;
+                }
+
+                $competitorData = [
+                    'title' => $competitor['title']
+                ];
+
+                if (!empty($competitor['id'])) {
+                    // Update existing
+                    $product->competitors()->where('id', $competitor['id'])->update($competitorData);
+                } else {
+                    // Create new
+                    $product->competitors()->create($competitorData);
+                }
             }
             // ==================================================================
 

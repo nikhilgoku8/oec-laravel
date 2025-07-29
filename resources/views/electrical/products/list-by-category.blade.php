@@ -15,7 +15,7 @@
                     <div class="title">Filters</div>
                     @if(count($products))
                         @if(!empty($filterTypes) && count($filterTypes) > 0)
-                            <form method="GET" action="{{ route('category.products', $category->slug) }}">
+                            <form id="filterForm" method="GET" action="{{ route('category.products', $category->slug) }}">
                             <input type="hidden" name="q" value="{{ request('q') }}">
                                 <div id="accordion">
                                      @foreach ($filterTypes as $type)
@@ -40,11 +40,53 @@
                                 <br>
                                 <button class="red_hollow_btn">Apply Filters</button>
                             </form>
+                            <script>
+                            $(document).on('change', '#filterForm input[type="checkbox"]', function() {
+                                $('#filterForm').submit();
+                            });
+                            </script>
                         @endif
                     @endif
                 </div>
             </div>
             <div class="right_pane">
+                <div class="selected_filters_wrapper">
+                    @if(request()->has('filters') && count(request('filters')) > 0)
+                        <div class="selected_filters">
+
+                            <button type="button" class="clear_filters"><span class="cross_icon"></span> <span class="txt">Clear Filters</span></button>
+
+                            @foreach ($filterTypes as $type)
+                                @foreach ($type->filterValues as $value)
+                                    @if(in_array($value->id, request('filters', [])))
+                                    <button class="remove_filter" data-id="{{ $value->id }}">
+                                        <span class="cross_icon"></span>
+                                        <span class="filter_value">{{ $value->value }}</span>
+                                    </button>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </div>
+                        <script>
+                            $(document).on('click', '.remove_filter', function(e) {
+                                e.preventDefault();
+                                let filterId = $(this).data('id');
+
+                                // Uncheck the checkbox for this filter
+                                $("input[type=checkbox][value='" + filterId + "']").prop('checked', false);
+
+                                // Submit the form automatically
+                                $('#filterForm').submit();
+                            });
+
+                            // Clear all filters
+                            $(document).on('click', '.clear_filters', function() {
+                                $('#filterForm input[type=checkbox]').prop('checked', false);
+                                $('#filterForm').submit();
+                            });
+                        </script>
+                    @endif
+                </div>
                 <div class="list_heading">
                     <div class="breadcrumbs">
                         <ul>

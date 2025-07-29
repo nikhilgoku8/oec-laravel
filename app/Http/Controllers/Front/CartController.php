@@ -29,12 +29,26 @@ class CartController extends Controller
             ]);
         }
 
+        // This is to set class to show class
         session()->flash('show_cart','show_cart');
 
+        $cartProducts = CartItem::with('product')->where('user_id',session('userId'))->get();
+
+        // return view('electrical.partials.cart-products', [
+        //     'cartProducts' => $cartProducts,
+        // ]);
+
         return response()->json([
-                'success' => true,
-                'message' => 'Product Added To Cart',
-            ]);
+            'html' => view('electrical.partials.cart-products', [
+                'cartProducts' => $cartProducts,
+            ])->render(),
+            'message' => 'Item added successfully',
+        ], 200);
+
+        // return response()->json([
+        //         'success' => true,
+        //         'message' => 'Product Added To Cart',
+        //     ]);
         // return back()->with('success', 'Added to cart.');
     }
 
