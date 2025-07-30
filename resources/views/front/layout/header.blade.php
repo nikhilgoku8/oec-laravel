@@ -57,7 +57,7 @@
         <nav>
             <!-- Menu Toggle btn-->
             <div class="menu-toggle">
-                <h3>Menu</h3>
+                <!-- <h3>Menu</h3> -->
                 <button type="button" id="menu-btn">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>

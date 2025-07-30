@@ -54,7 +54,7 @@
     <div class="container">
         <div class="inner_container">
             <div class="logo">
-                <!-- <a href="{{ route('electrical') }}"><img src="{{ asset('electrical-assets/images/logo.webp') }}" alt="" /></a> -->
+                <a href="{{ route('electrical') }}"><img src="{{ asset('electrical-assets/images/logo.webp') }}" alt="" /></a>
             </div>
             <form method="GET" action="{{ route('shop') }}" class="search_wrapper">
                 <div class="input_box">

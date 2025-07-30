@@ -9,6 +9,9 @@
             <form id="password_reset_form" action="" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="col-sm-12">
+                    <div class="title red center">Reset Password</div>
+                </div>
+                <div class="col-sm-12">
                     <div class="input_box">
                         <div class="error form_error form-error-email"></div>
                         <input type="text" name="email" placeholder="Email">

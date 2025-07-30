@@ -9,6 +9,7 @@ use App\Models\Admin\Category;
 use App\Models\Admin\SubCategory;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\FilterType;
+use App\Models\Admin\FilterValue;
 use App\Models\Admin\NewsletterSubscription;
 use App\Models\Admin\Career;
 use App\Models\Admin\ReachUs;
@@ -260,8 +261,12 @@ class HomeController extends Controller
         
         $subCategoryProductIds = $subCategoryProducts->pluck('id')->toArray();
 
-        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($subCategoryProductIds) {
-                $q->whereIn('id', $subCategoryProductIds);
+        $filterValueIds = FilterValue::whereHas('products', function ($query) use ($subCategoryIds) {
+            $query->whereIn('sub_category_id', $subCategoryIds);
+        })->pluck('id');
+
+        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
+                $q->whereIn('id', $filterValueIds);
             }])->get();
 
         // Get global filter counts for all matching products
@@ -424,11 +429,15 @@ class HomeController extends Controller
         // Custom $filterCounts & $filterTypes including all the products by subCategory
 
         $subCategoryProducts = Product::where('sub_category_id', $subCategory->id)->get();
-
+        
         $subCategoryProductIds = $subCategoryProducts->pluck('id')->toArray();
 
-        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($subCategoryProductIds) {
-                $q->whereIn('id', $subCategoryProductIds);
+        $filterValueIds = FilterValue::whereHas('products', function ($query) use ($subCategory) {
+            $query->where('sub_category_id', $subCategory->id);
+        })->pluck('id');
+
+        $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
+                $q->whereIn('id', $filterValueIds);
             }])->get();
 
         // Get global filter counts for all matching products

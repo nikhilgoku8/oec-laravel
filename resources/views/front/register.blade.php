@@ -8,6 +8,9 @@
         <div class="form_wrapper">
             <form id="register_form" action="" method="post" enctype="multipart/form-data">
                 @csrf
+                <div class="col-sm-12">
+                    <div class="title red center">Register</div>
+                </div>
                 <div class="col-sm-6">
                     <div class="input_box">
                         <div class="error form_error form-error-fname"></div>

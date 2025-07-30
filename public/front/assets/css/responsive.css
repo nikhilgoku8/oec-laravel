@@ -73,6 +73,7 @@ header.smaller .logo{
 }
 
 @media only screen and (min-device-width : 480px) and (max-device-width : 767px) and (orientation : landscape) {
+
 #main{
 	padding:0px;
 	}
@@ -142,12 +143,15 @@ header.smaller .logo {
 }
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-/* Styles */
+:root{
+	--header-height: 68px;
+}
 th, td {
     font-size: 12px;
 }
 p{
-	text-align: justify;
+	font-size: 15px;
+	/*text-align: justify;*/
 }
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
 	width:100%;
@@ -157,47 +161,276 @@ p{
 	display:none!important;
 	}
 header {
-width: 100%;
-    height: auto;
-    position: fixed; 
-  
+	width: 100%;
+	height: auto;
+	position: fixed;
+ 	padding: 15px 0;
+ 	background: #0C0F16;
 }
 header.smaller {
 	top:0;
-	height:110px;
-	background-color:#fff;
+	/*height:110px;*/
+ 	padding: 10px 0;
+	background-color:#0C0F16;
 }
 header .logo {
-float: left!important;
-    width: 37%!important;
-    position: absolute;
-    left: 20px;
-    top: 14px!important;
-    z-index: 999;
-	}
+	float: left!important;
+	width: 100px !important;
+	position: static;
+	left: 20px;
+	top: 14px!important;
+	z-index: 999;
+}
 header nav {
     display:inline-block;
     float:right;
-    padding:2% 2% 0 0;
-    width:100%;
+    padding: 0;
+    width: unset;
     margin-top: 0%;
-	}
+}
 header.smaller .logo {
-	width:60%;
+	/*width:60%;
 	text-align:center;
 	margin:0 auto;
-	float:none;
+	float:none;*/
 }
 
 #main {
-    padding-top: 54px!important;
+    padding-top: var(--header-height) !important;
+}
+.menu-toggle #menu-btn{
+	margin: 0;
+}
+.menu-toggle .icon-bar{
+	background: #fff;
+}
+.ace-responsive-menu{
+	position: absolute;
+	right: 0;
+ 	top: var(--header-height);
+	background: #0C0F16;
+	margin: 0;
+}
+header.smaller .ace-responsive-menu{
+ 	top: calc(var(--header-height) - 10px);
 }
 .ace-responsive-menu > li > a {
     padding: 5px 0 0 12px!important;
 }
+.ace-responsive-menu > li > a > .arrow:before{
+	line-height: 0.7em;
+}
 .ace-responsive-menu > li {
     padding: 8px 0!important;
 }
+.ace-responsive-menu li ul.sub-menu{
+	background: inherit;
+}
+.ace-responsive-menu li ul.sub-menu li a{
+	color: inherit;
+}
+
+.hero .video_wrapper{
+	min-height: 50vh;
+	height: calc(100vh - var(--header-height));
+}
+.hero .video_wrapper .overlay_text{
+	font-size: 22px;
+}
+.hero .video_wrapper .overlay_text br{
+	display: none;
+}
+.heading{
+	font-size: 40px;
+}
+.heading.small{
+	font-size: 40px;
+}
+.about{
+	padding: 50px 0;
+}
+.about .inner_box{
+	padding: 30px 0 50px;
+}
+.about .inner_box .col-sm-6{
+	padding: 0;
+}
+.about .inner_box .text_box{
+	padding: 0 0 30px;
+}
+.about .inner_box .rings_wrapper .ring_box .ring .lil_big{
+	font-size: 16px;
+}
+.about .inner_box .rings_wrapper .ring_box .ring .lil_small{
+	font-size: 11px;
+	text-align: center;
+}
+.innovation{
+	padding: 50px 0;
+}
+.innovation p{
+	padding: 0 0 20px;
+}
+.innovation .products_wrapper .product_box .text_box{
+	position: static;
+	width: 100%;
+	padding: 15px;
+}
+.innovation .products_wrapper .product_box .text_box .title{
+	font-size: 25px;
+}
+.innovation .products_wrapper .product_box .text_box .hidden_txt{
+	display: block;
+	padding: 10px 0 0 0;
+}
+.innovation .products_wrapper .product_box .text_box .hidden_txt p{
+	line-height: 1.2em;
+	padding: 0;
+	margin: 0;
+}
+.home_parallex{
+	min-height: 50vh;
+}
+.markets{
+	padding: 50px 0;
+}
+.why_oec{
+	padding: 50px 0;
+}
+.why_oec .text_box{
+	padding: 0 0 20px;
+}
+.sustainability{
+	padding: 50px 0;
+}
+footer .upper_sec .inner_container{
+	flex-direction: column;
+	padding: 15px 15px 25px 15px;
+	/*text-align: center;*/
+}
+footer .upper_sec .inner_container .info_box{
+	padding: 20px 0 0;
+}
+.about_oec{
+	padding: 50px 0;
+}
+.about_oec .inner_box .col-sm-6:nth-child(2){
+	padding: 0;
+}
+.about_oec .inner_box .rings_wrapper .ring_box .ring .lil_big{
+	font-size: 16px;
+}
+.about_oec .inner_box .rings_wrapper .ring_box .ring .lil_small{
+	font-size: 11px;
+	text-align: center;
+}
+.image_text_box .inner_container{
+	padding: 50px 0 25px 0;
+}
+.global_presence{
+	padding: 50px 0;
+}
+.common_hero{
+	height: calc(100vh - var(--header-height));
+}
+.common_hero .text_box .title{
+	font-weight: 600;
+}
+.common_hero .text_box .sub_title{
+	font-weight: 500;
+	max-width: 90%;
+}
+.apply_at_oec{
+	padding: 50px 0;
+}
+.apply_at_oec .form_wrapper{
+	width: 100%;
+}
+.form_wrapper form [class*=col-sm] .input_box{
+	padding: 0;
+}
+.form_wrapper form [class*=col-sm] .submit_box{
+	padding: 0;
+}
+.sustainability_page .boxes_wrapper .text_on_image .inner_box .text_box{
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+}
+.sustainability_page .boxes_wrapper .text_on_image:nth-child(even) .inner_box .text_box{
+	width: 90%;
+	margin: 0 auto;
+}
+.markets_page .boxes_wrapper .text_on_image .inner_box .text_box{
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+}
+.markets_page .boxes_wrapper .text_on_image:nth-child(even) .inner_box .text_box{
+	width: 90%;
+	margin: 0 auto;
+}
+.reach_us_page .common_hero{
+	margin: 0;
+	/*height: unset;*/
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container{
+	/*padding: 0 15px;*/
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info{
+	width: 100%;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info{
+	width: 100%;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper{
+	margin: 0;
+	padding: 5px 10px;
+}
+.products_page .swiper-wrapper .swiper-slide .info_box .img_box img{
+	height: 120vw;
+	width: 100%;
+	object-fit: cover;
+}
+.products_page .swiper-wrapper .swiper-slide .product_info{
+	width: 90%;
+	padding: 15px 5px 10px 15px;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container{
+	left: 0;
+	width: 100%;
+	justify-content: center;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container .text_aligned{
+	align-items: center;
+}
+.products_page .swiper-wrapper .swiper-slide .text-wrapper-container .text_aligned .text{
+	font-size: 40px;
+}
+.single_form_page{
+	padding: 0;
+}
+.single_form_page .overlay_box{
+	padding: 50px 0;
+}
+.single_form_page .overlay_box .form_wrapper{
+	padding: 10px 5px 5px 5px;
+}
+.single_form_page .overlay_box .form_wrapper .title{
+	padding: 0;
+}
+.single_form_page .overlay_box .form_wrapper .other_text:nth-child(1){
+	padding: 0;
+}
+
+
+
+
+
+
+
+
+
 
 }
 /* Smartphones (landscape) ----------- */

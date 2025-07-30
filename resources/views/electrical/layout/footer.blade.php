@@ -604,6 +604,11 @@ const our_brands_slider = new Swiper('.our_brands_slider', {
     slidesPerView: 2,
     loop: false,
     // Responsive breakpoints
+    pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true,
+      },
     breakpoints: {
         // // when window width is >= 480px
         480: {
