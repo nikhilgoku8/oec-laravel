@@ -1658,3 +1658,9 @@ table.offers_table tr.offer_row.disabled{
 .sorting_wrapper ul li .design_number{
 	width: 50px;
 }
+
+#filter_form{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+}

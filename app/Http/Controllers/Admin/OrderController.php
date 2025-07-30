@@ -5,15 +5,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Order;
+use App\Models\Admin\User;
 use App\Models\Admin\OrderProduct;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $result = Order::with('user','orderProducts')->orderByDesc('created_at')->paginate(100);
-        return view('admin.orders.index', compact('result'));
+        $users = User::all();
+        $result = Order::with('user','orderProducts')
+            ->orderByDesc('created_at')
+            ->when($request->order_ref_id, function($query) use ($request){
+                $query->where('order_ref_id','LIKE', "%{$request->order_ref_id}%");
+            })
+            ->when($request->user_id, function($query) use ($request){
+                $query->where('user_id', $request->user_id);
+            })
+            ->when($request->status, function($query) use ($request){
+                $query->where('status', $request->status);
+            })
+            ->paginate(100);
+        return view('admin.orders.index', compact('result','users'));
     }
 
     public function pending()

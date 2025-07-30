@@ -10,9 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $result = User::orderByDesc('updated_at')->paginate(100);
+        $result = User::orderByDesc('updated_at')
+            ->when($request->fname, function($query) use ($request){
+                $query->where('fname','LIKE', "%{$request->fname}%");
+            })
+            ->when($request->lname, function($query) use ($request){
+                $query->where('lname','LIKE', "%{$request->lname}%");
+            })
+            ->when($request->email, function($query) use ($request){
+                $query->where('email','LIKE', "%{$request->email}%");
+            })
+            ->when($request->phone, function($query) use ($request){
+                $query->where('phone','LIKE', "%{$request->phone}%");
+            })
+            ->when($request->status, function($query) use ($request){
+                $query->where('status', $request->status);
+            })
+            ->paginate(100);
         return view('admin.users.index', compact('result'));
     }
 

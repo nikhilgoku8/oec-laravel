@@ -16,15 +16,17 @@
                     <!-- <div class="purple_hollow_btn">
                         <a href="{{ route('orders.create'); }}">Add New</a>
                     </div> -->
-                    <!-- <div class="orange_hollow_btn">
+                    <div class="orange_hollow_btn">
                         <a id="filter_option">Filter</a>
-                    </div> -->
+                    </div>
                 </div>
             </div>                    
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+
+    @include('admin.orders.filter')
 
     <div class="row">
         <div class="fourth_row">
