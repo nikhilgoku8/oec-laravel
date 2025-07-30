@@ -207,13 +207,62 @@ header.smaller .logo {
 }
 
 
+header{
+	display: none;
+}
+.products_wrapper .product_box{
+	width: calc(50% - 10px);
+}
+.products_wrapper .product_box .add_to_cart_inputs .add_to_cart{
+	padding: 5px 15px;
+	font-size: 12px;
+}
+.products_wrapper .product_box .add_to_cart_inputs .number_input button{
+	width: 40px;
+}
+.products_wrapper .product_box .add_to_cart_inputs .number_input input{
+	width: 45px;
+}
 
-
-
-
-
-
-
+footer .upper_sec .icon_box{
+	padding: 10px;
+}
+footer .middle_sec .text_box p{
+	font-size: 15px;
+	color: #969696;
+}
+footer .lower_sec p{
+	color: #969696;
+}
+.quick_view_wrapper .inner_box .quick_view_box{
+	flex-wrap: wrap;
+}
+.quick_view_wrapper .inner_box .quick_view_box .left_pane{
+	width: 100%;
+}
+.quick_view_wrapper .inner_box .quick_view_box .left_pane a.view_details{
+	transform: none;
+}
+.quick_view_wrapper .inner_box .quick_view_box .right_pane{
+	width: 100%;
+}
+.product_info .heading{
+	margin: 10px 0;
+}
+.product_info .number_input button{
+	height: 30px;
+}
+.product_info .number_input input{
+	height: 30px;
+}
+.product_info .add_to_cart_inputs .add_to_cart{
+	font-size: 12px;
+	padding: 8px 20px;
+}
+.product_info .other_btns a{
+	padding: 7px 15px;
+	font-size: 12px;
+}
 
 
 

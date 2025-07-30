@@ -387,6 +387,12 @@ footer .upper_sec .inner_container .info_box{
 	margin: 0;
 	padding: 5px 10px;
 }
+.products_page{
+	padding: 0;
+}
+.products_page .main_slider_wrapper{
+	padding: 50px 0;
+}
 .products_page .swiper-wrapper .swiper-slide .info_box .img_box img{
 	height: 120vw;
 	width: 100%;
@@ -406,6 +412,11 @@ footer .upper_sec .inner_container .info_box{
 }
 .products_page .swiper-wrapper .swiper-slide .text-wrapper-container .text_aligned .text{
 	font-size: 40px;
+}
+.products_page .request_catalogue_wrapper .inner_container{
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
 }
 .single_form_page{
 	padding: 0;
