@@ -29,8 +29,8 @@ class Competitor extends Model
             // 'id' => $this->id,
             'title' => $this->title,
             'product_id' => $this->product_id,
-            // 'product_title' => $this->product->title,
-            // 'product_description' => $this->product->description,
+            'product_title' => $this->product->title,
+            'product_description' => $this->product->description,
             // Add other searchable fields if needed
         ];
     }

@@ -1,6 +1,6 @@
 
 html{
-  filter: invert(1) hue-rotate(180deg);
+  /*filter: invert(1) hue-rotate(180deg);*/
 }
 a{
 	display: inline-block;
@@ -132,6 +132,9 @@ input:disabled, select:disabled, textarea:disabled {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+.header_bar .logo_box .logo img{
+	max-width: 200px;
 }
 .header_bar .right_section{
 	display: flex;
@@ -1641,6 +1644,9 @@ table.offers_table tr.offer_row.disabled{
 	margin: 0 0 5px;
 	padding: 5px 10px;
 	cursor: grab;
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .grabbing {
   cursor: grabbing!important;

@@ -776,6 +776,10 @@ header .lower_sec{
 	align-items: center;
 	justify-content: center;
 }
+.products_list_page .products_wrapper .product_box .add_to_cart_inputs{
+	flex-direction: row;
+	justify-content: flex-start;
+}
 .products_wrapper .product_box .add_to_cart_inputs .number_input{
 	font-size: 14px;
 	margin: 0 0 10px;
@@ -1397,10 +1401,10 @@ footer .lower_sec p{
 	width: calc(100% - 300px);
 }
 .products_list_page .products_wrapper .inner_container .right_pane .products_list .product_box .text_box .product_title{
-	font-size: 16px;
+	font-size: 20px;
 	color: #333;
 	font-weight: 500;
-	padding: 0 0 15px;
+	padding: 0 0 10px;
 }
 .products_list_page .products_wrapper .inner_container .right_pane .products_list .product_box .text_box .sub_category_title{
 	font-size: 14px;
@@ -1414,6 +1418,7 @@ footer .lower_sec p{
 }
 .products_list_page .products_wrapper .inner_container .right_pane .products_list .product_box .text_box .number_input{
 	font-size: 14px;
+	margin: 0 5px 0 0;
 }
 .products_list_page .products_wrapper .inner_container .right_pane .products_list .product_box .text_box .number_input button{
 	height: 32px;
@@ -1672,11 +1677,10 @@ footer .lower_sec p{
 	background-color: #f2f2f2;
 }
 
-.product_detail_page .tabs_wrapper{
-	padding: 0 0 50px;
-	margin: 0 0 50px 0;
-	border-bottom: 1px solid #0000001b;
+.product_detail_page .tabs #tabs-content .tab-content table tr td:nth-child(1){
+	width: 40%;
 }
+.product_detail_page .tabs_wrapper
 
 /*related_products*/
 .related_products{

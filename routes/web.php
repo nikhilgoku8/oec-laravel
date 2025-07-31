@@ -119,8 +119,9 @@ Route::prefix('owm')->group(function () {
         Route::get('/import-data', [UploadDataController::class, 'import_data'])->name('import_data.edit');
         Route::post('/importData', [UploadDataController::class, 'importData'])->name('import_data.store');
 
-        Route::resource('categories', CategoryController::class);
+        Route::post('categories/sortSubCategories', [CategoryController::class, 'sortSubCategories'])->name('categories.sortSubCategories');
         Route::post('categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
+        Route::resource('categories', CategoryController::class);
 
         Route::resource('sub-categories', SubCategoryController::class);
         Route::post('sub-categories/bulk-delete', [SubCategoryController::class, 'bulkDelete'])->name('sub-categories.bulk-delete');

@@ -14,11 +14,14 @@
                 <div class="filters_wrapper">
                     <div class="title">Filters</div>
                     <!-- @@if(count($products)) -->
+                        @php
+                            $selectedFilters = collect(request('filters', []))->flatten()->toArray();
+                        @endphp
                         @if(!empty($filterTypes) && count($filterTypes) > 0)
                             <form id="filterForm" method="GET" action="{{ route('products', ['category' => $category->slug, 'subCategory' => $subCategory->slug]) }}">
                             <input type="hidden" name="q" value="{{ request('q') }}">
                                 <div id="accordion">
-                                     @foreach ($filterTypes as $type)
+                                    @foreach ($filterTypes as $type)
                                         @php
                                             $valueCount = $type->filterValues->sum(fn($value) => $filterCounts[$value->id] ?? 0);
                                         @endphp
@@ -30,7 +33,7 @@
                                                         @if(!empty($filterCounts[$value->id]))
                                                             <li>
                                                                 <label>
-                                                                    <input type="checkbox" name="filters[]" value="{{ $value->id }}" {{ in_array($value->id, request()->get('filters', [])) ? 'checked' : '' }}>
+                                                                    <input type="checkbox" name="filters[{{$loop->parent->iteration}}][]" value="{{ $value->id }}" {{ in_array($value->id, $selectedFilters) ? 'checked' : '' }}>
                                                                     <span class="text">{{ $value->value }}</span>
                                                                     <span class="count">{{ $filterCounts[$value->id] ?? 0 }}</span>
                                                                 </label>
@@ -43,7 +46,7 @@
                                     @endforeach
                                 </div>
                                 <br>
-                                <button class="red_hollow_btn">Apply Filters</button>
+                                <!-- <button class="red_hollow_btn">Apply Filters</button> -->
                             </form>
                             <script>
                             $(document).on('change', '#filterForm input[type="checkbox"]', function() {
@@ -63,7 +66,7 @@
 
                             @foreach ($filterTypes as $type)
                                 @foreach ($type->filterValues as $value)
-                                    @if(in_array($value->id, request('filters', [])))
+                                    @if(in_array($value->id, $selectedFilters))
                                     <button class="remove_filter" data-id="{{ $value->id }}">
                                         <span class="cross_icon"></span>
                                         <span class="filter_value">{{ $value->value }}</span>
@@ -164,10 +167,33 @@
 <!-- products_list_page end -->
 
 <script>
-  $( function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  } );
-  </script>
+// $( function() {
+// $( "#accordion" ).accordion({
+// // collapsible: true
+// });
+// } );
+
+$("#accordion").accordion({
+    collapsible: true,
+    active: false,
+    heightStyle: "content"
+}).accordion("destroy"); // remove built-in behavior
+
+// Custom multiple open toggle
+$("#accordion div").hide();
+
+// Open panels that have any checked checkbox
+$("#accordion h3").each(function () {
+    if ($(this).next().find("input[type='checkbox']:checked").length > 0) {
+        $(this).next().show();        // Show the panel
+        $(this).addClass("ui-state-active"); // Optional: jQuery UI style active
+    }
+});
+
+$("#accordion h3").click(function () {
+    $(this).toggleClass("ui-state-active");
+    $(this).next().slideToggle();
+});
+
+</script>
 @endsection

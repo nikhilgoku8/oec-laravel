@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('electrical.*', function ($view) {
-            $categories = Category::with('subCategories')->get();
+            $categories = Category::with('subCategories')->orderBy('sort_order')->get();
             $productsMayLike = Product::inRandomOrder()->limit(5)->get();
 
             $user = null;

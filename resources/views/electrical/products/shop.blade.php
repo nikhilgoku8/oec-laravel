@@ -46,7 +46,7 @@
                                     @endforeach
                                 </div>
                                 <br>
-                                <button class="red_hollow_btn">Apply Filters</button>
+                                <!-- <button class="red_hollow_btn">Apply Filters</button> -->
                             </form>
                             <script>
                             $(document).on('change', '#filterForm input[type="checkbox"]', function() {
@@ -167,12 +167,35 @@
 <!-- products_list_page end -->
 
 <script>
-  $( function() {
-    $( "#accordion" ).accordion({
-      collapsible: true
-    });
-  } );
-  </script>
+// $( function() {
+//   $( "#accordion" ).accordion({
+//     collapsible: true
+//   });
+// } );
+
+$("#accordion").accordion({
+    collapsible: true,
+    active: false,
+    heightStyle: "content"
+}).accordion("destroy"); // remove built-in behavior
+
+// Custom multiple open toggle
+$("#accordion div").hide();
+
+// Open panels that have any checked checkbox
+$("#accordion h3").each(function () {
+    if ($(this).next().find("input[type='checkbox']:checked").length > 0) {
+        $(this).next().show();        // Show the panel
+        $(this).addClass("ui-state-active"); // Optional: jQuery UI style active
+    }
+});
+    
+$("#accordion h3").click(function () {
+    $(this).toggleClass("ui-state-active");
+    $(this).next().slideToggle();
+});
+
+</script>
 
 
 @endsection

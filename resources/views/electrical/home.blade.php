@@ -202,11 +202,11 @@
                                     'subCategory' => $row->subCategory->slug
                                 ]) }}" class="category_title">{{ $row->subCategory->title }}</a>
                         <div class="add_to_cart_inputs">
-                            <div class="number_input">
+                            <!-- <div class="number_input">
                                 <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
                                 <input type="number" value="1" min="1">
                                 <button onclick="this.parentNode.querySelector('input').stepUp()">+</button>
-                            </div>
+                            </div> -->
                             <button class="red_filled_btn add_to_cart" data-product-id="{{ $row->id }}">Add to Enquiry</button>
                         </div>
                         <button class="quick_view" data-product-id="{{ $row->id }}"><i class="far fa-window-restore"></i></button>

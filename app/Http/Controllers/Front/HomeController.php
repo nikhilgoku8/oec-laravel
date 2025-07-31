@@ -153,8 +153,19 @@ class HomeController extends Controller
 
         // Build the Meili filter clause
         $filterStrings = [];
-        foreach ($filterParams as $typeId => $valueId) {
-            $filterStrings[] = "filter_value_ids = $valueId";
+
+        // foreach ($filterParams as $typeId => $valueId) {
+        //     $filterStrings[] = "filter_value_ids = $valueId";
+        // }
+
+        // Build OR part for filters as we need multiple filters        
+        foreach ($filterParams as $group => $values) {
+            // OR within the same group
+            $orFilters = [];
+            foreach ($values as $valueId) {
+                $orFilters[] = "filter_value_ids = $valueId";
+            }
+            $filterStrings[] = '(' . implode(' OR ', $orFilters) . ')';
         }
 
         // if ($subCategory && $subCategory->id) {
@@ -319,10 +330,27 @@ class HomeController extends Controller
 
         // Build the Meili filter clause
         $filterStrings = [];
-        foreach ($filterParams as $typeId => $valueId) {
-            $filterStrings[] = "filter_value_ids = $valueId";
+        // foreach ($filterParams as $typeId => $valueId) {
+        //     $filterStrings[] = "filter_value_ids = $valueId";
+        // }
+
+        // if ($subCategory && $subCategory->id) {
+        //     $filterStrings[] = "sub_category_id = {$subCategory->id}";
+        // }
+
+        // $filterClause = implode(' AND ', $filterStrings) ?: null;
+
+        // Build OR part for filters as we need multiple filters
+        foreach ($filterParams as $group => $values) {
+            // OR within the same group
+            $orFilters = [];
+            foreach ($values as $valueId) {
+                $orFilters[] = "filter_value_ids = $valueId";
+            }
+            $filterStrings[] = '(' . implode(' OR ', $orFilters) . ')';
         }
 
+        // Subcategory condition (required) as we need results for specific sub-category
         if ($subCategory && $subCategory->id) {
             $filterStrings[] = "sub_category_id = {$subCategory->id}";
         }

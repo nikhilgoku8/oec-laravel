@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Category;
+use App\Models\Admin\SubCategory;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $result = Category::paginate(100);
+        $result = Category::orderBy('sort_order')->paginate(100);
         return view('admin.categories.index', compact('result'));
     }
 
@@ -27,6 +29,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        $category->loadMissing('subCategories');
         $result = $category;
         return view('admin.categories.edit', compact('result'));
     }
@@ -98,6 +101,19 @@ class CategoryController extends Controller
                 'console_message' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function sortSubCategories(Request $request)
+    {
+
+        foreach ($request->sorted as $item) {
+            SubCategory::where('id', $item['id'])->update([
+                'sort_order' => $item['sort_order'],
+                'updated_by' => session('username'),
+            ]);
+        }
+
+        return response()->json(['message' => 'Sort order updated']);
     }
 
     public function destroy(Category $category)

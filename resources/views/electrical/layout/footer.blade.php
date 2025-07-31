@@ -96,6 +96,7 @@ $(document).on('click','.add_to_cart', function(){
     let quantity = addToCartBtn.parent().find('[type=number]').val();
 
     addToCartBtn.addClass('spinners').attr('disabled', true);
+    quantity = quantity ? quantity : 1;
     // alert(quantity);
 
     let formData = new FormData();
