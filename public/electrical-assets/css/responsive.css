@@ -168,13 +168,14 @@ header.smaller {
 	background-color:#fff;
 }
 header .logo {
-float: left!important;
-    width: 37%!important;
-    position: absolute;
-    left: 20px;
-    top: 14px!important;
-    z-index: 999;
-	}
+	float: left!important;
+	width: 100px !important;
+	position: static;
+	/*left: 20px;
+	top: 14px!important;*/
+	z-index: 999;
+	order: 2;
+}
 header nav {
     display:inline-block;
     float:right;
@@ -187,6 +188,74 @@ header.smaller .logo {
 	text-align:center;
 	margin:0 auto;
 	float:none;
+}
+header .upper_sec .my_account_links{
+	order: 3;
+}
+header .upper_sec .my_account_links .head{
+	font-size: 20px;
+	padding: 5px;
+}
+header .upper_sec .my_account_links ul{
+	z-index: 1;
+}
+header .upper_sec .search_wrapper{
+	width: 100%;
+	order: 5;
+	margin: 10px 0 0 0;
+}
+header .upper_sec .search_wrapper .input_box{
+	width: calc(100% - 45px);
+}
+header .upper_sec .search_wrapper .input_box input{
+	width: 100%;
+}
+header .upper_sec .menu_cart_wrapper{
+	position: relative;
+	order: 4;
+}
+header .upper_sec .menu_cart_wrapper .cart_count_wrapper .text{
+	display: none;
+}
+header .upper_sec .menu_cart_wrapper .cart_count_wrapper{
+	padding: 3px;
+    background: var(--red);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    position: absolute;
+    right: -12px;
+    top: -8px;
+}
+
+.mobile_menu_btn{
+	display: inline-flex;
+	align-items: center;
+	order: 1;
+}
+.mobile_menu_btn .txt{
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 600;
+	color: #000;
+}
+.mobile_menu_btn .menu_btn{
+	background-color: transparent;
+	border: none;
+	outline: none;
+}
+.mobile_menu_btn .menu_btn .icon-bar{
+	display: block !important;
+    width: 16px;
+    height: 2px;
+    background-color: #000000;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    /* -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25); */
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25); */
+    margin: 3px;
 }
 
 #main {
@@ -208,14 +277,14 @@ header.smaller .logo {
 
 
 header{
-	display: none;
+	/*display: none;*/
 }
 .products_wrapper .product_box{
 	width: calc(50% - 10px);
 }
 .products_wrapper .product_box .add_to_cart_inputs .add_to_cart{
 	padding: 5px 15px;
-	font-size: 12px;
+	font-size: 11px;
 }
 .products_wrapper .product_box .add_to_cart_inputs .number_input button{
 	width: 40px;
@@ -251,6 +320,7 @@ footer .lower_sec p{
 }
 .product_info .number_input button{
 	height: 30px;
+	width: 35px;
 }
 .product_info .number_input input{
 	height: 30px;

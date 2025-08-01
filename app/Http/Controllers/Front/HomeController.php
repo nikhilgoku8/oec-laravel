@@ -557,13 +557,25 @@ class HomeController extends Controller
         //     ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
         //     ->get();
 
+        // Just return empty collection to keep paginator happy
+        $products = collect();
+
         if (!empty($hitIds)) {
-            $products = Product::whereIn('id', $hitIds)
-                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-                ->get();
-        } else {
-            // Just return empty collection to keep paginator happy
-            $products = collect();
+            // $products = Product::whereIn('id', $hitIds)
+            //     ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+            //     ->get();
+            $query = Product::whereIn('id', $hitIds)
+                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")");
+
+            // Decide based on request type
+            if ($request->ajax()) {
+
+                $products = $query->take(10)->get(); // fewer results
+
+            } else {
+                $products = $query->get(); // all results
+            }
+
         }
 
         // 5) Make a LengthAwarePaginator for Blade
@@ -593,6 +605,13 @@ class HomeController extends Controller
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
             }])->get();
+
+        // We return for AJAX Request
+        if($request->ajax()){            
+            return response()->json([
+                'html' => view('electrical.partials.ajax-search-products', compact('products'))->render()
+            ]);
+        }
 
         return view('electrical.products.shop', [
             'products'       => $paginator,

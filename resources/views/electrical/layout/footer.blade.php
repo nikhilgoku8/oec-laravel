@@ -90,6 +90,51 @@
 <!-- CART END -->
 
 <script>
+
+$(document).on('click', function(event){
+    if (!$(event.target).closest('.search_wrapper').length) {
+        $('#search_results').slideUp();
+    }
+});
+
+$('.clear_search').on('click', function(){
+    $('#main_search').trigger('keyup');
+    $(this).closest('form').find('input').val('');
+    $('#search_results').slideUp();
+});
+
+$('#main_search').on('focus', function(){
+    $('#search_results').slideDown();
+});
+
+let searchTimer;
+
+// Trigger search after 3 letters
+$('#main_search').on('keyup', function() {
+    let query = $(this).val().trim();
+    $('#search_results').slideDown();
+    $('#search_results').html('<div class="center">Loading...</div>');
+
+    if (query.length >= 3) {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            let url = '{{ route("shop") }}?q=' + encodeURIComponent(query);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    $('#search_results').html(response.html);
+                },
+                error: function() {
+                    $('#search_results').html('<div class="title red">Error loading results.</div>');
+                }
+            });
+        }, 300); // debounce
+    } else {
+        $('#search_results').html('');
+    }
+});
+
 $(document).on('click','.add_to_cart', function(){
     let addToCartBtn = $(this);
     let product_id = addToCartBtn.data('product-id');

@@ -167,6 +167,7 @@
 <!-- products_list_page end -->
 
 <script>
+
 // $( function() {
 //   $( "#accordion" ).accordion({
 //     collapsible: true

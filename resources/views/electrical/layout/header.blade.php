@@ -53,17 +53,33 @@
 <div class="upper_sec">
     <div class="container">
         <div class="inner_container">
+            <div class="mobile_menu_btn">
+                <button type="button" class="menu_btn">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="txt">Menu</div>
+            </div>
             <div class="logo">
                 <a href="{{ route('electrical') }}"><img src="{{ asset('electrical-assets/images/logo.webp') }}" alt="" /></a>
             </div>
             <form method="GET" action="{{ route('shop') }}" class="search_wrapper">
                 <div class="input_box">
-                    <input type="text" class="search_input" name="q" placeholder="Search Products" value="{{ request('q') }}">
+                    <input type="text" class="search_input" id="main_search" name="q" placeholder="Search Products" value="{{ request('q') }}">
                 </div>
+                <button type="button" class="clear_search cross_icon"></button>
                 <button class="icon_box"><i class="fas fa-search"></i></button>
+                <div id="search_results">
+                    
+                </div>
             </form>
             <div class="my_account_links">
+                @if($desktop)
                 <div class="head">My Account</div>
+                @else
+                <div class="head"><i class="fas fa-user"></i></div>
+                @endif
                 <ul>
                     <li><a href="{{ route('my-account.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('my-account.orders') }}">Orders</a></li>

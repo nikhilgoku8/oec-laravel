@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\App;
+
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
 use App\Models\Admin\User;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        
         View::composer('electrical.*', function ($view) {
             $categories = Category::with('subCategories')->orderBy('sort_order')->get();
             $productsMayLike = Product::inRandomOrder()->limit(5)->get();
@@ -42,5 +45,13 @@ class AppServiceProvider extends ServiceProvider
                 'productsMayLike' => $productsMayLike,
             ]);
         });
+
+        if (App::runningInConsole() || !isset($_SERVER['HTTP_USER_AGENT'])) {
+            return;
+        }
+
+        $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $desktop = strpos($ua,'android')=== false && strpos($ua,'iphone')=== false;
+        View::share('desktop', $desktop);
     }
 }
