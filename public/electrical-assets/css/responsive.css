@@ -204,11 +204,20 @@ header .upper_sec .search_wrapper{
 	order: 5;
 	margin: 10px 0 0 0;
 }
+header .upper_sec .search_wrapper .clear_search{
+	--size: 12px;
+}
 header .upper_sec .search_wrapper .input_box{
-	width: calc(100% - 45px);
+	width: calc(100% - 41px);
 }
 header .upper_sec .search_wrapper .input_box input{
 	width: 100%;
+	font-size: 14px;
+	padding: 6px 20px;
+}
+header .upper_sec .search_wrapper .icon_box{
+	font-size: 16px;
+	padding: 7px 15px 7px 10px;
 }
 header .upper_sec .menu_cart_wrapper{
 	position: relative;
@@ -226,6 +235,26 @@ header .upper_sec .menu_cart_wrapper .cart_count_wrapper{
     position: absolute;
     right: -12px;
     top: -8px;
+}
+
+header .lower_sec{
+	position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #00000080;
+    z-index: 999;
+}
+header .lower_sec .container{
+	width: 80%;
+	left: 0;
+	height: 100%;
+	background-color: #fff;
+	margin: 0 auto 0 0;
+}
+header .lower_sec .container .menu-toggle{
+	display: none;
 }
 
 .mobile_menu_btn{
@@ -260,6 +289,9 @@ header .upper_sec .menu_cart_wrapper .cart_count_wrapper{
 
 #main {
     padding-top: 54px!important;
+}
+.ace-responsive-menu{
+	display: block! important;
 }
 .ace-responsive-menu > li > a {
     padding: 5px 0 0 12px!important;

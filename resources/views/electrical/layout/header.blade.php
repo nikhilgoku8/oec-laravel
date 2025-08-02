@@ -101,21 +101,32 @@
 </div>
 <div class="lower_sec">
     <div class="container">
-        <div class="inner_container">
-            
-            <nav>
+        <div class="inner_container" @if(!$desktop) id="mobile_tabs" @endif>
+            @if(!$desktop)
+            <script>
+              $( function() {
+                $( "#mobile_tabs" ).tabs();
+              } );
+              </script>
+            <ul>
+                <li><a href="#menu_tab_2">Menu</a></li>
+                <li><a href="#menu_tab_1">Categories</a></li>
+            </ul>
+            @endif
+            <nav @if(!$desktop) id="menu_tab_1" @endif>
                 <!-- Menu Toggle btn-->
-                <div class="menu-toggle">
+                <!-- <div class="menu-toggle">
                     <h3>Menu</h3>
                     <button type="button" class="menu-btn">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
+                </div> -->
                 <!-- Responsive Menu Structure-->
                 <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
                 <ul id="category_menu" class="ace-responsive-menu" data-menu-style="horizontal">
+                    @if($desktop)
                     <li>
                         <a>
                             <span class="ham_with_txt">
@@ -125,6 +136,7 @@
                             <span class="arrow"></span> 
                         </a>
                         <ul>
+                            @endif
                             @foreach($categories as $category)
                             <li>
                                 <a>{{ $category->title }}
@@ -148,20 +160,22 @@
                                     <li>asdasd 4</li>
                                 </ul>
                             </li> -->
+                            @if($desktop)
                         </ul>
                     </li>
+                    @endif
                 </ul>
             </nav>
             
-            <nav>
-                <div class="menu-toggle">
+            <nav @if(!$desktop) id="menu_tab_2" @endif>
+                <!-- <div class="menu-toggle">
                     <h3>Menu</h3>
                     <button type="button" class="menu-btn">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                </div>
+                </div> -->
                 <ul id="main_menu" class="ace-responsive-menu" data-menu-style="horizontal">
                     <li>
                         <a href="{{ route('electrical') }}">

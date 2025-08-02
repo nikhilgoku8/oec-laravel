@@ -193,7 +193,7 @@ header .upper_sec .search_wrapper .clear_search{
     outline: none;
     --line-color: #4d4d4d;
     position: absolute;
-    right: 50px;
+    right: 55px;
 }
 header.smaller .upper_sec .search_wrapper .input_box input{
 	font-size: 14px;
