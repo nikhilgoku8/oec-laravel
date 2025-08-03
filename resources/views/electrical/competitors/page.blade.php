@@ -45,7 +45,7 @@
 <!-- products_list_page end -->
 
 <script>
-let searchTimer;
+let competitorSearchTimer;
 
 // Function to load search results
 function loadCompetitors(url) {
@@ -67,8 +67,8 @@ $('#competitor-search').on('keyup', function() {
     $('#competitor-results').html('...');
 
     if (query.length >= 3) {
-        clearTimeout(searchTimer);
-        searchTimer = setTimeout(() => {
+        clearTimeout(competitorSearchTimer);
+        competitorSearchTimer = setTimeout(() => {
             let url = '{{ route("competitors.search") }}?q=' + encodeURIComponent(query);
             loadCompetitors(url);
         }, 300); // debounce

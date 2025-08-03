@@ -21,6 +21,7 @@
             @if(!empty($cartProducts) && count($cartProducts) > 0)
             <form id="update_cart_form" action="" method="POST">
                 @csrf
+                @if($desktop)
                 <table>
                     <tr>
                         <th>Image</th>
@@ -51,6 +52,31 @@
                     </tr>
                     @endforeach
                 </table>
+                @else
+                    <div class="cart_products_mobile">
+                        @foreach($cartProducts as $row)
+                            <div class="product_box">
+                                <div class="img_box"><img src="{{ $row->product->productImages[0]->image_file }}"></div>
+                                <div class="right_info_box">
+                                    <div class="product_title">{{ $row->product->title }}</div>
+                                    <div class="product_description">{{ Str::limit($row->product->description, 100) }}</div>
+                                    <div class="error form_error form-error-items-{{$loop->iteration}}-id"></div>
+                                    <div class="error form_error form-error-items-{{$loop->iteration}}-quantity"></div>
+                                    <input type="hidden" name="items[{{$loop->iteration}}][id]" value="{{ $row->id }}">
+                                    <div class="quantity_wrap">
+                                        <span>Quantity</span>
+                                        <div class="number_input">
+                                            <button onclick="this.parentNode.querySelector('input').stepDown()" type="button">-</button>
+                                            <input type="number" name="items[{{$loop->iteration}}][quantity]" value="{{ $row->quantity }}" min="0">
+                                            <button onclick="this.parentNode.querySelector('input').stepUp()" type="button">+</button>
+                                        </div>
+                                    </div>
+                                    <button class="remove_product" data-cart-item-id="{{$row->id}}"></button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
                 <br>
                 <div class="c2a_btns">
                     <button type="submit" class="red_filled_btn">Update Cart</button>

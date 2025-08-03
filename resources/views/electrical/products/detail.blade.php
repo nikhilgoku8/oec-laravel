@@ -71,7 +71,7 @@
                                 </span>
                             </span>
                             <!-- <a href="#" class="shop_btn"><i class="fas fa-border-all"></i></a> -->
-                            <a href="#" class="shop_btn"><i class="fas fa-th-large"></i></a>
+                            <a href="{{ route('shop') }}" class="shop_btn"><i class="fas fa-th-large"></i></a>
                             <span class="adjacent_product">
                                 <a href="{{ route('product', [
                                         'category' => $category->slug,

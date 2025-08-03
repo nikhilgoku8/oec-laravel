@@ -91,6 +91,80 @@
 
 <script>
 
+$(".products_list_page .products_wrapper .inner_container .left_pane").on('click', function(event){
+    if (!$(event.target).closest('.filters_wrapper').length) {
+        closeProductsFilter();
+    }
+});
+$(".show_filter_btn").on('click', function(event){
+    openProductsFilter();
+});
+// $(document).on('click', '.cart_wrapper .close', function(event){
+//     closeMobileMenu();
+// });
+function openProductsFilter() {
+    $(".products_list_page .products_wrapper .inner_container .left_pane").fadeIn(100);
+    setTimeout(function() {
+        $(".products_list_page .products_wrapper .inner_container .left_pane .filters_wrapper").css({
+            'transition': 'transform 0.4s ease',
+            'transform': 'translateX(0%)'
+        });
+    }, 100);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(0%)");
+}
+function closeProductsFilter() {
+    // $(".cart_wrapper .inner_box .cart_box").animate({transform: 'translateX(100%)'},400,function() {
+    //     $(".cart_wrapper").fadeOut();
+    // });
+    $(".products_list_page .products_wrapper .inner_container .left_pane .filters_wrapper").css({
+        'transition': 'transform 0.4s ease',
+        'transform': 'translateX(-100%)'
+    });
+
+    setTimeout(function() {
+        $(".products_list_page .products_wrapper .inner_container .left_pane").fadeOut();
+    }, 400);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(100%)");
+    // $(".cart_wrapper").fadeOut();
+}
+// ----------------------------------------------------------------------------------------------------
+$(".lower_sec").on('click', function(event){
+    if (!$(event.target).closest('.container').length) {
+        closeMobileMenu();
+    }
+});
+$(".mobile_menu_btn").on('click', function(event){
+    openMobileMenu();
+});
+// $(document).on('click', '.cart_wrapper .close', function(event){
+//     closeMobileMenu();
+// });
+function openMobileMenu() {
+    $("header .lower_sec").fadeIn(100);
+    setTimeout(function() {
+        $("header .lower_sec .container").css({
+            'transition': 'transform 0.4s ease',
+            'transform': 'translateX(0%)'
+        });
+    }, 100);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(0%)");
+}
+function closeMobileMenu() {
+    // $(".cart_wrapper .inner_box .cart_box").animate({transform: 'translateX(100%)'},400,function() {
+    //     $(".cart_wrapper").fadeOut();
+    // });
+    $("header .lower_sec .container").css({
+        'transition': 'transform 0.4s ease',
+        'transform': 'translateX(-100%)'
+    });
+
+    setTimeout(function() {
+        $("header .lower_sec").fadeOut();
+    }, 400);
+    // $(".cart_wrapper .inner_box .cart_box").css("transform","translateX(100%)");
+    // $(".cart_wrapper").fadeOut();
+}
+// ----------------------------------------------------------------------------------------------------------------------------------
 $(document).on('click', function(event){
     if (!$(event.target).closest('.search_wrapper').length) {
         $('#search_results').slideUp();

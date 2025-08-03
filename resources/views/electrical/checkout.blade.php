@@ -79,14 +79,14 @@
                 </div>
                 @else
                 <div class="heading">Your cart is currently empty!</div>
-                        <br>
+                        <!-- <br>
                         <div class="c2a_btns">
                             <button type="submit" class="red_filled_btn">Update Cart</button>
                             <a href="{{ route('cart.clear') }}" class="red_hollow_btn" onclick="return confirm('Are you sure you want to clear the cart?')">Clear Cart</a>
-                        </div>
+                        </div> -->
                 @endif
             </div>
-            <div class="col-sm-6"><button type="submit" form="checkout_form">Submit</button></div>
+            <div class="col-sm-6"><button type="submit" class="red_filled_btn" form="checkout_form">Submit</button></div>
             <div class="clr"></div>
 
         </div>

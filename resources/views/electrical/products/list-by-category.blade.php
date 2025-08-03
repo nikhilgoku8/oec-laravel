@@ -107,6 +107,18 @@
                             Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of {{ $products->total() }} results
                         @endif
                     </div>
+                    @if(!$desktop)
+                    <div class="show_filter_btn_wrapper">
+                        <button type="button" class="show_filter_btn">
+                            <span class="three_lines">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </span>
+                            <span class="text">Show Sidebar</span>
+                        </button>
+                    </div>
+                    @endif
                 </div>
                 @if(count($products))
                 <div class="products_list">
