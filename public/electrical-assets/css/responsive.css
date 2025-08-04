@@ -378,6 +378,22 @@ header .lower_sec .container ul.ui-tabs-nav li.ui-state-active a{
 header{
 	/*display: none;*/
 }
+
+.hero .main_hero_slider .swiper-slide a{
+	flex-direction: column-reverse;
+	justify-content: center;
+}
+.hero .main_hero_slider .swiper-slide a .category_title{
+	width: 100%;
+	padding: 10px 0 0 0;
+	text-align: center;
+	font-size: 30px;
+}
+.hero .main_hero_slider .swiper-slide a .image_wrapper{
+	width: 80%;
+	margin: 0 auto;
+}
+
 .products_wrapper .product_box{
 	width: calc(50% - 10px);
 }

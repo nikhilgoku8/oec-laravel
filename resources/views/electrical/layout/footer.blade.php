@@ -717,6 +717,31 @@ gsap.utils.toArray(".heading").forEach((heading) => {
 
 <script src="{{ asset('front/assets/plugins/swiper/swiper-bundle.min.js') }}" type="text/javascript"></script>
 <script>
+const main_hero_slider = new Swiper('.main_hero_slider', {
+    // parallax: true,
+    // effect: 'slide',
+    // speed: 1000,
+    slidesPerView: 1,
+    loop: true,
+    // Responsive breakpoints
+    // pagination: {
+    //     el: '.swiper-pagination',
+    //     type: 'bullets',
+    //     clickable: true,
+    //   },
+    // breakpoints: {
+    //     // // when window width is >= 480px
+    //     480: {
+    //       slidesPerView: 3,
+    //       spaceBetween: 30
+    //     },
+    //     // when window width is >= 640px
+    //     640: {
+    //         slidesPerView: 6,
+    //         // spaceBetween: 200,
+    //     }
+    // }
+});
 const our_brands_slider = new Swiper('.our_brands_slider', {
     // parallax: true,
     // effect: 'slide',

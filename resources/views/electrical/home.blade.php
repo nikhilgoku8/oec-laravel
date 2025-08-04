@@ -3,11 +3,70 @@
 @section('content')
 
 <div class="hero">
-    <div class="video_wrapper">
+    <!-- <div class="video_wrapper">
         <video autoplay muted loop poster="https://placehold.co/1920x600/?text=Slider">
             <source src="" type="video/mp4">
         </video>
+    </div> -->
+    <div class="main_hero_slider">
+        <div class="swiper-wrapper">
+
+            @foreach($categories as $category)
+            <div class="swiper-slide">
+                <a href="{{ route('category.products', $category->slug) }}">
+                    <span class="category_title">{{$category->title}}</span>
+                    <!-- <img src="{{ $category->subCategories->first()->products->first()->productImages->first()->image_file }}"> -->
+                    <span class="image_wrapper">
+                        @foreach($category->subCategories as $subCategory)
+                            <span class="img_box">
+                                <img src="{{ $subCategory->products->first()->productImages->first()->image_file }}">
+                            </span>
+                            @if($loop->iteration == 4) @break @endif
+                        @endforeach
+                    </span>
+                </a>
+            </div>
+            @endforeach
+            <!-- <div class="swiper-slide">
+                <div class="item_box">
+                    <a href="{{ route('category.products', 'insulated') }}">
+                        <img src="{{ asset('electrical-assets/images/our-brands/orion.png') }}">
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="item_box">
+                    <a href="{{ route('category.products', 'grounding') }}">
+                        <img src="{{ asset('electrical-assets/images/our-brands/terrafix.png') }}">
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="item_box">
+                    <a href="{{ route('category.products', 'conduit-bodies') }}">
+                        <img src="{{ asset('electrical-assets/images/our-brands/series-e.png') }}">
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="item_box">
+                    <a href="{{ route('category.products', 'weatherproof-products') }}">
+                        <img src="{{ asset('electrical-assets/images/our-brands/dry-shield.png') }}">
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="item_box">
+                    <a href="{{ route('category.products', 'fittings') }}">
+                        <img src="{{ asset('electrical-assets/images/our-brands/unisteel.png') }}">
+                    </a>
+                </div>
+            </div> -->
+
+        </div>
+        <div class="swiper-pagination"></div>
     </div>
+
 </div>
 
 <div class="our_brands">

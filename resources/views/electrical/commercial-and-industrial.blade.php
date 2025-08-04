@@ -13,8 +13,8 @@
             </div>
 
             <div class="video_wrapper">
-                <video autoplay muted loop poster="https://placehold.co/1200x400/?text=video">
-                    <source src="" type="video/mp4">
+                <video autoplay muted loop>
+                    <source src="{{ asset('electrical-assets/videos/commercial-and-industrial.mp4') }}" type="video/mp4">
                 </video>
             </div>
 
