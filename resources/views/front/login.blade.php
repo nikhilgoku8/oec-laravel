@@ -8,6 +8,13 @@
         <div class="form_wrapper">
             <form id="login_form" action="" method="post" enctype="multipart/form-data">
                 @csrf
+                @if(session('success'))
+                    <div class="col-sm-12">
+                        <div class="alert alert-success center title">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                @endif
                 <div class="col-sm-12">
                     <div class="title red center">Login</div>
                 </div>

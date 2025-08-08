@@ -109,12 +109,14 @@ class UserController extends Controller
                 'company_name'=>'required',
                 'email'=>'required|email|unique:users,email',
                 'otp'=>'required|numeric|digits:6',
-                'password'=> 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                'password'=> 'bail|required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_password'=> 'required|same:password',
                 'accept_terms'=>'required'
             ];
 
-            $messages = [];
+            $messages = [
+                'password.regex' => 'Must include uppercase, lowercase, number and special character.'
+            ];
 
             $attributes = [
                 'fname'=>'First Name',
@@ -163,6 +165,8 @@ class UserController extends Controller
                 'message' => 'Record created',
                 'class' => 'alert alert-success'
             );
+
+            session()->flash('success','Registration Successful');
 
             return response()->json($response);
 

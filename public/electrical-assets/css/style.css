@@ -652,18 +652,38 @@ header .lower_sec{
 	padding: 0 0 0 15px;
 }
 .hero .main_hero_slider .swiper-slide a .image_wrapper{
-	display: flex;
+	/*display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	width: 35%;
+	max-height: 100%;*/
+
+	/*width: 35%;
+    max-height: 100%;
+    columns: 2;
+    display: grid;
+    align-content: center;
+    grid: auto / auto auto;
+    grid-template-rows: 50%;*/
+
+    max-width: 550px;
+    max-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 .hero .main_hero_slider .swiper-slide a .img_box{
-	width: 50%;
+	/*width: 50%;*/
 	text-align: center;
+    max-width: 275px;
+    max-height: 275px;
 }
 .hero .main_hero_slider .swiper-slide a .img_box img{
-	/*max-width: 50%;*/
 	width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
 /*our_brands*/

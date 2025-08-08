@@ -18,9 +18,11 @@
                     <!-- <img src="{{ $category->subCategories->first()->products->first()->productImages->first()->image_file }}"> -->
                     <span class="image_wrapper">
                         @foreach($category->subCategories as $subCategory)
+                            @if($subCategory->products->first()?->productImages->first()->image_file)
                             <span class="img_box">
-                                <img src="{{ $subCategory->products->first()->productImages->first()->image_file }}">
+                                <img src="{{ $subCategory->products->first()?->productImages->first()->image_file }}">
                             </span>
+                            @endif
                             @if($loop->iteration == 4) @break @endif
                         @endforeach
                     </span>

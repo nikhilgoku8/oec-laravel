@@ -390,8 +390,12 @@ header{
 	font-size: 30px;
 }
 .hero .main_hero_slider .swiper-slide a .image_wrapper{
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
+}
+.hero .main_hero_slider .swiper-slide a .img_box{
+	max-width: 50%;
+    max-height: 100%;
 }
 
 .products_wrapper .product_box{
