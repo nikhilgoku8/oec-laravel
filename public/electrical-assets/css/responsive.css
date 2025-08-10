@@ -424,6 +424,20 @@ footer .middle_sec .text_box p{
 footer .lower_sec p{
 	color: #969696;
 }
+footer .second_last_sec .inner_container{
+	flex-direction: column;
+	padding: 15px 15px 25px 15px;
+	align-items: center;
+	justify-content: center;
+}
+footer .second_last_sec .inner_container .info_box{
+	padding: 20px 0 0;
+	max-width: unset;
+	text-align: center;
+}
+footer .second_last_sec .inner_container .info_box .logo_box{
+	margin: auto;
+}
 .quick_view_wrapper .inner_box .quick_view_box{
 	flex-wrap: wrap;
 }

@@ -50,5 +50,5 @@
                 @else
                     <br>
                     <br>
-                    <div class="title red">No results found.</div>
+                    <div class="title center red">No results found.</div>
                 @endif

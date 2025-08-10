@@ -18,13 +18,13 @@
                 </div>
             @endif
 
+            @if(!empty($cartProducts) && count($cartProducts) > 0)
             <div class="col-sm-6">
-                @if(!empty($cartProducts) && count($cartProducts) > 0)
                 <div class="form_wrapper">
                     <form id="checkout_form" action="" method="POST">
                         @csrf
                         <div class="col-sm-12">
-                            <div class="title">Billing details</div>
+                            <div class="sub_title">Billing details</div>
                         </div>
                         <div class="col-sm-6">
                             <div class="input_box">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="title">Additional information</div>
+                            <div class="sub_title">Additional information</div>
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
@@ -77,17 +77,48 @@
                         <div class="clr"></div>
                     </form>
                 </div>
-                @else
-                <div class="heading">Your cart is currently empty!</div>
-                        <!-- <br>
-                        <div class="c2a_btns">
-                            <button type="submit" class="red_filled_btn">Update Cart</button>
-                            <a href="{{ route('cart.clear') }}" class="red_hollow_btn" onclick="return confirm('Are you sure you want to clear the cart?')">Clear Cart</a>
-                        </div> -->
-                @endif
             </div>
-            <div class="col-sm-6"><button type="submit" class="red_filled_btn" form="checkout_form">Submit</button></div>
+            <div class="col-sm-6">
+                <div class="enquiry_product_list">
+                    <div class="sub_title">Enquiry List</div>
+                    <div class="products_wrapper">
+                        @foreach($cartProducts as $row)
+                            <div class="product_box">
+                                <a href="{{ route('product', [
+                                    'category' => $row->product->subCategory->category->slug,
+                                    'subCategory' => $row->product->subCategory->slug,
+                                    'product' => $row->product->slug
+                                ]) }}">
+                                    <div class="img_box">
+                                        <img src="{{ $row->product->productImages[0]->image_file }}">
+                                    </div>
+                                    <div class="text_box">
+                                        <div class="product_title">{{ $row->product->title }}</div>
+                                        <div class="product_description">{{ Str::limit($row->product->description, 75) }}</div>
+                                        <div class="product_count">
+                                            <span class="number">{{ $row->quantity }}</span>
+                                            <span class="times">x</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="info_text">
+                        <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="{{ route('privacy-policy') }}">privacy policy</a>.</p>
+                    </div>
+                </div>
+                <button type="submit" class="red_filled_btn" form="checkout_form">Submit</button>
+            </div>
             <div class="clr"></div>
+            @else
+            <div class="heading">Your cart is currently empty!</div>
+                    <!-- <br>
+                    <div class="c2a_btns">
+                        <button type="submit" class="red_filled_btn">Update Cart</button>
+                        <a href="{{ route('cart.clear') }}" class="red_hollow_btn" onclick="return confirm('Are you sure you want to clear the cart?')">Clear Cart</a>
+                    </div> -->
+            @endif
 
         </div>
     </div>

@@ -14,37 +14,37 @@
                 <div class="info_box">
                     <div class="title">Company</div>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="{{ route('overview') }}">About Us</a></li>
+                        <li><a href="{{ route('careers') }}">Careers</a></li>
+                        <li><a href="{{ route('sustainability') }}">Sustainability</a></li>
                     </ul>
                 </div>
                 <div class="info_box">
                     <div class="title">Products</div>
                     <ul>
-                        <li><a href="#">Electrical</a></li>
-                        <li><a href="#">Automotive</a></li>
+                        <li><a href="{{ route('electricals') }}">Electrical</a></li>
+                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
                     </ul>
                 </div>
                 <div class="info_box">
                     <div class="title">Markets</div>
                     <ul>
-                        <li><a href="#">Automotive</a></li>
-                        <li><a href="#">Construction</a></li>
-                        <li><a href="#">Data Center</a></li>
-                        <li><a href="#">Lightning Protection</a></li>
-                        <li><a href="#">Renewables</a></li>
-                        <li><a href="#">Utility</a></li>
+                        <li><a href="{{ route('markets').'#automotive' }}">Automotive</a></li>
+                        <li><a href="{{ route('markets').'#construction' }}">Construction</a></li>
+                        <li><a href="{{ route('markets').'#data-center' }}">Data Center</a></li>
+                        <li><a href="{{ route('markets').'#lightning-protection' }}">Lightning Protection</a></li>
+                        <li><a href="{{ route('markets').'#renewables' }}">Renewables</a></li>
+                        <li><a href="{{ route('markets').'#utility' }}">Utility</a></li>
                     </ul>
                 </div>
                 <div class="info_box">
                     <div class="title">Location</div>
                     <ul class="ctc_links">
                         <li>
-                            <a href="#" class="ctc_link_box">
+                            <div class="ctc_link_box">
                                 <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
                                 <span class="txt">106 Northfield Avenue,<br> Edison, NJ 08837.</span>
-                            </a>
+                            </div>
                         </li>
                         <li>
                             <a href="tel:+1(732)4790469" class="ctc_link_box">
@@ -72,6 +72,12 @@
                             <button class="red_filled_btn" type="submit">Subscribe</button>
                         </div>
                     </form>
+                    <div class="developed_by">
+                        <div class="text">Developed by <b>Codzera</b> </div>
+                        <div class="codzera_logo">
+                            <img src="admin/assets/images/codzera-logo.png">
+                        </div>
+                    </div>
                 </div>
 
             </div>

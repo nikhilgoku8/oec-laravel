@@ -42,6 +42,7 @@ class CartController extends Controller
             'html' => view('electrical.partials.cart-products', [
                 'cartProducts' => $cartProducts,
             ])->render(),
+            'cart_count' => $cartProducts->count() ?? 0,
             'message' => 'Item added successfully',
         ], 200);
 

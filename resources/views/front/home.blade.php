@@ -7,7 +7,10 @@
         <video autoplay muted loop poster="{{ asset('front/assets/images/oec-videoframe.webp') }}">
             <source src="{{ asset('front/assets/videos/OEC.mp4') }}" type="video/mp4">
         </video>
-        <div class="overlay_text wow zoomIn" data-wow-delay="0.1s">LEADING MANUFACTURER OF <br> ELECTRICAL AND AUTOMOTIVE SOLUTIONS</div>
+        <div class="overlay_text wow zoomIn" data-wow-delay="0.1s">
+            <div class="hero_title">LEADING MANUFACTURER OF <br> ELECTRICAL AND AUTOMOTIVE SOLUTIONS</div>
+            <a href="{{ route('reach-us') }}" class="red_filled_btn">Contact Us</a>
+        </div>
     </div>
 </div>
 

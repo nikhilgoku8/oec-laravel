@@ -4,9 +4,8 @@
   
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>OEC</title>
-<meta name="description" content="," />
-<meta name="keywords" content="" />
+<title>{{ $meta_title ?? 'OEC' }}</title>
+<meta name="description" content="{{ $meta_description ?? 'OEC' }}" />
 
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/assets/images/favicon.webp') }}"> 
 

@@ -14,6 +14,7 @@
 <div class="boxes_wrapper">
 
     <div class="text_on_image automotive">
+        <span class="section_id" id="automotive"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Automotive</div>
@@ -22,6 +23,7 @@
         </div>
     </div>
     <div class="text_on_image construction">
+        <span class="section_id" id="construction"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Construction</div>
@@ -30,6 +32,7 @@
         </div>
     </div>
     <div class="text_on_image data_centers">
+        <span class="section_id" id="data-center"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Data Centers</div>
@@ -38,6 +41,7 @@
         </div>
     </div>
     <div class="text_on_image lightning_protection">
+        <span class="section_id" id="lightning-protection"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Lightning Protection</div>
@@ -46,6 +50,7 @@
         </div>
     </div>
     <div class="text_on_image renewables">
+        <span class="section_id" id="renewables"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Renewables</div>
@@ -54,6 +59,7 @@
         </div>
     </div>
     <div class="text_on_image utility">
+        <span class="section_id" id="utility"></span>
         <div class="inner_box">
             <div class="text_box wow">
                 <div class="title">Utility</div>

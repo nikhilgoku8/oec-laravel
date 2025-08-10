@@ -18,18 +18,18 @@
             <div class="left_info">
                 <div class="title wow fadeInUp" data-wow-delay="0.1s">Contact Info</div>
                 <div class="ctc_wrapper">
-                    <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
-                        <a href="tel:+1(929)5237411" class="icon"><i class="fas fa-phone-alt"></i></a>
+                    <a href="tel:+1(929)5237411" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
                         <div class="text">Phone : +1 (929) 523 7411</div>
-                    </div>
+                    </a>
                     <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="text">1207 Delaware Ave, Wilmington, DE 19806</div>
                     </div>
-                    <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
-                        <a href="mailto:info@oec-americas.com" class="icon"><i class="fas fa-envelope"></i></a>
+                    <a href="mailto:info@oec-americas.com" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
                         <div class="text">info@oec-americas.com</div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="right_info">

@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="middle_sec">
+    <!-- <div class="middle_sec">
         <div class="container">
             <div class="inner_container">
                 <div class="logo">
@@ -33,6 +33,79 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div class="second_last_sec">
+        <div class="container">
+            <div class="inner_container">
+
+                <div class="info_box">
+                    <div class="logo_box">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('front/assets/images/bg/parallax-logo.webp') }}" alt="" />
+                        </a>
+                    </div>
+                    <div class="text_box">
+                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors, fittings, cable glands, automotive fittings, air brake tubing, and hoses. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
+                    </div>
+                </div>
+                <div class="info_box">
+                    <div class="title">Categories</div>
+                    <ul>
+                        @foreach($categories as $category)
+                        <li><a href="{{ route('category.products', $category->slug) }}">{{ $category->title }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Industries</div>
+                    <ul>
+                        <li><a href="{{ route('commercial-and-industrial') }}">Commercial & Industrial</a></li>
+                        <li><a href="{{ route('landscape-irrigation-solutions') }}">Landscape & Irrigation Solutions</a></li>
+                        <li><a href="{{ route('energy-systems-renewables') }}">Energy Systems & Renewables</a></li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Resources</div>
+                    <ul>
+                        <li><a href="{{ route('operation-manual') }}">Operation Manual</a></li>
+                        <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
+                        <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>
+                        <li><a href="{{ route('brochure') }}">Brochure</a></li>
+                        <li><a href="https://oec-americas.com/electrical/wp-content/uploads/2025/05/oec-tc.pdf">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="info_box">
+                    <div class="title">Location</div>
+                    <ul class="ctc_links">
+                        <li>
+                            <div class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+                                <span class="txt">106 Northfield Avenue,<br> Edison, NJ 08837.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="tel:+1(732)4790469" class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-phone-alt"></i></span>
+                                <span class="txt">+1 (732) 479 0469</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@oec-americas.com" class="ctc_link_box">
+                                <span class="icon"><i class="fas fa-envelope"></i></span>
+                                <span class="txt">info@oec-americas.com</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="developed_by">
+                        <div class="text">Developed by <b>Codzera</b> </div>
+                        <div class="codzera_logo">
+                            <img src="admin/assets/images/codzera-logo.png">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div class="lower_sec">
         <p>&copy; {{ date('Y') }}  OEC AMERICA . All Rights Reserved.</p>
@@ -43,7 +116,7 @@
 <!-- main end -->
 
 <!-- CART -->
-<div class="cart_wrapper @if(Session::has('show_cart')) {{Session::get('show_cart')}} @endif">
+<div class="cart_wrapper @if(Session::has('show_cart') && (request()->path() !== 'electrical/cart')) {{Session::get('show_cart')}} @endif">
     <div class="inner_box">
         <div class="cart_box">
             <div class="head_wrapper">
@@ -81,7 +154,14 @@
                         <a href="{{ route('checkout') }}" class="red_filled_btn full_width">Request Quote</a>
                     </div>
                 @else
-                <div class="heading">Empty Cart</div>
+                <!-- <div class="heading">Empty Cart</div> -->
+                <div class="empty_cart_wrapper">
+                    <div class="empty_cart">
+                        <div class="icon_box"><img src="{{ asset('electrical-assets/images/icons/empty-bag.svg') }}"></div>
+                        <div class="text">Your Cart is Empty</div>
+                    </div>
+                    <a href="{{ route('shop') }}" class="red_hollow_btn">Shop Now</a>
+                </div>
                 @endif
             </div>
         </div>
@@ -236,6 +316,7 @@ $(document).on('click','.add_to_cart', function(){
             // window.location.reload();
             addToCartBtn.removeClass('spinners').attr('disabled', false);
             $('#cart_products').html(result.html);
+            $('header .cart_count').html(result.cart_count);
             openCart();
         },
         error: function(data){
@@ -749,6 +830,10 @@ const our_brands_slider = new Swiper('.our_brands_slider', {
     slidesPerView: 2,
     loop: false,
     // Responsive breakpoints
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     pagination: {
         el: '.swiper-pagination',
         type: 'bullets',
@@ -774,6 +859,10 @@ const featured_categories_slider = new Swiper('.featured_categories_slider', {
     // speed: 1000,
     slidesPerView: 2,
     loop: false,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     pagination: {
         el: '.swiper-pagination',
         type: 'bullets',

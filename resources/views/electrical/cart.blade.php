@@ -90,7 +90,7 @@
                 </div>
             </div>
             @else
-            <div class="heading">Your cart is currently empty!</div>
+            <div class="heading center full_width">Your cart is currently empty!</div>
             @endif
 
         </div>

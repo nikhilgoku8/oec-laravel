@@ -23,42 +23,74 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('front.home');
+        $data = [
+            'meta_title' => 'OEC',
+            'meta_description' => 'OEC',
+        ];
+        return view('front.home', $data);
     }
     
     public function overview()
     {
-        return view('front.overview');
+        $data = [
+            'meta_title' => 'Overview - OEC',
+            'meta_description' => 'Overview - OEC',
+        ];
+        return view('front.overview', $data);
     }
     
     public function careers()
     {
-        return view('front.careers');
+        $data = [
+            'meta_title' => 'Careers - OEC',
+            'meta_description' => 'Careers - OEC',
+        ];
+        return view('front.careers', $data);
     }
     
     public function sustainability()
     {
-        return view('front.sustainability');
+        $data = [
+            'meta_title' => 'Sustainability - OEC',
+            'meta_description' => 'Sustainability - OEC',
+        ];
+        return view('front.sustainability', $data);
     }
     
     public function markets()
     {
-        return view('front.markets');
+        $data = [
+            'meta_title' => 'Market - OEC',
+            'meta_description' => 'Market - OEC',
+        ];
+        return view('front.markets', $data);
     }
     
     public function reach_us()
     {
-        return view('front.reach-us');
+        $data = [
+            'meta_title' => 'Reach Us - OEC',
+            'meta_description' => 'Reach Us - OEC',
+        ];
+        return view('front.reach-us', $data);
     }
     
     public function electricals()
     {
-        return view('front.electricals');
+        $data = [
+            'meta_title' => 'Electricals - OEC',
+            'meta_description' => 'Electricals - OEC',
+        ];
+        return view('front.electricals', $data);
     }
     
     public function automotive()
     {
-        return view('front.automotive');
+        $data = [
+            'meta_title' => 'Automotive - OEC',
+            'meta_description' => 'Automotive - OEC',
+        ];
+        return view('front.automotive', $data);
     }
     
     public function showRegisterForm()
@@ -67,7 +99,12 @@ class HomeController extends Controller
             return redirect()->route('electrical');
         }
 
-        return view('front.register');
+        $data = [
+            'meta_title' => 'Register - OEC',
+            'meta_description' => 'Register - OEC',
+        ];
+
+        return view('front.register', $data);
     }
     
     public function login()
@@ -76,7 +113,12 @@ class HomeController extends Controller
             return redirect()->route('electrical');
         }
 
-        return view('front.login');
+        $data = [
+            'meta_title' => 'Login - OEC',
+            'meta_description' => 'Login - OEC',
+        ];
+
+        return view('front.login', $data);
     }
     
     public function showResetPasswordForm()
@@ -85,7 +127,12 @@ class HomeController extends Controller
             return redirect()->route('electrical');
         }
 
-        return view('front.reset-password');
+        $data = [
+            'meta_title' => 'Reset Password - OEC',
+            'meta_description' => 'Reset Password - OEC',
+        ];
+
+        return view('front.reset-password', $data);
     }
     
     public function electrical()
@@ -96,47 +143,92 @@ class HomeController extends Controller
     
     public function commercial_and_industrial()
     {
-        return view('electrical.commercial-and-industrial');
+        $data = [
+            'meta_title' => 'Commercial and Industrial - OEC',
+            'meta_description' => 'Commercial and Industrial - OEC',
+        ];
+        return view('electrical.commercial-and-industrial', $data);
     }
     
     public function landscape_irrigation_solutions()
     {
-        return view('electrical.landscape-irrigation-solutions');
+        $data = [
+            'meta_title' => 'Landscape & Irrigation Solutions - OEC',
+            'meta_description' => 'Landscape & Irrigation Solutions - OEC',
+        ];
+        return view('electrical.landscape-irrigation-solutions', $data);
     }
     
     public function energy_systems_renewables()
     {
-        return view('electrical.energy-systems-renewables');
+        $data = [
+            'meta_title' => 'Energy Systems & Renewables - OEC',
+            'meta_description' => 'Energy Systems & Renewables - OEC',
+        ];
+        return view('electrical.energy-systems-renewables', $data);
     }
     
     public function operation_manual()
     {
-        return view('electrical.operation-manual');
+        $data = [
+            'meta_title' => 'Crimping Chart - OEC',
+            'meta_description' => 'Crimping Chart - OEC',
+        ];
+        return view('electrical.operation-manual', $data);
     }
     
     public function safety_standards()
     {
-        return view('electrical.safety-standards');
+        $data = [
+            'meta_title' => 'Safety Standards - OEC',
+            'meta_description' => 'Safety Standards - OEC',
+        ];
+        return view('electrical.safety-standards', $data);
     }
     
     public function nabl_testing_lab()
     {
-        return view('electrical.nabl-testing-lab');
+        $data = [
+            'meta_title' => 'NABL Testing Lab - OEC',
+            'meta_description' => 'NABL Testing Lab - OEC',
+        ];
+        return view('electrical.nabl-testing-lab', $data);
     }
     
     public function brochure()
     {
-        return view('electrical.brochure');
+        $data = [
+            'meta_title' => 'Brochure - OEC',
+            'meta_description' => 'Brochure - OEC',
+        ];
+        return view('electrical.brochure', $data);
     }
     
     public function cross_reference()
     {
-        return view('electrical.cross-reference');
+        $data = [
+            'meta_title' => 'Cross Reference - OEC',
+            'meta_description' => 'Cross Reference - OEC',
+        ];
+        return view('electrical.cross-reference', $data);
+    }
+    
+    public function privacy_policy()
+    {
+        $data = [
+            'meta_title' => 'Privacy Policy - OEC',
+            'meta_description' => 'Privacy Policy - OEC',
+        ];
+        return view('electrical.privacy-policy', $data);
     }
     
     public function categories()
     {
-        return view('electrical.products.categories');
+        $data = [
+            'meta_title' => 'Product Categories - OEC',
+            'meta_description' => 'Product Categories - OEC',
+        ];
+        return view('electrical.products.categories', $data);
     }
     
     public function category_products(Request $request)
@@ -296,6 +388,8 @@ class HomeController extends Controller
             'currentQ'       => $query,
             'currentFilters' => $filterParams,
             'filterCounts' => $filterCounts,
+            'meta_title' => $category->title . ' - OEC',
+            'meta_description' => $category->title . ' - OEC',
         ]);
         // return view('electrical.products.list-by-category', $this->data);
     }
@@ -485,6 +579,8 @@ class HomeController extends Controller
             'currentQ'       => $query,
             'currentFilters' => $filterParams,
             'filterCounts' => $filterCounts,
+            'meta_title' => $subCategory->title . ' - OEC',
+            'meta_description' => $subCategory->title . ' - OEC',
         ]);
 
         // return view('electrical.products.list', $this->data);
@@ -619,6 +715,8 @@ class HomeController extends Controller
             'currentQ'       => $query,
             'currentFilters' => $filterParams,
             'filterCounts' => $filterCounts,
+            'meta_title' => 'Shop - OEC',
+            'meta_description' => 'Shop - OEC',
         ]);
     }
 
@@ -706,6 +804,8 @@ class HomeController extends Controller
         // return view('admin.products.search_new', [
         return view('electrical.competitors.partials', [
             'competitors' => $paginator,
+            'meta_title' => 'Competitors - OEC',
+            'meta_description' => 'Competitors - OEC',
         ]);
     }
     
@@ -747,6 +847,9 @@ class HomeController extends Controller
         // Step 5
         $this->data['prevProduct'] = Product::with('productImages')->find($prevProductId);
         $this->data['nextProduct'] = Product::with('productImages')->find($nextProductId);
+
+        $this->data['meta_title'] = $this->data['product']->title . ' - OEC';
+        $this->data['meta_description'] = $this->data['product']->description . ' - OEC';
 
         return view('electrical.products.detail', $this->data);
     }
@@ -885,7 +988,11 @@ class HomeController extends Controller
     
     public function career_thank_you()
     {
-        return view('front.thank-you-career');
+        $data = [
+            'meta_title' => 'Thank You - OEC',
+            'meta_description' => 'Thank You - OEC',
+        ];
+        return view('front.thank-you-career', $data);
     }
     
     public function reachUsEnquiry(Request $request)
@@ -963,6 +1070,10 @@ class HomeController extends Controller
     
     public function reach_us_thank_you()
     {
-        return view('front.thank-you-reach-us');
+        $data = [
+            'meta_title' => 'Thank You - OEC',
+            'meta_description' => 'Thank You - OEC',
+        ];
+        return view('front.thank-you-reach-us', $data);
     }
 }

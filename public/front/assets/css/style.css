@@ -206,12 +206,12 @@ header.smaller nav {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	user-select: none;
-	pointer-events: none;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-
+}
+.hero .video_wrapper .overlay_text .hero_title{
 	font-size: 30px;
     line-height: 1.6em;
     font-weight: 700;
@@ -219,6 +219,12 @@ header.smaller nav {
     color: #fff;
     text-align: center;
     font-family: var(--michroma);
+	user-select: none;
+	pointer-events: none;
+}
+.hero .video_wrapper .overlay_text .red_filled_btn{
+	margin: 15px 0 0 0;
+	background: #fff;
 }
 
 .heading{
@@ -267,7 +273,7 @@ header.smaller nav {
 .red_filled_btn{
 	font-size: 14px;
 	color: #fff;
-	background: var(--red);
+	box-shadow: inset 0 0 10px 25px var(--red);
 	font-weight: 500;
 	padding: 12px 24px;
 	border-radius: 100px;
@@ -275,6 +281,12 @@ header.smaller nav {
 	outline: none;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+	transition: all 0.3s;
+}
+.red_filled_btn:hover{
+	box-shadow: inset 0 0 0 1px var(--red);
+	color: var(--red);
+	background: #fff;
 }
 .red_hollow_btn{
 	font-size: 14px;
@@ -526,6 +538,12 @@ footer .lower_sec{
 footer .lower_sec p{
 	text-align: center;
 	padding: 10px 0;
+}
+footer .upper_sec .inner_container .info_box .developed_by{
+	display: inline-flex;
+    align-items: center;
+    margin: auto 0 0 0;
+    padding: 15px 0 0 0;
 }
 
 /*overview_page*/
@@ -937,6 +955,11 @@ input[type="file"]::file-selector-button:hover {
 	background-position: center;
 	background-attachment: fixed;
 }
+.markets_page .boxes_wrapper .text_on_image .section_id{
+	position: absolute;
+	left: 0;
+	top: calc(var(--header-height) * -1);
+}
 .markets_page .boxes_wrapper .text_on_image.automotive{
 	--image: url(../images/bg/automotive.webp);
 }
@@ -1003,32 +1026,55 @@ input[type="file"]::file-selector-button:hover {
 	font-size: 36px;
 }
 .reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box{
-	padding: 0 0 20px;
+	padding: 0 15px 20px 0;
+    display: flex;
+    align-items: center;
 }
 .reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box .icon{
-	font-size: 40px;
+	font-size: 20px;
 	color: #fff;
 	transition: all 0.3s;
-	margin: 0 0 10px;
+	margin: 0;
 }
-.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box .icon:hover{
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box .text{
+	padding: 0 0 0 10px;
+	color: #fff;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .left_info .ctc_wrapper .ctc_box:hover .icon{
 	color: var(--red);
 }
 .reach_us_page .ctc_n_form_wrapper .inner_container .right_info{
 	width: 65%;
 }
 .reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper{
-	background: #080808;
+	background: #fff;
     padding: 30px 20px;
     border-radius: 20px;
     margin: -100px 0 50px;
     position: relative;
 }
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper label{
+	color: #000;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper input[type=text]{
+	border: 1px solid #a3a3a361;
+	color: #000;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper textarea{
+	border: 1px solid #a3a3a361;
+	color: #000;
+}
 .reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper select{
+	border: 1px solid #a3a3a361;
 	padding: 0 10px;
+	color: #000;
 }
 .reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper select option{
-	background: #080808;
+	background: #fff;
+	color: #000;
+}
+.reach_us_page .ctc_n_form_wrapper .inner_container .right_info .form_wrapper .note{
+	color: #000;
 }
 
 /*single_form_page*/
