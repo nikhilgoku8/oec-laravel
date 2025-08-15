@@ -697,6 +697,10 @@ footer .upper_sec .inner_container .info_box .developed_by{
 	font-weight: 500;
 	display: block;
 }
+.form_error a{
+	text-decoration: underline;
+	font-style: italic;
+}
 .form_error.all_errors{
 	font-size: 12px;
 }

@@ -221,6 +221,40 @@ class HomeController extends Controller
         ];
         return view('electrical.privacy-policy', $data);
     }
+
+    public function addRecentSearch(string $query, int $limit = 5)
+    {
+        // Get current searches
+        $searches = session('recent_searches', []);
+
+        // Remove the same query if it already exists
+        $searches = array_filter($searches, fn($item) => $item !== $query);
+
+        // Add new query at the beginning
+        array_unshift($searches, $query);
+
+        // Limit the array length
+        $searches = array_slice($searches, 0, $limit);
+
+        // Save back to session
+        session(['recent_searches' => $searches]);
+    }
+
+    public function addRecentlyViewed(int $productId, int $limit = 10)
+    {
+        $products = session('recently_viewed', []);
+
+        // Remove if already exists
+        $products = array_filter($products, fn($id) => $id !== $productId);
+
+        // Add at the top
+        array_unshift($products, $productId);
+
+        // Limit the list
+        $products = array_slice($products, 0, $limit);
+
+        session(['recently_viewed' => $products]);
+    }
     
     public function categories()
     {
@@ -709,6 +743,11 @@ class HomeController extends Controller
             ]);
         }
 
+        // Add search q to recent searches
+        if($request->input('q') != ''){
+            $this->addRecentSearch($request->input('q'));
+        }
+
         return view('electrical.products.shop', [
             'products'       => $paginator,
             'filterTypes'    => $filterTypes,
@@ -850,6 +889,8 @@ class HomeController extends Controller
 
         $this->data['meta_title'] = $this->data['product']->title . ' - OEC';
         $this->data['meta_description'] = $this->data['product']->description . ' - OEC';
+
+        $this->addRecentlyViewed($this->data['product']->id);
 
         return view('electrical.products.detail', $this->data);
     }

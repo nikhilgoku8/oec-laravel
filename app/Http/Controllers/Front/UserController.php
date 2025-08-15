@@ -219,9 +219,10 @@ class UserController extends Controller
                     throw new \Illuminate\Validation\ValidationException($validator);
                 }
 
-                $passwordExpiry = Carbon::parse($user->last_password_changed)->addDays(90);
+                // $passwordExpiry = Carbon::parse($user->last_password_changed)->addDays(90);
+                $passwordExpiry = Carbon::parse($user->last_password_changed ?? now()->subDays(91))->addDays(90);
                 if($passwordExpiry < now()){
-                    $validator->getMessageBag()->add('password', 'Password Expired');
+                    $validator->getMessageBag()->add('password', 'Password Expired - <a href="' . route('reset-password') . '">Reset Password</a>');
                     throw new \Illuminate\Validation\ValidationException($validator);
                 }
 

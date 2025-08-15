@@ -49,6 +49,8 @@
 <body>
 
 <header>
+{{ var_dump(session('recent_searches')) }}
+{{ var_dump(session('recently_viewed')) }}
 
 <div class="upper_sec">
     <div class="container">
@@ -66,7 +68,7 @@
             </div>
             <form method="GET" action="{{ route('shop') }}" class="search_wrapper">
                 <div class="input_box">
-                    <input type="text" class="search_input" id="main_search" name="q" placeholder="Search Products" value="{{ request('q') }}">
+                    <input type="text" class="search_input" id="main_search" name="q" placeholder="Search Products" value="{{ request('q') }}" autocomplete="off">
                 </div>
                 <button type="button" class="clear_search cross_icon"></button>
                 <button class="icon_box"><i class="fas fa-search"></i></button>
@@ -232,6 +234,5 @@
 </div>
 </header>
 <!-- End of Responsive Menu -->
-
 
 <div id="main">
