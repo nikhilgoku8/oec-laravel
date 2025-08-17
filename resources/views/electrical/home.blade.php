@@ -150,7 +150,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'compression') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/compression.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/compression.png') }}">
+                                </span>
                                 <span>Compression</span>
                             </a>
                         </div>
@@ -158,7 +160,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'mechanical') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/mechanical.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/mechanical.png') }}">
+                                </span>
                                 <span>Mechanical</span>
                             </a>
                         </div>
@@ -166,7 +170,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'insulated') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/insulated.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/insulated.png') }}">
+                                </span>
                                 <span>Insulated</span>
                             </a>
                         </div>
@@ -174,7 +180,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'grounding') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/grounding.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/grounding.png') }}">
+                                </span>
                                 <span>Grounding</span>
                             </a>
                         </div>
@@ -182,7 +190,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'conduit-bodies') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/conduit-body.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/conduit-body.png') }}">
+                                </span>
                                 <span>Conduit Bodies</span>
                             </a>
                         </div>
@@ -190,7 +200,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'weatherproof-products') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/weatherproof.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/weatherproof.png') }}">
+                                </span>
                                 <span>Weatherproof Products</span>
                             </a>
                         </div>
@@ -198,7 +210,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'fittings') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/fittings.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/fittings.png') }}">
+                                </span>
                                 <span>Fittings</span>
                             </a>
                         </div>
@@ -206,7 +220,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'service-entrance') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/service-entrance.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/service-entrance.png') }}">
+                                </span>
                                 <span>Service Entrance</span>
                             </a>
                         </div>
@@ -214,7 +230,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'junctions-boxes') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/ac.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/ac.png') }}">
+                                </span>
                                 <span>Junctions Boxes</span>
                             </a>
                         </div>
@@ -222,7 +240,9 @@
                     <div class="swiper-slide">
                         <div class="item_box">
                             <a href="{{ route('category.products', 'cable-glands') }}">
-                                <img src="{{ asset('electrical-assets/images/featured-categories/cable-glands.png') }}">
+                                <span class="img_box">
+                                    <img src="{{ asset('electrical-assets/images/featured-categories/cable-glands.png') }}">
+                                </span>
                                 <span>Cable Glands</span>
                             </a>
                         </div>

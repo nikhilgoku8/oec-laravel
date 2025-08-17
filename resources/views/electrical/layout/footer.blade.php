@@ -285,7 +285,7 @@ $('#main_search').on('keyup', function() {
             });
         }, 300); // debounce
     } else {
-        $('#search_results').html('🔍🕒');
+        $('#search_results').html(`@include('electrical.includes.recents')`);
     }
 });
 

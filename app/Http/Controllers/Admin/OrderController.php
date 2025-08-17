@@ -54,12 +54,14 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $order->loadMissing('orderProducts','orderProducts.product');
         $result = $order;
         return view('admin.orders.show', compact('result'));
     }
 
     public function edit(Order $order)
     {
+        $order->loadMissing('orderProducts','orderProducts.product');
         $result = $order;
         return view('admin.orders.edit', compact('result'));
     }

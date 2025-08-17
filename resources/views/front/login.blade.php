@@ -27,7 +27,18 @@
                 <div class="col-sm-12">
                     <div class="input_box">
                         <div class="error form_error form-error-password"></div>
-                        <input type="password" name="password" placeholder="Password">
+                        <!-- <input type="password" name="password" placeholder="Password"> -->
+                        <div class="password_wrapper">
+                            <input type="password" name="password" placeholder="Password">
+                            <button type="button" class="eye">
+                                <span class="eye_open">
+                                    <i class="far fa-eye"></i>
+                                </span>
+                                <span class="eye_closed">
+                                    <i class="far fa-eye-slash"></i>
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12">

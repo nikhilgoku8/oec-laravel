@@ -1244,3 +1244,41 @@ input[type="file"]::file-selector-button:hover {
     justify-content: center;
     text-align: center;
 }
+
+
+.form_wrapper form .input_box .password_wrapper{
+	position: relative;
+}
+.form_wrapper form .input_box .password_wrapper input{
+	outline: none;
+}
+.form_wrapper form .input_box .password_wrapper button.eye{
+	position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+.form_wrapper form .input_box .password_wrapper button.eye:hover{
+	color: var(--red);
+}
+.form_wrapper form .input_box .password_wrapper button.eye .eye_open{
+	display: none;
+}
+.form_wrapper form .input_box .password_wrapper button.eye .eye_closed{
+	display: block;
+}
+.form_wrapper form .input_box .password_wrapper button.eye.show_password .eye_open{
+	display: block;
+}
+.form_wrapper form .input_box .password_wrapper button.eye.show_password .eye_closed{
+	display: none;
+}

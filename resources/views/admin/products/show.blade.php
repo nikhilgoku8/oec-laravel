@@ -116,6 +116,56 @@
                             <div class="clr"></div>
                         </div>
 
+                        <div class="images_wrapper">
+                            <div class="images-section">
+                                @if(!empty($result->productImages))
+                                    @foreach($result->productImages as $productImage)
+                                        <div class="input_boxes image-group">
+                                            <input type="hidden" name="images[{{ $loop->iteration - 1 }}][id]" value="{{ $productImage->id }}">
+                                            <!----Product ----->
+                                            <div class="col-sm-6">
+                                                <div class="input_box">
+                                                    <label>Image Link {{ $loop->iteration }}</label>
+                                                    <div class="error form_error form-error-images-{{ $loop->iteration - 1 }}-link"></div>
+                                                    <input type="text" name="images[{{ $loop->iteration - 1 }}][link]" placeholder="Image Link" value="{{ $productImage->image_file }}">
+                                                    <!-- <a href="{{ $productImage->image_file }}" target="_blank">
+                                                        <img src="{{ $productImage->image_file }}" width="100px">
+                                                    </a> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="input_box">
+                                                    <!-- <label>Image Link {{ $loop->iteration }}</label>
+                                                    <div class="error form_error form-error-images-{{ $loop->iteration - 1 }}-link"></div>
+                                                    <input type="text" name="images[{{ $loop->iteration - 1 }}][link]" placeholder="Image Link" value="{{ $productImage->image_file }}"> -->
+                                                    <a href="{{ $productImage->image_file }}" target="_blank">
+                                                        <img src="{{ $productImage->image_file }}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="input_box">
+                                                    <label>Sort Order</label>
+                                                    <div class="error form_error form-error-images-{{ $loop->iteration - 1 }}-sort_order"></div>
+                                                    <input type="number" name="images[{{ $loop->iteration - 1 }}][sort_order]" placeholder="Sort Order" value="{{ $productImage->sort_order }}">
+                                                </div>
+                                            </div>
+                                            @if($loop->iteration != 1)
+                                            <div class="col-sm-2">
+                                                <div class="input_box orange_filled_btn">
+                                                    <button type="button" class="remove-image">Remove Image</button>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <input type="button" name="button" value="Add Image" class="add-image blue_filled_btn">
+                        </div>
+                        <br>
+                        <br>
+
                         <div class="filters_wrapper">
                             <div class="filters-section">
                                 @if(!empty($result->filterValues))
@@ -235,6 +285,7 @@
 $(document).ready(function() {
     $("input").prop('disabled', true);
     $("select").prop('disabled', true);
+    $("textarea").prop('disabled', true);
     $(".delete_icon").css({'display':'none'});
     $(".edit_details").css({'display':'none'});
 });

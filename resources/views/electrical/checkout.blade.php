@@ -108,6 +108,7 @@
                         <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="{{ route('privacy-policy') }}">privacy policy</a>.</p>
                     </div>
                 </div>
+                <div class="error form_error form-error-all_errors"></div>
                 <button type="submit" class="red_filled_btn" form="checkout_form">Submit</button>
             </div>
             <div class="clr"></div>
@@ -140,6 +141,9 @@ $(document).ready(function() {
         e.preventDefault();
         $this.find(".form_error").html("");
         $this.find(".form_error").removeClass("alert alert-danger");
+        
+        $this.find(".form-error-all_errors").html("");
+        $this.find(".form-error-all_errors").removeClass("alert alert-danger");
 
         $.ajax({
             type: "POST",
@@ -164,6 +168,7 @@ $(document).ready(function() {
                         // $this.find(".form-error-"+fieldName).addClass('alert alert-danger');
                     });
                     $this.find(".all_errors").html(allErrors).addClass('alert alert-danger');
+                    $(".form-error-all_errors").html(allErrors).addClass('alert alert-danger');
                 } else if (data.status === 401) {
                     alert("Please log in.");
                     // window.location.href = "/login";

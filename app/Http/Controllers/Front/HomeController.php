@@ -240,7 +240,7 @@ class HomeController extends Controller
         session(['recent_searches' => $searches]);
     }
 
-    public function addRecentlyViewed(int $productId, int $limit = 10)
+    public function addRecentlyViewed(int $productId, int $limit = 5)
     {
         $products = session('recently_viewed', []);
 
@@ -1116,5 +1116,14 @@ class HomeController extends Controller
             'meta_description' => 'Thank You - OEC',
         ];
         return view('front.thank-you-reach-us', $data);
+    }
+    
+    public function shop_thank_you()
+    {
+        $data = [
+            'meta_title' => 'Thank You - OEC',
+            'meta_description' => 'Thank You - OEC',
+        ];
+        return view('electrical.thank-you', $data);
     }
 }

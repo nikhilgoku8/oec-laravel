@@ -88,11 +88,13 @@ Route::middleware([IsUser::class])->group(function(){
         Route::get('/privacy-policy', [HomeController::class, 'privacy_policy'])->name('privacy-policy');
         // Route::match(['get', 'post'], '/shop', [HomeController::class, 'shop'])->name('shop');
 
+        Route::get('/thank-you', [HomeController::class, 'shop_thank_you'])->name('shop.thank-you');
+
+        Route::post('/quick-view-product/{id}', [HomeController::class, 'quick_view_product'])->name('quick-view-product');
+
         Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
         Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
-
-        Route::post('/quick-view-product/{id}', [HomeController::class, 'quick_view_product'])->name('quick-view-product');
     });
 
     Route::prefix('my-account')->group(function(){

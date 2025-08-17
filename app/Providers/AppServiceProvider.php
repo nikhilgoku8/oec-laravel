@@ -38,11 +38,16 @@ class AppServiceProvider extends ServiceProvider
                 $cartProducts = CartItem::with('product')->where('user_id',session('userId'))->get();
             }
 
+            if(session()->has('recently_viewed') && !empty(session('recently_viewed'))){
+                $recentlyViewed = Product::with('subCategory','subCategory.category')->whereIn('id', session('recently_viewed'))->get();
+            }
+
             $view->with([
                 'categories' => $categories,
                 'user' => $user,
                 'cartProducts' => $cartProducts,
                 'productsMayLike' => $productsMayLike,
+                'recentlyViewed' => $recentlyViewed ?? null,
             ]);
         });
 

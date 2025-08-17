@@ -94,7 +94,13 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function() {    
+
+    $('.eye').on('click', function(){
+        $(this).toggleClass('show_password');
+        const input = $(this).prev();
+        input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
+    });
 
     $("#subscribe_form").on('submit',(function(e){
 

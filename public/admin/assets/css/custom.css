@@ -9,6 +9,9 @@ a{
 span{
 	display: inline-block;
 }
+img{
+	max-width: 100%;
+}
 .center{
 	text-align: center;
 }
@@ -1645,8 +1648,8 @@ table.offers_table tr.offer_row.disabled{
 	padding: 5px 10px;
 	cursor: grab;
 	display: flex;
-  align-items: center;
-  justify-content: space-between;
+	align-items: center;
+	justify-content: space-between;
 }
 .grabbing {
   cursor: grabbing!important;
@@ -1669,4 +1672,16 @@ table.offers_table tr.offer_row.disabled{
 	display: flex;
 	flex-wrap: wrap;
 	align-items: end;
+}
+
+/*products_wrapper*/
+.products_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+}
+.products_wrapper .product_box{
+	width: 120px;
+	padding: 10px;
+	text-align: center;
 }

@@ -47,6 +47,31 @@
                 <div class="inner_boxes">
 
                     <div class="input_boxes">
+                        <div class="col-sm-12">
+                            <div class="input_box">
+                                <label>Order Ref Id</label>
+                                <input type="text" name="order_ref_id" value="{{ $result->order_ref_id }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input_box">
+                                <label>Products</label>
+                                @if(!empty($result->orderProducts) && count($result->orderProducts) > 0)
+                                    <div class="products_wrapper">
+                                        @foreach($result->orderProducts as $orderProduct)
+                                            <div class="product_box">
+                                                <div class="img_box">
+                                                    <img src="{{ $orderProduct->product->productImages?->first()->image_file }}" width="100px">
+                                                </div>
+                                                <div class="product_title">{{ $orderProduct->product->title }}</div>
+                                                <div class="quantity">x{{ $orderProduct->quantity }}</div>
+                                                <a href="{{ route('products.show', $orderProduct->product->id ) }}" target="_blank">View</a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="input_box">
                                 <label>First Name</label>
