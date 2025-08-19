@@ -59,6 +59,7 @@
                                 <th>Product</th>
                                 <th>Sub Category</th>
                                 <th>Category</th>
+                                <th class="center">Featured</th>
                                 <th>Created By</th>
                                 <th>Updated By</th>
                                 <th class="action">ACTION</th>
@@ -69,6 +70,9 @@
                                         <td>{{ $row->title }}</td>
                                         <td><a href="{{ route('sub-categories.edit', $row->subCategory->id) }}">{{ $row->subCategory->title }}</a></td>
                                         <td><a href="{{ route('categories.edit', $row->subCategory->category->id) }}">{{ $row->subCategory->category->title }}</a></td>
+                                        <td class="center">
+                                            <input type="checkbox" name="featured" class="featured" value="{{$row->id}}" @checked($row->featured)>
+                                        </td>
                                         <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
                                         <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
                                         <td class="action">
@@ -99,6 +103,29 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+  $(".featured").on('click',(function(e){
+    e.preventDefault();
+
+    let dataID = $(this).val();
+
+    if (confirm('Are you sure you want to toggle featured?')) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('products.toggle-featured') }}",
+            data: {"_token":"{{ csrf_token() }}", "dataID":dataID},
+            dataType: 'json',
+            success: function(response) {
+                window.location.reload(true);
+            },
+            error: function(data){
+                console.log(data.message);
+                console.log(data.responseJSON.message);
+            }
+        });
+    }
+
+  }));
 
   $("#delete_records").on('click',(function(e){
     e.preventDefault();

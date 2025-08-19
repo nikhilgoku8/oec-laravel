@@ -7,7 +7,7 @@
             <div class="header_bar">
                 <div class="logo_box">
                     <div class="logo">
-                        <img src="admin/assets/images/logo.webp">
+                        <!-- <img src="admin/assets/images/logo.webp"> -->
                     </div>
                 </div>
                 <!-- <div class="orange_filled_btn"><button id="dark_mode">Dark Mode Toggle</button></div> -->
@@ -101,6 +101,13 @@
                         
                         @if(in_array(session('userType'), ['superadmin','manager','executive']))
 
+                            <li>
+                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Banners<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="{{ route('banners.index') }}">All</a></li>
+                                    <li><a href="{{ route('banners.create') }}">Add New</a></li>
+                                </ul>
+                            </li>
                             <li>
                                 <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">

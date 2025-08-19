@@ -703,4 +703,18 @@ class ProductController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
     }
+
+    public function toggleFeatured(Request $request)
+    {
+        $dataID = $request->input('dataID');
+
+        $product = Product::find($dataID);
+            if ($product->featured) {
+                $product->update(['featured'=>0]);
+            }else{
+                $product->update(['featured'=>1]);
+            }
+
+        return response()->json(['success' => true, 'message' => 'Featured Set']);
+    }
 }

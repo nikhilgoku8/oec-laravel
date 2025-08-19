@@ -12,7 +12,7 @@ class BannerController extends Controller
 {
     public function index()
     {
-        $data['result'] = Banner::paginate(100);
+        $data['result'] = Banner::orderBy('sort_order')->paginate(100);
         return view('admin.banners.index', $data);
     }
 
@@ -68,6 +68,10 @@ class BannerController extends Controller
 
             // This validates and gives errors which are caught below and also stop further execution
             $validated = $validator->validated();
+
+            if ($request->has('existing_image_file')) {
+                $validated['image_file'] = $request->input('existing_image_file');
+            }
 
             if($request->hasFile('image_file')){
 

@@ -14,6 +14,9 @@
                 </div>
                 
                 <div class="right_section">
+                    <div class="purple_filled_btn">
+                        <input type="button" name="print" value="Print" class="btn btn-primary" onclick="printInvoice()">
+                    </div>
                     <div class="blue_filled_btn">
                         <a href="{{ url()->previous() }}">Back</a>
                     </div>
@@ -30,7 +33,7 @@
                 <form id="data_form" action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="dataID" value="{{ $result->id }}">
-                <div class="page-header my_style less_margin">
+                <div class="page-header my_style less_margin no_print">
                     <div class="left_section">
                         <div class="title_text">
                             <div class="title">Edit Order</div>
@@ -47,13 +50,13 @@
                 <div class="inner_boxes">
 
                     <div class="input_boxes">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_100">
                             <div class="input_box">
                                 <label>Order Ref Id</label>
                                 <input type="text" name="order_ref_id" value="{{ $result->order_ref_id }}" disabled>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_100">
                             <div class="input_box">
                                 <label>Products</label>
                                 @if(!empty($result->orderProducts) && count($result->orderProducts) > 0)
@@ -65,37 +68,37 @@
                                                 </div>
                                                 <div class="product_title">{{ $orderProduct->product->title }}</div>
                                                 <div class="quantity">x{{ $orderProduct->quantity }}</div>
-                                                <a href="{{ route('products.show', $orderProduct->product->id ) }}" target="_blank">View</a>
+                                                <a href="{{ route('products.show', $orderProduct->product->id ) }}" target="_blank" class="view_product">View</a>
                                             </div>
                                         @endforeach
                                     </div>
                                 @endif
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 print_width_50">
                             <div class="input_box">
                                 <label>First Name</label>
                                 <input type="text" name="title" value="{{ $result->billing_fname }}" disabled>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 print_width_50">
                             <div class="input_box">
                                 <label>First Name</label>
                                 <input type="text" name="title" value="{{ $result->billing_lname }}" disabled>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 no_print">
                             <div class="input_box">
                                 <a href="#">View User</a>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 print_width_50">
                             <div class="input_box">
                                 <label>Email</label>
                                 <input type="text" name="title" value="{{ $result->billing_email }}" disabled>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 print_width_50">
                             <div class="input_box">
                                 <label>Phone</label>
                                 <input type="text" name="title" value="{{ $result->billing_phone }}" disabled>
@@ -107,19 +110,19 @@
                                 <input type="text" name="title" value="{{ $result->billing_company }}" disabled>
                             </div>
                         </div> -->
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_50">
                             <div class="input_box">
                                 <label>Country</label>
                                 <input type="text" name="title" value="{{ $result->billing_country }}" disabled>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_100">
                             <div class="input_box">
                                 <label>Enquiry Notes</label>
                                 <textarea disabled>{{ $result->enquiry_notes }}</textarea>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_50">
                             <div class="input_box">
                                 <label>Status*</label>
                                 <div class="error form_error" id="form-error-status"></div>
@@ -130,7 +133,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 print_width_50">
                             <div class="input_box">
                                 <label>Admin Remark</label>
                                 <div class="error form_error" id="form-error-admin_remark"></div>
@@ -140,7 +143,7 @@
                         <div class="clr"></div>
                     </div>
 
-                    <div class="input_boxes">
+                    <div class="input_boxes no_print">
                         <div class="col-sm-4">
                             <div class="input_box">
                                 <input type="submit" name="submit" id="submit" value="Save" class="btn btn-primary">
@@ -154,6 +157,77 @@
 
     </div>
     <!-- /.row -->
+
+<script type="text/javascript">
+    function printInvoice() {
+        // Dynamically add print-specific CSS
+        var printCss = `
+            <style>
+                @media print {
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                        position: relative;
+                    }
+
+                    body * {
+                        visibility: hidden;
+                    }
+
+                    #data_form, #data_form * {
+                        visibility: visible;
+                        position: relative;
+                        top: 0;
+                        left: 0;
+                    }
+
+                    #data_form {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        margin: 0;
+                        padding: 0;
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    .no_print{
+                        display: none !important;
+                    }
+
+                    .print_width_50{
+                        width: 50%;
+                    }
+
+                    .print_width_100{
+                        width: 100%;
+                    }
+
+                    #data_form {
+                        // position: fixed;
+                        // top: 0;
+                        // left: 0;
+                        // margin: 0;
+                        // padding: 0;
+                        // width: 100%;
+                        // height: auto;
+                    }
+
+                    #data_form .view_product{
+                        display: none;
+                    }
+                }
+            </style>
+        `;
+        
+        // Append the style to the head of the document
+        $('head').append(printCss);
+
+        // Trigger the browser's print dialog
+        window.print();
+    }
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {

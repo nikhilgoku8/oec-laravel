@@ -6,10 +6,10 @@
         <div class="col-lg-12">
             <div class="page-header my_style">
                 <div class="left_section">
-                    <h1 class="">Categories</h1>
+                    <h1 class="">Banners</h1>
                     <ul class="breadcrumb">
                         <li><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                        <li><a href="{{ route('banners.index') }}">Banners</a></li>
                     </ul>    
                 </div>
                 
@@ -33,7 +33,7 @@
                 <div class="page-header my_style less_margin">
                     <div class="left_section">
                         <div class="title_text">
-                            <div class="title">View Category</div>
+                            <div class="title">View Banner</div>
                             <div class="sub_title">Please fillup the form </div>
                         </div>
                     </div>
@@ -52,6 +52,26 @@
                                 <label>Title</label>
                                 <div class="error form_error" id="form-error-title"></div>
                                 <input type="text" name="title" placeholder="Title" value="{{ $result->title }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input_box">
+                                <label>Image File (1920x650px)</label>
+                                <div class="error form_error" id="form-error-image_file"></div>
+                                @if(!empty($result->image_file))
+                                <div class="existing_file_wrapper">
+                                    To replace <a href="{{ asset('uploads/banners/'.$result->image_file) }}" target="_blank"><img src="{{ asset('uploads/banners/'.$result->image_file) }}" width="100px"></a> select below
+                                </div>
+                                <input type="hidden" name="existing_image_file" value="{{ $result->image_file }}">
+                                @endif
+                                <input type="file" name="image_file">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="input_box">
+                                <label>Link</label>
+                                <div class="error form_error" id="form-error-link"></div>
+                                <input type="text" name="link" placeholder="https://www.example.com">
                             </div>
                         </div>
                         <div class="col-sm-12">

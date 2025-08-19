@@ -6,10 +6,10 @@
         <div class="col-lg-12">
             <div class="page-header my_style">
                 <div class="left_section">
-                    <h1 class="">Categories</h1>
+                    <h1 class="">Banners</h1>
                     <ul class="breadcrumb">
                         <li><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                        <li><a href="{{ route('banners.index') }}">Banners</a></li>
                     </ul>    
                 </div>
                 
@@ -32,7 +32,7 @@
                 <div class="page-header my_style less_margin">
                     <div class="left_section">
                         <div class="title_text">
-                            <div class="title">Add New Category</div>
+                            <div class="title">Add New Banner</div>
                             <div class="sub_title">Please fillup the form </div>
                         </div>
                     </div>
@@ -102,14 +102,14 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "{{ route('categories.store') }}",
+            url: "{{ route('banners.store') }}",
             data:  new FormData(this),
             dataType: 'json',
             cache: false,
             contentType: false,
             processData: false,
             success: function(result) {
-                location.href="{{ route('categories.index') }}";
+                location.href="{{ route('banners.index') }}";
             },
             // error: function(data){
             //     var responseData = data.responseJSON;

@@ -154,7 +154,8 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(result) {
-                window.location.reload();
+                // window.location.reload();
+                location.href="{{ route('shop.thank-you') }}";
             },
             error: function(data){
                 if (data.status === 422) {

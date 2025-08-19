@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\ReachUsController;
 use App\Http\Controllers\Admin\CompetitorController;
+use App\Http\Controllers\Admin\BannerController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -135,6 +136,7 @@ Route::prefix('owm')->group(function () {
         Route::get('products/search_new', [ProductController::class, 'search_new'])->name('products.search_new');
         Route::resource('products', ProductController::class);
         Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
+        Route::post('products/toggle-featured', [ProductController::class, 'toggleFeatured'])->name('products.toggle-featured');
 
 
         Route::resource('filter-types', FilterTypeController::class);
@@ -166,6 +168,9 @@ Route::prefix('owm')->group(function () {
 
         Route::resource('reach-us', ReachUsController::class)->parameters(['reach-us' => 'reachUs']);
         Route::post('reach-us/bulk-delete', [ReachUsController::class, 'bulkDelete'])->name('reach-us.bulk-delete');
+
+        Route::resource('banners', BannerController::class);
+        Route::post('banners/bulk-delete', [BannerController::class, 'bulkDelete'])->name('banners.bulk-delete');
 
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');
