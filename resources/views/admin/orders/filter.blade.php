@@ -1,4 +1,4 @@
-<div class="filter_box {{ (request('user_id') || request('order_ref_id') || request('status')) ? 'show' : '' }}" id="filter_box">
+<div class="filter_box {{ (request('user_id') || request('order_ref_id') || request('status') || request('start_date') || request('end_date')) ? 'show' : '' }}" id="filter_box">
         <div class="row">
             <div class="my_panel">
                 <div class="inner_box ">
@@ -46,15 +46,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="input_box">
-                                <button type="submit" name="submit" id="submit" class="btn btn-primary">Search</button>
+                                <label>Start Date</label>
+                                <div class="error form_error" id="form-error-start_date"></div>
+                                <input type="text" name="start_date" placeholder="Start Date" class="datepicker" value="{{ request('start_date') ?? '' }}">
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="input_box blue_filled_btn">
-                                <a href="{{ route('orders.index') }}" class="">Clear Filters</a>
+                        <div class="col-sm-4">
+                            <div class="input_box">
+                                <label>End Date</label>
+                                <div class="error form_error" id="form-error-end_date"></div>
+                                <input type="text" name="end_date" placeholder="End Date" class="datepicker" value="{{ request('end_date') ?? '' }}">
                             </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="input_box purple_filled_btn">
+                                <button type="submit" name="submit">Search</button>
+                            </span>
+                            <span class="input_box orange_hollow_btn">
+                                <button type="submit" formaction="{{ route('orders.export') }}">Export</button>
+                            </span>
+                            <span class="input_box blue_filled_btn">
+                                <a href="{{ route('orders.index') }}" class="">Clear Filters</a>
+                            </span>
                         </div>
                         <!-- <div class="col-sm-2">
                             <div class="countAjaxResult">

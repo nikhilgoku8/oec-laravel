@@ -17,7 +17,7 @@
                         <a href="{{ route('users.create'); }}">Add New</a>
                     </div>
                     <div class="orange_hollow_btn">
-                        <a id="filter_option">Filter</a>
+                        <a id="filter_option">Filter / Export</a>
                     </div>
                 </div>
             </div>                    

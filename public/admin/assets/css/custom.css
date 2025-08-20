@@ -207,6 +207,19 @@ input.blue_hollow_btn{
 	border: 1px solid;
 	margin: 0 0 0 10px;
 	display: inline-block;
+	user-select: none;
+}
+.orange_hollow_btn button{
+	font-size: 13px;
+	color: #eb6f33;
+	background: unset;
+	padding: 6px 13px;
+	border-radius: 5px;
+	border: 1px solid;
+	outline: none;
+	margin: 0 0 0 10px;
+	display: inline-block;
+	user-select: none;
 }
 .blue_filled_btn a{
 	font-size: 13px;
@@ -273,6 +286,17 @@ input.blue_filled_btn{
 	padding: 6px 13px;
 	border-radius: 5px;
 	border: 1px solid;
+	margin: 0 0 0 10px;
+	display: inline-block;
+}
+.purple_filled_btn button{
+	font-size: 13px;
+	color: #fff;
+	background: #8760fb;
+	padding: 6px 13px;
+	border-radius: 5px;
+	border: 1px solid;
+	outline: none;
 	margin: 0 0 0 10px;
 	display: inline-block;
 }

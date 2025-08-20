@@ -150,12 +150,14 @@ Route::prefix('owm')->group(function () {
         Route::get('orders/pending', [OrderController::class, 'pending'])->name('orders.pending');
         Route::get('orders/completed', [OrderController::class, 'completed'])->name('orders.completed');
         Route::get('orders/denied', [OrderController::class, 'denied'])->name('orders.denied');
+        Route::get('orders/export', [OrderController::class, 'export'])->name('orders.export');
         Route::post('orders/bulk-delete', [OrderController::class, 'bulkDelete'])->name('orders.bulk-delete');
         Route::resource('orders', OrderController::class);
 
         Route::get('users/pending', [AdminUserController::class, 'pending'])->name('users.pending');
         Route::get('users/approved', [AdminUserController::class, 'approved'])->name('users.approved');
         Route::get('users/denied', [AdminUserController::class, 'denied'])->name('users.denied');
+        Route::get('users/export', [AdminUserController::class, 'export'])->name('users.export');
         Route::post('users/address_update', [AdminUserController::class, 'address_update'])->name('users.address_update');
         Route::post('users/bulk-delete', [AdminUserController::class, 'bulkDelete'])->name('users.bulk-delete');
         Route::resource('users', AdminUserController::class);

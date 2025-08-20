@@ -53,16 +53,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="input_box">
-                                <button type="submit" name="submit" id="submit" class="btn btn-primary">Search</button>
-                            </div>
+                        <div class="col-sm-4">
+                            <span class="input_box purple_filled_btn">
+                                <button type="submit" name="submit">Search</button>
+                            </span>
+                            <span class="input_box orange_hollow_btn">
+                                <button type="submit" formaction="{{ route('users.export') }}">Export</button>
+                            </span>
+                            <span class="input_box blue_filled_btn">
+                                <a href="{{ route('users.index') }}">Clear Filters</a>
+                            </span>
                         </div>
-                        <div class="col-sm-2">
+                        <!-- <div class="col-sm-2">
                             <div class="input_box blue_filled_btn">
                                 <a href="{{ route('users.index') }}" class="">Clear Filters</a>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="col-sm-2">
                             <div class="countAjaxResult">
                                 Result : <span id="countAjaxResult">0</span>

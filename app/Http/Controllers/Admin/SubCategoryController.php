@@ -9,10 +9,14 @@ use App\Models\Admin\SubCategory;
 
 class SubCategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $result = SubCategory::with('category')->paginate(100);
-        return view('admin.sub-categories.index', compact('result'));
+        $categories = Category::all();
+        $result = SubCategory::with('category')
+            ->when($request->input('q'), fn($query) => $query->where('title', 'LIKE', '%'.$request->input('q').'%'))
+            ->when($request->input('category_id'), fn($query) => $query->where('category_id', $request->input('category_id')))
+            ->paginate(100);
+        return view('admin.sub-categories.index', compact('categories','result'));
     }
 
     public function create()

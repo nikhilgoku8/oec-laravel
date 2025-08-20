@@ -8,6 +8,9 @@ use App\Models\Admin\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class UserController extends Controller
 {
     public function index(Request $request)
@@ -266,5 +269,10 @@ class UserController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
+    }
+
+    public function export(Request $request) 
+    {
+        return Excel::download(new UsersExport($request), 'users.xlsx');
     }
 }

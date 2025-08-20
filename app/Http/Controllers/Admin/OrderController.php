@@ -9,6 +9,9 @@ use App\Models\Admin\User;
 use App\Models\Admin\OrderProduct;
 use Illuminate\Support\Facades\Validator;
 
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class OrderController extends Controller
 {
     public function index(Request $request)
@@ -16,6 +19,12 @@ class OrderController extends Controller
         $users = User::all();
         $result = Order::with('user','orderProducts')
             ->orderByDesc('created_at')
+            ->when($request->start_date, function($query) use ($request){
+                $query->where('created_at', '>=', $request->start_date . ' 00:00:00');
+            })
+            ->when($request->end_date, function($query) use ($request){
+                $query->where('created_at', '<=', $request->end_date . ' 23:59:59');
+            })
             ->when($request->order_ref_id, function($query) use ($request){
                 $query->where('order_ref_id','LIKE', "%{$request->order_ref_id}%");
             })
@@ -151,5 +160,10 @@ class OrderController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Record Deleted']);
+    }
+
+    public function export(Request $request) 
+    {
+        return Excel::download(new OrdersExport($request), 'orders.xlsx');
     }
 }
