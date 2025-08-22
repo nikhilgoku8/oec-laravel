@@ -62,7 +62,7 @@
                 <td style="padding:24px 24px 0 24px; text-align:left;">
                   <a href="https://oec-americas.com" target="_blank" style="display:inline-block;">
                     <!-- Replace with your logo -->
-                    <img src="oec.png" width="100" height="38" alt="OEC" style="display:block; height:auto;">
+                    <img src="{{ asset('front/assets/images/logo-red.png') }}" width="100" height="38" alt="OEC" style="display:block; height:auto;">
                   </a>
                 </td>
               </tr>

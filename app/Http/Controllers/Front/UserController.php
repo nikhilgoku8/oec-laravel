@@ -660,8 +660,7 @@ class UserController extends Controller
                 'orderProducts' => $order->OrderProducts,
             ];
 
-            // Mail::to('info@oec-americas.com')->send(new ProductEnquiryMail($mailData));
-            Mail::to('nikhilgoku8@gmail.com')->send(new ProductEnquiryMail($mailData));
+            Mail::to('info@oec-americas.com')->send(new ProductEnquiryMail($mailData));
 
             $response = array(
                 'success' => true,

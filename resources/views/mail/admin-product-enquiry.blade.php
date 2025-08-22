@@ -57,7 +57,7 @@
                 <td style="padding:24px 24px 0 24px; text-align:left;">
                   <a href="https://oec-americas.com" target="_blank" style="display:inline-block;">
                     <!-- Replace with your logo -->
-                    <img src="oec.png" width="100" height="38" alt="OEC" style="display:block; height:auto;">
+                    <img src="{{ asset('front/assets/images/logo-red.png') }}" width="100" height="38" alt="OEC" style="display:block; height:auto;">
                   </a>
                 </td>
               </tr>
@@ -78,7 +78,7 @@
                               <strong>Order Ref ID:</strong> {{ $mailData['order_ref_id'] }}<br>
                               <strong>Submitted:</strong> {{ $mailData['created_at'] }}<br>
                               <strong>User:</strong> {{ $mailData['username'] }}<br>
-                              <strong>User Email:</strong> <a href="mailto:{{ $mailData['email'] }}" style="color:#2563eb;">{{ $mailData['email'] }}</a>
+                              <strong>User Email:</strong> <a href="mailto:{{ $mailData['email'] }}" style="color:#2563eb;">{{ $mailData['email'] }}</a><br>
                               <strong>Billing Email:</strong> <a href="mailto:{{ $mailData['billing_email'] }}" style="color:#2563eb;">{{ $mailData['billing_email'] }}</a>
                             </td>
                           </tr>
@@ -104,8 +104,6 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <!-- Repeat this <tr> for each item -->
-                            <!-- {{#EACH_ITEMS}} -->
                             @if(!empty($mailData['orderProducts']) && count($mailData['orderProducts']) > 0)
                               @foreach($mailData['orderProducts'] as $orderProduct)
                                 <tr>
@@ -115,7 +113,6 @@
                                 </tr>
                               @endforeach
                             @endif
-                            <!-- {{/EACH_ITEMS}} -->
                           </tbody>
                         </table>
 
