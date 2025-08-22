@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use Mail;
 use Carbon\Carbon;
 use App\Mail\PasswordResetOtpMail;
+use App\Mail\SignupMail;
+use App\Mail\ProductEnquiryMail;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -159,6 +161,10 @@ class UserController extends Controller
             );
 
             User::create($data);
+
+            $userName = $request->fname.' '.$request->lname;
+
+            Mail::to($request->email)->send(new SignupMail($userName));
 
             $response = array(
                 'success' => true,
@@ -641,6 +647,21 @@ class UserController extends Controller
 
             // Now delete cart as order placed
             CartItem::where('user_id', session('userId'))->delete();
+
+            $user = User::find(session('userId'));
+
+            $mailData = [
+                'order_ref_id' => $order_ref_id,
+                'created_at' => $order->created_at,
+                'username' => $user->fname.' '.$user->lname,
+                'email' => $user->email,
+                'billing_email' => $request->billing_email ?? '',
+                'enquiry_notes' => $request->enquiry_notes ?? '',
+                'orderProducts' => $order->OrderProducts,
+            ];
+
+            // Mail::to('info@oec-americas.com')->send(new ProductEnquiryMail($mailData));
+            Mail::to('nikhilgoku8@gmail.com')->send(new ProductEnquiryMail($mailData));
 
             $response = array(
                 'success' => true,

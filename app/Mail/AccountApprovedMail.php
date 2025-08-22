@@ -9,18 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetOtpMail extends Mailable
+class AccountApprovedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $otp;
+    public $userName;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($otp)
+    public function __construct($userName)
     {
-        $this->otp = $otp;
+        $this->userName = $userName;
     }
 
     /**
@@ -29,7 +29,7 @@ class PasswordResetOtpMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'OEC - Your OTP',
+            subject: 'Account Approved — OEC Americas',
         );
     }
 
@@ -39,10 +39,9 @@ class PasswordResetOtpMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            // view: 'mail.password_reset_otp',
-            view: 'mail.otp',
+            view: 'mail.account-approved',
             with: [
-                'otp' => $this->otp,
+                'userName' => $this->userName,
             ],
         );
     }

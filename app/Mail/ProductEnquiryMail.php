@@ -9,18 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PasswordResetOtpMail extends Mailable
+class ProductEnquiryMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $otp;
+    public $mailData;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($otp)
+    public function __construct($mailData)
     {
-        $this->otp = $otp;
+        $this->mailData = $mailData;
     }
 
     /**
@@ -29,7 +29,7 @@ class PasswordResetOtpMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'OEC - Your OTP',
+            subject: 'New Product Enquiry - OEC Americas',
         );
     }
 
@@ -39,11 +39,7 @@ class PasswordResetOtpMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            // view: 'mail.password_reset_otp',
-            view: 'mail.otp',
-            with: [
-                'otp' => $this->otp,
-            ],
+            view: 'mail.admin-product-enquiry',
         );
     }
 

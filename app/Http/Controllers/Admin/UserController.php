@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\User;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;;
+use Mail;
+use App\Mail\AccountApprovedMail;
 
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -131,6 +133,14 @@ class UserController extends Controller
             if ($isNew) {
                 $user = User::create($validated);
             } else {
+
+                // Send mail if approved
+                if($user->status == 'pending' && $validated['status'] == 'approved'){
+                    $userName = $user->fname.' '.$user->lname;
+                    Mail::to($user->email)->send(new AccountApprovedMail($userName));
+                }
+
+                // Update data
                 $user->update($validated);
             }
 
