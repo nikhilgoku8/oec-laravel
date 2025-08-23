@@ -403,6 +403,13 @@ div[class*="col-sm"] .my_panel{
 	color: #99a7bc;
 }
 /*dashboard_page*/
+#page-wrapper{
+	display: flex;
+	flex-direction: column;
+}
+#page-wrapper .row:last-child{
+	margin-top: auto;
+}
 #page-wrapper .first_row{
 	display: flex;
 }

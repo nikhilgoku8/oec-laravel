@@ -648,13 +648,12 @@ header .lower_sec{
 	border-bottom: 1px solid #0000001a;
 }
 
-.hero .main_hero_slider .swiper-slide a{
+/*.hero .main_hero_slider .swiper-slide a{
 	background-image: linear-gradient(215deg, #000000 0%, var(--red) 100%);
 	height: 550px;
 	max-height: calc(100vh - var(--header-height));
 	display: flex;
 	align-items: center;
-	/*justify-content: center;*/
 }
 .hero .main_hero_slider .swiper-slide a .category_title{
 	font-size: 50px;
@@ -665,20 +664,6 @@ header .lower_sec{
 	padding: 0 0 0 15px;
 }
 .hero .main_hero_slider .swiper-slide a .image_wrapper{
-	/*display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	width: 35%;
-	max-height: 100%;*/
-
-	/*width: 35%;
-    max-height: 100%;
-    columns: 2;
-    display: grid;
-    align-content: center;
-    grid: auto / auto auto;
-    grid-template-rows: 50%;*/
-
     max-width: 550px;
     max-height: 100%;
     display: flex;
@@ -687,7 +672,6 @@ header .lower_sec{
     justify-content: center;
 }
 .hero .main_hero_slider .swiper-slide a .img_box{
-	/*width: 50%;*/
 	text-align: center;
     max-width: 275px;
     max-height: 275px;
@@ -697,7 +681,7 @@ header .lower_sec{
     height: 100%;
     object-fit: contain;
     object-position: center;
-}
+}*/
 
 /*our_brands*/
 .our_brands{

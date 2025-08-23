@@ -14,6 +14,7 @@ use App\Models\Admin\NewsletterSubscription;
 use App\Models\Admin\Career;
 use App\Models\Admin\ReachUs;
 use App\Models\Admin\Competitor;
+use App\Models\Admin\Banner;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -138,6 +139,7 @@ class HomeController extends Controller
     public function electrical()
     {
         $this->data['featuredProducts'] = Product::where('featured', 1)->limit(10)->get();
+        $this->data['banners'] = Banner::orderBy('sort_order')->get();
         return view('electrical.home', $this->data);
     }
     
@@ -351,11 +353,22 @@ class HomeController extends Controller
             : $raw->getNbHits();
 
         // 4) Fetch Eloquent models in the Meili order
-        $products = Product::with('subCategory')
+        // $products = Product::with('subCategory')
+        //     ->whereIn('id', $hitIds)
+        //     ->whereIn('sub_category_id', $subCategoryIds)
+        //     ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+        //     ->get();
+
+        if (!empty($hitIds)) {
+            $products = Product::with('subCategory')
             ->whereIn('id', $hitIds)
             ->whereIn('sub_category_id', $subCategoryIds)
             ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
             ->get();
+        } else {
+            // Just return empty collection to keep paginator happy
+            $products = collect();
+        }
 
         // 5) Make a LengthAwarePaginator for Blade
         $paginator = new LengthAwarePaginator(

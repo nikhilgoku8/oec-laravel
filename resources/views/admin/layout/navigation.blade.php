@@ -7,7 +7,7 @@
             <div class="header_bar">
                 <div class="logo_box">
                     <div class="logo">
-                        <!-- <img src="admin/assets/images/logo.webp"> -->
+                        <img src="admin/assets/images/logo.webp">
                     </div>
                 </div>
                 <!-- <div class="orange_filled_btn"><button id="dark_mode">Dark Mode Toggle</button></div> -->

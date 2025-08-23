@@ -16,7 +16,7 @@
                     @php
                         $selectedFilters = collect(request('filters', []))->flatten()->toArray();
                     @endphp
-                    @if(count($products))
+                    <!-- @@if(count($products)) -->
                         @if(!empty($filterTypes) && count($filterTypes) > 0)
                             <form id="filterForm" method="GET" action="{{ route('category.products', $category->slug) }}">
                             <input type="hidden" name="q" value="{{ request('q') }}">
@@ -54,7 +54,7 @@
                             });
                             </script>
                         @endif
-                    @endif
+                    <!-- @@endif -->
                 </div>
             </div>
             <div class="right_pane">

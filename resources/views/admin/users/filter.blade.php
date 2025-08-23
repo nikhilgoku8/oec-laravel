@@ -1,4 +1,4 @@
-<div class="filter_box {{ (request('fname') || request('lname') || request('email') || request('phone') || request('status')) ? 'show' : '' }}" id="filter_box">
+<div class="filter_box {{ (request()->has('q') || request('fname') || request('lname') || request('email') || request('phone') || request('status')) ? 'show' : '' }}" id="filter_box">
         <div class="row">
             <div class="my_panel">
                 <div class="inner_box ">
@@ -61,7 +61,7 @@
                                 <button type="submit" formaction="{{ route('users.export') }}">Export</button>
                             </span>
                             <span class="input_box blue_filled_btn">
-                                <a href="{{ route('users.index') }}">Clear Filters</a>
+                                <a href="{{ route('users.index').'?q=' }}">Clear Filters</a>
                             </span>
                         </div>
                         <!-- <div class="col-sm-2">

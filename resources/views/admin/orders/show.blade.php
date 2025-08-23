@@ -83,13 +83,13 @@
                             </div>
                             <div class="col-sm-4 print_width_50">
                                 <div class="input_box">
-                                    <label>First Name</label>
+                                    <label>Last Name</label>
                                     <input type="text" name="title" value="{{ $result->billing_lname }}" disabled>
                                 </div>
                             </div>
                             <div class="col-sm-4 no_print">
                                 <div class="input_box">
-                                    <a href="#">View User</a>
+                                    <a href="{{ route('users.show', $result->user_id) }}" target="_blank">View User</a>
                                 </div>
                             </div>
                             <div class="col-sm-4 print_width_50">
@@ -104,12 +104,12 @@
                                     <input type="text" name="title" value="{{ $result->billing_phone }}" disabled>
                                 </div>
                             </div>
-                            <!-- <div class="col-sm-12">
+                            <div class="col-sm-12">
                                 <div class="input_box">
                                     <label>Company</label>
                                     <input type="text" name="title" value="{{ $result->billing_company }}" disabled>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="col-sm-12 print_width_50">
                                 <div class="input_box">
                                     <label>Country</label>

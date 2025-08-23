@@ -1,4 +1,4 @@
-<div class="filter_box {{ (request('q') || request('category_id') || request('sub_category_id')) ? 'show' : '' }}" id="filter_box">
+<div class="filter_box {{ (request()->has('q') || request('category_id') || request('sub_category_id')) ? 'show' : '' }}" id="filter_box">
         <div class="row">
             <div class="my_panel">
                 <div class="inner_box ">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="input_box blue_filled_btn">
-                                <a href="{{ route('products.index') }}" class="">Clear Filters</a>
+                                <a href="{{ route('products.index').'?q=' }}" class="">Clear Filters</a>
                             </div>
                         </div>
                         <!-- <div class="col-sm-2">

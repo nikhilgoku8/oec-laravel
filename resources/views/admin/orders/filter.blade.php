@@ -1,4 +1,4 @@
-<div class="filter_box {{ (request('user_id') || request('order_ref_id') || request('status') || request('start_date') || request('end_date')) ? 'show' : '' }}" id="filter_box">
+<div class="filter_box {{ (request()->has('q') || request('user_id') || request('order_ref_id') || request('status') || request('start_date') || request('end_date')) ? 'show' : '' }}" id="filter_box">
         <div class="row">
             <div class="my_panel">
                 <div class="inner_box ">
@@ -68,7 +68,7 @@
                                 <button type="submit" formaction="{{ route('orders.export') }}">Export</button>
                             </span>
                             <span class="input_box blue_filled_btn">
-                                <a href="{{ route('orders.index') }}" class="">Clear Filters</a>
+                                <a href="{{ route('orders.index').'?q=' }}" class="">Clear Filters</a>
                             </span>
                         </div>
                         <!-- <div class="col-sm-2">

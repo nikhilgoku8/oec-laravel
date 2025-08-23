@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\NewsletterSubscription;
+use Illuminate\Support\Facades\Validator;
 
 class NewsletterController extends Controller
 {

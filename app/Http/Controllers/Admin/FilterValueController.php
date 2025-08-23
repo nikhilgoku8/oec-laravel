@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\FilterType;
 use App\Models\Admin\FilterValue;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class FilterValueController extends Controller
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\FilterType;
+use Illuminate\Support\Facades\Validator;
 
 class FilterTypeController extends Controller
 {
@@ -52,7 +53,7 @@ class FilterTypeController extends Controller
         try {
 
             $rules = [
-                'title' => 'required|string|max:255|unique:filter_type,title,'.$dataID,
+                'title' => 'required|string|max:255|unique:filter_types,title,'.$dataID,
             ];
 
             $messages = [];

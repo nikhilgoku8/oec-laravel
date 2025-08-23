@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Category;
 use App\Models\Admin\SubCategory;
+use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {

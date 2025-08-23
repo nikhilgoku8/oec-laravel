@@ -102,7 +102,7 @@
                 <div class="right_section">
                     <div class="purple_filled_btn">
                         <!-- <a class="save-order">Save</a> -->
-                        <button type="button" class="btn btn-primary save-banners-order">Save Order</button>
+                        <!-- <button type="button" class="btn btn-primary save-banners-order">Save Order</button> -->
                     </div>
                 </div>
             </div>

@@ -11,11 +11,22 @@
     <div class="main_hero_slider">
         <div class="swiper-wrapper">
 
-            @foreach($categories as $category)
+            @if(!empty($banners) && count($banners) > 0)
+                @foreach($banners as $banner)
+                    <div class="swiper-slide">
+                        <a href="{{ $banner->link ?? '#' }}">
+                            <div class="img_box">
+                                <img src="{{ asset('uploads/banners/'.$banner->image_file) }}">
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            @endif
+
+            <!-- @foreach($categories as $category)
             <div class="swiper-slide">
                 <a href="{{ route('category.products', $category->slug) }}">
                     <span class="category_title">{{$category->title}}</span>
-                    <!-- <img src="{{ $category->subCategories->first()->products->first()->productImages->first()->image_file }}"> -->
                     <span class="image_wrapper">
                         @foreach($category->subCategories as $subCategory)
                             @if($subCategory->products->first()?->productImages->first()->image_file)
@@ -28,7 +39,7 @@
                     </span>
                 </a>
             </div>
-            @endforeach
+            @endforeach -->
             <!-- <div class="swiper-slide">
                 <div class="item_box">
                     <a href="{{ route('category.products', 'insulated') }}">
@@ -66,7 +77,9 @@
             </div> -->
 
         </div>
-        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- <div class="swiper-pagination"></div> -->
     </div>
 
 </div>

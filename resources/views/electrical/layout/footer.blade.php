@@ -804,6 +804,10 @@ const main_hero_slider = new Swiper('.main_hero_slider', {
     // speed: 1000,
     slidesPerView: 1,
     loop: true,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     // Responsive breakpoints
     // pagination: {
     //     el: '.swiper-pagination',
