@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HomeController extends Controller
 {
@@ -1138,5 +1139,23 @@ class HomeController extends Controller
             'meta_description' => 'Thank You - OEC',
         ];
         return view('electrical.thank-you', $data);
+    }
+    
+    public function downloadPdf($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // $pdf = PDF::loadView('pdf.product-specification', compact('product'))
+        //           ->setPaper('a4')
+        //           ->setOption('margin-top', 10)
+        //           ->setOption('margin-bottom', 10)
+        //           ->setOption('margin-left', 10)
+        //           ->setOption('margin-right', 10)
+        //            ->setOption('images', true)          // allow image loading
+        //            ->setOption('enable-local-file-access', true) // needed if mixing local & external;
+        //            ->setOption('no-stop-slow-scripts', true);
+
+        return view('pdf.product-specification', compact('product'));
+        // return $pdf->download('product-'.$product->slug.'.pdf');
     }
 }

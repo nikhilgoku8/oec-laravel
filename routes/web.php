@@ -93,6 +93,8 @@ Route::middleware([IsUser::class])->group(function(){
 
         Route::post('/quick-view-product/{id}', [HomeController::class, 'quick_view_product'])->name('quick-view-product');
 
+        Route::get('/download-product-pdf/{id}', [HomeController::class, 'downloadPdf'])->name('download-pdf');
+
         Route::get('/{category}', [HomeController::class, 'category_products'])->name('category.products');
         Route::get('/{category}/{subCategory}', [HomeController::class, 'products'])->name('products');
         Route::get('/{category}/{subCategory}/{product}', [HomeController::class, 'product_detail'])->name('product');
