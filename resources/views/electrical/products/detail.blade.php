@@ -113,7 +113,7 @@
                             <button class="red_filled_btn add_to_cart" data-product-id="{{ $product->id }}">Add to Enquiry</button>
                         </div>
                         <div class="other_btns">
-                            <a href="#" class="red_hollow_btn">Specifications</a>
+                            <button type="button" class="red_hollow_btn download_pdf">Specifications</button>
                             <a href="#" class="red_hollow_btn">Catalog</a>
                             <a href="#" class="red_hollow_btn">Sales Drawing</a>
                         </div>
@@ -273,6 +273,38 @@ const product_images_slider = new Swiper('.product_images_slider', {
     }
 });
 </script> -->
+
+<script>
+$(document).on('click','.download_pdf', function(){
+    let download_pdf = $(this);
+
+    download_pdf.addClass('spinners').attr('disabled', true);
+
+    $.ajax({
+        url: "{{ route('download-pdf', $product->id) }}",
+        method: "GET",
+        xhrFields: {
+            responseType: "blob" // get binary
+        },
+        success: function(blob) {
+            const link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "product-{{ $product->slug }}.pdf";
+            link.click();
+
+            download_pdf.removeClass("spinners").attr("disabled", false);
+        },
+        // success: function(result) {
+        //     download_pdf.removeClass('spinners').attr('disabled', false);
+        //     window.location.href = "{{ route('download-pdf', $product->id) }}";
+        // },
+        error: function(data){
+            alert("Error downloading PDF.");
+            download_pdf.removeClass("spinners").attr("disabled", false);
+        }
+    });
+});
+</script>
 
 @endpush
 

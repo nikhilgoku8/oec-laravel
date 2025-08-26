@@ -1145,17 +1145,14 @@ class HomeController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // $pdf = PDF::loadView('pdf.product-specification', compact('product'))
-        //           ->setPaper('a4')
-        //           ->setOption('margin-top', 10)
-        //           ->setOption('margin-bottom', 10)
-        //           ->setOption('margin-left', 10)
-        //           ->setOption('margin-right', 10)
-        //            ->setOption('images', true)          // allow image loading
-        //            ->setOption('enable-local-file-access', true) // needed if mixing local & external;
-        //            ->setOption('no-stop-slow-scripts', true);
+        $pdf = Pdf::loadView('pdf.product-specification', compact('product'))
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isRemoteEnabled' => true,   // allow external images
+                'isHtml5ParserEnabled' => true,
+            ]);
 
-        return view('pdf.product-specification', compact('product'));
-        // return $pdf->download('product-'.$product->slug.'.pdf');
+        // return view('pdf.product-specification', compact('product'));
+        return $pdf->download('product-'.$product->slug.'.pdf');
     }
 }

@@ -379,6 +379,8 @@ header.smaller .upper_sec .my_account_links .head{
 .red_hollow_btn{
 	font-size: 14px;
 	color: var(--red);
+	border: none;
+	outline: none;
 	background: #fff;
 	font-weight: 500;
 	padding: 12px 24px;
@@ -1732,10 +1734,10 @@ footer .lower_sec p{
 	display: flex;
 	align-items: center;
 }
-.product_info .other_btns a{
+.product_info .other_btns .red_hollow_btn{
 	margin: 0 10px 0 0;
 }
-.product_info .other_btns a:last-child{
+.product_info .other_btns .red_hollow_btn:last-child{
 	margin: 0;
 }
 
@@ -2117,6 +2119,7 @@ footer .lower_sec p{
 	background: var(--red);
 	color: #fff;
 	z-index: 10;
+	border-radius: inherit;
 }
 .spinners::after{
 	position: absolute;
