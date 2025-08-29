@@ -99,6 +99,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users,email,'.$dataID,
                 // 'sort_order' => $isNew ? 'nullable|numeric' : 'required|numeric',
                 'phone' => 'nullable|string|max:20',
+                'role' => 'required',
                 'password' => $isNew ? 'required|bail|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/' : 'nullable|bail|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_password' => 'nullable|bail|required_with:password|same:password',
                 'is_locked' => $isNew ? 'nullable' : 'required',

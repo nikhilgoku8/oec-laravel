@@ -31,6 +31,12 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="input_box">
+                        <div class="error form_error form-error-phone"></div>
+                        <input type="text" name="phone" placeholder="Phone / Mobile">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="input_box">
                         <div class="error form_error form-error-email"></div>
                         <input type="text" name="email" placeholder="Email">
                     </div>
@@ -45,6 +51,18 @@
                     <div class="input_box">
                         <div class="error form_error form-error-request_otp"></div>
                         <button type="button" class="red_hollow_btn full_width square request_otp">Request OTP</button>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="input_box">
+                        <div class="error form_error form-error-role"></div>
+                        <select name="role">
+                            <option value="">Select Role</option>
+                            <option>Distributor</option>
+                            <option>Contractor</option>
+                            <option>Sales Representative</option>
+                            <option>Other</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-12">

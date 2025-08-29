@@ -1,7 +1,7 @@
 :root{
 	/*--red: #D21414;*/
 	--red: #ec1c24;
-	--lato: "Lato", sans-serif;
+	--lato: "Poppins", sans-serif;
 	--header-height: 131px;
 	--line-size: 2px;
 	--line-color: #000;
@@ -19,7 +19,7 @@
 }*/
 html, body, #wrapper {
 	height: 100%;
-	font-family: "Cabin", sans-serif;
+	font-family: "Poppins", sans-serif;
 	/*background: #0C0F16;
 	color: #fff;*/
 	font-size: 16px;
@@ -1593,6 +1593,11 @@ footer .lower_sec p{
 .product_detail_page .section_one{
 	padding: 0 0 50px 0;
 }
+.product_detail_page .section_one .inner_container{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
 .product_detail_page .product_images{
 	/*border: 1px solid #0000001b;*/
 	display: flex;
@@ -1747,11 +1752,13 @@ footer .lower_sec p{
 	flex-wrap: wrap;
 }
 .tabs #tabs-nav li a{
+	font-size: 13px;
 	padding: 15px 15px;
     transition: all 0.3s;
     color: #333;
     /*border: 1px solid #0000001b;*/
     background: #f9f9f9;
+    font-weight: 500;
 }
 .tabs #tabs-nav li a:hover{
 	background: #ddd;
@@ -1763,7 +1770,7 @@ footer .lower_sec p{
 }
 .tabs #tabs-content .tab-content table tr td{
 	color: #777;
-	font-size: 14px;
+	font-size: 13px;
 	text-align: left;
 }
 .tabs #tabs-content .tab-content table tr:nth-child(even){
@@ -2325,11 +2332,12 @@ header.smaller #search_results{
 	border-bottom: 1px solid #0000001a;
 }
 #search_results .recently_viewed ul{
-	justify-content: space-between;
+	/*justify-content: space-between;*/
 	border: none;
 }
 #search_results .recently_viewed ul li{
 	width: calc((100% / 5) - 10px);
+	margin: 0 10px 0 0;
 }
 #search_results .recently_viewed ul li a{
 	display: flex;

@@ -869,6 +869,17 @@ class HomeController extends Controller
         $category = Category::where('slug',$category)->first();
         $subCategory = SubCategory::where('slug',$subCategory)->first();
         $this->data['product'] = Product::with('productImages','productTabContents')->where('slug', $product)->first();
+        $this->data['product']->productTabContents = $this->data['product']->productTabContents
+            ->sortBy(fn($item) => $item->productTabLabel->sort_order)
+            ->values();
+        // $this->data['product'] = Product::with([
+        //         'productImages',
+        //         'productTabContents' => function ($query) {
+        //             $query->with('productTabLabel')
+        //                   ->join('product_tab_labels', 'product_tab_labels.id', '=', 'product_tab_contents.product_tab_label_id')
+        //                   ->orderBy('product_tab_labels.sort_order');
+        //         }
+        //     ])->where('slug', $product)->first();
         $this->data['relatedProducts'] = Product::with('productImages','subCategory','subCategory.category')
             ->where('id', '!=', $this->data['product']->id)
             ->where('sub_category_id', $subCategory->id)

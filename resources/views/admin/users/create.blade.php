@@ -74,6 +74,18 @@
                                 <input type="text" name="phone" placeholder="Phone">
                             </div>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="input_box">
+                                <div class="error form_error form-error-role"></div>
+                                <select name="role">
+                                    <option value="">Select Role</option>
+                                    <option>Distributor</option>
+                                    <option>Contractor</option>
+                                    <option>Sales Representative</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-sm-6">
                             <div class="input_box">
                                 <label>Password*</label>

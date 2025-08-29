@@ -78,6 +78,18 @@
                                     <input type="text" name="phone" placeholder="Phone" value="{{ $result->phone }}">
                                 </div>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="input_box">
+                                    <div class="error form_error form-error-role"></div>
+                                    <select name="role">
+                                        <option value="">Select Role</option>
+                                        <option @selected($result->role == 'Distributor')>Distributor</option>
+                                        <option @selected($result->role == 'Contractor')>Contractor</option>
+                                        <option @selected($result->role == 'Sales Representative')>Sales Representative</option>
+                                        <option @selected($result->role == 'Other')>Other</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="input_box">
                                     <label>Password</label>

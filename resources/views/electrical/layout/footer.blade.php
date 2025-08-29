@@ -38,7 +38,7 @@
         <div class="container">
             <div class="inner_container">
 
-                <div class="info_box">
+                <!-- <div class="info_box">
                     <div class="logo_box">
                         <a href="{{ route('home') }}">
                             <img src="{{ asset('front/assets/images/bg/parallax-logo.webp') }}" alt="" />
@@ -47,15 +47,15 @@
                     <div class="text_box">
                         <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors, fittings, cable glands, automotive fittings, air brake tubing, and hoses. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
                     </div>
-                </div>
-                <div class="info_box">
+                </div> -->
+                <!-- <div class="info_box">
                     <div class="title">Categories</div>
                     <ul>
                         @foreach($categories as $category)
                         <li><a href="{{ route('category.products', $category->slug) }}">{{ $category->title }}</a></li>
                         @endforeach
                     </ul>
-                </div>
+                </div> -->
                 <div class="info_box">
                     <div class="title">Industries</div>
                     <ul>
@@ -650,7 +650,7 @@ $(document).ready(function() {
 
 <!--sticky header-->
 <script src="{{ asset('front/assets/js/classie.js') }}" type="text/javascript"></script>
-<script>
+<!-- <script>
 function init() {
 window.addEventListener('scroll', function(e){
   var distanceY = window.pageYOffset || document.documentElement.scrollTop,
@@ -666,7 +666,7 @@ window.addEventListener('scroll', function(e){
 });
 }
 window.onload = init();
-</script>
+</script> -->
 
 <script type="text/javascript" src="{{ asset('front/assets/js/common.js') }}"></script>
 <script src="{{ asset('front/assets/js/jquery.easing.1.3.js') }}"></script>

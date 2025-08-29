@@ -1110,6 +1110,13 @@ input[type="file"]::file-selector-button:hover {
 	height: 50px;
 	color: #000;
 }
+.single_form_page .overlay_box .form_wrapper .input_box select{
+	border: 1px solid #cccccc;
+	border-radius: 0;
+	font-size: 14px;
+	height: 50px;
+	color: #000;
+}
 .single_form_page .overlay_box .form_wrapper .submit_box{
 	padding: 0;
 }

@@ -109,8 +109,10 @@ class UserController extends Controller
                 'fname'=>'required',
                 'lname'=>'required',
                 'company_name'=>'required',
+                'phone'=>'nullable',
                 'email'=>'required|email|unique:users,email',
                 'otp'=>'required|numeric|digits:6',
+                'role'=>'required',
                 'password'=> 'bail|required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_password'=> 'required|same:password',
                 'accept_terms'=>'required'
@@ -126,6 +128,7 @@ class UserController extends Controller
                 'company_name'=>'Company Name',
                 'email'=>'Email',
                 'otp'=>'OTP',
+                'role'=>'Role',
                 'password'=> 'Password',
                 'confirm_password'=> 'Confirm Password',
                 'accept_terms'=>'Terms'
@@ -152,7 +155,9 @@ class UserController extends Controller
                 'lname' => $request->lname,
                 'billing_company' => $request->company_name,
                 'shipping_company' => $request->company_name,
+                'phone' => $request->phone,
                 'email' => $request->email,
+                'role' => $request->role,
                 'password' => Hash::make($request->password),
                 'last_password_changed' => now(),
                 'registered_at' => now(),
