@@ -383,6 +383,8 @@ class ProductController extends Controller
                 'title' => 'required|string|max:255|unique:products,title,'.$dataID,
                 'description' => 'required',
                 'features' => 'required',
+                'sales_drawing' => 'nullable|url',
+                'catalogue' => 'nullable|url',
                 'featured' => 'required',
                 'images' => 'required|array|min:1',
                 'images.*.link' => 'required',

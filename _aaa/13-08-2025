@@ -35,9 +35,17 @@ Registration Email
 Account Activated
 Enquiry Placed
 
-Check New Product Addition
-
-
 Specification download
 
 New Products Import/Export...
+
+Import
+	Catalogue
+	Sales drawing
+
+Download
+	Sample CSV
+
+import users
+	wp5y_posts
+	wp5y_postmeta

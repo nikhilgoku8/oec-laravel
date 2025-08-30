@@ -98,6 +98,20 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="input_box">
+                                    <label>Sales Drawing</label>
+                                    <div class="error form_error form-error-sales_drawing"></div>
+                                    <input type="text" name="sales_drawing" placeholder="Sales Drawing" value="{{ $result->sales_drawing }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input_box">
+                                    <label>Catalogue</label>
+                                    <div class="error form_error form-error-catalogue"></div>
+                                    <input type="text" name="catalogue" placeholder="Catalogue" value="{{ $result->catalogue }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input_box">
                                     <label>Featured</label>
                                     <div class="error form_error form-error-featured"></div>
                                     <select name="featured">

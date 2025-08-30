@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->index();
             $table->text('description');
             $table->text('features');
+            $table->text('sales_drawing')->nullable();
+            $table->text('catalogue')->nullable();
             $table->boolean('featured')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

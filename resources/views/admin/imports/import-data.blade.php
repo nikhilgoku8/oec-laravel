@@ -54,11 +54,16 @@
                 <div class="inner_boxes">
 
                     <div class="input_boxes">
-                        <div class="col-sm-12">
+                        <div class="col-sm-8">
                             <div class="input_box">
                                 <label>Import Data (xlsx,csv)</label>
                                 <div class="error form_error" id="form-error-data_file"></div>
                                 <input type="file" name="data_file">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input_box">
+                                <a href="{{ asset('admin/assets/csv/_sample-upload.csv') }}" download><b>Download Sample CSV</b></a>
                             </div>
                         </div>
                         <div class="clr"></div>

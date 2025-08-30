@@ -114,8 +114,12 @@
                         </div>
                         <div class="other_btns">
                             <button type="button" class="red_hollow_btn download_pdf">Specifications</button>
-                            <a href="#" class="red_hollow_btn">Catalog</a>
-                            <a href="#" class="red_hollow_btn">Sales Drawing</a>
+                            @if($product->catalogue)
+                                <a href="{{$product->catalogue}}" class="red_hollow_btn" target="_blank">Catalog</a>
+                            @endif
+                            @if($product->sales_drawing)
+                                <a href="{{$product->sales_drawing}}" class="red_hollow_btn" target="_blank">Sales Drawing</a>
+                            @endif
                         </div>
                     </div>
                 </div>

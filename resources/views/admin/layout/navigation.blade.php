@@ -85,6 +85,9 @@
                                 <li><a href="{{ url('owm/admins/usertype/executive') }}">Care Executives</a></li> -->
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{ route('import_data.edit') }}"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</a>
+                        </li>
                         @endif
 
                         @if(in_array(session('userType'), ['superadmin', 'manager']))

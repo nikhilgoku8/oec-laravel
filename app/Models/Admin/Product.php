@@ -18,6 +18,8 @@ class Product extends Model
         'slug',
         'description',
         'features',
+        'sales_drawing',
+        'catalogue',
         'featured',
         'created_by',
         'updated_by',

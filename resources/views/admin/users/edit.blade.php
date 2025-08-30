@@ -77,7 +77,8 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
-                                <div class="error form_error form-error-role"></div>
+                                <label>Role</label>
+                                <div class="error form_error" id="form-error-role"></div>
                                 <select name="role">
                                     <option value="">Select Role</option>
                                     <option @selected($result->role == 'Distributor')>Distributor</option>

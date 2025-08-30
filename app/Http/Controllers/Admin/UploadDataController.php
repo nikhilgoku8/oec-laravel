@@ -133,7 +133,7 @@ class UploadDataController extends Controller
             foreach ($data as $index => $row) {
                 if ($index === 0) continue; // Skip header row
 
-                [$productName, $description, $categoryName, $subCategoryName, $images, $attributeName1, $attributeValue1, $attributeVisibility1, $attributeName2, $attributeValue2, $attributeVisibility2, $attributeName3, $attributeValue3, $attributeVisibility3, $attributeName4, $attributeValue4, $attributeVisibility4, $attributeName5, $attributeValue5, $attributeVisibility5, $attributeName6, $attributeValue6, $attributeVisibility6, $attributeName7, $attributeValue7, $attributeVisibility7, $attributeName8, $attributeValue8, $attributeVisibility8, $attributeName9, $attributeValue9, $attributeVisibility9, $generalSpecification, $productSpecification, $certificationsAndCompliance, $dimensions, $electricalRating, $temperatureRating, $conductorRelated, $features, $catalogue] = array_map('trim', $row);
+                [$productName, $description, $categoryName, $subCategoryName, $features, $images, $generalSpecification, $productSpecification, $certificationsAndCompliance, $dimensions, $temperatureRating, $conductorRelated, $electricalRating, $salesDrawing, $catalogue, $attributeName1, $attributeValue1, $attributeName2, $attributeValue2, $attributeName3, $attributeValue3, $attributeName4, $attributeValue4, $attributeName5, $attributeValue5, $attributeName6, $attributeValue6, $attributeName7, $attributeValue7, $attributeName8, $attributeValue8] = array_map('trim', $row);
 
                 if (!$productName || !$categoryName || !$subCategoryName) {
                     continue; // Skip invalid rows
@@ -166,7 +166,9 @@ class UploadDataController extends Controller
                         'title' => $productName,
                         'slug' => $productSlug,
                         'description' => $description,
-                        'features' => $features
+                        'features' => $features,
+                        'sales_drawing' => $salesDrawing ?? null,
+                        'catalogue' => $catalogue ?? null
                     ]);
                 }else{
                     // Duplicate products and skip that row to not create confusion
@@ -193,7 +195,7 @@ class UploadDataController extends Controller
                 }
 
                 // $filterTypes = [];
-                $maxIndex = 9; // Adjust to expected max fields
+                $maxIndex = 8; // Adjust to expected max fields
 
                 for ($i = 1; $i <= $maxIndex; $i++) {
                     $nameVar = 'attributeName' . $i;
@@ -378,7 +380,7 @@ class UploadDataController extends Controller
                 unlink($filePath);
             }
 
-            $duplicateMessage =  $duplicateProducts ? count($duplicateProducts) . ' Duplicate Products - ' . implode(",",$duplicateProducts) : '';
+            $duplicateMessage =  $duplicateProducts ? count($duplicateProducts) . ' Duplicate Products - ' . implode(", ",$duplicateProducts) : '';
 
             $response = array(
                 'success' => true,
@@ -386,7 +388,7 @@ class UploadDataController extends Controller
                 'class' => 'alert alert-success'
             );
             // Session::flash('success','Data imported successfully!');
-            session()->flash('success', 'Data imported successfully!' . $duplicateMessage);
+            session()->flash('success', 'Data imported successfully! ' . $duplicateMessage);
 
             return response()->json($response);
 
