@@ -305,11 +305,13 @@ class UserController extends Controller
             $rules = [
                 'email'=>'required|email',
                 'otp'=>'required|numeric|digits:6',
-                'password'=> 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+                'password'=> 'bail|required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
                 'confirm_password'=> 'required|same:password'
             ];
 
-            $messages = [];
+            $messages = [
+               'password.regex' => 'Must include uppercase, lowercase, number and special character.'
+            ];
 
             $attributes = [
                 'email'=>'Email',
@@ -665,7 +667,7 @@ class UserController extends Controller
                 'orderProducts' => $order->OrderProducts,
             ];
 
-            Mail::to('info@oec-americas.com')->send(new ProductEnquiryMail($mailData));
+            Mail::to('estore@oec-americas.com')->send(new ProductEnquiryMail($mailData));
 
             $response = array(
                 'success' => true,

@@ -917,6 +917,7 @@ class HomeController extends Controller
 
         $this->addRecentlyViewed($this->data['product']->id);
 
+        // return view('pdf.product-specification', $this->data);
         return view('electrical.products.detail', $this->data);
     }
     

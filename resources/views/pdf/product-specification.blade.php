@@ -37,7 +37,7 @@ table{
     width: 100%;
 }
 th,td{
-    padding: 0.5mm;
+    padding: 0.2mm;
 }
 ul li{
     list-style: disc;
@@ -80,8 +80,14 @@ ul li{
 <div class="specification_page">
     <div class="inner_box">
 
-        <div class="sub_category_title" style="text-align:right;font-size: 22px;font-weight: 700;color: #000;">{{ $product->subCategory->title }}</div>
-        <table class="product_info_wrapper" style="width:100%; border-collapse: collapse;padding: 0 0 5mm;">
+        <table cellpadding="0" cellspacing="0" style="margin:0;padding:0 0 10px 0;">
+            <tr>
+                <td><img src="{{ asset('electrical-assets/images/oec-logo.png') }}" width="120mm"></td>
+                <td style="text-align:right;font-size: 22px;font-weight: 700;color: #000;">{{ $product->subCategory->title }}</td>
+            </tr>
+        </table>
+        <!-- <div class="sub_category_title" style="text-align:right;font-size: 22px;font-weight: 700;color: #000;">{{ $product->subCategory->title }}</div> -->
+        <table class="product_info_wrapper" cellpadding="0" cellspacing="0" style="width:100%; border-collapse: collapse;padding: 0 0 5mm;">
             <tbody>
                 <tr>
                     <td class="left_info" style="width: 50%;">
@@ -119,7 +125,7 @@ ul li{
         @php
             $tabsCount = count($product->productTabContents);
         @endphp
-        <table width="100%" class="tabs_wrapper">
+        <table cellpadding="0" cellspacing="0" width="100%" class="tabs_wrapper">
             <tr>
                 <td width="50%" valign="top">
                     @for($i=0; $i<$tabsCount; $i+=2)
@@ -144,7 +150,7 @@ ul li{
         <div class="footer">
             <div class="copyright_text" style="font-size:12px;padding: 20px 0 10px 0;margin: auto 0 0 0;text-align: right;">© 2025 OEC USA Inc. All proprietary rights are hereby reserved OEC-21000-SPEC-EN </div>
 
-            <table class="red_box" style="background: #ff0016;align-items: center;padding: 10px;width: 100%;">
+            <table cellpadding="0" cellspacing="0" class="red_box" style="background: #ff0016;align-items: center;padding: 10px;width: 100%;">
                 <tbody>
                     <tr>
                         <td style="color:#fff;width: 33.33%;">OEC USA Inc.</td>

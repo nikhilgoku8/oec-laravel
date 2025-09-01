@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="submit_box">
-                        <div class="error form_error all_errors"></div>
+                        <!-- <div class="error form_error all_errors"></div> -->
                         <button type="submit" class="red_filled_btn full_width square">Sign In</button>
                     </div>
                 </div>
