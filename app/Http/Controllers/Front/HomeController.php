@@ -1014,7 +1014,9 @@ class HomeController extends Controller
 
             $fileName = null;
             if($request->hasFile('resume')){
-                $destination = public_path('uploads/resumes');
+                // $destination = public_path('uploads/resumes');
+                $uploadRoot = base_path(env('UPLOAD_ROOT'));
+                $destination = $uploadRoot . '/resumes';
 
                 if (!file_exists($destination)) {
                     mkdir($destination, 0755, true); // recursive = true to create nested folders
@@ -1096,7 +1098,9 @@ class HomeController extends Controller
 
             $fileName = null;
             if($request->hasFile('document')){
-                $destination = public_path('uploads/reach-us-documents');
+                // $destination = public_path('uploads/reach-us-documents');
+                $uploadRoot = base_path(env('UPLOAD_ROOT'));
+                $destination = $uploadRoot . '/reach-us-documents';
 
                 if (!file_exists($destination)) {
                     mkdir($destination, 0755, true); // recursive = true to create nested folders

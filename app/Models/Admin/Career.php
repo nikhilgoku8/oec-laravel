@@ -23,7 +23,9 @@ class Career extends Model
     protected static function booted()
     {
         static::deleting(function ($career) {
-            $folderPath = public_path('uploads/resumes');
+            // $folderPath = public_path('uploads/resumes');
+            $uploadRoot = base_path(env('UPLOAD_ROOT'));
+            $folderPath = $uploadRoot . '/resumes';
             if ($career->resume && file_exists($folderPath.'/'.$career->resume)) {
                 @unlink($folderPath.'/'.$career->resume);
             }

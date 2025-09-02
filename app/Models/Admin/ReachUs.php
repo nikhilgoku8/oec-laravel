@@ -29,7 +29,9 @@ class ReachUs extends Model
     protected static function booted()
     {
         static::deleting(function ($reachUs) {
-            $folderPath = public_path('uploads/reach-us-documents');
+            // $folderPath = public_path('uploads/reach-us-documents');
+            $uploadRoot = base_path(env('UPLOAD_ROOT'));
+            $folderPath = $uploadRoot . '/reach-us-documents';
             if ($reachUs->document && file_exists($folderPath.'/'.$reachUs->document)) {
                 @unlink($folderPath.'/'.$reachUs->document);
             }

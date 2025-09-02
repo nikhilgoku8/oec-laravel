@@ -77,7 +77,9 @@ class BannerController extends Controller
 
                 $file = $request->file('image_file');
                 $fileName = 'banner_'.time().'.'.$file->getClientOriginalExtension();
-                $folderPath = public_path('uploads/banners');
+                // $folderPath = public_path('uploads/banners');
+                $uploadRoot = base_path(env('UPLOAD_ROOT'));
+                $folderPath = $uploadRoot . '/banners';
 
                 // Make sure the folder exists
                 if (!file_exists($folderPath)) {

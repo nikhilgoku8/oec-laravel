@@ -130,7 +130,7 @@
                                     'subCategory' => $product->subCategory->slug,
                                     'product' => $product->slug
                                 ]) }}" class="img_box">
-                                <img src="{{ $product->productImages?->first()->image_file }}">
+                                <img src="{{ $product->productImages?->first()->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
                             </a>
                             <div class="text_box">
                                 <a href="{{ route('product', [

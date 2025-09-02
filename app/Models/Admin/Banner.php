@@ -18,7 +18,9 @@ class Banner extends Model
     protected static function booted()
     {
         static::deleting(function ($banner) {
-            $folderPath = public_path('uploads/banners');
+            // $folderPath = public_path('uploads/banners');
+            $uploadRoot = base_path(env('UPLOAD_ROOT'));
+            $folderPath = $uploadRoot . '/banners';
             if ($banner->image_file && file_exists($folderPath.'/'.$banner->image_file)) {
                 @unlink($folderPath.'/'.$banner->image_file);
             }
