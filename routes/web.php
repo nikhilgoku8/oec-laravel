@@ -176,6 +176,9 @@ Route::prefix('owm')->group(function () {
         Route::resource('banners', BannerController::class);
         Route::post('banners/bulk-delete', [BannerController::class, 'bulkDelete'])->name('banners.bulk-delete');
 
+        Route::resource('competitors', CompetitorController::class);
+        Route::post('competitors/bulk-delete', [CompetitorController::class, 'bulkDelete'])->name('competitors.bulk-delete');
+
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');
 
