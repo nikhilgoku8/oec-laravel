@@ -13,6 +13,7 @@ use Mail;
 use Carbon\Carbon;
 use App\Mail\PasswordResetOtpMail;
 use App\Mail\SignupMail;
+use App\Mail\SignupAdminNotifyMail;
 use App\Mail\ProductEnquiryMail;
 use Illuminate\Support\Facades\Hash;
 
@@ -165,11 +166,22 @@ class UserController extends Controller
                 'updated_by' => $request->fname.' '.$request->lname
             );
 
-            User::create($data);
+            $user = User::create($data);
 
             $userName = $request->fname.' '.$request->lname;
 
             Mail::to($request->email)->send(new SignupMail($userName));
+
+            $mailData = [
+                'userName' => $user->fname.' '.$user->lname,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'created_at' => $user->created_at,
+            ];
+
+            // Mail::to('estore@oec-americas.com')->send(new ProductEnquiryMail($mailData));
+
+            Mail::to('estore@oec-americas.com')->send(new SignupAdminNotifyMail($mailData));
 
             $response = array(
                 'success' => true,
