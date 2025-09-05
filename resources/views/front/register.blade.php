@@ -11,53 +11,41 @@
                 <div class="col-sm-12">
                     <div class="title red center">Register</div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-fname"></div>
-                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="fname" placeholder="First Name*">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-lname"></div>
-                        <input type="text" name="lname" placeholder="Last Name">
+                        <input type="text" name="lname" placeholder="Last Name*">
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-company_name"></div>
-                        <input type="text" name="company_name" placeholder="Company Name">
+                        <input type="text" name="company_name" placeholder="Company Name*">
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-phone"></div>
                         <input type="text" name="phone" placeholder="Phone / Mobile">
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-email"></div>
-                        <input type="text" name="email" placeholder="Email">
+                        <input type="text" name="email" placeholder="Email*">
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="input_box">
-                        <div class="error form_error form-error-otp"></div>
-                        <input type="text" name="otp" placeholder="OTP">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="input_box">
-                        <div class="error form_error form-error-request_otp"></div>
-                        <button type="button" class="red_hollow_btn full_width square request_otp">Request OTP</button>
-                    </div>
-                </div>
-                <div class="col-sm-12">
+                <div class="col-sm-4">
                     <div class="input_box">
                         <div class="error form_error form-error-role"></div>
                         <select name="role">
-                            <option value="">Select Role</option>
+                            <option value="">Select Role*</option>
                             <option>Distributor</option>
                             <option>Contractor</option>
                             <option>Sales Representative</option>
@@ -65,12 +53,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="input_box">
                         <div class="error form_error form-error-password"></div>
                         <!-- <input type="password" name="password" placeholder="Password"> -->
                         <div class="password_wrapper">
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password*">
                             <button type="button" class="eye">
                                 <span class="eye_open">
                                     <i class="far fa-eye"></i>
@@ -82,12 +70,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <div class="input_box">
                         <div class="error form_error form-error-confirm_password"></div>
                         <!-- <input type="password" name="confirm_password" placeholder="Confirm Password"> -->
                         <div class="password_wrapper">
-                            <input type="password" name="confirm_password" placeholder="Confirm Password">
+                            <input type="password" name="confirm_password" placeholder="Confirm Password*">
                             <button type="button" class="eye">
                                 <span class="eye_open">
                                     <i class="far fa-eye"></i>
@@ -97,6 +85,18 @@
                                 </span>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="input_box">
+                        <div class="error form_error form-error-request_otp"></div>
+                        <button type="button" class="red_hollow_btn full_width square request_otp">Request Email OTP</button>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="input_box">
+                        <div class="error form_error form-error-otp"></div>
+                        <input type="text" name="otp" placeholder="OTP">
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -108,7 +108,7 @@
                 <div class="col-sm-12">
                     <div class="submit_box">
                         <div class="error form_error all_errors"></div>
-                        <button type="submit" class="red_filled_btn full_width square">Sign In</button>
+                        <button type="submit" class="red_filled_btn full_width square" disabled>Sign In</button>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -128,6 +128,19 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+    // Trigger search after 3 letters
+    $('[name=otp]').on('keyup', function() {
+        let query = $(this).val().trim();
+        $submit_btn = $('button[type=submit]');
+
+        if (query.length == 6) {
+            $submit_btn.prop('disabled',false);
+        } else {
+            $submit_btn.prop('disabled',true);
+        }
+        
+    });
 
     $(".request_otp").on('click',(function(e){
 

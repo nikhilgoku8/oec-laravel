@@ -58,7 +58,7 @@
                                 <label>Product</label>
                                 <div class="error form_error" id="form-error-product_id"></div>
                                 <select name="product_id">
-                                    <option>Select Product</option>
+                                    <option value="">Select Product</option>
                                     @foreach($products as $product)
                                     <option value="{{$product->id}}">{{$product->title}}</option>
                                     @endforeach

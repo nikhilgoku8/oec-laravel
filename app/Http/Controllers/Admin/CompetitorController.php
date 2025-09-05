@@ -58,7 +58,7 @@ class CompetitorController extends Controller
 
             $rules = [
                 'title' => 'required|string|max:255|unique:competitors,title,'.$dataID,
-                'product_id' => 'required|exists:products',
+                'product_id' => 'required|exists:products,id',
             ];
 
             $messages = [];

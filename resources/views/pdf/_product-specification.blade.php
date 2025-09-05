@@ -122,57 +122,26 @@ ul li{
         </table>
 
         @if(!empty($product->productTabContents) && count($product->productTabContents) > 0)
+        @php
+            $tabsCount = count($product->productTabContents);
+        @endphp
         <table cellpadding="0" cellspacing="0" width="100%" class="tabs_wrapper">
             <tr>
                 <td width="50%" valign="top">
-                    @foreach($product->productTabContents as $tabContent)
-                        @if($tabContent->productTabLabel->title == 'General Specification')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Product Specification')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Electrical Rating')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                    @endforeach
+                    @for($i=0; $i<$tabsCount; $i+=2)
+                        <div style="page-break-inside: avoid;padding: 0 0 15px;">
+                            <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $product->productTabContents[$i]?->productTabLabel->title }}</strong>
+                            {!! $product->productTabContents[$i]?->content !!}
+                        </div>
+                    @endfor
                 </td>
                 <td width="50%" valign="top">
-                    @foreach($product->productTabContents as $tabContent)
-                        @if($tabContent->productTabLabel->title == 'Certifications And Compliance')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Dimensions')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Conductor Related')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Temperature Rating')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                    @endforeach
+                    @for($i=1; $i<$tabsCount; $i+=2)
+                        <div style="page-break-inside: avoid;padding: 0 0 15px;">
+                            <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $product->productTabContents[$i]?->productTabLabel->title }}</strong>
+                            {!! $product->productTabContents[$i]?->content !!}
+                        </div>
+                    @endfor
                 </td>
             </tr>
         </table>

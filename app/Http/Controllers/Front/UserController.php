@@ -272,7 +272,9 @@ class UserController extends Controller
 
                     $user->increment('login_attempts');
 
-                    $validator->getMessageBag()->add('password', 5 - $user->login_attempts . ' - Attempts Left');
+                    $login_attempts_left = 5 - $user->login_attempts;
+
+                    $validator->getMessageBag()->add('password', 'Incorrect Password &rarr; ' . $login_attempts_left . ' Attempts Left');
 
                     if ($user->login_attempts >= 5) {
                         $user->is_locked = true;

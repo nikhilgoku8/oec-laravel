@@ -54,19 +54,17 @@
                     <table>
                         <tbody>
                             <tr>
-                                <th>Category</th>
-                                <th>Sort Order</th>
-                                <th>Created By</th>
-                                <th>Updated By</th>
+                                <th>Title</th>
+                                <th>Product</th>
+                                <th>Updated At</th>
                                 <th class="action">ACTION</th>
                             </tr>
                             @if(!empty($result))
                                 @foreach ($result as $row)
                                     <tr>
                                         <td>{{ $row->title }}</td>
-                                        <td>{{ $row->sort_order }}</td>
-                                        <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
-                                        <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
+                                        <td>{{ $row->product->title }}</td>
+                                        <td>{{ $row->updated_at }}</td>
                                         <td class="action">
                                             <a href="{{ route('competitors.edit', $row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <span class="checkbox">

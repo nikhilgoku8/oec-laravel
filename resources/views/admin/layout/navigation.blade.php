@@ -148,6 +148,13 @@
                                 </ul>
                             </li>
                             <li>
+                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Competitors<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="{{ route('competitors.index') }}">All</a></li>
+                                    <li><a href="{{ route('competitors.create') }}">Add New</a></li>
+                                </ul>
+                            </li>
+                            <li>
                                 <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Orders<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li><a href="{{ route('orders.index') }}">All</a></li>
