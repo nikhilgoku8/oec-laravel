@@ -1159,7 +1159,7 @@ class HomeController extends Controller
     
     public function downloadPdf($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('productTabContents','productTabContents.productTabLabel')->findOrFail($id);
 
         $pdf = Pdf::loadView('pdf.product-specification', compact('product'))
             ->setPaper('a4', 'portrait')

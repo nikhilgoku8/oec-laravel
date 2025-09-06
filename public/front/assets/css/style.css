@@ -1104,7 +1104,7 @@ input[type="file"]::file-selector-button:hover {
 	max-width: 90%;
 }
 .register_page.single_form_page .overlay_box .form_wrapper{
-	width: 650px;
+	width: 750px;
 }
 .single_form_page .overlay_box .form_wrapper .input_box input{
 	border: 1px solid #cccccc;

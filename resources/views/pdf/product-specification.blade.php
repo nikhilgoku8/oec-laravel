@@ -147,28 +147,24 @@ ul li{
                     @endforeach
                 </td>
                 <td width="50%" valign="top">
-                    @foreach($product->productTabContents as $tabContent)
-                        @if($tabContent->productTabLabel->title == 'Certifications And Compliance')
+                    @php
+                        $order = [
+                            'Dimensions',
+                            'Temperature Rating',
+                            'Conductor Related',
+                            'Certifications And Compliance'
+                        ];
+
+                        $sortedTabs = $product->productTabContents->sortBy(function($tabContent) use ($order) {
+                            return array_search($tabContent->productTabLabel->title, $order);
+                        });
+                    @endphp
+                    @foreach($sortedTabs as $tabContent)
+                        @if(in_array($tabContent->productTabLabel->title, $order))
                             <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Dimensions')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Conductor Related')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
-                                {!! $tabContent->content !!}
-                            </div>
-                        @endif
-                        @if($tabContent->productTabLabel->title == 'Temperature Rating')
-                            <div style="page-break-inside: avoid;padding: 0 0 15px;">
-                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">{{ $tabContent->productTabLabel->title }}</strong>
+                                <strong style="font-size: 14px;font-weight: 700;color: #000;padding:0 0 0 1mm;">
+                                    {{ $tabContent->productTabLabel->title }}
+                                </strong>
                                 {!! $tabContent->content !!}
                             </div>
                         @endif
