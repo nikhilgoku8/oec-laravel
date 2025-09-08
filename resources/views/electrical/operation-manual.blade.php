@@ -16,51 +16,51 @@
             <div class="pdf_boxes">
 
                 <div class="pdf_box">
-                    <a href="https://oec-americas.com/products/2025/05/aluminium.png" class="img_box image_veno">
-                        <img src="https://oec-americas.com/products/2025/05/aluminium.png">
+                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.png') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.png') }}">
                     </a>
                     <div class="pdf_title">Aluminum Compression Connectors</div>
-                    <a href="https://oec-americas.com/products/2025/05/Crimping-Information-for-Aluminum-Compression-Connectors.pdf" class="red_filled_btn" target="_blank">
+                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="https://oec-americas.com/products/2025/05/copper.png" class="img_box image_veno">
-                        <img src="https://oec-americas.com/products/2025/05/copper.png">
+                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.png') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.png') }}">
                     </a>
                     <div class="pdf_title">Copper Compression Connectors</div>
-                    <a href="https://oec-americas.com/products/2025/05/Crimping-Information-for-Copper-Compression-Connectors.pdf" class="red_filled_btn" target="_blank">
+                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="https://oec-americas.com/products/2025/05/ITC-INS.png" class="img_box image_veno">
-                        <img src="https://oec-americas.com/products/2025/05/ITC-INS.png">
+                    <a href="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.png') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.png') }}">
                     </a>
                     <div class="pdf_title">Insulated Connector Installation</div>
-                    <a href="https://oec-americas.com/products/2025/05/ITC-Installation-Instruction-Sheet-new-red.pdf" class="red_filled_btn" target="_blank">
+                    <a href="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.pdf') }}" class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="https://oec-americas.com/products/2025/05/cord-grip-1.png" class="img_box image_veno">
-                        <img src="https://oec-americas.com/products/2025/05/cord-grip-1.png">
+                    <a href="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.png') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.png') }}">
                     </a>
                     <div class="pdf_title">Cord Grip Connector Installation</div>
-                    <a href="https://oec-americas.com/products/2025/05/cord-grip-instruction-installation-sheet-with-5mm-guide-line-final.pdf" class="red_filled_btn" target="_blank">
+                    <a href="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.pdf') }}" class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="https://oec-americas.com/products/2025/05/junction-box.png" class="img_box image_veno">
-                        <img src="https://oec-americas.com/products/2025/05/junction-box.png">
+                    <a href="{{ asset('electrical-assets/operation-manual/junction-box-installation.png') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/junction-box-installation.png') }}">
                     </a>
                     <div class="pdf_title">Junction Box Installation</div>
-                    <a href="https://oec-americas.com/products/2025/05/Junction-Box-Instruction-sheet-A5-OEC-FINAL.pdf" class="red_filled_btn" target="_blank">
+                    <a href="{{ asset('electrical-assets/operation-manual/junction-box-installation.pdf') }}" class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
