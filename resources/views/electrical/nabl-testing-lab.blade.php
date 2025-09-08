@@ -11,7 +11,7 @@
             <div class="heading">Testing Lab For Your Electrical Safety</div>
 
             <div class="img_box center">
-                <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/2.5X3.5-150x173.png">
+                <img src="https://oec-americas.com/products/2025/02/2.5X3.5-150x173.png">
             </div>
 
             <div class="text_box center">

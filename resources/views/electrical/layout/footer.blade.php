@@ -1,6 +1,6 @@
 
 <footer>
-    <div class="upper_sec">
+    <!-- <div class="upper_sec">
         <div class="container">
             <div class="inner_container">
 
@@ -19,7 +19,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- <div class="middle_sec">
         <div class="container">
             <div class="inner_container">
@@ -71,7 +71,7 @@
                         <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
                         <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>
                         <li><a href="{{ route('brochure') }}">Brochure</a></li>
-                        <li><a href="https://oec-americas.com/electrical/wp-content/uploads/2025/05/oec-tc.pdf">Terms & Conditions</a></li>
+                        <li><a href="https://oec-americas.com/products/2025/05/oec-tc.pdf">Terms & Conditions</a></li>
                     </ul>
                 </div>
                 <div class="info_box">
@@ -109,7 +109,7 @@
         </div>
     </div>
     <div class="lower_sec">
-        <p>&copy; {{ date('Y') }}  OEC AMERICA . All Rights Reserved.</p>
+        <p>&copy; {{ date('Y') }} OEC-AMERICAS . All Rights Reserved.</p>
     </div>
 </footer>
 

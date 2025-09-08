@@ -16,21 +16,21 @@
 
             <div class="brochure_wrapper">
                 <div class="brochure_box">
-                    <a class="img_box" href="https://oec-americas.com/electrical/wp-content/uploads/2025/06/electrical-b.pdf" target="_blank">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/01/banner.png">
+                    <a class="img_box" href="https://oec-americas.com/products/2025/06/electrical-b.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/2025/01/banner.png">
                     </a>
                     <div class="brochure_title">OEC Products Brochure</div>
-                    <a class="red_filled_btn" href="https://oec-americas.com/electrical/wp-content/uploads/2025/06/electrical-b.pdf" target="_blank">
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/2025/06/electrical-b.pdf" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="brochure_box">
-                    <a class="img_box" href="https://oec-americas.com/electrical/wp-content/uploads/2025/06/shear-b_compressed.pdf" target="_blank">
-                        <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/06/cable-gland.png">
+                    <a class="img_box" href="https://oec-americas.com/products/2025/06/shear-b_compressed.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/2025/06/cable-gland.png">
                     </a>
                     <div class="brochure_title">Shear Bolts Brochure</div>
-                    <a class="red_filled_btn" href="https://oec-americas.com/electrical/wp-content/uploads/2025/06/shear-b_compressed.pdf" target="_blank">
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/2025/06/shear-b_compressed.pdf" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>

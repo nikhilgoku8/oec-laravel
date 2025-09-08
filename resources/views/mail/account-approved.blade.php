@@ -106,7 +106,7 @@
                     <tr>
                       <td style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; font-size:12px; line-height:1.6; color:#64748b;">
                         <p style="margin:0 0 8px;">You are receiving this because you registered on <a href="https://oec-americas.com" style="color:#2563eb;">OEC Americas</a>.</p>
-                        <p style="margin:0;">OEC USA INC • 1207 Delaware Ave, Wilmington, DE 19806</p>
+                        <p style="margin:0;">OEC USA INC • 135 Fieldcrest Avenue Edison, New Jersey 08837</p>
                       </td>
                     </tr>
                   </table>

@@ -216,7 +216,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="https://oec-americas.com/electrical/wp-content/uploads/2025/05/oec-tc.pdf">Terms & Conditions</a>
+                                <a href="https://oec-americas.com/products/2025/05/oec-tc.pdf">Terms & Conditions</a>
                             </li>
                         </ul>
                     </li>

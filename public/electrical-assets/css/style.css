@@ -2491,6 +2491,7 @@ footer .second_last_sec .inner_container .info_box .developed_by{
     align-items: center;
     margin: auto 0 0 0;
     padding: 15px 0 0 0;
+    opacity: 0;
 }
 
 /*thank_you_page*/

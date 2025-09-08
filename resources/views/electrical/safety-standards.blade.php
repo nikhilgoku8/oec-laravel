@@ -18,7 +18,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/Logo_CSA_mark.svg-100x100.png">
+                            <img src="https://oec-americas.com/products/2025/02/Logo_CSA_mark.svg-100x100.png">
                         </div>
                         <div class="title">CSA Group (Canadian Standards Association)</div>
                         <div class="text">
@@ -29,7 +29,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/ul-certified-logo-Photoroom-e1738393074698-100x100.png">
+                            <img src="https://oec-americas.com/products/2025/02/ul-certified-logo-Photoroom-e1738393074698-100x100.png">
                         </div>
                         <div class="title">UL LLC (Underwriters Laboratories)</div>
                         <div class="text">
@@ -40,7 +40,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/NEMA_logo-01-e1738392728778-150x39.png">
+                            <img src="https://oec-americas.com/products/2025/02/NEMA_logo-01-e1738392728778-150x39.png">
                         </div>
                         <div class="title">National Electrical Manufacturers Association</div>
                         <div class="text">
@@ -51,7 +51,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/IEC-e1738399810729.png">
+                            <img src="https://oec-americas.com/products/2025/02/IEC-e1738399810729.png">
                         </div>
                         <div class="title">International Electrotechnical Commission</div>
                         <div class="text">
@@ -62,7 +62,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/NEC_Logo_Black-150x40.png">
+                            <img src="https://oec-americas.com/products/2025/02/NEC_Logo_Black-150x40.png">
                         </div>
                         <div class="title">National Electrical Code</div>
                         <div class="text">
@@ -73,7 +73,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/ieee-icon-2048x598-oim6pnzy-150x44.png">
+                            <img src="https://oec-americas.com/products/2025/02/ieee-icon-2048x598-oim6pnzy-150x44.png">
                         </div>
                         <div class="title">Institute of Electrical and Electronics Engineers</div>
                         <div class="text">
@@ -84,7 +84,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/Light-Grey-And-Mineral-Green-Minimalist-Home-Decor-Instagram-Post-1-1-Photoroom-e1738392805641-150x61.png">
+                            <img src="https://oec-americas.com/products/2025/02/Light-Grey-And-Mineral-Green-Minimalist-Home-Decor-Instagram-Post-1-1-Photoroom-e1738392805641-150x61.png">
                         </div>
                         <div class="title">Ingress Protection (IP)</div>
                         <div class="text">
@@ -95,7 +95,7 @@
                 <div class="info_box">
                     <div class="inner_box">
                         <div class="img_box">
-                            <img src="https://oec-americas.com/electrical/wp-content/uploads/2025/02/ru-e1738400655226.png">
+                            <img src="https://oec-americas.com/products/2025/02/ru-e1738400655226.png">
                         </div>
                         <div class="title">Rack Unit</div>
                         <div class="text">
