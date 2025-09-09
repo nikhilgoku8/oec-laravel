@@ -20,6 +20,9 @@ use Laravel\Scout\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
 
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ProductController extends Controller
 {
 
@@ -723,5 +726,10 @@ class ProductController extends Controller
             }
 
         return response()->json(['success' => true, 'message' => 'Featured Set']);
+    }
+
+    public function export(Request $request) 
+    {
+        return Excel::download(new ProductsExport($request), 'products.xlsx');
     }
 }
