@@ -46,11 +46,18 @@
                 <div class="inner_boxes">
 
                     <div class="input_boxes">
-                        <div class="col-sm-12">
+                        <div class="col-sm-10">
                             <div class="input_box">
                                 <label>Title</label>
                                 <div class="error form_error" id="form-error-title"></div>
                                 <input type="text" name="title" placeholder="Title">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="input_box">
+                                <label>Sort Order</label>
+                                <div class="error form_error form-error-sort_order"></div>
+                                <input type="number" name="sort_order" placeholder="Sort Order">
                             </div>
                         </div>
                         <div class="clr"></div>

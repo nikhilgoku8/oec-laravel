@@ -98,12 +98,14 @@
                     <div class="product_info">
                         <div class="heading left">{{ $product->title }}</div>
                         <div class="description">{!! $product->description !!}</div>
+                        @if(!empty($product->features))
                         <div class="features">
                             <div class="sub_title">Features</div>
                             <div class="features_list_wrapper">
                                 {!! $product->features !!}
                             </div>
                         </div>
+                        @endif
                         <div class="add_to_cart_inputs">
                             <div class="number_input">
                                 <button onclick="this.parentNode.querySelector('input').stepDown()">-</button>
@@ -293,7 +295,7 @@ $(document).on('click','.download_pdf', function(){
         success: function(blob) {
             const link = document.createElement("a");
             link.href = window.URL.createObjectURL(blob);
-            link.download = "product-{{ $product->slug }}.pdf";
+            link.download = "OEC_{{ $product->slug }}.pdf";
             link.click();
 
             download_pdf.removeClass("spinners").attr("disabled", false);

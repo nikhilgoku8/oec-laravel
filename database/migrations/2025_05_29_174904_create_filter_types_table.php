@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('filter_types', function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
+            $table->integer('sort_order')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();

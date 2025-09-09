@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title')->index();
             $table->string('slug')->index();
             $table->text('description');
-            $table->text('features');
+            $table->text('features')->nullable();
             $table->text('sales_drawing')->nullable();
             $table->text('catalogue')->nullable();
             $table->boolean('featured')->default(0);

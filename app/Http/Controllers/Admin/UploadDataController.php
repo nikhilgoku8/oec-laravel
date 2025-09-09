@@ -121,9 +121,10 @@ class UploadDataController extends Controller
             $subCategories = [];
             $products = [];
             $duplicateProducts = [];
-
+            $productImagesBulk = [];
             $productTabLabels = [];
             $productTabValues = [];
+            $tabValuesDeletion = [];
             $filterTypes = [];
             $filterValues = [];
             $filterValuesBulk = [];
@@ -159,9 +160,8 @@ class UploadDataController extends Controller
 
                 // Cache Products IDs
                 $products[$productName] = $products[$productName] ?? DB::table('products')->where('title', $productName)->value('id');
-                if (!$products[$productName]) {
-                    $productSlug = $this->string_filter($productName);
-                    $products[$productName] = DB::table('products')->insertGetId([
+                $productSlug = $this->string_filter($productName);
+                $productData = [
                         'sub_category_id' => $subCategories[$subCategoryName],
                         'title' => $productName,
                         'slug' => $productSlug,
@@ -169,12 +169,18 @@ class UploadDataController extends Controller
                         'features' => $features,
                         'sales_drawing' => $salesDrawing ?? null,
                         'catalogue' => $catalogue ?? null
-                    ]);
+                    ];
+                if (!$products[$productName]) {
+                    $products[$productName] = DB::table('products')->insertGetId($productData);
                 }else{
-                    // Duplicate products and skip that row to not create confusion
-                    $duplicateProducts[] = $productName;
-                    continue;
+                    // // Duplicate products and skip that row to not create confusion
+                    // $duplicateProducts[] = $productName;
+                    // continue;
+                    DB::table('products')->where('id', $products[$productName])->update($productData);
                 }
+
+                // Remove existing images if replacing
+                DB::table('product_images')->where('product_id', $products[$productName])->delete();
 
                 // Add Images
                 $imagesArray = array_filter(array_map('trim', explode(",", $images)));
@@ -193,6 +199,9 @@ class UploadDataController extends Controller
                     DB::table('product_images')->insert($productImagesBulk);
                     $productImagesBulk = []; // Reset array
                 }
+
+                // Remove old filters for this product (once per product)
+                DB::table('filter_value_product')->where('product_id', $products[$productName])->delete();
 
                 // $filterTypes = [];
                 $maxIndex = 8; // Adjust to expected max fields
@@ -247,113 +256,140 @@ class UploadDataController extends Controller
                 }
 
                 // Add generalSpecification Tabs
-                if ($generalSpecification) {
-                    $productTabLabels['generalSpecification'] = $productTabLabels['generalSpecification']
-                        ?? DB::table('product_tab_labels')->where('title', 'General Specification')->value('id');
-                    if (!$productTabLabels['generalSpecification']) {
-                        $productTabLabels['generalSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'General Specification']);
-                    }
+                $productTabLabels['generalSpecification'] = $productTabLabels['generalSpecification']
+                    ?? DB::table('product_tab_labels')->where('title', 'General Specification')->value('id');
+                if (!$productTabLabels['generalSpecification']) {
+                    $productTabLabels['generalSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'General Specification']);
+                }
 
+                if ($generalSpecification) {
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['generalSpecification'],
                         'product_id' => $products[$productName],
                         'content' => $generalSpecification
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['generalSpecification'], $products[$productName]];
                 }
 
                 // Add productSpecification Tabs
-                if ($productSpecification) {
-                    $productTabLabels['productSpecification'] = $productTabLabels['productSpecification']
-                        ?? DB::table('product_tab_labels')->where('title', 'Product Specification')->value('id');
-                    if (!$productTabLabels['productSpecification']) {
-                        $productTabLabels['productSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Product Specification']);
-                    }
+                $productTabLabels['productSpecification'] = $productTabLabels['productSpecification']
+                    ?? DB::table('product_tab_labels')->where('title', 'Product Specification')->value('id');
+                if (!$productTabLabels['productSpecification']) {
+                    $productTabLabels['productSpecification'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Product Specification']);
+                }
 
+                if ($productSpecification) {
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['productSpecification'],
                         'product_id' => $products[$productName],
                         'content' => $productSpecification
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['productSpecification'], $products[$productName]];
                 }
 
                 // Add certificationsAndCompliance Tabs
-                if ($certificationsAndCompliance) {
-                    $productTabLabels['certificationsAndCompliance'] = $productTabLabels['certificationsAndCompliance']
-                        ?? DB::table('product_tab_labels')->where('title', 'Certifications And Compliance')->value('id');
-                    if (!$productTabLabels['certificationsAndCompliance']) {
-                        $productTabLabels['certificationsAndCompliance'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Certifications And Compliance']);
-                    }
+                $productTabLabels['certificationsAndCompliance'] = $productTabLabels['certificationsAndCompliance']
+                    ?? DB::table('product_tab_labels')->where('title', 'Certifications And Compliance')->value('id');
+                if (!$productTabLabels['certificationsAndCompliance']) {
+                    $productTabLabels['certificationsAndCompliance'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Certifications And Compliance']);
+                }
 
+                if ($certificationsAndCompliance) {
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['certificationsAndCompliance'],
                         'product_id' => $products[$productName],
                         'content' => $certificationsAndCompliance
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['certificationsAndCompliance'], $products[$productName]];
                 }
 
                 // Add dimensions Tabs
+                $productTabLabels['dimensions'] = $productTabLabels['dimensions']
+                    ?? DB::table('product_tab_labels')->where('title', 'Dimensions')->value('id');
+                if (!$productTabLabels['dimensions']) {
+                    $productTabLabels['dimensions'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Dimensions']);
+                }
                 if ($dimensions) {
-                    $productTabLabels['dimensions'] = $productTabLabels['dimensions']
-                        ?? DB::table('product_tab_labels')->where('title', 'Dimensions')->value('id');
-                    if (!$productTabLabels['dimensions']) {
-                        $productTabLabels['dimensions'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Dimensions']);
-                    }
-
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['dimensions'],
                         'product_id' => $products[$productName],
                         'content' => $dimensions
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['dimensions'], $products[$productName]];
                 }
 
                 // Add electricalRating Tabs
+                $productTabLabels['electricalRating'] = $productTabLabels['electricalRating']
+                    ?? DB::table('product_tab_labels')->where('title', 'Electrical Rating')->value('id');
+                if (!$productTabLabels['electricalRating']) {
+                    $productTabLabels['electricalRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Electrical Rating']);
+                }
                 if ($electricalRating) {
-                    $productTabLabels['electricalRating'] = $productTabLabels['electricalRating']
-                        ?? DB::table('product_tab_labels')->where('title', 'Electrical Rating')->value('id');
-                    if (!$productTabLabels['electricalRating']) {
-                        $productTabLabels['electricalRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Electrical Rating']);
-                    }
-
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['electricalRating'],
                         'product_id' => $products[$productName],
                         'content' => $electricalRating
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['electricalRating'], $products[$productName]];
                 }
 
                 // Add temperatureRating Tabs
+                $productTabLabels['temperatureRating'] = $productTabLabels['temperatureRating']
+                    ?? DB::table('product_tab_labels')->where('title', 'Temperature Rating')->value('id');
+                if (!$productTabLabels['temperatureRating']) {
+                    $productTabLabels['temperatureRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Temperature Rating']);
+                }
                 if ($temperatureRating) {
-                    $productTabLabels['temperatureRating'] = $productTabLabels['temperatureRating']
-                        ?? DB::table('product_tab_labels')->where('title', 'Temperature Rating')->value('id');
-                    if (!$productTabLabels['temperatureRating']) {
-                        $productTabLabels['temperatureRating'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Temperature Rating']);
-                    }
-
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['temperatureRating'],
                         'product_id' => $products[$productName],
                         'content' => $temperatureRating
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['temperatureRating'], $products[$productName]];
                 }
 
                 // Add conductorRelated Tabs
+                $productTabLabels['conductorRelated'] = $productTabLabels['conductorRelated']
+                    ?? DB::table('product_tab_labels')->where('title', 'Conductor Related')->value('id');
+                if (!$productTabLabels['conductorRelated']) {
+                    $productTabLabels['conductorRelated'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Conductor Related']);
+                }
                 if ($conductorRelated) {
-                    $productTabLabels['conductorRelated'] = $productTabLabels['conductorRelated']
-                        ?? DB::table('product_tab_labels')->where('title', 'Conductor Related')->value('id');
-                    if (!$productTabLabels['conductorRelated']) {
-                        $productTabLabels['conductorRelated'] = DB::table('product_tab_labels')->insertGetId(['title' => 'Conductor Related']);
-                    }
-
                     $productTabValues[] = [
                         'product_tab_label_id' => $productTabLabels['conductorRelated'],
                         'product_id' => $products[$productName],
                         'content' => $conductorRelated
                     ];
+                }else{
+                    $tabValuesDeletion[] = [$productTabLabels['conductorRelated'], $products[$productName]];
                 }
 
                 // **Insert in batches of 500**
                 if (count($productTabValues) >= 500) {
-                    DB::table('product_tab_contents')->insert($productTabValues);
+                    // DB::table('product_tab_contents')->insert($productTabValues);
+                    DB::table('product_tab_contents')->upsert(
+                        $productTabValues,
+                        ['product_tab_label_id', 'product_id'],
+                        ['content'],
+                    );
+                    $productTabValues = []; // Reset array
+                }
+
+                // **delete in batches of 500**
+                if (count($tabValuesDeletion) >= 500) {
+                    $tabValuesDeletion = collect($tabValuesDeletion)
+                        ->map(fn($p) => '(' . implode(',', $p) . ')')
+                        ->implode(',');
+
+                    DB::table('product_tab_contents')
+                        ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
+                        ->delete();
                     $productTabValues = []; // Reset array
                 }
 
@@ -371,7 +407,23 @@ class UploadDataController extends Controller
 
             // **Insert remaining product_tab_contents**
             if (!empty($productTabValues)) {
-                DB::table('product_tab_contents')->insert($productTabValues);
+                // DB::table('product_tab_contents')->insert($productTabValues);
+                DB::table('product_tab_contents')->upsert(
+                    $productTabValues,
+                    ['product_tab_label_id', 'product_id'],
+                    ['content'],
+                );
+            }
+
+            // **Delete remaining product_tab_contents**
+            if (!empty($tabValuesDeletion)) {
+                $tabValuesDeletion = collect($tabValuesDeletion)
+                    ->map(fn($p) => '(' . implode(',', $p) . ')')
+                    ->implode(',');
+
+                DB::table('product_tab_contents')
+                    ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
+                    ->delete();
             }
 
             // **Delete the file after processing**

@@ -54,6 +54,13 @@
                                 <input type="text" name="title" placeholder="Title" value="{{ $result->title }}">
                             </div>
                         </div>
+                        <div class="col-sm-2">
+                            <div class="input_box">
+                                <label>Sort Order</label>
+                                <div class="error form_error form-error-sort_order"></div>
+                                <input type="number" name="sort_order" placeholder="Sort Order" value="{{ $result->sort_order }}">
+                            </div>
+                        </div>
                         <div class="clr"></div>
                     </div>
 

@@ -93,18 +93,22 @@ class ProductController extends Controller
             ? $raw->getEstimatedTotalHits()
             : $raw->getNbHits();
 
-        // 4) Fetch Eloquent models in the Meili order
-        if (!empty($subCategoryIds)){
-            $products = Product::with('subCategory','subCategory.category')
-                ->whereIn('id', $hitIds)
-                ->whereIn('sub_category_id', $subCategoryIds)
-                ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-                ->get();
-        }else{            
-            $products = Product::with('subCategory','subCategory.category')
-                ->whereIn('id', $hitIds)
-                // ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
-                ->get();
+        $products = collect(); // Default to empty collection
+        
+        if (!empty($hitIds)){
+            // 4) Fetch Eloquent models in the Meili order
+            if (!empty($subCategoryIds)){
+                $products = Product::with('subCategory','subCategory.category')
+                    ->whereIn('id', $hitIds)
+                    ->whereIn('sub_category_id', $subCategoryIds)
+                    ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                    ->get();
+            }else{            
+                $products = Product::with('subCategory','subCategory.category')
+                    ->whereIn('id', $hitIds)
+                    ->orderByRaw("FIELD(id, " . implode(',', $hitIds) . ")")
+                    ->get();
+            }
         }
 
         // 5) Make a LengthAwarePaginator for Blade
@@ -382,23 +386,24 @@ class ProductController extends Controller
                 'sub_category_id' => 'required|exists:sub_categories,id',
                 'title' => 'required|string|max:255|unique:products,title,'.$dataID,
                 'description' => 'required',
-                'features' => 'required',
+                'features' => 'nullable',
                 'sales_drawing' => 'nullable|url',
                 'catalogue' => 'nullable|url',
                 'featured' => 'required',
                 'images' => 'required|array|min:1',
                 'images.*.link' => 'required',
-                'images.*.sort_order' => [
-                        'required',
-                        'numeric',
-                        'min:1',
-                        function ($attribute, $value, $fail) use ($request) {
-                            $sortOrders = array_column($request->images, 'sort_order');
-                            if (count($sortOrders) !== count(array_unique($sortOrders))) {
-                                $fail('Sort order must be unique.');
-                            }
-                        }
-                    ],
+                'images.*.sort_order' => 'nullable|numeric|min:0',
+                // 'images.*.sort_order' => [
+                //         'required',
+                //         'numeric',
+                //         'min:1',
+                //         function ($attribute, $value, $fail) use ($request) {
+                //             $sortOrders = array_column($request->images, 'sort_order');
+                //             if (count($sortOrders) !== count(array_unique($sortOrders))) {
+                //                 $fail('Sort order must be unique.');
+                //             }
+                //         }
+                //     ],
                 'tabs' => 'required|array|min:1', // Ensure at least one tab is added
                 'tabs.*.id' => 'required|exists:product_tab_labels,id', // Each tabs must exist
                 'tabs.*.content' => 'required',

@@ -11,7 +11,7 @@ class FilterTypeController extends Controller
 {
     public function index()
     {
-        $result = FilterType::with('filterValues')->orderBy('title')->paginate(100);
+        $result = FilterType::with('filterValues')->orderBy('sort_order')->paginate(100);
         return view('admin.filter-types.index', compact('result'));
     }
 
@@ -54,6 +54,7 @@ class FilterTypeController extends Controller
 
             $rules = [
                 'title' => 'required|string|max:255|unique:filter_types,title,'.$dataID,
+                'sort_order' => 'nullable|numeric|min:0',
             ];
 
             $messages = [];

@@ -59,6 +59,7 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
+                                <th>Company</th>
                                 <th>Is Locked</th>
                                 <th>Status</th>
                                 <th>Created By</th>
@@ -71,6 +72,7 @@
                                         <td>{{ $row->fname }}</td>
                                         <td>{{ $row->lname }}</td>
                                         <td>{{ $row->email }}</td>
+                                        <td>{{ $row->billing_company }}</td>
                                         <td>{{ $row->is_locked ? 'Yes' : 'No' }}</td>
                                         <td>{{ ucwords($row->status) }}</td>
                                         <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>

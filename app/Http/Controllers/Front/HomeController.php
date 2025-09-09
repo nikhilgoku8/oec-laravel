@@ -397,7 +397,7 @@ class HomeController extends Controller
 
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
-            }])->get();
+            }])->orderBy('sort_order')->get();
 
         // $filterCounts = DB::table('filter_value_product')
         //     ->select('filter_value_id', DB::raw('count(*) as count'))
@@ -418,7 +418,7 @@ class HomeController extends Controller
 
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
-            }])->get();
+            }])->orderBy('sort_order')->get();
 
         // Get global filter counts for all matching products
         $filterCounts = DB::table('filter_value_product')
@@ -587,7 +587,7 @@ class HomeController extends Controller
 
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
-            }])->get();
+            }])->orderBy('sort_order')->get();
 
         // $filterCounts = DB::table('filter_value_product')
         //     ->select('filter_value_id', DB::raw('count(*) as count'))
@@ -608,7 +608,7 @@ class HomeController extends Controller
 
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
-            }])->get();
+            }])->orderBy('sort_order')->get();
 
         // Get global filter counts for all matching products
         $filterCounts = DB::table('filter_value_product')
@@ -748,7 +748,7 @@ class HomeController extends Controller
 
         $filterTypes = FilterType::with(['filterValues' => function ($q) use ($filterValueIds) {
                 $q->whereIn('id', $filterValueIds);
-            }])->get();
+            }])->orderBy('sort_order')->get();
 
         // We return for AJAX Request
         if($request->ajax()){            

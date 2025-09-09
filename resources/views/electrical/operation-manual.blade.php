@@ -16,8 +16,8 @@
             <div class="pdf_boxes">
 
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.png') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.png') }}">
+                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.jpeg') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.jpeg') }}">
                     </a>
                     <div class="pdf_title">Aluminum Compression Connectors</div>
                     <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">
@@ -26,8 +26,8 @@
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.png') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.png') }}">
+                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.jpeg') }}" class="img_box image_veno">
+                        <img src="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.jpeg') }}">
                     </a>
                     <div class="pdf_title">Copper Compression Connectors</div>
                     <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">

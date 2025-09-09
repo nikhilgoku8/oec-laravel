@@ -12,6 +12,8 @@ class User extends Model
         'fname',
         'lname',
         'email',
+        'phone',
+        'role',
         'password',
         'last_password_changed',
         'last_login',

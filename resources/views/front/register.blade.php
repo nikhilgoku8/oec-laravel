@@ -96,7 +96,7 @@
                 <div class="col-sm-6">
                     <div class="input_box">
                         <div class="error form_error form-error-otp"></div>
-                        <input type="text" name="otp" placeholder="OTP">
+                        <input type="text" name="otp" placeholder="OTP" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-sm-12">
