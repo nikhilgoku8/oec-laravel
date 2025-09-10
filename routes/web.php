@@ -136,10 +136,10 @@ Route::prefix('owm')->group(function () {
 
         Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
         Route::get('products/search_new', [ProductController::class, 'search_new'])->name('products.search_new');
-        Route::resource('products', ProductController::class);
         Route::post('products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
         Route::post('products/toggle-featured', [ProductController::class, 'toggleFeatured'])->name('products.toggle-featured');
         Route::get('products/export', [ProductController::class, 'export'])->name('products.export');
+        Route::resource('products', ProductController::class);
 
 
         Route::resource('filter-types', FilterTypeController::class);

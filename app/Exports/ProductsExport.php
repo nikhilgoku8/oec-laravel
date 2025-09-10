@@ -53,13 +53,13 @@ class ProductsExport implements FromCollection
             ->when(!empty($subCategoryIds), fn($query) => $query->whereIn('sub_category_id', $subCategoryIds))
             ->get();
 
-        // Set max filter types
-        $maxFilterIndex = FilterType::count();
-
         // Define static headings
         $headings = [
             'Name', 'Description', 'Categories', 'Sub-Categories', 'Features', 'Images (Comma separated Values)', 'General Specification', 'Product Specification', 'Certifications and Compliance', 'Dimensions', 'Temperature Rating', 'Conductor Related', 'Electrical Ratings', 'Sales Drawing', 'Catalog'
         ];
+
+        // Set max filter types
+        $maxFilterIndex = 8;
 
         // Add dynamic product columns
         for ($i = 1; $i <= $maxFilterIndex; $i++) {
@@ -87,34 +87,44 @@ class ProductsExport implements FromCollection
                 $product->subCategory->title,
                 $product->features,
                 $productImages ?? null,
-                $product->billing_company,
-                $product->billing_address,
-                $product->billing_city,
-                $product->billing_state,
-                $product->billing_country,
-                $product->billing_postcode,
-                $product->enquiry_notes,
-                $product->admin_remark,
-                $product->created_by,
-                $product->updated_by,
-                $product->created_at,
-                $product->updated_at,
+                // $product->billing_company,
+                // $product->billing_address,
+                // $product->billing_city,
+                // $product->billing_state,
+                // $product->billing_country,
+                // $product->billing_postcode,
+                // $product->enquiry_notes,
+                // $product->admin_remark,
+                // $product->created_by,
+                // $product->updated_by,
+                // $product->created_at,
+                // $product->updated_at,
             ];
 
-            $filters = collect();
+            $tabSortOrder = [
+                'General Specification',
+                'Product Specification',
+                'Certifications And Compliance',
+                'Dimensions',
+                'Temperature Rating',
+                'Conductor Related',
+                'Electrical Ratings'
+            ];
 
-            $quantities = [];
+            $sortedTabs = $product->productTabContents->sortBy(function($tabContent) use ($tabSortOrder) {
+                return array_search($tabContent->productTabLabel->title, $tabSortOrder);
+            });
 
-            foreach ($product->productProducts as $p) {
-                $filters[$p->product_id] = $p->product; // Store the Product model
-                $quantities[$p->product_id] = $p->quantity; // Store purchase quantity
+            foreach ($sortedTabs as $tabContent) {
+                $row[] = $tabContent->content ?? null;
             }
 
-            // Fill in product details dynamically
-            $productIds = $filters->keys(); // Get unique product IDs
-            for ($i = 0; $i < $maxProducts; $i++) {
-                $row[] = $filters[$productIds[$i] ?? null]?->title ?? ''; // Product Name
-                $row[] = $quantities[$productIds[$i] ?? null] ?? ''; // Purchase Qty
+            $row[] = $product->sales_drawing ?? null;
+            $row[] = $product->catalogue ?? null;
+
+            foreach ($product->filterValues as $filterValue) {
+                $row[] =  $filterValue->filterType->title;
+                $row[] =  $filterValue->value;
             }
 
             $data->push($row);
