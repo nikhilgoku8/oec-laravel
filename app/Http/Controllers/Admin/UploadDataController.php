@@ -381,16 +381,30 @@ class UploadDataController extends Controller
                     $productTabValues = []; // Reset array
                 }
 
+                // dd($tabValuesDeletion);
+
                 // **delete in batches of 500**
                 if (count($tabValuesDeletion) >= 500) {
-                    $tabValuesDeletion = collect($tabValuesDeletion)
-                        ->map(fn($p) => '(' . implode(',', $p) . ')')
+                    $pairs = collect($tabValuesDeletion)
+                        // ->map(fn($p) => '(' . implode(',', $p) . ')')
+                        ->map(fn($p) => '(' . intval($p[0]) . ',' . intval($p[1]) . ')')
                         ->implode(',');
+                // dd($pairs);
 
-                    DB::table('product_tab_contents')
-                        ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
-                        ->delete();
-                    $productTabValues = []; // Reset array
+                    $rows = DB::select("SELECT * FROM product_tab_contents WHERE (product_tab_label_id, product_id) IN ($pairs)");
+                    dd(count($rows)); // should be 0 now
+
+                    $deleted = DB::statement("DELETE FROM product_tab_contents WHERE (product_tab_label_id, product_id) IN ($pairs)");
+
+                    dd([
+                        'pairs' => $pairs,
+                        'deleted_rows' => $deleted
+                    ]);
+
+                    // DB::table('product_tab_contents')
+                    //     ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
+                    //     ->delete();
+                    $tabValuesDeletion = []; // Reset array
                 }
 
             }
@@ -417,13 +431,16 @@ class UploadDataController extends Controller
 
             // **Delete remaining product_tab_contents**
             if (!empty($tabValuesDeletion)) {
-                $tabValuesDeletion = collect($tabValuesDeletion)
-                    ->map(fn($p) => '(' . implode(',', $p) . ')')
+                $pairs = collect($tabValuesDeletion)
+                    // ->map(fn($p) => '(' . implode(',', $p) . ')')
+                    ->map(fn($p) => '(' . $p[0] . ',' . $p[1] . ')')
                     ->implode(',');
 
-                DB::table('product_tab_contents')
-                    ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
-                    ->delete();
+                DB::statement("DELETE FROM product_tab_contents WHERE (product_tab_label_id, product_id) IN ($pairs)");
+
+                // DB::table('product_tab_contents')
+                //     ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
+                //     ->delete();
             }
 
             // **Delete the file after processing**

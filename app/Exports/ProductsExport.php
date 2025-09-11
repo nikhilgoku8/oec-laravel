@@ -87,18 +87,6 @@ class ProductsExport implements FromCollection
                 $product->subCategory->title,
                 $product->features,
                 $productImages ?? null,
-                // $product->billing_company,
-                // $product->billing_address,
-                // $product->billing_city,
-                // $product->billing_state,
-                // $product->billing_country,
-                // $product->billing_postcode,
-                // $product->enquiry_notes,
-                // $product->admin_remark,
-                // $product->created_by,
-                // $product->updated_by,
-                // $product->created_at,
-                // $product->updated_at,
             ];
 
             $tabSortOrder = [
@@ -113,11 +101,23 @@ class ProductsExport implements FromCollection
 
             $sortedTabs = $product->productTabContents->sortBy(function($tabContent) use ($tabSortOrder) {
                 return array_search($tabContent->productTabLabel->title, $tabSortOrder);
-            });
+            })
+            ->unique(fn($tabContent) => $tabContent->product_tab_label_id);
 
-            foreach ($sortedTabs as $tabContent) {
-                $row[] = $tabContent->content ?? null;
+            // foreach ($sortedTabs as $tabContent) {
+            //     $row[] = $tabContent->content ?? null;
+            // }
+
+            foreach ($tabSortOrder as $label) {
+                $tab = $sortedTabs->firstWhere('productTabLabel.title', $label);
+                $row[] = $tab->content ?? null;
             }
+
+            // foreach ($sortedTabs as $tabContent) {
+            //     if($tabContent->productTabLabel->title == 'General Specification'){
+            //         $row[] = $tabContent->content ?? null;
+            //     }
+            // }
 
             $row[] = $product->sales_drawing ?? null;
             $row[] = $product->catalogue ?? null;

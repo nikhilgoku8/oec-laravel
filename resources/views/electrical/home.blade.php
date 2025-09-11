@@ -29,7 +29,7 @@
                     <span class="category_title">{{$category->title}}</span>
                     <span class="image_wrapper">
                         @foreach($category->subCategories as $subCategory)
-                            @if($subCategory->products->first()?->productImages->first()->image_file)
+                            @if($subCategory->products->first()?->productImages?->first()?->image_file)
                             <span class="img_box">
                                 <img src="{{ $subCategory->products->first()?->productImages->first()->image_file }}">
                             </span>
@@ -288,7 +288,7 @@
                                     'subCategory' => $row->subCategory->slug,
                                     'product' => $row->slug
                                 ]) }}" class="img_box">
-                            <img src="{{ $row->productImages[0]->image_file }}">
+                            <img src="{{ $row?->productImages?->first()?->image_file }}">
                         </a>
                         <a href="{{ route('product', [
                                     'category' => $row->subCategory->category->slug,

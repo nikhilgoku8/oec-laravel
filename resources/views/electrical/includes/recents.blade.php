@@ -27,7 +27,7 @@
                                     'subCategory' => $product->subCategory->slug,
                                     'product' => $product->slug
                                 ]) }}">
-                                    <span class="img_box"><img src="{{ $product->productImages?->first()->image_file }}"></span>
+                                    <span class="img_box"><img src="{{ $product->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}"></span>
                                     <span class="text">{{ $product->title }}</span>
                                 </a>
                             </li>

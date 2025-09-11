@@ -25,3 +25,13 @@ php artisan scout:meili-configure
 
 docker stop meilisearch
 
+----------------------------------------
+use App\Models\Admin\Product;
+use Laravel\Scout\Scout;
+
+// Flush existing index
+Product::removeAllFromSearch();
+
+// Re-import fresh data
+Product::all()->searchable();
+----------------------------------------
