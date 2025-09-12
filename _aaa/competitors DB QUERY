@@ -1,0 +1,19 @@
+ALTER TABLE competitors_data 
+MODIFY product_title VARCHAR(255) 
+COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE products 
+MODIFY title VARCHAR(255) 
+COLLATE utf8mb4_unicode_ci;
+
+UPDATE competitors_data cd
+JOIN products p 
+  ON cd.product_title COLLATE utf8mb4_unicode_ci = p.title COLLATE utf8mb4_unicode_ci
+SET cd.product_id = p.id;
+
+DELETE FROM competitors_data
+WHERE product_id = 0;
+
+INSERT INTO competitors (title, product_title, product_id)
+SELECT title, product_title, product_id
+FROM competitors_data;

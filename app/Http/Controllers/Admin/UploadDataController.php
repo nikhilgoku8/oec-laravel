@@ -250,7 +250,17 @@ class UploadDataController extends Controller
 
                     // **Insert in batches of 500**
                     if (count($filterValuesBulk) >= 500) {
-                        DB::table('filter_value_product')->insert($filterValuesBulk);
+                        // DB::table('filter_value_product')->insert($filterValuesBulk);
+                        $filterValuesBulk = collect($filterValuesBulk)
+                            ->unique(fn ($item) => $item['product_id'].'-'.$item['filter_value_id'])
+                            ->values()
+                            ->toArray();
+
+                        DB::table('filter_value_product')->upsert(
+                            $filterValuesBulk,
+                            ['product_id', 'filter_value_id'], // unique key
+                            [] // no fields to update
+                        );
                         $filterValuesBulk = []; // Reset array
                     }
                 }
@@ -373,6 +383,12 @@ class UploadDataController extends Controller
                 // **Insert in batches of 500**
                 if (count($productTabValues) >= 500) {
                     // DB::table('product_tab_contents')->insert($productTabValues);
+
+                    $productTabValues = collect($productTabValues)
+                        ->unique(fn ($item) => $item['product_tab_label_id'].'-'.$item['product_id'])
+                        ->values()
+                        ->toArray();
+                    
                     DB::table('product_tab_contents')->upsert(
                         $productTabValues,
                         ['product_tab_label_id', 'product_id'],
@@ -392,14 +408,14 @@ class UploadDataController extends Controller
                 // dd($pairs);
 
                     $rows = DB::select("SELECT * FROM product_tab_contents WHERE (product_tab_label_id, product_id) IN ($pairs)");
-                    dd(count($rows)); // should be 0 now
+                    // dd(count($rows)); // should be 0 now
 
                     $deleted = DB::statement("DELETE FROM product_tab_contents WHERE (product_tab_label_id, product_id) IN ($pairs)");
 
-                    dd([
-                        'pairs' => $pairs,
-                        'deleted_rows' => $deleted
-                    ]);
+                    // dd([
+                    //     'pairs' => $pairs,
+                    //     'deleted_rows' => $deleted
+                    // ]);
 
                     // DB::table('product_tab_contents')
                     //     ->whereRaw("(product_tab_label_id, product_id) IN ($tabValuesDeletion)")
@@ -416,11 +432,28 @@ class UploadDataController extends Controller
 
             // **Insert remaining Product Filter Values**
             if (!empty($filterValuesBulk)) {
-                DB::table('filter_value_product')->insert($filterValuesBulk);
+                // DB::table('filter_value_product')->insert($filterValuesBulk);
+
+                $filterValuesBulk = collect($filterValuesBulk)
+                    ->unique(fn ($item) => $item['product_id'].'-'.$item['filter_value_id'])
+                    ->values()
+                    ->toArray();
+
+                DB::table('filter_value_product')->upsert(
+                    $filterValuesBulk,
+                    ['product_id', 'filter_value_id'], // unique key
+                    [] // no fields to update
+                );
             }
 
             // **Insert remaining product_tab_contents**
             if (!empty($productTabValues)) {
+
+                $productTabValues = collect($productTabValues)
+                    ->unique(fn ($item) => $item['product_tab_label_id'].'-'.$item['product_id'])
+                    ->values()
+                    ->toArray();
+
                 // DB::table('product_tab_contents')->insert($productTabValues);
                 DB::table('product_tab_contents')->upsert(
                     $productTabValues,

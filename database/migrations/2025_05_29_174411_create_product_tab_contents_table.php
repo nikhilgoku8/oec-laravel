@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_tab_label_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->unique(['product_tab_label_id', 'product_id']);
             $table->text('content');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

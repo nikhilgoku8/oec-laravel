@@ -6,3 +6,19 @@ $product = Product::with(['tabContents.label'])->find($productId);
 // Sort tabContents by the label's sort_order manually in PHP
 $sortedTabs = $product->tabContents->sortBy(fn($tab) => $tab->label->sort_order);
 --------------
+
+UPDATE product_images
+SET image_file = REPLACE(
+    image_file,
+    'https://oec-americas.com/electrical/wp-content/uploads/',
+    'https://oec-americas.com/products/'
+)
+WHERE image_file LIKE 'https://oec-americas.com/electrical/wp-content/uploads/%';
+
+UPDATE products
+SET catalogue = REPLACE(
+    catalogue,
+    'https://oec-americas.com/electrical/wp-content/uploads/',
+    'https://oec-americas.com/products/'
+)
+WHERE catalogue LIKE 'https://oec-americas.com/electrical/wp-content/uploads/%';

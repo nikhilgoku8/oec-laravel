@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('competitors', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('product_title');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -55,7 +55,7 @@ class ProductsExport implements FromCollection
 
         // Define static headings
         $headings = [
-            'Name', 'Description', 'Categories', 'Sub-Categories', 'Features', 'Images (Comma separated Values)', 'General Specification', 'Product Specification', 'Certifications and Compliance', 'Dimensions', 'Temperature Rating', 'Conductor Related', 'Electrical Ratings', 'Sales Drawing', 'Catalog'
+            'Name', 'Description', 'Categories', 'Sub-Categories', 'Features', 'Images (Comma separated Values)', 'General Specification', 'Product Specification', 'Certifications and Compliance', 'Dimensions', 'Temperature Rating', 'Conductor Related', 'Electrical Rating', 'Sales Drawing', 'Catalog'
         ];
 
         // Set max filter types
@@ -96,7 +96,7 @@ class ProductsExport implements FromCollection
                 'Dimensions',
                 'Temperature Rating',
                 'Conductor Related',
-                'Electrical Ratings'
+                'Electrical Rating'
             ];
 
             $sortedTabs = $product->productTabContents->sortBy(function($tabContent) use ($tabSortOrder) {

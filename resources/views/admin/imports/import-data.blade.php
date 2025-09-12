@@ -104,15 +104,36 @@ $(document).ready(function() {
                 location.href="{{ route('import_data.edit') }}";
             },
             error: function(data){
-                var responseData = data.responseJSON;
-                if(responseData.error_type=='form'){
-                    jQuery.each( responseData.errors, function( i, val ) {
-                        $("#form-error-"+i).html(val);
-                        $("#form-error-"+i).addClass('alert alert-danger');
+                // var responseData = data.responseJSON;
+                // if(responseData.error_type=='form'){
+                //     jQuery.each( responseData.errors, function( i, val ) {
+                //         $("#form-error-"+i).html(val);
+                //         $("#form-error-"+i).addClass('alert alert-danger');
+                //     });
+                // }else{
+                //     alert(responseData.message || 'An unexpected error occurred.');
+                //     console.log(responseData.message);
+                //     console.log(responseData.console_message);
+                // }
+
+                if (data.status === 422) {
+                    let errors = data.responseJSON.errors;
+                    $.each(errors, function (key, message) {
+                        $('#form-error-' + key).html(message).addClass('alert alert-danger');
                     });
-                }else{
-                    alert(responseData.message || 'An unexpected error occurred.');
-                    console.log(responseData.console_message);
+                } else if (data.status === 401) {
+                    alert("Please log in.");
+                    // window.location.href = "/login";
+                } else if (data.status === 403) {
+                    alert("You don’t have permission.");
+                } else if (data.status === 404) {
+                    alert("The resource was not found.");
+                } else if (data.status === 500) {
+                    alert("Something went wrong on the server.");
+                    console.log(data.console_message);
+                } else {
+                    alert("Unexpected error: " + data.status);
+                    console.log(data);
                 }
             }
         });
