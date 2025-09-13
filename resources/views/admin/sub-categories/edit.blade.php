@@ -51,7 +51,7 @@
                             <div class="input_box">
                                 <label>Category</label>
                                 <div class="error form_error" id="form-error-category_id"></div>
-                                <select>
+                                <select name="category_id">
                                     <option value="">Select Category</option>
                                     @if(!empty($categories) && count($categories) > 0)
                                         @foreach($categories as $category)
