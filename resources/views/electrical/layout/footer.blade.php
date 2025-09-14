@@ -56,14 +56,14 @@
                         @endforeach
                     </ul>
                 </div> -->
-                <div class="info_box">
+                <!-- <div class="info_box">
                     <div class="title">Industries</div>
                     <ul>
                         <li><a href="{{ route('commercial-and-industrial') }}">Commercial & Industrial</a></li>
                         <li><a href="{{ route('landscape-irrigation-solutions') }}">Landscape & Irrigation Solutions</a></li>
                         <li><a href="{{ route('energy-systems-renewables') }}">Energy Systems & Renewables</a></li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="info_box">
                     <div class="title">Resources</div>
                     <ul>
@@ -97,19 +97,19 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="developed_by">
+                    <!-- <div class="developed_by">
                         <div class="text">Developed by <b>Codzera</b> </div>
                         <div class="codzera_logo">
                             <img src="admin/assets/images/codzera-logo.png">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>
         </div>
     </div>
     <div class="lower_sec">
-        <p>&copy; {{ date('Y') }} OEC-AMERICAS . All Rights Reserved.</p>
+        <p>&copy; {{ date('Y') }} oec-americas. All rights reserved.</p>
     </div>
 </footer>
 
