@@ -14,6 +14,7 @@ class Competitor extends Model
 
     protected $fillable = [
         'title',
+        'product_title',
         'product_id'
     ];
 

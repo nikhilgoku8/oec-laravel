@@ -660,7 +660,8 @@ class ProductController extends Controller
                 }
 
                 $competitorData = [
-                    'title' => $competitor['title']
+                    'title' => $competitor['title'],
+                    'product_title' => $product->title
                 ];
 
                 if (!empty($competitor['id'])) {

@@ -71,6 +71,7 @@ class CompetitorController extends Controller
             $validated = $validator->validated();
 
             $validated['slug'] = $this->string_filter($validated['title']);
+            $validated['product_title'] = Product::where('id', $request->input('product_id'))->value('title');
 
             if ($isNew) {
                 $validated['created_by'] = session('username');
