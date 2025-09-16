@@ -1,7 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="https://rawcdn.githack.com/stowball/jQuery-rwdImageMaps/master/jquery.rwdImageMaps.min.js"></script>
+</head>
+<body>
+
 <div class="wpc_page_content">
-				<div id="statemap">
-					<img src="templates/gfx/map.gif" alt="" usemap="#states" border="0">
-				</div>
+<div id="statemap">
+	<img src="map.jpg" alt="" usemap="#states" border="0">
+</div>
 <p>
 <map id="states" name="states"> 
 	<area class="state_link" alt="wa" coords="25,5,27,27,32,32,34,37,71,44,77,13,44,3" shape="poly" href="#wa">
@@ -161,9 +172,34 @@
 	<p id="vt" class="state_rep" style="display: none;">VERMONT<br><br>New England Electrical Sales<br>6 TRUE AVE<br>DERRY, NH 03038<br>Phone: 603-434-6705<br>Fax: 603-426-5218<br><a class="rep_email" title=" sandylangelier@newenglandelecsales.com" href="mailto: sandylangelier@newenglandelecsales.com">Email - Click Here</a><br><a title="www.newenglandelecsales.com" href="http://www.newenglandelecsales.com" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: CT, MA, ME, NH, RI, VT<br>&nbsp;</p>
 	<p id="wa" class="state_rep" style="display: block;">WASHINGTON<br><br>Electrical Sales Associates<br>21220 68th Ave S<br>Kent, WA 98032<br>Phone: 206-574-0092<br><a class="rep_email" title="kyle@repesa.com" href="mailto: kyle@repesa.com">Email - Click Here</a><br><a title="www.repesa.com" href="http://www.repesa.com" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: AK, OR, WA, Northern ID<br>&nbsp;</p>
 	<p id="wi" class="state_rep" style="display: none;">WISCONSIN<br><br>ESD (Electrical Solutions &amp; Design)<br>12777 Meadowvale Road #B<br>Elk River, MN 55330<br>Phone: 763-274-3456<br><a class="rep_email" title="tinasmith@electricalsolutionsdesign.com " href="mailto: tinasmith@electricalsolutionsdesign.com">Email - Click Here</a><br><a title="Electricalsolutionsdesign.com" href="http://Electricalsolutionsdesign.com" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: MN, ND, SD, W. WI<br><br>AGI SALES, LLC<br>1545 6th Street #100<br>Green Bay, WI 54304<br>Phone: 715-732-2474<br>Fax: 715-732-0590<br><a class="rep_email" title="gerad@agisalesllc.com" href="mailto:gerad@agisalesllc.com">Email - Click Here</a><br><a title="http://www.agisalesllc.com/" href="http://www.agisalesllc.com/" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: Upper Peninsula of MI, E. WI</p>
-<p class="state_rep" style="display: none;">&nbsp;</p>
+
 <p>&nbsp;</p>
 	<p id="wv" class="state_rep" style="display: none;">WEST VIRGINIA<br><br>Joseph E. Biben Sales<br>900 Carpenters Crossing<br>Folcroft, PA 19032<br>Phone: 215-985-9400<br>Fax: 215-545-0990<br><a class="rep_email" title="stucker@bibensales.com" href="mailto: stucker@bibensales.com">Email - Click Here</a><br><a title="www.bibensales.com" href="https://www.bibensales.com" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: Western PA, WV<br>&nbsp;</p>
 	<p id="wy" class="state_rep" style="display: none;">WYOMING<br><br>Amos and Connors Sales Inc.<br><span>13635 East 104th Ave Suite 700</span><br><span>Commerce City, CO 80022</span><br>Phone: (303)691-2900<br><a class="rep_email" title="steve@amosandconnors.com" href="mailto:steve@amosandconnors.com">Email - Click Here</a><br><a title="www.presscoelectricalagency.com/" href="http://www.amosandconnors.com/" target="_blank" rel="noopener">Website - Click Here</a><br>Territory: CO, ID, MT, Eastern NV, UT, WY <br>&nbsp;</p>
 </div>
 				</div>
+<script>
+$(function() {
+    // scale factor (2 means double, 0.5 means half, etc.)
+    let scale = 2;
+
+    $('map area').each(function() {
+        let coords = $(this).attr('coords').split(',');
+        let newCoords = coords.map(function(c) {
+            return Math.round(parseInt(c, 10) * scale);
+        });
+        $(this).attr('coords', newCoords.join(','));
+    });
+
+    $('img[usemap]').rwdImageMaps();
+});
+</script>
+<script>
+	$('.state_link').on('click', function() {
+		$alt = $(this).attr('alt');
+		alert($alt);
+	});
+</script>
+
+</body>
+</html>

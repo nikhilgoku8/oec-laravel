@@ -29,8 +29,8 @@
                         @endif
                         
                         <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails">
-                            <a href="{{ $product->productImages[0]->image_file }}">
-                                <img src="{{ $product->productImages[0]->image_file }}" alt="" />
+                            <a href="{{ $product->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
+                                <img src="{{ $product->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}" alt="" />
                             </a>
                         </div>
 
@@ -61,7 +61,7 @@
                                         'subCategory' => $subCategory->slug,
                                         'product' => $prevProduct->slug
                                     ]) }}" class="img_box">
-                                        <img src="{{ $prevProduct->productImages[0]->image_file }}">
+                                        <img src="{{ $prevProduct->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
                                     </a>
                                     <a href="{{ route('product', [
                                         'category' => $category->slug,
@@ -84,7 +84,7 @@
                                         'subCategory' => $subCategory->slug,
                                         'product' => $nextProduct->slug
                                     ]) }}" class="img_box">
-                                        <img src="{{ $nextProduct->productImages[0]->image_file }}">
+                                        <img src="{{ $nextProduct->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
                                     </a>
                                     <a href="{{ route('product', [
                                             'category' => $category->slug,
@@ -179,7 +179,7 @@
                                         'subCategory' => $row->subCategory->slug,
                                         'product' => $row->slug
                                     ]) }}" class="img_box">
-                                <img src="{{ $row->productImages[0]->image_file }}">
+                                <img src="{{ $row->productImages?->first()?->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
                             </a>
                             <a href="{{ route('product', [
                                         'category' => $row->subCategory->category->slug,

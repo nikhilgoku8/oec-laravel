@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\ReachUsController;
 use App\Http\Controllers\Admin\CompetitorController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\UsStateController;
+use App\Http\Controllers\Admin\SalesRepresentativeController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -125,6 +127,8 @@ Route::prefix('owm')->group(function () {
 
         Route::get('/import-data', [UploadDataController::class, 'import_data'])->name('import_data.edit');
         Route::post('/importData', [UploadDataController::class, 'importData'])->name('import_data.store');
+        Route::get('/representatives-states-import-data', [UploadDataController::class, 'representatives_states_data'])->name('representatives_states_data.edit');
+        Route::post('/representativesStatesImportData', [UploadDataController::class, 'importSalesRepresentativeData'])->name('representatives_states_data.store');
 
         Route::post('categories/sortSubCategories', [CategoryController::class, 'sortSubCategories'])->name('categories.sortSubCategories');
         Route::post('categories/bulk-delete', [CategoryController::class, 'bulkDelete'])->name('categories.bulk-delete');
@@ -179,6 +183,12 @@ Route::prefix('owm')->group(function () {
 
         Route::resource('competitors', CompetitorController::class);
         Route::post('competitors/bulk-delete', [CompetitorController::class, 'bulkDelete'])->name('competitors.bulk-delete');
+
+        Route::resource('us-states', UsStateController::class);
+        Route::post('us-states/bulk-delete', [UsStateController::class, 'bulkDelete'])->name('us-states.bulk-delete');
+
+        Route::resource('sales-representatives', SalesRepresentativeController::class);
+        Route::post('sales-representatives/bulk-delete', [SalesRepresentativeController::class, 'bulkDelete'])->name('sales-representatives.bulk-delete');
 
         Route::middleware([IsSuperAdmin::class])->group( function (){
             Route::get('dashboard', [AdminController::class, 'dashboard'] )->name('dashboard');

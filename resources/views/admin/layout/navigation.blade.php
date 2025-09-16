@@ -81,12 +81,18 @@
                             <ul class="nav nav-second-level">
                                 <li><a href="{{ url('owm/admins') }}">All Admins</a></li>
                                 <li><a href="{{ url('owm/admins/usertype/superadmin') }}">Super Admins</a></li>
+                                <li><a href="{{ route('us-states.index') }}">US States</a></li>
+                                <li><a href="{{ route('sales-representatives.index') }}">Sales Representatives</a></li>
                                 <!-- <li><a href="{{ url('owm/admins/usertype/manager') }}">Managers</a></li>
                                 <li><a href="{{ url('owm/admins/usertype/executive') }}">Care Executives</a></li> -->
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('import_data.edit') }}"><i class="fa fa-upload" aria-hidden="true"></i> Import Data</a>
+                            <a><i class="fa fa-upload" aria-hidden="true"></i> Import Data<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="{{ route('import_data.edit') }}">Products Import</a></li>
+                                <li><a href="{{ route('representatives_states_data.edit') }}">Representative States Import</a></li>
+                            </ul>
                         </li>
                         @endif
 

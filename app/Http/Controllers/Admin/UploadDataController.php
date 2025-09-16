@@ -17,6 +17,11 @@ class UploadDataController extends Controller
         return view('admin.imports.import-data');
     }
 
+    public function representatives_states_data()
+    {
+        return view('admin.imports.representative-states');
+    }
+
     public function string_filter($string){
         $string = str_replace('--', '-', preg_replace('/[^A-Za-z0-9\-\']/', '', str_replace(' ', '-', str_replace("- ","-", str_replace(" -","-", str_replace("&","and", preg_replace("!\s+!"," ",strtolower($string))))))));
         return $string;
@@ -491,6 +496,132 @@ class UploadDataController extends Controller
             );
             // Session::flash('success','Data imported successfully!');
             session()->flash('success', 'Data imported successfully! ' . $duplicateMessage);
+
+            return response()->json($response);
+
+        }
+        
+    }
+
+    public function importSalesRepresentativeData(Request $request)
+    {
+
+        $rules = array(
+            'data_file' => 'required|mimes:xlsx,csv'
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        
+        if(!$validator->passes()){
+            // dd($validator->errors());
+            return response()->json([
+                'error' => true,
+                'error_type' => 'form',
+                'message' => 'Invalid request',
+                'errors' => $validator->errors()->toArray(),
+            ], 422);
+
+        }else{
+
+            $filename = time() . '-' . $request->file('data_file')->getClientOriginalName();
+            $destination = storage_path("app/imports/" . $filename);
+            $request->file('data_file')->move(storage_path("app/imports"), $filename);
+
+            $data = Excel::toArray([], storage_path("app/imports/" . $filename))[0];
+
+            $reps = [];
+            $states = [];
+            $repsStatesBulk = [];
+
+            $now = now();
+
+            foreach ($data as $index => $row) {
+                if ($index === 0) continue; // Skip header row
+
+                [$repName, $stateAbbr, $address, $website, $email, $phone] = array_map('trim', $row);
+
+                if (!$repName || !$stateAbbr) {
+                    continue; // Skip invalid rows
+                }
+
+                // Cache Representative IDs
+                $reps[$repName] = $reps[$repName] ?? DB::table('sales_representatives')->where('rep_name', $repName)->value('id');
+                $repData = [
+                        'rep_name' => $repName,
+                        'address' => $address,
+                        'website' => $website,
+                        'email' => $email,
+                        'phone' => $phone
+                    ];
+
+                if (!$reps[$repName]) {
+                    $reps[$repName] = DB::table('sales_representatives')->insertGetId($repData);
+                }else{
+                    DB::table('sales_representatives')->where('id', $reps[$repName])->update($repData);
+                }
+
+                // Cache States IDs
+                $states[$stateAbbr] = $states[$stateAbbr] ?? DB::table('us_states')->where('abbr', $stateAbbr)->value('id');
+                if (!$states[$stateAbbr]) {
+                    continue; // Skip invalid rows
+                }
+
+                // Insert into pivot table
+                $repsStatesBulk[] = [
+                    'sales_representative_id' => $reps[$repName],
+                    'us_state_id' => $states[$stateAbbr],
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+
+                // **Insert in batches of 500**
+                if (count($repsStatesBulk) >= 500) {
+                    // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
+                    $repsStatesBulk = collect($repsStatesBulk)
+                        ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
+                        ->values()
+                        ->toArray();
+
+                    DB::table('sales_representative_us_state')->upsert(
+                        $repsStatesBulk,
+                        ['sales_representative_id', 'us_state_id'], // unique key
+                        ['updated_at'] // no fields to update
+                    );
+                    $repsStatesBulk = []; // Reset array
+                }
+
+            }
+
+            // **Insert remaining Product Filter Values**
+            if (!empty($repsStatesBulk)) {
+                // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
+
+                $repsStatesBulk = collect($repsStatesBulk)
+                    ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
+                    ->values()
+                    ->toArray();
+
+                DB::table('sales_representative_us_state')->upsert(
+                    $repsStatesBulk,
+                    ['sales_representative_id', 'us_state_id'], // unique key
+                    [] // no fields to update
+                );
+                $repsStatesBulk = []; // Reset array
+            }
+
+            // **Delete the file after processing**
+            $filePath = storage_path("app/imports/$filename");
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+
+            $response = array(
+                'success' => true,
+                'message' => 'Records added ',
+                'class' => 'alert alert-success'
+            );
+            // Session::flash('success','Data imported successfully!');
+            session()->flash('success', 'Data imported successfully! ');
 
             return response()->json($response);
 
