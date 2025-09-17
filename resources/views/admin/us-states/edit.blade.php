@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         @php
-                            $rep_ids = $result->salesRepresentatives()->pluck('id')->toArray();
+                            $rep_ids = $result->salesRepresentatives()->pluck('sales_representative_id')->toArray();
                         @endphp
                         @if(!empty($salesRepresentatives) && count($salesRepresentatives) > 0)
                         <div class="col-sm-12">
@@ -95,128 +95,6 @@
 
     </div>
     <!-- /.row -->
-
-    <div class="row">
-        <div class="my_panel form_box">
-            
-            @if(Session::has('success'))
-                <div class="alert alert-success">{{Session::get('success')}}</div>
-            @endif
-            @if(Session::has('error'))
-                <div class="alert alert-danger">{{Session::get('error')}}</div>
-            @endif
-
-            <form id="sort_sub_us-states" action="" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="dataID" value="{{ $result->id }}">
-            <div class="page-header my_style less_margin">
-                <div class="left_section">
-                    <div class="title_text">
-                        <div class="title">Edit Sub US States Sort Order</div>
-                        <div class="sub_title">Drag and drop then save to make the changes</div>
-                    </div>
-                </div>
-                <div class="right_section">
-                    <div class="purple_filled_btn">
-                        <!-- <a class="save-order">Save</a> -->
-                        <!-- <button type="button" class="btn btn-primary save-banners-order">Save Order</button> -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="inner_boxes">
-                <div class="sorting_wrapper">
-                    <ul id="sortable">
-                    @if(!empty($result->subUS States))
-                        @foreach($result->subUS States as $subUS State)
-                            <li class="ui-state-default" data-id="{{ $subUS State->id }}">
-                                <div class="title">{{ $subUS State->title }}</div>
-                                <div class="sort_order">{{ $subUS State->sort_order }}</div>
-                            </li>
-                        @endforeach
-                    @else
-                        No Banners
-                    @endif
-                    </ul>
-                </div>
-                <div class="input_boxes"><div class="input_box"></div></div>
-                <div class="input_boxes">
-                    <div class="col-sm-4">
-                        <div class="input_box">
-                            <button type="button" class="btn btn-primary save-banners-order">Save Order</button>
-                        </div>
-                    </div>
-                    <div class="clr"></div>
-                </div>
-            </div>
-            </form>
-        </div>
-    </div>
-    <!-- /.row -->
-
-<script>
-  $(document).ready(function() {
-    const $draggable = $('.ui-state-default');
-
-    $draggable.on('mousedown', function() {
-      $(this).addClass('grabbing');
-    });
-
-    $(document).on('mouseup', function() {
-      $draggable.removeClass('grabbing');
-    });
-  });
-
-
-
-</script>
-
-<script>
-$( function() {
-    $( "#sortable" ).sortable({
-        revert: true
-    });
-
-    // $( "#draggable" ).draggable({
-    //   connectToSortable: "#sortable",
-    //   helper: "clone",
-    //   revert: "invalid"
-    // });
-
-    $( "ul, li" ).disableSelection();
-
-    $('.save-banners-order').click(function() {
-        let sortedIds = [];
-        $('ul#sortable li').each(function(index) {
-            sortedIds.push({
-                id: $(this).data('id'),
-                sort_order: index + 1 // +1 if you want it 1-based
-            });
-        });
-
-        // console.log(sortedIds);
-
-        $.ajax({
-            // url: '/nwm/collections/{{ $result->id }}/sort-banners',
-            url: "{{ route('us-states.sortSubUS States', $result->id) }}",
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                sorted: sortedIds
-            },
-            success: function(response) {
-                alert('Sort order saved successfully!');
-                window.location.reload();
-            },
-            error: function(xhr) {
-                alert('Something went wrong');
-            }
-        });
-    });
-
-});
-
-</script>
 
 <script type="text/javascript">
 $(document).ready(function() {

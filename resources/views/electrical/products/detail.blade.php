@@ -20,8 +20,8 @@
                         <ul class="thumbnails">
                             @foreach($product->productImages as $image)
                             <li>
-                                <a href="{{ $image->image_file }}" data-standard="{{ $image->image_file }}">
-                                    <img src="{{ $image->image_file }}" width="110px" alt="" />
+                                <a href="{{ $image->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}" data-standard="{{ $image->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}">
+                                    <img src="{{ $image->image_file ?? asset('electrical-assets/images/coming-soon.webp') }}" width="110px" alt="" />
                                 </a>
                             </li>
                             @endforeach

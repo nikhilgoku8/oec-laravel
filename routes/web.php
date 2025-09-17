@@ -92,6 +92,7 @@ Route::middleware([IsUser::class])->group(function(){
         // Route::match(['get', 'post'], '/shop', [HomeController::class, 'shop'])->name('shop');
 
         Route::get('/thank-you', [HomeController::class, 'shop_thank_you'])->name('shop.thank-you');
+        Route::get('/z_map', [HomeController::class, 'z_map'])->name('z_map');
 
         Route::post('/quick-view-product/{id}', [HomeController::class, 'quick_view_product'])->name('quick-view-product');
 

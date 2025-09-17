@@ -60,7 +60,7 @@ class SalesRepresentativeController extends Controller
             $rules = [
                 'rep_name' => 'required|max:150|unique:sales_representatives,rep_name,'.$dataID,
                 'address' => 'nullable|string|max:255',
-                'website' => 'nullable|url|max:255',
+                'website' => 'nullable|max:255',
                 'email' => 'required|email|max:150|unique:sales_representatives,email,'.$dataID,
                 'phone' => 'required|string|max:25',
                 'state_id' => $isNew ? 'nullable' : 'required|array|min:1',

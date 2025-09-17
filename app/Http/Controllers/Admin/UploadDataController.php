@@ -497,6 +497,11 @@ class UploadDataController extends Controller
             // Session::flash('success','Data imported successfully!');
             session()->flash('success', 'Data imported successfully! ' . $duplicateMessage);
 
+            // We now sync products with meilisearch
+            Product::chunk(500, function($products) {
+                $products->searchable();
+            });
+
             return response()->json($response);
 
         }
@@ -567,47 +572,60 @@ class UploadDataController extends Controller
                 }
 
                 // Insert into pivot table
-                $repsStatesBulk[] = [
-                    'sales_representative_id' => $reps[$repName],
-                    'us_state_id' => $states[$stateAbbr],
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ];
+                DB::table('sales_representative_us_state')->updateOrInsert(
+                    [
+                        'sales_representative_id' => $reps[$repName],
+                        'us_state_id' => $states[$stateAbbr]
+                    ], 
+                    [
+                        'updated_at' => $now
+                    ]
+                );
+
+                // Insert into pivot table
+                // $repsStatesBulk[] = [
+                //     'sales_representative_id' => $reps[$repName],
+                //     'us_state_id' => $states[$stateAbbr],
+                // ];
 
                 // **Insert in batches of 500**
-                if (count($repsStatesBulk) >= 500) {
-                    // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
-                    $repsStatesBulk = collect($repsStatesBulk)
-                        ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
-                        ->values()
-                        ->toArray();
+                // if (count($repsStatesBulk) >= 500) {
+                //     // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
+                //     $repsStatesBulk = collect($repsStatesBulk)
+                //         ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
+                //         ->values()
+                //         ->toArray();
 
-                    DB::table('sales_representative_us_state')->upsert(
-                        $repsStatesBulk,
-                        ['sales_representative_id', 'us_state_id'], // unique key
-                        ['updated_at'] // no fields to update
-                    );
-                    $repsStatesBulk = []; // Reset array
-                }
+                //     DB::table('sales_representative_us_state')->upsert(
+                //         $repsStatesBulk,
+                //         ['sales_representative_id', 'us_state_id'], // unique key
+                //         [] // no fields to update
+                //     );
+                //     $repsStatesBulk = []; // Reset array
+                // }
 
             }
 
             // **Insert remaining Product Filter Values**
-            if (!empty($repsStatesBulk)) {
-                // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
+            // if (!empty($repsStatesBulk)) {
+            //     // DB::table('sales_representative_us_state')->insert($repsStatesBulk);
 
-                $repsStatesBulk = collect($repsStatesBulk)
-                    ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
-                    ->values()
-                    ->toArray();
+            //     $repsStatesBulk = collect($repsStatesBulk)
+            //         ->unique(fn ($item) => $item['sales_representative_id'].'-'.$item['us_state_id'])
+            //         ->values()
+            //         ->toArray();
 
-                DB::table('sales_representative_us_state')->upsert(
-                    $repsStatesBulk,
-                    ['sales_representative_id', 'us_state_id'], // unique key
-                    [] // no fields to update
-                );
-                $repsStatesBulk = []; // Reset array
-            }
+            //     // testing code
+            //     // ------------------
+
+            //     DB::table('sales_representative_us_state')->upsert(
+            //         $repsStatesBulk,
+            //         ['sales_representative_id', 'us_state_id'], // unique key
+            //         [] // no fields to update
+            //     );
+
+            //     $repsStatesBulk = []; // Reset array
+            // }
 
             // **Delete the file after processing**
             $filePath = storage_path("app/imports/$filename");

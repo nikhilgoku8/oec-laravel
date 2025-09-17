@@ -2506,3 +2506,46 @@ footer .second_last_sec .inner_container .info_box .developed_by{
 .thank_you_page .sub_title{
 	padding: 0;
 }
+
+/*sales_rep_states_page*/
+.sales_rep_states_page{
+	padding: 50px 0;
+}
+.sales_rep_states_page .inner_container{
+	width: 600px;
+	margin: auto;
+}
+.sales_rep_states_page .inner_container #statemap{
+	width: 90%;
+	margin: auto;
+}
+.sales_rep_states_page .inner_container #rep .state_info .state_name{
+	text-align: center;
+	padding: 10px 0 20px;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info{
+	width: 49%;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .rep_name{
+	font-weight: 600;
+	font-size: 18px;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .info_box{
+	display: flex;
+	align-items: center;
+	padding: 0 0 5px;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .info_box .icon{
+	width: 20px;
+	font-size: 16px;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .info_box .text{
+	width: calc(100% - 16px);
+	font-size: 14px;
+	padding: 0 0 0 5px;
+}

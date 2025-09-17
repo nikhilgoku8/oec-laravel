@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         @php
-                            $rep_ids = $result->salesRepresentatives()->pluck('id')->toArray();
+                            $rep_ids = $result->salesRepresentatives()->pluck('sales_representative_id')->toArray();
                         @endphp
                         @if(!empty($salesRepresentatives) && count($salesRepresentatives) > 0)
                         <div class="col-sm-12">

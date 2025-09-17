@@ -15,6 +15,8 @@ use App\Models\Admin\Career;
 use App\Models\Admin\ReachUs;
 use App\Models\Admin\Competitor;
 use App\Models\Admin\Banner;
+use App\Models\Admin\SalesRepresentative;
+use App\Models\Admin\UsState;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -1170,5 +1172,15 @@ class HomeController extends Controller
 
         // return view('pdf.product-specification', compact('product'));
         return $pdf->download('product-'.$product->slug.'.pdf');
+    }
+    
+    public function z_map()
+    {
+        $data = [
+            'meta_title' => 'Sales Representatives Territories - OEC',
+            'meta_description' => 'Sales Representatives Territories - OEC',
+        ];
+        $data['usStates'] = UsState::with('salesRepresentatives','salesRepresentatives.usStates')->get();
+        return view('electrical.z_map', $data);
     }
 }

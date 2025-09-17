@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="input_box">
-                                <a href="{{ asset('admin/assets/csv/_sample-upload.csv') }}" download><b>Download Sample CSV</b></a>
+                                <a href="{{ asset('admin/assets/csv/rep-list-sample.csv') }}" download><b>Download Sample CSV</b></a>
                             </div>
                         </div>
                         <div class="clr"></div>

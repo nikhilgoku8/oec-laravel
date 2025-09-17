@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         @php
-                            $state_ids = $result->usStates()->pluck('id')->toArray();
+                            $state_ids = $result->usStates()->pluck('us_state_id')->toArray();
                         @endphp
                         @if(!empty($usStates) && count($usStates) > 0)
                         <div class="col-sm-12">

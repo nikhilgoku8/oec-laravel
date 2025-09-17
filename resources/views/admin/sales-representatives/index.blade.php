@@ -62,7 +62,7 @@
                             @if($result->isNotEmpty())
                                 @foreach ($result as $row)
                                     <tr>
-                                        <td>{{ $row->title }}</td>
+                                        <td>{{ $row->rep_name }}</td>
                                         <td>
                                             @if(!empty($row->usStates) && count($row->usStates) > 0)
                                                 @foreach($row->usStates as $state)

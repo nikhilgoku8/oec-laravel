@@ -81,8 +81,6 @@
                             <ul class="nav nav-second-level">
                                 <li><a href="{{ url('owm/admins') }}">All Admins</a></li>
                                 <li><a href="{{ url('owm/admins/usertype/superadmin') }}">Super Admins</a></li>
-                                <li><a href="{{ route('us-states.index') }}">US States</a></li>
-                                <li><a href="{{ route('sales-representatives.index') }}">Sales Representatives</a></li>
                                 <!-- <li><a href="{{ url('owm/admins/usertype/manager') }}">Managers</a></li>
                                 <li><a href="{{ url('owm/admins/usertype/executive') }}">Care Executives</a></li> -->
                             </ul>
@@ -93,6 +91,12 @@
                                 <li><a href="{{ route('import_data.edit') }}">Products Import</a></li>
                                 <li><a href="{{ route('representatives_states_data.edit') }}">Representative States Import</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="{{ route('us-states.index') }}"><i class="fa fa-map-marker" aria-hidden="true"></i> US States</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sales-representatives.index') }}"><i class="fa fa-users" aria-hidden="true"></i> Sales Representatives</a>
                         </li>
                         @endif
 
@@ -170,7 +174,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Users<span class="fa arrow"></span></a>
+                                <a><i class="fa fa-users" aria-hidden="true"></i> Users<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li><a href="{{ route('users.index') }}">All</a></li>
                                     <li><a href="{{ route('users.pending') }}">Pending</a></li>
