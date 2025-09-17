@@ -2521,7 +2521,7 @@ footer .second_last_sec .inner_container .info_box .developed_by{
 }
 .sales_rep_states_page .inner_container #rep .state_info .state_name{
 	text-align: center;
-	padding: 10px 0 20px;
+	padding: 10px 0 30px;
 }
 .sales_rep_states_page .inner_container #rep .state_info .reps_wrapper{
 	display: flex;
@@ -2530,10 +2530,14 @@ footer .second_last_sec .inner_container .info_box .developed_by{
 }
 .sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info{
 	width: 49%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 20px;
 }
 .sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .rep_name{
 	font-weight: 600;
 	font-size: 18px;
+	border-bottom: 1px solid #e5e5e5;
+	margin: 0 0 15px 0;
 }
 .sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info .info_box{
 	display: flex;
