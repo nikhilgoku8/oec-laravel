@@ -1171,7 +1171,7 @@ class HomeController extends Controller
             ]);
 
         // return view('pdf.product-specification', compact('product'));
-        return $pdf->download('product-'.$product->slug.'.pdf');
+        return $pdf->download('product-'.$product->title.'.pdf');
     }
     
     public function z_map()

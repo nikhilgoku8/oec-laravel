@@ -172,7 +172,9 @@
 									@endforeach
 								</div>
 							@else
-								No Sales Representatives
+								<div class="center">
+									No Sales Representatives
+								</div>
 							@endif
 						</div>
 					@endforeach

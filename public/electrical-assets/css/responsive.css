@@ -778,7 +778,16 @@ footer .second_last_sec .inner_container .info_box .logo_box{
 .checkout_page .form_wrapper [class*=col-sm]{
 	padding: 0;
 }
-
+.sales_rep_states_page .inner_container #statemap{
+	width: 90%;
+}
+.sales_rep_states_page .inner_container #rep{
+	width: 100%;
+}
+.sales_rep_states_page .inner_container #rep .state_info .reps_wrapper .rep_info{
+	width: 100%;
+	margin: 0 0 20px 0;
+}
 
 
 
