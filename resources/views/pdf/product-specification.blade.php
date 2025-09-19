@@ -91,7 +91,7 @@ ul li{
             <tbody>
                 <tr>
                     <td class="left_info" style="width: 50%;">
-                        <div class="product_title" style="width: 50%;font-size: 20px;font-weight: 700;color: #000;padding:0 0 1mm;">{{ $product->title }}</div>
+                        <div class="product_title" style=";font-size: 20px;font-weight: 700;color: #000;padding:0 0 1mm;">{{ $product->title }}</div>
                         <div class="product_description" style="font-size: 13px;line-height:1.1em;font-weight: 600;color: #666;padding:0 0 15px;">{!! $product->description !!}</div>
                         <div class="features_title" style="font-size: 14px;font-weight: 600;color: #000;padding:0 0 10px;">Features</div>
                         {!! $product->features !!}
