@@ -144,7 +144,39 @@
         </div>
         <!-- fourth_row end -->
     </div>
-    <!-- /.row -->    
+    <!-- /.row -->      
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+  $("#delete_records").on('click',(function(e){
+    e.preventDefault();
+
+    var dataID = [];
+    $.each($("input[name='dataID']:checked"), function(){
+        dataID.push($(this).val());
+    });
+
+    if(dataID.length == 0){
+        alert('No records are selected');
+    }else{
+        if (confirm('Are you sure you want to delete these records?')) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('filter-values.bulk-delete') }}",
+                data: {"_token":"{{ csrf_token() }}", "dataID":dataID},
+                dataType: 'json',
+                success: function(response) {
+                    window.location.reload(true);
+                }
+            });
+        }
+    }  
+
+  }));
+
+});
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
