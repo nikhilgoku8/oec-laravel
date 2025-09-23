@@ -79,6 +79,73 @@
     </div>
     <!-- /.row -->
 
+    <div class="row">
+        <div class="fourth_row">
+            
+            <div class="my_panel">
+                
+                @if(Session::has('success'))
+                    <div class="alert alert-success">{{Session::get('success')}}</div>
+                @endif
+                @if(Session::has('error'))
+                    <div class="alert alert-danger">{{Session::get('error')}}</div>
+                @endif
+
+
+                <div class="upper_sec">
+                    <div class="left_section">
+                        <div class="title">Filter Values Data</div>
+                        <div class="sub_title"> </div>
+                    </div>
+                    <div class="right_section">
+                        <div class="orange_filled_btn">
+                            <a id="delete_records">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="details_table">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Filter Values</th>
+                                <!-- <th>Filter Type</th> -->
+                                <th>Created By</th>
+                                <th>Updated By</th>
+                                <th class="action">ACTION</th>
+                            </tr>
+                            @if(!empty($result->filterValues))
+                                @foreach ($result->filterValues as $row)
+                                    <tr>
+                                        <td>{{ $row->value }}</td>
+                                        <!-- <td>{{ $row->filterType->title }}</td> -->
+                                        <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
+                                        <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
+                                        <td class="action">
+                                            <a href="{{ route('filter-values.edit', $row->id) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <span class="checkbox">
+                                                <input name="dataID" class="styled" type="checkbox" value="{{ $row->id }}">
+                                                <label for="checkbox1"></label>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+                @if(method_exists($result, 'links'))
+                <div class="table_pagination">
+                    {{ $result->links('pagination.numbers') }}
+                    <div class="clr"></div>
+                </div>
+                @endif
+            </div>
+
+        </div>
+        <!-- fourth_row end -->
+    </div>
+    <!-- /.row -->    
+
 <script type="text/javascript">
 $(document).ready(function() {
 

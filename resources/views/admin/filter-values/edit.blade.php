@@ -63,9 +63,9 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="input_box">
-                                <label>Title</label>
-                                <div class="error form_error" id="form-error-title"></div>
-                                <input type="text" name="title" placeholder="Title" value="{{ $result->title }}">
+                                <label>Value</label>
+                                <div class="error form_error" id="form-error-value"></div>
+                                <input type="text" name="value" placeholder="Value" value="{{ $result->value }}">
                             </div>
                         </div>
                         <div class="clr"></div>

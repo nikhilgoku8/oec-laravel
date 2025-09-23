@@ -63,7 +63,7 @@
                             @if(!empty($result))
                                 @foreach ($result as $row)
                                     <tr>
-                                        <td>{{ $row->title }}</td>
+                                        <td>{{ $row->value }}</td>
                                         <td>{{ $row->filterType->title }}</td>
                                         <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
                                         <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>

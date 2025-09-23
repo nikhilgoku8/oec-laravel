@@ -184,7 +184,7 @@
                             Home
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a>
                             Industries
                             <span class="arrow"></span> 
@@ -194,7 +194,7 @@
                             <li><a href="{{ route('landscape-irrigation-solutions') }}">Landscape & Irrigation Solutions</a></li>
                             <li><a href="{{ route('energy-systems-renewables') }}">Energy Systems & Renewables</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <a>
                             Resources

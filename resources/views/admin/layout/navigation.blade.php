@@ -151,6 +151,13 @@
                                 </ul>
                             </li>
                             <li>
+                                <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Filter Values<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="{{ route('filter-values.index') }}">All</a></li>
+                                    <li><a href="{{ route('filter-values.create') }}">Add New</a></li>
+                                </ul>
+                            </li>
+                            <li>
                                 <a><i class="fa fa-file-text-o" aria-hidden="true"></i> Product Tab labels<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li><a href="{{ route('product-tab-labels.index') }}">All</a></li>

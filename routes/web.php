@@ -149,6 +149,9 @@ Route::prefix('owm')->group(function () {
 
         Route::resource('filter-types', FilterTypeController::class);
         Route::post('filter-types/bulk-delete', [FilterTypeController::class, 'bulkDelete'])->name('filter-types.bulk-delete');
+
+        Route::resource('filter-values', FilterValueController::class);
+        Route::post('filter-values/bulk-delete', [FilterValueController::class, 'bulkDelete'])->name('filter-values.bulk-delete');
         
         Route::post('get_filter_values_by_type/{id}', [FilterValueController::class, 'get_filter_values_by_type'])->name('get_filter_values_by_type');
 

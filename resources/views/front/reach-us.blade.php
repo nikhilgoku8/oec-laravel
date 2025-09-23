@@ -20,11 +20,12 @@
                 <div class="ctc_wrapper">
                     <a href="tel:+1(929)5237411" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-phone-alt"></i></div>
-                        <div class="text">Phone : +1 (929) 523 7411</div>
+                        <div class="text">Phone : +1 (732) 479 0469</div>
                     </a>
                     <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="text">1207 Delaware Ave, Wilmington, DE 19806</div>
+                        <!-- <div class="text">1207 Delaware Ave, Wilmington, DE 19806</div> -->
+                        <div class="text">135 Fieldcrest Avenue Edison, New Jersey 08837</div>
                     </div>
                     <a href="mailto:info@oec-americas.com" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-envelope"></i></div>

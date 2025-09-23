@@ -13,7 +13,7 @@ class FilterValueController extends Controller
 {
     public function index()
     {
-        $result = FilterValue::with('filterType')->paginate(100);
+        $result = FilterValue::with('filterType')->orderBy('value')->paginate(100);
         return view('admin.filter-values.index', compact('result'));
     }
 
@@ -78,7 +78,7 @@ class FilterValueController extends Controller
             // This validates and gives errors which are caught below and also stop further execution
             $validated = $validator->validated();
 
-            $validated['slug'] = $this->string_filter($validated['title']);
+            // $validated['slug'] = $this->string_filter($validated['title']);
 
             if ($isNew) {
                 $validated['created_by'] = session('username');

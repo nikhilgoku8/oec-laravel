@@ -18,7 +18,7 @@ class FilterType extends Model
     ];
 
     public function filterValues(){
-        return $this->hasMany(FilterValue::class);
+        return $this->hasMany(FilterValue::class)->orderBy('value');
     }
 
 }
