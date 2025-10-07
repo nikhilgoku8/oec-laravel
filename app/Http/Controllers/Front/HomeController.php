@@ -143,6 +143,7 @@ class HomeController extends Controller
     {
         $this->data['featuredProducts'] = Product::where('featured', 1)->limit(10)->get();
         $this->data['banners'] = Banner::orderBy('sort_order')->get();
+        $this->data['usStates'] = UsState::with('salesRepresentatives','salesRepresentatives.usStates')->get();
         return view('electrical.home', $this->data);
     }
     
@@ -1171,7 +1172,7 @@ class HomeController extends Controller
             ]);
 
         // return view('pdf.product-specification', compact('product'));
-        return $pdf->download('OEC_'.$product->title.'.pdf');
+        return $pdf->download('OEC_'.$product->slug.'.pdf');
     }
     
     public function z_map()
