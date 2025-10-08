@@ -7,7 +7,9 @@
 <title>{{ $meta_title ?? 'OEC' }}</title>
 <meta name="description" content="{{ $meta_description ?? 'OEC' }}" />
 
-<link rel="shortcut icon" type="image/x-icon" href="{{ asset('front/assets/images/favicon.webp') }}"> 
+<link rel="icon" type="image/png" href="{{ asset('front/assets/images/favicon.png') }}">
+<link rel="shortcut icon" type="image/png" href="{{ asset('front/assets/images/favicon.png') }}">
+
 
 <link href="{{ asset('front/assets/css/reset.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('front/assets/css/ace-responsive-menu.css') }}" rel="stylesheet" type="text/css" />
