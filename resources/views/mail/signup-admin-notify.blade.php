@@ -87,6 +87,12 @@
                             <td>{{ $mailData['phone'] }}</td>
                           </tr>
                           @endif
+                          @if(!empty($mailData['role']))
+                          <tr>
+                            <th>Role:</th>
+                            <td>{{ $mailData['role'] }}</td>
+                          </tr>
+                          @endif
                           <tr>
                             <th>Signup Date & Time:</th>
                             <td>{{ $mailData['created_at'] }}</td>

@@ -68,6 +68,13 @@
                                 <input type="text" name="value" placeholder="Value" value="{{ $result->value }}">
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="input_box">
+                                <label>Sort Order</label>
+                                <div class="error form_error" id="form-error-sort_order"></div>
+                                <input type="number" name="sort_order" placeholder="Sort Order" value="{{ $result->sort_order }}">
+                            </div>
+                        </div>
                         <div class="clr"></div>
                     </div>
 

@@ -42,7 +42,7 @@ class UsersExport implements FromCollection
 
         // Define static headings
         $headings = [
-            'Sr. No.', 'First Name', 'Last Name', 'Email', 'Phone', 'Last Password Changed', 'Last Login', 'Login Attempts', 'Is Locked', 'Registered At', 'Billing First Name', 'Billing Last Name', 'Billing Phone', 'Billing Email', 'Billing Company', 'Billing Address', 'Billing City', 'Billing State', 'Billing Country', 'Billing Postcode', 'Shipping First Name', 'Shipping Last Name', 'Shipping Phone', 'Shipping Email', 'Shipping Company', 'Shipping Address', 'Shipping City', 'Shipping State', 'Shipping Country', 'Shipping Postcode', 'Status', 'Created By', 'Updated By', 'Created At', 'Updated At'
+            'Sr. No.', 'First Name', 'Last Name', 'Email', 'Phone', 'Role', 'Last Password Changed', 'Last Login', 'Login Attempts', 'Is Locked', 'Registered At', 'Billing First Name', 'Billing Last Name', 'Billing Phone', 'Billing Email', 'Billing Company', 'Billing Address', 'Billing City', 'Billing State', 'Billing Country', 'Billing Postcode', 'Shipping First Name', 'Shipping Last Name', 'Shipping Phone', 'Shipping Email', 'Shipping Company', 'Shipping Address', 'Shipping City', 'Shipping State', 'Shipping Country', 'Shipping Postcode', 'Status', 'Created By', 'Updated By', 'Created At', 'Updated At'
         ];
 
         // Add dynamic product columns
@@ -60,6 +60,7 @@ class UsersExport implements FromCollection
                 $user->lname,
                 $user->email,
                 $user->phone,
+                $user->role,
                 $user->last_password_changed,
                 $user->last_login,
                 $user->login_attempts,

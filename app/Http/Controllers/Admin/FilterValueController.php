@@ -59,6 +59,7 @@ class FilterValueController extends Controller
 
             $rules = [
                 'filter_type_id' => 'required|exists:filter_types,id',
+                'sort_order' => 'nullable|numeric|min:0',
                 'value' => [
                     'required',
                     Rule::unique('filter_values')

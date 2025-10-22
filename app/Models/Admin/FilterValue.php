@@ -11,6 +11,7 @@ class FilterValue extends Model
     protected $fillable = [
         'filter_type_id',
         'value',
+        'sort_order',
         'created_by',
         'updated_by',
         'created_at',

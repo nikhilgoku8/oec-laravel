@@ -108,7 +108,7 @@
                         <tbody>
                             <tr>
                                 <th>Filter Values</th>
-                                <!-- <th>Filter Type</th> -->
+                                <th>Sort Order</th>
                                 <th>Created By</th>
                                 <th>Updated By</th>
                                 <th class="action">ACTION</th>
@@ -117,7 +117,7 @@
                                 @foreach ($result->filterValues as $row)
                                     <tr>
                                         <td>{{ $row->value }}</td>
-                                        <!-- <td>{{ $row->filterType->title }}</td> -->
+                                        <td>{{ $row->sort_order }}</td>
                                         <td>{{ $row->created_by }} <br> {{ $row->created_at }}</td>
                                         <td>{{ $row->updated_by }} <br> {{ $row->updated_at }}</td>
                                         <td class="action">

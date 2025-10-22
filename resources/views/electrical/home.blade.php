@@ -321,7 +321,13 @@
 <div class="sales_rep_states_page">
     
     <div class="container">
+            
+            <div class="heading back_stroke">
+                <span>Representatives</span>
+            </div>
+
         <div class="inner_container">
+
             <!-- sales_rep_states_wrapper -->
             <div id="statemap">
                 <img src="{{ asset('electrical-assets/images/map.jpg') }}" alt="" usemap="#states" border="0">

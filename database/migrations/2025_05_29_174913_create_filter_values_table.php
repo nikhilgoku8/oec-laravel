@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('filter_type_id')->constrained()->onDelete('cascade');
             $table->string('value')->index();
+            $table->integer('sort_order')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
