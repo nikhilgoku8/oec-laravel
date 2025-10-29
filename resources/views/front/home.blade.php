@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="product_box wow fadeInRight" data-wow-delay="0.1s">
                         <div class="img_box">
                             <img src="{{ asset('front/assets/images/homepage/automotive.webp') }}">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="clr"></div>
             </div>
 

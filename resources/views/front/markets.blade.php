@@ -13,7 +13,7 @@
 
 <div class="boxes_wrapper">
 
-    <div class="text_on_image automotive">
+    <!-- <div class="text_on_image automotive">
         <span class="section_id" id="automotive"></span>
         <div class="inner_box">
             <div class="text_box wow">
@@ -21,7 +21,7 @@
                 <p>At OEC, we specialize in manufacturing high-quality air brake components, tubing, and rubber hoses for the automotive industry. Trusted by OEMs and aftermarket customers, our products ensure reliable braking performance and compliance with industry standards. From fittings and hose assemblies to air brake tubing, our solutions are designed for safety and efficiency in vehicles. Contact us to explore our range of air brake components and tubing for the automotive market.</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="text_on_image construction">
         <span class="section_id" id="construction"></span>
         <div class="inner_box">

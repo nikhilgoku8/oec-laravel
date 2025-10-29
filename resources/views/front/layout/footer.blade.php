@@ -23,13 +23,13 @@
                     <div class="title">Products</div>
                     <ul>
                         <li><a href="{{ route('electricals') }}">Electrical</a></li>
-                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
+                        <!-- <li><a href="{{ route('automotive') }}">Automotive</a></li> -->
                     </ul>
                 </div>
                 <div class="info_box">
                     <div class="title">Markets</div>
                     <ul>
-                        <li><a href="{{ route('markets').'#automotive' }}">Automotive</a></li>
+                        <!-- <li><a href="{{ route('markets').'#automotive' }}">Automotive</a></li> -->
                         <li><a href="{{ route('markets').'#construction' }}">Construction</a></li>
                         <li><a href="{{ route('markets').'#data-center' }}">Data Center</a></li>
                         <li><a href="{{ route('markets').'#lightning-protection' }}">Lightning Protection</a></li>

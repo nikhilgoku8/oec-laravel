@@ -91,7 +91,7 @@
                     </a>
                     <ul>
                         <li><a href="{{ route('electricals') }}">Electricals</a></li>
-                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
+                        <!-- <li><a href="{{ route('automotive') }}">Automotive</a></li> -->
                     </ul>
                 </li>
                 <li>
