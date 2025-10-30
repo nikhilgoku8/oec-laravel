@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>{{ $meta_title ?? 'OEC' }}</title>
 <meta name="description" content="{{ $meta_description ?? 'OEC' }}" />
@@ -85,14 +85,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a>
+                    <a href="{{ route('electricals') }}">
                         Products
-                        <span class="arrow"></span> 
+                        <!-- <span class="arrow"></span>  -->
                     </a>
-                    <ul>
+                    <!-- <ul>
                         <li><a href="{{ route('electricals') }}">Electricals</a></li>
-                        <!-- <li><a href="{{ route('automotive') }}">Automotive</a></li> -->
-                    </ul>
+                        <li><a href="{{ route('automotive') }}">Automotive</a></li>
+                    </ul> -->
                 </li>
                 <li>
                     <a href="{{ route('markets') }}">

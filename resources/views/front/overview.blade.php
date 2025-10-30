@@ -27,7 +27,7 @@
                 <div class="col-sm-6">
                     <div class="text_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="title">About OEC</div>
-                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors, fittings, cable glands, automotive fittings, air brake products, and hoses. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. OEC services various OEMs in the electrical, heavy-duty automotive, HVAC, and renewable industries. OEC also has a major presence in distribution and retail markets. We at OEC strive for excellence, innovation, and creativity, empowering OEC to be an industry leader and a generationally sustainable business. </p>
+                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. OEC services various OEMs in the electrical industries. OEC also has a major presence in distribution and retail markets. We at OEC strive for excellence, innovation, and creativity, empowering OEC to be an industry leader and a generationally sustainable business. </p>
                     </div>
                 </div>
                 <div class="col-sm-6">

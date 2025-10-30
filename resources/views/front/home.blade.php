@@ -8,7 +8,7 @@
             <source src="{{ asset('front/assets/videos/OEC.mp4') }}" type="video/mp4">
         </video>
         <div class="overlay_text wow zoomIn" data-wow-delay="0.1s">
-            <div class="hero_title">LEADING MANUFACTURER OF <br> ELECTRICAL AND AUTOMOTIVE SOLUTIONS</div>
+            <div class="hero_title">LEADING MANUFACTURER OF <br> ELECTRICAL SOLUTIONS</div>
             <a href="{{ route('reach-us') }}" class="red_filled_btn">Contact Us</a>
         </div>
     </div>
@@ -24,7 +24,7 @@
                 <div class="col-sm-6">
                     <div class="text_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="title">About OEC</div>
-                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors, fittings, cable glands, automotive fittings, air brake tubing, and hoses. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
+                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
                         <a href="{{ route('overview') }}" class="hollow_btn">Read More</a>
                     </div>
                 </div>
@@ -86,6 +86,7 @@
             <p class=" wow fadeInUp" data-wow-delay="0.2s">OEC's comprehensive and diverse product portfolio is rigorously tested and certified to meet global standards, ensuring bespoke quality and durability. </p>
 
             <div class="products_wrapper">
+				<div class="col-sm-3"></div>
                 <div class="col-sm-6">
                     <div class="product_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="img_box">
@@ -100,6 +101,7 @@
                         </div>
                     </div>
                 </div>
+				<div class="col-sm-3"></div>
                 <!-- <div class="col-sm-6">
                     <div class="product_box wow fadeInRight" data-wow-delay="0.1s">
                         <div class="img_box">
@@ -178,7 +180,7 @@ $(document).ready(function() {
 
             <div class="text_box">
                 <div class="title wow fadeInUp" data-wow-delay="0.0s">Why Us</div>
-                <p class=" wow fadeInUp" data-wow-delay="0.2s">As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical and automotive requirements.</p>
+                <p class=" wow fadeInUp" data-wow-delay="0.2s">As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical requirements.</p>
                 <!-- <a href="#" class="hollow_btn">Read More</a> -->
             </div>
             <div class="img_box wow fadeInUp" data-wow-delay="0.2s">
