@@ -73,12 +73,12 @@
                             <button class="red_filled_btn" type="submit">Subscribe</button>
                         </div>
                     </form>
-                    <div class="developed_by">
+                    <a href="https://www.codzera.com/" target="_blank" class="developed_by">
                         <div class="text">Developed by <b>Codzera</b> </div>
                         <div class="codzera_logo">
                             <img src="admin/assets/images/codzera-logo.png">
                         </div>
-                    </div>
+                    </a>
                 </div>
 
             </div>
