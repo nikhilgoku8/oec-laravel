@@ -674,6 +674,8 @@ class ProductController extends Controller
             }
             // ==================================================================
 
+            $product->searchable();
+
             return response()->json([
                 'status' => 'success',
                 'message' => $isNew ? 'Product created successfully!' : 'Product updated successfully!',
