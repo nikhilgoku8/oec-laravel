@@ -56,7 +56,12 @@
                     <div class="input_boxes">
                         <div class="col-sm-8">
                             <div class="input_box">
-                                <label>Import Data (xlsx,csv)</label>
+                                <label>
+                                    Import Data (xlsx,csv)
+                                    <br>
+                                    <br>
+                                    <span>"Excel/CSV headers should match the sample CSV."</span>
+                                </label>
                                 <div class="error form_error" id="form-error-data_file"></div>
                                 <input type="file" name="data_file">
                             </div>

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Support\Html\RichTextNormalizer;
 
 class HomeController extends Controller
 {
@@ -1177,6 +1178,8 @@ class HomeController extends Controller
     {
         $product = Product::with('productTabContents','productTabContents.productTabLabel')->findOrFail($id);
 
+        $this->normalizeProductHtmlForPdf($product);
+
         $pdf = Pdf::loadView('pdf.product-specification', compact('product'))
             ->setPaper('a4', 'portrait')
             ->setOptions([
@@ -1186,6 +1189,22 @@ class HomeController extends Controller
 
         // return view('pdf.product-specification', compact('product'));
         return $pdf->download('OEC_'.$product->slug.'.pdf');
+    }
+
+    /**
+     * Normalize rich-text HTML in memory for DomPDF only.
+     * Does not persist changes to the database.
+     */
+    private function normalizeProductHtmlForPdf(Product $product): void
+    {
+        $normalizer = new RichTextNormalizer;
+
+        $product->description = $normalizer->normalize($product->description);
+        $product->features = $normalizer->normalize($product->features);
+
+        foreach ($product->productTabContents as $tabContent) {
+            $tabContent->content = $normalizer->normalize($tabContent->content);
+        }
     }
     
     public function z_map()
