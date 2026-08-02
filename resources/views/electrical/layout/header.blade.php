@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>{{ $meta_title ?? 'OEC' }}</title>
 <meta name="description" content="{{ $meta_description ?? 'OEC' }}" />
@@ -202,21 +202,22 @@
                         </a>
                         <ul>
                             <li>
-                                <a>Technical Resources <span class="arrow"></span></a>
-                                <ul>
+                                <a href="{{ route('operation-manual') }}">Technical Resources</a>
+                                <!--<ul>
                                     <li><a href="{{ route('operation-manual') }}">Operation Manual</a></li>
                                     <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
                                     <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>
-                                </ul>
+                                </ul>-->
                             </li>
                             <li>
                                 <a>Catalogs & Brochure <span class="arrow"></span></a>
                                 <ul>
+									<li><a href="{{ route('catalog') }}">Catalog</a></li>
                                     <li><a href="{{ route('brochure') }}">Brochure</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="https://oec-americas.com/products/2025/05/oec-tc.pdf">Terms & Conditions</a>
+                                <a href="https://oec-americas.com/products/product-images/terms_and_conditions.pdf">Terms & Conditions</a>
                             </li>
                         </ul>
                     </li>

@@ -15,52 +15,110 @@
 
             <div class="pdf_boxes">
 
-                <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.jpeg') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.jpeg') }}">
+                 <div class="pdf_box">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/ACI0426.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/ACI0426.jpg') }}">
                     </a>
-                    <div class="pdf_title">Aluminum Compression Connectors</div>
-                    <a href="{{ asset('electrical-assets/operation-manual/aluminum-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">
+                    <div class="pdf_title">Aluminum Lug & Splice - Crimping Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/ACI0426.pdf') }}"
+					   class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.jpeg') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.jpeg') }}">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/CCI0426.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/CCI0426.jpg') }}">
                     </a>
-                    <div class="pdf_title">Copper Compression Connectors</div>
-                    <a href="{{ asset('electrical-assets/operation-manual/copper-compression-connectors.pdf') }}" class="red_filled_btn" target="_blank">
+                    <div class="pdf_title">Copper Lug & Splice - Crimping Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/CCI0426.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.png') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.png') }}">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/insulated-connector-installation.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/insulated-connector-installation.jpg') }}">
                     </a>
-                    <div class="pdf_title">Insulated Connector Installation</div>
-                    <a href="{{ asset('electrical-assets/operation-manual/insulated-connector-installation.pdf') }}" class="red_filled_btn" target="_blank">
+                    <div class="pdf_title">Insulated Connector Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/insulated-connector-installation.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="pdf_box">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/instructions_307.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/instructions_307.jpg') }}">
+                    </a>
+                    <div class="pdf_title">Pin Adapter Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/instructions_307.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.png') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.png') }}">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/cord-grip-instruction.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/cord-grip-instruction.jpg') }}">
                     </a>
-                    <div class="pdf_title">Cord Grip Connector Installation</div>
-                    <a href="{{ asset('electrical-assets/operation-manual/cord-grip-connector-installation.pdf') }}" class="red_filled_btn" target="_blank">
+                    <div class="pdf_title">Cord Grip Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/cord-grip-instruction.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="pdf_box">
-                    <a href="{{ asset('electrical-assets/operation-manual/junction-box-installation.png') }}" class="img_box image_veno">
-                        <img src="{{ asset('electrical-assets/operation-manual/junction-box-installation.png') }}">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/junction-box-installation.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/junction-box-installation.jpg') }}">
                     </a>
-                    <div class="pdf_title">Junction Box Installation</div>
-                    <a href="{{ asset('electrical-assets/operation-manual/junction-box-installation.pdf') }}" class="red_filled_btn" target="_blank">
+                    <div class="pdf_title">Junction Box Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/junction-box-installation.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="pdf_box">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/OEC5802.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/OEC5802.jpg') }}">
+                    </a>
+                    <div class="pdf_title">OEC5802 Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/instruction-sheet-AC-disconnect_OEC5802.pdf') }}"
+					   class="red_filled_btn" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="pdf_box">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.jpg') }}">
+                    </a>
+                    <div class="pdf_title">Terrafix Compression Grounding Connector Thin Wall C-Tap Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="pdf_box">
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.jpg') }}" 
+					   class="img_box image_veno">
+                        <img src="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.jpg') }}">
+                    </a>
+                    <div class="pdf_title">Terrafix Compression Grounding Connector C-Tap Installation Instruction</div>
+                    <a href="{{ asset('https://oec-americas.com/products/product-images/copper-tooling.pdf') }}" 
+					   class="red_filled_btn" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>

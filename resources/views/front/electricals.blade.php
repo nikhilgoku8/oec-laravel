@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="product_info" data-swiper-parallax-scale="0" data-swiper-parallax-opacity="0">
-                        Discover our high-quality electrical boxes designed to meet diverse electrical installation needs. From disconnects to enclosures, we provide secure and reliable housing for various components. Our boxes are built to industry standards, ensuring safety and durability. Please contact us for more information, catalogs, and spec sheets. 
+                        Discover our high-quality electrical boxes to meet diverse electrical installation needs. From disconnects to enclosures, we provide secure and reliable housing for various components. Our boxes are built to industry standards, ensuring safety and durability. Please contact us for more information, catalogs, and spec sheets. 
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="product_info" data-swiper-parallax-scale="0" data-swiper-parallax-opacity="0">
-                        OEC is the world’s largest manufacturer Of UL-listed lugs and neutral bars. Please contact us to know more about our product offering, including catalogs, brochures, and spec sheets. 
+                        OEC offers the complete range Of UL-listed lugs and neutral bars. Please contact us to know more about our product offering, including catalogs, brochures, and spec sheets. 
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="product_info" data-swiper-parallax-scale="0" data-swiper-parallax-opacity="0">
-                        OEC manufactures the complete range of UL-listed grounding connectors, ground rods, and bussbars. Please contact us for more information, including catalogs, brochures, and spec sheets.
+                        OEC offers the complete range of UL-listed grounding connectors, ground rods, and bussbars. Please contact us for more information, including catalogs, brochures, and spec sheets.
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="product_info" data-swiper-parallax-scale="0" data-swiper-parallax-opacity="0">
-                        OEC manufactures a wide range of UL-listed power distribution blocks along with other connectors for the medium voltage industry. Contact us for information on our medium voltage products.
+                        OEC offers a wide range of UL-listed power distribution blocks along with other connectors for the medium voltage industry. Contact us for information on our medium voltage products.
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="product_info" data-swiper-parallax-scale="0" data-swiper-parallax-opacity="0">
-                        OEC manufactures a wide range of UL-listed aliuminum and zinc die-cast fittings, along with an extensive offering of EMT fittings. Contact us for more information on our fittings category, including catalogs, brochures, and spec sheets.
+                        OEC offers a wide range of UL-listed aliuminum and zinc die-cast fittings, along with an extensive offering of EMT fittings. Contact us for more information on our fittings category, including catalogs, brochures, and spec sheets.
                     </div>
                 </div>
             </div>

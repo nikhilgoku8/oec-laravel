@@ -2,33 +2,65 @@
 
 @section('content')
 
+<!-- <style>
+	.innovation .products_wrapper .product_box .text_box {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 33%;
+    background: var(--red);
+    padding: 4px 28px;
+}
+	.title {
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #fff;
+    padding: 0 0 20px 0;
+}
+	.hero .video_wrapper .overlay_text .hero_title {
+    font-size: 40px;
+    line-height: 1.6em;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: #fff;
+    text-align: center;
+    font-family: var(--michroma);
+    user-select: none;
+    pointer-events: none;
+}
+</style>-->
+
 <div class="hero">
     <div class="video_wrapper">
         <video autoplay muted loop poster="{{ asset('front/assets/images/oec-videoframe.webp') }}">
             <source src="{{ asset('front/assets/videos/OEC.mp4') }}" type="video/mp4">
         </video>
         <div class="overlay_text wow zoomIn" data-wow-delay="0.1s">
-            <div class="hero_title">LEADING MANUFACTURER OF <br> ELECTRICAL SOLUTIONS</div>
+            <div class="hero_title">GLOBAL LEADER IN <br> GROUNDING & CONNECTIVITY SOLUTIONS</div> <!-- LEADING MANUFACTURER OF <br> -->
             <a href="{{ route('reach-us') }}" class="red_filled_btn">Contact Us</a>
         </div>
     </div>
 </div>
 
+
+
 <div class="about">
     <div class="container">
         <div class="inner_container">
             
-            <div class="heading small wow fadeIn" data-wow-delay="0.0s">The Complete Manufacturer</div>
+            <!-- <div class="heading small wow fadeIn" data-wow-delay="0.0s">The Complete Manufacturer</div> -->
+			<div class="heading small wow fadeIn" data-wow-delay="0.0s">The Complete Manufacturer</div>
 
             <div class="inner_box">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="text_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="title">About OEC</div>
-                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. </p>
+                        <p>OEC is a global leader in grounding & connectivity products, electrical fittings, and cable glands. OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical industries across the globe. </p>
                         <a href="{{ route('overview') }}" class="hollow_btn">Read More</a>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <div class="rings_wrapper">
                         <div class="ring_box wow zoomIn">
                             <div class="ring">
@@ -61,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="clr"></div>
             </div>
 
@@ -86,7 +118,6 @@
             <p class=" wow fadeInUp" data-wow-delay="0.2s">OEC's comprehensive and diverse product portfolio is rigorously tested and certified to meet global standards, ensuring bespoke quality and durability. </p>
 
             <div class="products_wrapper">
-				<div class="col-sm-3"></div>
                 <div class="col-sm-6">
                     <div class="product_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="img_box">
@@ -94,15 +125,14 @@
                         </div>
                         <div class="text_box">
                             <div class="title">Electrical</div>
-                            <div class="hidden_txt">
-                                <p>OEC designs and manufactures a wide range of UL-listed electrical products including connectors, fittings, and boxes.</p>
+                           <!--<div class="hidden_txt">
+                                <p>OEC offers a wide range of UL-listed electrical products including connectors, fittings, and boxes.</p>
                                 <a href="#" class="hollow_btn">Read More</a>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
-				<div class="col-sm-3"></div>
-                <!-- <div class="col-sm-6">
+                <!--<div class="col-sm-6">
                     <div class="product_box wow fadeInRight" data-wow-delay="0.1s">
                         <div class="img_box">
                             <img src="{{ asset('front/assets/images/homepage/automotive.webp') }}">
@@ -115,7 +145,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>-->
                 <div class="clr"></div>
             </div>
 
@@ -172,7 +202,7 @@ $(document).ready(function() {
 </div>
 <!-- markets end -->
 
-<div class="why_oec">
+<!--<div class="why_oec">
     <div class="container">
         <div class="inner_container">
             
@@ -180,22 +210,17 @@ $(document).ready(function() {
 
             <div class="text_box">
                 <div class="title wow fadeInUp" data-wow-delay="0.0s">Why Us</div>
-                <p class=" wow fadeInUp" data-wow-delay="0.2s">As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical requirements.</p>
-                <!-- <a href="#" class="hollow_btn">Read More</a> -->
+                <p class=" wow fadeInUp" data-wow-delay="0.2s">As an industry leader with half a century of proven expertise, we bring you a diverse portfolio of over 15000 SKUs, backed by cutting-edge manufacturing, a skilled workforce of 2100, and a strong emphasis on R&D. We are proud to say that over 91% of OEC products are manufactured in-house. We go beyond mere products, delivering comprehensive solutions tailored to meet your electrical and automotive requirements.</p>
+
             </div>
             <div class="img_box wow fadeInUp" data-wow-delay="0.2s">
                 <img src="{{ asset('front/assets/images/homepage/whyusimg.webp') }}">
             </div>
 
-            <!-- <div class="video_wrapper wow fadeIn" data-wow-delay="0.1s">
-                <video autoplay muted loop>
-                    <source src="" type="video/mp4">
-                </video>
-            </div> -->
 
         </div>
     </div>
-</div>
+</div>-->
 <!-- markets end -->
 
 <div class="sustainability">

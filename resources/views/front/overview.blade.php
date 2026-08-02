@@ -6,7 +6,7 @@
 	
 <div class="hero">
 	<div class="fifty_years wow fadeIn">
-		<img src="{{ asset('front/assets/images/overview/50-years.webp') }}">
+		<!-- <img src="{{ asset('front/assets/images/overview/50-years.webp') }}">-->
 	</div>
 	<div class="img_box">
 		<!-- <img src="{{ asset('front/assets/images/overview/hero.svg') }}"> -->
@@ -24,13 +24,13 @@
         <div class="inner_container">
 
             <div class="inner_box">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="text_box wow fadeInLeft" data-wow-delay="0.1s">
                         <div class="title">About OEC</div>
-                        <p>OEC was established in 1974 and is a family-owned, global leader in the manufacturing of electrical connectors. Over the last 50 years, OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical and automotive industries across the globe. OEC services various OEMs in the electrical industries. OEC also has a major presence in distribution and retail markets. We at OEC strive for excellence, innovation, and creativity, empowering OEC to be an industry leader and a generationally sustainable business. </p>
-                    </div>
+                        <p>OEC is a global leader in grounding & connectivity products, electrical fittings, and cable glands. OEC has consistently expanded its product portfolio to cater to the diverse needs of the electrical industries across the globe. OEC services various OEMs in the electrical industries. OEC also has a major presence in distribution and retail markets. We at OEC strive for excellence, innovation, and creativity, empowering OEC to be an industry leader and a generationally sustainable business. </p>
+                    </div> <!--global leader in the manufacturing -->
                 </div>
-                <div class="col-sm-6">
+               <!-- <div class="col-sm-6">
                     <div class="rings_wrapper">
                         <div class="ring_box wow zoomIn">
                             <div class="ring">
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="clr"></div>
             </div>
 
@@ -84,9 +84,10 @@
 				</div>
 				<div class="col-sm-6">
 					<div class="text_box wow fadeInRight">
-						<p>OEC's capabilities include forging, stamping, sand casting, shell moulding, injection moulding, die casting, and high-end precision machining. OEC's state of art facilities follow all global safety standards and boasts a dedicated R&D center, in-house tool development, in-house plating, and powder coating plants, and a UL-accredited Laboratory where we test and certify our products.</p>
+						<!-- <p>OEC's capabilities include forging, stamping, sand casting, shell moulding, injection moulding, die casting, and high-end precision machining. OEC's state of art facilities follow all global safety standards and boasts a dedicated R&D center, in-house tool development, in-house plating, and powder coating plants, and a UL-accredited Laboratory where we test and certify our products.</p>-->
+						<p>OEC's capabilities include forging, stamping, sand casting, shell moulding, injection moulding, die casting, and high-end precision machining, all compliant with global safety standards. OEC also offers tool development, plating, and powder coating, supported by a dedicated R&D center and a UL-accredited Laboratory for product testing and certification.</p>
 					</div>
-				</div>
+				</div> 
 				<div class="clr"></div>
 			</div>
 

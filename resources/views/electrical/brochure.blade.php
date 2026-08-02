@@ -16,25 +16,59 @@
 
             <div class="brochure_wrapper">
                 <div class="brochure_box">
-                    <a class="img_box" href="https://oec-americas.com/products/2025/06/electrical-b.pdf" target="_blank">
-                        <img src="https://oec-americas.com/products/2025/01/banner.png">
+                    <a class="img_box" href="https://oec-americas.com/products/product-images/electrical-products-brochure.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/product-images/electrical-products-brochure.png">
                     </a>
                     <div class="brochure_title">OEC Products Brochure</div>
-                    <a class="red_filled_btn" href="https://oec-americas.com/products/2025/06/electrical-b.pdf" target="_blank">
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/product-images/electrical-products-brochure.pdf" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="brochure_box">
+                    <a class="img_box" href="https://oec-americas.com/products/product-images/oec-renewables-brochure.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/product-images/renewables.PNG">
+                    </a>
+                    <div class="brochure_title">OEC Renewables Brochure</div>
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/product-images/oec-renewables-brochure.pdf" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
                 <div class="brochure_box">
-                    <a class="img_box" href="https://oec-americas.com/products/2025/06/shear-b_compressed.pdf" target="_blank">
-                        <img src="https://oec-americas.com/products/2025/06/cable-gland.png">
+                    <a class="img_box" href="https://oec-americas.com/products/product-images/shear-bolt.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/product-images/shear-bolt.png">
                     </a>
-                    <div class="brochure_title">Shear Bolts Brochure</div>
-                    <a class="red_filled_btn" href="https://oec-americas.com/products/2025/06/shear-b_compressed.pdf" target="_blank">
+                    <div class="brochure_title">Shear Bolt Brochure</div>
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/product-images/shear-bolt.pdf" target="_blank">
                         <span class="icon"><i class="fas fa-download"></i></span>
                         Download
                     </a>
                 </div>
+			</div>
+			<div class="brochure_wrapper">
+				<div class="brochure_box">
+                    <a class="img_box" href="https://oec-americas.com/products/product-images/enclosure.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/product-images/enclosure.PNG">
+                    </a>
+                    <div class="brochure_title">Commercial Enclosure Brochure</div>
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/product-images/enclosure.pdf" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				<div class="brochure_box">
+                    <a class="img_box" href="https://oec-americas.com/products/product-images/pool-and-spa.pdf" target="_blank">
+                        <img src="https://oec-americas.com/products/product-images/pool-spa.PNG">
+                    </a>
+                    <div class="brochure_title">Commercial Enclosure Brochure</div>
+                    <a class="red_filled_btn" href="https://oec-americas.com/products/product-images/pool-and-spa.pdf" target="_blank">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        Download
+                    </a>
+                </div>
+				
+				
             </div>
 
         </div>

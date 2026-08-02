@@ -125,6 +125,20 @@ ul li{
         @php
             $tabsCount = count($product->productTabContents);
         @endphp
+		@php
+$order = [
+    'General Specification' => 1,
+    'Dimensions'            => 2,
+    'Product Specification' => 3,
+    'Electrical Rating'     => 4,
+];
+
+$tabs = $product->productTabContents
+    ->sortBy(fn($tab) => $order[$tab->productTabLabel->title] ?? 99)
+    ->values();
+
+$tabsCount = $tabs->count();
+@endphp
         <table cellpadding="0" cellspacing="0" width="100%" class="tabs_wrapper">
             <tr>
                 <td width="50%" valign="top">

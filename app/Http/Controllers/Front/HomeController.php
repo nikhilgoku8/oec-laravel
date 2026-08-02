@@ -27,6 +27,10 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // Product::chunk(500, function ($products) {
+        //     $products->searchable();
+        // });
+        
         $data = [
             'meta_title' => 'OEC',
             'meta_description' => 'OEC',
@@ -208,6 +212,15 @@ class HomeController extends Controller
             'meta_description' => 'Brochure - OEC',
         ];
         return view('electrical.brochure', $data);
+    }
+	
+	public function catalog()
+    {
+        $data = [
+            'meta_title' => 'Catalog - OEC',
+            'meta_description' => 'Catalog - OEC',
+        ];
+        return view('electrical.catalog', $data);
     }
     
     public function cross_reference()

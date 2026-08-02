@@ -18,9 +18,9 @@
             <div class="left_info">
                 <div class="title wow fadeInUp" data-wow-delay="0.1s">Contact Info</div>
                 <div class="ctc_wrapper">
-                    <a href="tel:+1(929)5237411" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
+                    <a href="tel:+1(800)8819236" class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-phone-alt"></i></div>
-                        <div class="text">Phone : +1 (732) 479 0469</div>
+                        <div class="text">Phone : +1 (800) 881 9236</div>
                     </a>
                     <div class="ctc_box wow fadeInUp" data-wow-delay="0.1s">
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>

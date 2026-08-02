@@ -67,9 +67,10 @@
                 <div class="info_box">
                     <div class="title">Resources</div>
                     <ul>
-                        <li><a href="{{ route('operation-manual') }}">Operation Manual</a></li>
-                        <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
-                        <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>
+                        <li><a href="{{ route('operation-manual') }}">Technical Resources</a></li>
+                        <!-- <li><a href="{{ route('safety-standards') }}">Safety Standards</a></li>
+                        <li><a href="{{ route('nabl-testing-lab') }}">NABL Testing Lab</a></li>-->
+						<li><a href="{{ route('catalog') }}">Catalog</a></li>
                         <li><a href="{{ route('brochure') }}">Brochure</a></li>
                         <li><a href="https://oec-americas.com/products/2025/05/oec-tc.pdf">Terms & Conditions</a></li>
                     </ul>
@@ -85,9 +86,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="tel:+1(732)4790469" class="ctc_link_box">
+                            <a href="tel:+18008819236" class="ctc_link_box">
                                 <span class="icon"><i class="fas fa-phone-alt"></i></span>
-                                <span class="txt">+1 (732) 479 0469</span>
+                                <span class="txt">+1 (800) 881 9236</span>
                             </a>
                         </li>
                         <li>

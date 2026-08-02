@@ -74,6 +74,7 @@ Route::middleware([IsUser::class])->group(function(){
         Route::get('/safety-standards', [HomeController::class, 'safety_standards'])->name('safety-standards');
         Route::get('/nabl-testing-lab', [HomeController::class, 'nabl_testing_lab'])->name('nabl-testing-lab');
         Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
+		Route::get('/catalog', [HomeController::class, 'catalog'])->name('catalog');
         Route::get('/cross-reference', [HomeController::class, 'competitors'])->name('cross-reference');
         Route::get('/competitors-search', [HomeController::class, 'competitors_search'])->name('competitors.search');
 

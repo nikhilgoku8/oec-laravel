@@ -16,14 +16,14 @@
                     <ul>
                         <li><a href="{{ route('overview') }}">About Us</a></li>
                         <li><a href="{{ route('careers') }}">Careers</a></li>
-                        <li><a href="{{ route('sustainability') }}">Sustainability</a></li>
+                        <!--<li><a href="{{ route('sustainability') }}">Sustainability</a></li>-->
                     </ul>
                 </div>
                 <div class="info_box">
                     <div class="title">Products</div>
                     <ul>
                         <li><a href="{{ route('electricals') }}">Electrical</a></li>
-                        <!-- <li><a href="{{ route('automotive') }}">Automotive</a></li> -->
+                         <li><a href="{{ route('automotive') }}">Automotive</a></li>
                     </ul>
                 </div>
                 <div class="info_box">
@@ -48,9 +48,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="tel:+1(732)4790469" class="ctc_link_box">
+                            <a href="tel:+18008819236" class="ctc_link_box">
                                 <span class="icon"><i class="fas fa-phone-alt"></i></span>
-                                <span class="txt">+1 (732) 479 0469</span>
+                                <span class="txt">+1 (800) 881 9236</span>
                             </a>
                         </li>
                         <li>
